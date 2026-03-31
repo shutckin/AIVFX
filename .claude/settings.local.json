@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npm install:*)",
+      "Bash(grep -E \"\\\\.\\(js|jsx\\)$\")",
+      "mcp___21st-dev_magic__21st_magic_component_inspiration",
+      "Bash(wc -l /Users/art/Documents/GitHub/AIVFX/src/components/*.js)",
+      "Bash(gh auth:*)",
+      "Bash(gh repo:*)",
+      "Bash(git --version)",
+      "Read(//Users/art/**)",
+      "Bash(du -sh /Users/art/Documents/GitHub/AIVFX/public/fixed/*.mp4)",
+      "Bash(du -sh /Users/art/Documents/GitHub/AIVFX/public/*.mov)",
+      "Bash(git config:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(xargs ls:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
