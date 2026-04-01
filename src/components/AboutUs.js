@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useNotification } from '../App';
 import Tilt3D from './Tilt3D';
 import Globe3D from './Globe3D';
 
 const AboutUs = () => {
-  const { show: showNotification, scrollToSection } = useNotification();
   const [openFaq, setOpenFaq] = useState(null);
 
   const faqData = [
@@ -41,7 +39,7 @@ const AboutUs = () => {
           <div>
             <div className="accent-line mb-6"></div>
             <h2 className="text-4xl font-bold text-white mb-8">FAQ</h2>
-            
+
             <div className="space-y-4">
               {faqData.map((item, index) => (
                 <div key={index} className="glass rounded-xl overflow-hidden">
@@ -52,12 +50,12 @@ const AboutUs = () => {
                     <span className="font-semibold text-white pr-4">
                       {item.question}
                     </span>
-                    <svg 
+                    <svg
                       className={`w-5 h-5 text-primary transition-transform duration-300 flex-shrink-0 ${
                         openFaq === index ? 'transform rotate-180' : ''
                       }`}
-                      fill="none" 
-                      stroke="currentColor" 
+                      fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -134,7 +132,7 @@ const AboutUs = () => {
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-primary to-red-500 mx-auto rounded-full"></div>
             </div>
-            
+
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
               {/* Традиционное производство */}
               <div className="relative">
@@ -152,7 +150,7 @@ const AboutUs = () => {
                       Традиционное производство
                     </h3>
                   </div>
-                  
+
                   <ul className="space-y-4">
                     <li className="flex items-start space-x-4 group">
                       <div className="flex-shrink-0 w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center mt-1">
@@ -238,7 +236,7 @@ const AboutUs = () => {
                       НАШ AI + VFX ПОДХОД
                     </h3>
                   </div>
-                  
+
                   <ul className="space-y-4">
                     <li className="flex items-start space-x-4 group">
                       <div className="flex-shrink-0 w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mt-1">
@@ -319,4 +317,4 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs; 
+export default AboutUs;

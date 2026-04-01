@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNotification } from '../App';
 
 const Notification = () => {
@@ -14,19 +14,19 @@ const Notification = () => {
   const formatPhoneNumber = (value) => {
     // Удаляем все символы кроме цифр
     const phoneNumber = value.replace(/\D/g, '');
-    
+
     // Если номер начинается с 8, заменяем на 7
     let formattedNumber = phoneNumber;
     if (formattedNumber.startsWith('8')) {
       formattedNumber = '7' + formattedNumber.slice(1);
     }
-    
+
     // Добавляем +7 если номер начинается с 7 и имеет 11 цифр
     if (formattedNumber.startsWith('7') && formattedNumber.length === 11) {
       const digits = formattedNumber.slice(1);
       return `+7 (${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 8)}-${digits.slice(8, 10)}`;
     }
-    
+
     // Если номер начинается с других цифр, форматируем как есть
     if (formattedNumber.length >= 10) {
       if (formattedNumber.length === 10) {
@@ -35,7 +35,7 @@ const Notification = () => {
         return `+${formattedNumber.slice(0, 1)} (${formattedNumber.slice(1, 4)}) ${formattedNumber.slice(4, 7)}-${formattedNumber.slice(7, 9)}-${formattedNumber.slice(9, 11)}`;
       }
     }
-    
+
     return value;
   };
 
@@ -43,7 +43,7 @@ const Notification = () => {
   const validatePhoneNumber = (phone) => {
     // Удаляем все символы кроме цифр
     const phoneNumber = phone.replace(/\D/g, '');
-    
+
     // Проверяем российские номера (начинаются с 7 или 8, всего 11 цифр)
     if (phoneNumber.length === 11 && (phoneNumber.startsWith('7') || phoneNumber.startsWith('8'))) {
       const code = phoneNumber.slice(1, 4);
@@ -56,28 +56,28 @@ const Notification = () => {
         '950', '951', '952', '953', '958', '960', '961', '962', '963', '964', '965', '966', '967', '968', '969', // Билайн
         '970', '971', '977', '978', '980', '981', '982', '983', '984', '985', '986', '987', '988', '989', '991', '992', '993', '994', '995', '996', '997', '999' // Билайн/Теле2
       ];
-      
+
       if (validCodes.includes(code)) {
         return { isValid: true, message: '' };
       } else {
         return { isValid: false, message: 'Неверный код оператора' };
       }
     }
-    
+
     // Проверяем международные номера (от 10 до 15 цифр)
     if (phoneNumber.length >= 10 && phoneNumber.length <= 15) {
       return { isValid: true, message: '' };
     }
-    
+
     // Если номер не подходит под критерии
     if (phoneNumber.length > 0 && phoneNumber.length < 10) {
       return { isValid: false, message: 'Номер слишком короткий' };
     }
-    
+
     if (phoneNumber.length > 15) {
       return { isValid: false, message: 'Номер слишком длинный' };
     }
-    
+
     return { isValid: true, message: '' };
   };
 
@@ -90,11 +90,11 @@ const Notification = () => {
       // Ограничиваем ввод только цифрами, пробелами, скобками, плюсом и дефисами
       const cleanValue = value.replace(/[^\d\s()\-+]/g, '');
       const formattedPhone = formatPhoneNumber(cleanValue);
-      
+
       // Валидация номера
       const validation = validatePhoneNumber(formattedPhone);
       setPhoneError(validation.message);
-      
+
       setFormData(prev => ({
         ...prev,
         [field]: formattedPhone
@@ -109,7 +109,7 @@ const Notification = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Дополнительная проверка телефона перед отправкой
     if (formData.phone) {
       const validation = validatePhoneNumber(formData.phone);
@@ -118,12 +118,12 @@ const Notification = () => {
         return;
       }
     }
-    
+
     setIsSubmitting(true);
 
     // Имитация отправки формы
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     setIsSubmitting(false);
     setFormData({ phone: '', name: '' });
     setPhoneError('');
@@ -140,7 +140,7 @@ const Notification = () => {
   if (!showNotification) return null;
 
   return (
-    <div 
+    <div
       className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 transition-opacity duration-300 ${
         isNotificationAnimating ? 'opacity-100' : 'opacity-0'
       }`}
@@ -150,7 +150,7 @@ const Notification = () => {
         isNotificationAnimating ? 'scale-100' : 'scale-95'
       }`}>
         {/* Кнопка закрытия */}
-        <button 
+        <button
           onClick={closeNotification}
           className="absolute top-4 right-4 w-8 h-8 bg-white/80 hover:bg-white/90 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors z-10"
         >
@@ -178,8 +178,8 @@ const Notification = () => {
         {/* Форма */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <input 
-              type="tel" 
+            <input
+              type="tel"
               value={formData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
               required
@@ -192,10 +192,10 @@ const Notification = () => {
             />
             {phoneError && <p className="text-red-500 text-xs mt-1">{phoneError}</p>}
           </div>
-          
+
           <div>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={formData.name}
               onChange={(e) => handleInputChange('name', e.target.value)}
               required
@@ -204,7 +204,7 @@ const Notification = () => {
             />
           </div>
 
-          <button 
+          <button
             type="submit"
             disabled={isSubmitting}
             className={`w-full text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 ${
@@ -239,4 +239,4 @@ const Notification = () => {
   );
 };
 
-export default Notification; 
+export default Notification;

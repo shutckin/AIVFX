@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNotification } from '../App';
 import Tilt3D from './Tilt3D';
 
