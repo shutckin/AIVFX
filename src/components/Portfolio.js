@@ -4,11 +4,9 @@ import { useNotification } from '../App';
 // Plays video only when it enters the viewport; shows thumbnail otherwise
 const LazyVideo = ({ src, thumbnail, className }) => {
   const videoRef = useRef(null);
-  const [isInView, setIsInView] = useState(false);
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
   const handleIntersection = useCallback(([entry]) => {
-    setIsInView(entry.isIntersecting);
     const video = videoRef.current;
     if (!video) return;
     if (entry.isIntersecting) {
