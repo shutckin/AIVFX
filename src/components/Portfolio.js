@@ -1,5 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useNotification } from '../App';
+
+// Plays video only when it enters the viewport; shows thumbnail otherwise
+const LazyVideo = ({ src, thumbnail, className }) => {
+  const videoRef = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  const handleIntersection = useCallback(([entry]) => {
+    setIsInView(entry.isIntersecting);
+    const video = videoRef.current;
+    if (!video) return;
+    if (entry.isIntersecting) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || isMobile) return;
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.2,
+      rootMargin: '100px',
+    });
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [handleIntersection, isMobile]);
+
+  // On mobile: show static thumbnail instead of loading video
+  if (isMobile) {
+    return thumbnail ? (
+      <img src={thumbnail} alt="" className={className} loading="lazy" decoding="async" />
+    ) : (
+      <div className={`${className} bg-gradient-to-br from-primary/20 to-primary-dark/20 flex items-center justify-center`}>
+        <svg className="w-12 h-12 text-primary/60" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </div>
+    );
+  }
+
+  return (
+    <video
+      ref={videoRef}
+      className={className}
+      muted
+      loop
+      playsInline
+      preload="none"
+      poster={thumbnail}
+    >
+      <source src={src} type="video/mp4" />
+    </video>
+  );
+};
 
 const Portfolio = () => {
   const { show: showNotification } = useNotification();
@@ -8,11 +64,12 @@ const Portfolio = () => {
   const projects = [
     {
       id: 1,
-      title: "Реклама Porsche 911", 
+      title: "Реклама Porsche 911",
       category: "Автомобили",
       technology: "AI",
       description: "Полностью AI-сгенерированная реклама премиального автомобиля с фотореалистичными эффектами",
       video: "/fixed/porsh.mp4",
+      thumbnail: "/thumbnails/porsh.jpg",
       duration: "0:35",
       views: "5.8M",
       time: "8 дней"
@@ -25,6 +82,7 @@ const Portfolio = () => {
       combinedTech: true,
       description: "Комбинированный AI + VFX проект для автомобильной программы NL с генерацией сцен и постобработкой",
       video: "/fixed/NL2.mp4",
+      thumbnail: "/thumbnails/NL2.jpg",
       duration: "0:30",
       time: "7 дней"
     },
@@ -35,6 +93,7 @@ const Portfolio = () => {
       technology: "VFX",
       description: "VFX ролик премиальных часов Rolex для демонстрации на рекламном стенде с детализированными материалами",
       video: "/fixed/rolex.mp4",
+      thumbnail: "/thumbnails/rolex.jpg",
       duration: "0:25",
       time: "10 дней"
     },
@@ -45,6 +104,7 @@ const Portfolio = () => {
       technology: "VFX",
       description: "Инновационная презентация бытовой техники с AI-визуализацией технологий",
       video: "/fixed/dyson.mp4",
+      thumbnail: "/thumbnails/dyson.jpg",
       duration: "0:45",
       time: "6 дней"
     },
@@ -55,6 +115,7 @@ const Portfolio = () => {
       technology: "AI",
       description: "Современная архитектурная презентация дома с AI-генерацией окружения",
       video: "/fixed/house.mp4",
+      thumbnail: "/thumbnails/house.jpg",
       duration: "0:50",
       views: "150K",
       time: "24 часа"
@@ -66,6 +127,7 @@ const Portfolio = () => {
       technology: "VFX",
       description: "VFX интеграция 3D элементов и эффектов в отснятое видео для рекламы маркетплейса",
       video: "/fixed/museum.mp4",
+      thumbnail: "/thumbnails/museum.jpg",
       duration: "0:20",
       views: "400K",
       time: "6 дней"
@@ -77,6 +139,7 @@ const Portfolio = () => {
       technology: "AI",
       description: "Демонстрация возможностей AI в создании реалистичных цифровых персонажей",
       video: "/fixed/deepfake.mp4",
+      thumbnail: "/thumbnails/deepfake.jpg",
       duration: "1:30",
       time: "4 дня"
     },
@@ -87,6 +150,7 @@ const Portfolio = () => {
       technology: "AI",
       description: "Экологический фильм о загрязнении морей и океанов, созданный с помощью AI технологий",
       video: "/fixed/Runway.mp4",
+      thumbnail: "/thumbnails/Runway.jpg",
       duration: "2:45",
       views: "120K",
       time: "72 часа"
@@ -98,6 +162,7 @@ const Portfolio = () => {
       technology: "VFX",
       description: "VFX интеграция архитектурных элементов и анимация для презентации жилого комплекса",
       video: "/fixed/danube.mp4",
+      thumbnail: "/thumbnails/danube.jpg",
       duration: "0:40",
       time: "7 дней"
     },
@@ -108,6 +173,7 @@ const Portfolio = () => {
       technology: "VFX",
       description: "VFX интеграция 3D моделей и эффектов в отснятое видео с реалистичным композитингом",
       video: "/fixed/synr.mp4",
+      thumbnail: "/thumbnails/synr.jpg",
       duration: "0:20",
       views: "700K",
       time: "4 дня"
@@ -115,10 +181,11 @@ const Portfolio = () => {
     {
       id: 10,
       title: "Рилс для бренда одежды",
-      category: "Продукты", 
+      category: "Продукты",
       technology: "AI",
       description: "Стильный рилс для модного бренда с AI-сгенерированными моделями и виртуальной одеждой",
       video: "/fixed/sacr.mp4",
+      thumbnail: "/thumbnails/sacr.jpg",
       duration: "0:15",
       views: "400K",
       time: "48 часов"
@@ -130,6 +197,7 @@ const Portfolio = () => {
       technology: "AI",
       description: "AI генерация архитектурного видео на основе статичных рендеров недвижимости",
       video: "/fixed/недвижка.mp4",
+      thumbnail: "/thumbnails/недвижка.jpg",
       duration: "2:30",
       views: "80K",
       time: "24 часа"
@@ -182,23 +250,13 @@ const Portfolio = () => {
               className="card group cursor-pointer"
               onClick={() => showNotification()}
             >
-              {/* Превью изображения */}
+              {/* Превью — видео на ПК, картинка на мобильном */}
               <div className="relative overflow-hidden rounded-xl mb-6">
-                <video
+                <LazyVideo
+                  src={project.video}
+                  thumbnail={project.thumbnail}
                   className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                  controls={false}
-                  muted
-                  loop
-                  playsInline
-                  autoPlay
-                  preload="metadata"
-                  onLoadedMetadata={() => console.log('✅ Video metadata loaded:', project.video)}
-                  onCanPlay={() => console.log('✅ Video can play:', project.video)}
-                  onError={(e) => console.error('❌ Video error:', project.video, e.target.error)}
-                >
-                  <source src={project.video} type="video/mp4" />
-                  <p>Ваш браузер не поддерживает видео.</p>
-                </video>
+                />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="text-center">
                     <span className="text-white font-semibold">Заказать проект</span>

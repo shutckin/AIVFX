@@ -1,15 +1,26 @@
 import React, { useRef, useState, useEffect } from 'react';
 
+// Detect if we should skip video (saves bandwidth on mobile/slow connections)
+const isMobileOrLowEnd = () => {
+  // Touch device with small screen
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  // Slow connection hint from Network Information API
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const isSlowConn = conn && (conn.saveData || ['slow-2g', '2g', '3g'].includes(conn.effectiveType));
+  return isMobile || isSlowConn;
+};
+
 const VideoBackground = ({ currentVideo }) => {
   const videoARef = useRef(null);
   const videoBRef = useRef(null);
-  // activeSlot: 0 = A is visible, 1 = B is visible
   const [activeSlot, setActiveSlot] = useState(0);
   const pendingVideoRef = useRef(null);
   const isTransitioningRef = useRef(false);
+  const [skipVideo] = useState(() => isMobileOrLowEnd());
 
-  // On mount — start playing the initial video in slot A
+  // On mount — start playing the initial video in slot A (desktop only)
   useEffect(() => {
+    if (skipVideo) return;
     const videoA = videoARef.current;
     if (videoA && currentVideo) {
       videoA.src = currentVideo;
@@ -17,29 +28,27 @@ const VideoBackground = ({ currentVideo }) => {
       videoA.play().catch(() => {});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [skipVideo]);
 
-  // When currentVideo prop changes, crossfade to the new video
+  // When currentVideo prop changes, crossfade to the new video (desktop only)
   useEffect(() => {
-    if (!currentVideo) return;
+    if (skipVideo || !currentVideo) return;
 
     const videoA = videoARef.current;
     const videoB = videoBRef.current;
     if (!videoA || !videoB) return;
 
     const activeRef = activeSlot === 0 ? videoA : videoB;
-    // If same src as currently active, do nothing
     if (activeRef.src && activeRef.src.endsWith(currentVideo)) return;
 
     if (isTransitioningRef.current) {
-      // Queue the latest request; it will be picked up after current transition
       pendingVideoRef.current = currentVideo;
       return;
     }
 
     startTransition(currentVideo);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentVideo]);
+  }, [currentVideo, skipVideo]);
 
   const startTransition = (videoSrc) => {
     const videoA = videoARef.current;
@@ -51,7 +60,6 @@ const VideoBackground = ({ currentVideo }) => {
     const inactiveSlot = activeSlot === 0 ? 1 : 0;
     const inactiveVideo = inactiveSlot === 0 ? videoA : videoB;
 
-    // Load new video into inactive slot
     inactiveVideo.src = videoSrc;
     inactiveVideo.load();
 
@@ -63,7 +71,6 @@ const VideoBackground = ({ currentVideo }) => {
       inactiveVideo.play().catch(() => {});
       setActiveSlot(inactiveSlot);
 
-      // After transition completes, check for pending
       setTimeout(() => {
         isTransitioningRef.current = false;
         if (pendingVideoRef.current) {
@@ -74,14 +81,27 @@ const VideoBackground = ({ currentVideo }) => {
       }, 950);
     };
 
-    // Fallback: transition even if canplay never fires
     const fallbackTimer = setTimeout(doTransition, 2000);
-
     inactiveVideo.addEventListener('canplay', () => {
       clearTimeout(fallbackTimer);
       doTransition();
     }, { once: true });
   };
+
+  // Mobile: show animated gradient instead of video
+  if (skipVideo) {
+    return (
+      <div className="video-bg-wrapper">
+        <div
+          className="video-bg-layer is-active"
+          style={{
+            background: 'radial-gradient(ellipse at 60% 40%, #1a0a00 0%, #0a0500 40%, #080808 100%)',
+          }}
+        />
+        <div className="video-bg-overlay" style={{ opacity: 0.3 }} />
+      </div>
+    );
+  }
 
   return (
     <div className="video-bg-wrapper">

@@ -1,16 +1,27 @@
-import React, { useEffect, useState, createContext, useContext, useRef } from 'react';
+import React, { useEffect, useState, createContext, useContext, useRef, lazy, Suspense } from 'react';
 import './index.css';
+
+// Critical above-the-fold components — load immediately
 import Header from './components/Header';
 import Hero from './components/Hero';
-import AboutUs from './components/AboutUs';
-import Services from './components/Services';
-import Portfolio from './components/Portfolio';
-import Clients from './components/Clients';
-import ContactForm from './components/ContactForm';
-import Footer from './components/Footer';
-import Notification from './components/Notification';
-import PrivacyPolicy from './components/PrivacyPolicy';
 import VideoBackground from './components/VideoBackground';
+import Notification from './components/Notification';
+
+// Below-the-fold — lazy load to speed up initial paint
+const Services    = lazy(() => import('./components/Services'));
+const Portfolio   = lazy(() => import('./components/Portfolio'));
+const AboutUs     = lazy(() => import('./components/AboutUs'));
+const Clients     = lazy(() => import('./components/Clients'));
+const ContactForm = lazy(() => import('./components/ContactForm'));
+const Footer      = lazy(() => import('./components/Footer'));
+const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
+
+// Minimal spinner while lazy chunks are loading
+const SectionFallback = () => (
+  <div className="py-20 flex justify-center items-center">
+    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 // Section → video mapping
 const SECTION_VIDEO_MAP = {
@@ -212,20 +223,36 @@ function App() {
     <NotificationContext.Provider value={notificationContextValue}>
       <div className="app">
         {showPrivacyPolicy ? (
-          <PrivacyPolicy onBack={hidePrivacy} />
+          <Suspense fallback={<SectionFallback />}>
+            <PrivacyPolicy onBack={hidePrivacy} />
+          </Suspense>
         ) : (
           <>
             <VideoBackground currentVideo={currentVideo} />
             <Header />
             <main>
+              {/* Hero loads immediately */}
               <Hero />
-              <Services />
-              <Portfolio />
-              <AboutUs />
-              <Clients />
-              <ContactForm />
+              {/* Everything below — lazy loaded */}
+              <Suspense fallback={<SectionFallback />}>
+                <Services />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Portfolio />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <AboutUs />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <Clients />
+              </Suspense>
+              <Suspense fallback={<SectionFallback />}>
+                <ContactForm />
+              </Suspense>
             </main>
-            <Footer />
+            <Suspense fallback={null}>
+              <Footer />
+            </Suspense>
           </>
         )}
         <Notification />
