@@ -184,8 +184,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- ── Preload hero video only on desktop (mobile uses gradient) ── -->
-    <script>if(!window.matchMedia('(max-width:768px)').matches){var l=document.createElement('link');l.rel='preload';l.as='video';l.type='video/mp4';l.href='/fixed/aivid.mp4';document.head.appendChild(l);}</script>
+    <!-- ── Preload hero video (all devices) ── -->
+    <link rel="preload" href="%PUBLIC_URL%/fixed/aivid.mp4" as="video" type="video/mp4" />
   </head>
   <body>
     <noscript>Для работы приложения необходимо включить JavaScript.</noscript>
