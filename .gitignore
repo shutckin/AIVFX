@@ -28,4 +28,8 @@ Thumbs.db
 public/*.mov
 public/fixed/*.mov
 public/optimized/
-aivid.mp4
+/aivid.mp4
+
+# Claude local config
+.claude/settings.local.json
+.claude/start-dev.sh
