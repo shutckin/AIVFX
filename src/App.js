@@ -188,7 +188,6 @@ function App() {
           }
         });
 
-        // Find section with highest intersection ratio
         let maxRatio = 0;
         let topSection = null;
         sectionIds.forEach((id) => {
@@ -209,16 +208,32 @@ function App() {
       }
     );
 
+    const observeSection = (el) => {
+      if (el && sectionIds.includes(el.id)) videoObserver.observe(el);
+    };
+
+    // Observe sections already in DOM (hero is immediate; others may not exist yet)
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);
       if (el) videoObserver.observe(el);
     });
 
-    return () => {
-      sectionIds.forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) videoObserver.unobserve(el);
+    // Watch for lazy-loaded sections being added to the DOM
+    const mo = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType !== 1) return;
+          observeSection(node);
+          node.querySelectorAll?.('section[id]').forEach(observeSection);
+        });
       });
+    });
+
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      videoObserver.disconnect();
+      mo.disconnect();
     };
   }, []);
 
