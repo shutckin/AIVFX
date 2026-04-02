@@ -42,14 +42,14 @@ const Clients = () => {
   const logoCls = "h-20 w-auto object-contain filter brightness-0 invert";
 
   const clients = [
-    { name: 'AUDI', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage src={AudiLogo} alt="AUDI" className="h-28 w-auto object-contain filter brightness-0 invert" /></div>) },
-    { name: 'KIA', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage src={KiaLogo} alt="KIA" className={logoCls} /></div>) },
-    { name: 'PORSCHE', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage src={PorscheLogo} alt="PORSCHE" className={logoCls} /></div>) },
-    { name: 'DYSON', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage src={DysonLogo} alt="DYSON" className={logoCls} /></div>) },
-    { name: 'DEHANCER', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage src={DehancerLogo} alt="DEHANCER" className={logoCls} /></div>) },
-    { name: 'DANUBE PROPERTIES', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage src={DanubeLogo} alt="DANUBE PROPERTIES" className={logoCls} /></div>) },
-    { name: 'NL', logo: (<div className="w-full h-full glass rounded-xl p-0 flex items-center justify-center"><LazyImage src={NLLogo} alt="NL" className="w-full h-full object-contain filter brightness-0 invert" /></div>) },
-    { name: 'WHITEWILL', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage src={WhitewillLogo} alt="WHITEWILL" className={logoCls} /></div>) }
+    { name: 'AUDI', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage eager src={AudiLogo} alt="AUDI" className="h-28 w-auto object-contain filter brightness-0 invert" /></div>) },
+    { name: 'KIA', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage eager src={KiaLogo} alt="KIA" className={logoCls} /></div>) },
+    { name: 'PORSCHE', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage eager src={PorscheLogo} alt="PORSCHE" className={logoCls} /></div>) },
+    { name: 'DYSON', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage eager src={DysonLogo} alt="DYSON" className={logoCls} /></div>) },
+    { name: 'DEHANCER', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage eager src={DehancerLogo} alt="DEHANCER" className={logoCls} /></div>) },
+    { name: 'DANUBE PROPERTIES', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage eager src={DanubeLogo} alt="DANUBE PROPERTIES" className={logoCls} /></div>) },
+    { name: 'NL', logo: (<div className="w-full h-full glass rounded-xl p-0 flex items-center justify-center"><LazyImage eager src={NLLogo} alt="NL" className="w-full h-full object-contain filter brightness-0 invert" /></div>) },
+    { name: 'WHITEWILL', logo: (<div className="w-full h-full glass rounded-xl p-6 flex items-center justify-center"><LazyImage eager src={WhitewillLogo} alt="WHITEWILL" className={logoCls} /></div>) }
   ];
 
   return (

@@ -134,28 +134,44 @@ function App() {
 
   // Observer #1: scroll reveal animations
   useEffect(() => {
-    const observerOptions = {
+    const ioOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: '0px 0px -50px 0px',
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-in');
+          io.unobserve(entry.target); // only animate once
         }
       });
-    }, observerOptions);
+    }, ioOptions);
 
-    const sections = document.querySelectorAll('section');
-    sections.forEach((section) => observer.observe(section));
+    const observe = (el) => {
+      // Skip if already animated in
+      if (!el.classList.contains('animate-in')) io.observe(el);
+    };
 
-    const revealEls = document.querySelectorAll('.reveal-ready');
-    revealEls.forEach((el) => observer.observe(el));
+    // Observe elements that exist now
+    document.querySelectorAll('.reveal-ready, section').forEach(observe);
+
+    // Watch for lazy-loaded components adding new .reveal-ready elements
+    const mo = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType !== 1) return;
+          if (node.classList?.contains('reveal-ready')) observe(node);
+          node.querySelectorAll?.('.reveal-ready, section').forEach(observe);
+        });
+      });
+    });
+
+    mo.observe(document.body, { childList: true, subtree: true });
 
     return () => {
-      sections.forEach((section) => observer.unobserve(section));
-      revealEls.forEach((el) => observer.unobserve(el));
+      io.disconnect();
+      mo.disconnect();
     };
   }, []);
 
