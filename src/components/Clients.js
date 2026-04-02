@@ -136,7 +136,7 @@ const Clients = () => {
 
         {/* Секция скорости */}
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          <div className="relative">
+          <div className="relative overflow-hidden lg:overflow-visible">
             <div className="aspect-[4/3] glass rounded-3xl shadow-custom-lg overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary-dark/20 flex items-center justify-center">
                 <div className="text-center text-white">

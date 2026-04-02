@@ -135,7 +135,7 @@ const AboutUs = () => {
 
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
               {/* Традиционное производство */}
-              <div className="relative">
+              <div className="relative overflow-hidden lg:overflow-visible">
                 {/* Фоновая иконка */}
                 <div className="absolute -top-4 -right-4 w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center">
                   <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,7 +221,7 @@ const AboutUs = () => {
               </div>
 
               {/* Наш AI + VFX подход */}
-              <div className="relative">
+              <div className="relative overflow-hidden lg:overflow-visible">
                 {/* Фоновая иконка */}
                 <div className="absolute -top-4 -right-4 w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center">
                   <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">

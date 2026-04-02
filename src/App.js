@@ -261,7 +261,7 @@ function App() {
           <>
             <VideoBackground currentVideo={currentVideo} />
             <Header />
-            <main>
+            <main style={{ overflowX: 'clip' }}>
               {/* Hero loads immediately */}
               <Hero />
               {/* Everything below — lazy loaded */}
