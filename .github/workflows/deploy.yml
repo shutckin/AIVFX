@@ -22,6 +22,9 @@ jobs:
 
       - name: 🏗️ Собираем проект
         run: npm run build
+        env:
+          REACT_APP_TELEGRAM_BOT_TOKEN: ${{ secrets.REACT_APP_TELEGRAM_BOT_TOKEN }}
+          REACT_APP_TELEGRAM_CHAT_ID: ${{ secrets.REACT_APP_TELEGRAM_CHAT_ID }}
 
       - name: 🚀 Отправляем готовые файлы на сервер
         uses: easingthemes/ssh-deploy@main
