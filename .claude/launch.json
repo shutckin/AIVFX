@@ -5,7 +5,8 @@
       "name": "React Dev Server",
       "runtimeExecutable": "/usr/local/bin/node",
       "runtimeArgs": ["node_modules/react-scripts/bin/react-scripts.js", "start"],
-      "port": 3000
+      "port": 3000,
+      "autoPort": true
     }
   ]
 }

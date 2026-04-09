@@ -97,7 +97,7 @@ const Clients = () => {
                     {testimonial.name}
                   </div>
                   <div className={`text-sm ${
-                    testimonial.featured ? 'text-white/80' : 'text-white/70'
+                    testimonial.featured ? 'text-white/80' : 'text-white/80'
                   }`}>
                     {testimonial.position}
                   </div>
@@ -244,7 +244,7 @@ const Clients = () => {
               </div>
             </div>
 
-            <button className="btn btn-primary">
+            <button onClick={showNotification} className="btn btn-primary">
               Узнать о сроках
             </button>
           </div>

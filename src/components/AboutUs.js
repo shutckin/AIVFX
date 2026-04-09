@@ -158,7 +158,7 @@ const AboutUs = () => {
                           <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <span className="text-white/70 group-hover:text-white/90 transition-colors duration-300 font-medium">
+                      <span className="text-white/80 group-hover:text-white/90 transition-colors duration-300 font-medium">
                         Недели планирования
                       </span>
                     </li>
@@ -168,7 +168,7 @@ const AboutUs = () => {
                           <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <span className="text-white/70 group-hover:text-white/90 transition-colors duration-300 font-medium">
+                      <span className="text-white/80 group-hover:text-white/90 transition-colors duration-300 font-medium">
                         Дорогое оборудование
                       </span>
                     </li>
@@ -178,7 +178,7 @@ const AboutUs = () => {
                           <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <span className="text-white/70 group-hover:text-white/90 transition-colors duration-300 font-medium">
+                      <span className="text-white/80 group-hover:text-white/90 transition-colors duration-300 font-medium">
                         Большая съемочная группа
                       </span>
                     </li>
@@ -188,7 +188,7 @@ const AboutUs = () => {
                           <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <span className="text-white/70 group-hover:text-white/90 transition-colors duration-300 font-medium">
+                      <span className="text-white/80 group-hover:text-white/90 transition-colors duration-300 font-medium">
                         Зависимость от погоды/локации
                       </span>
                     </li>
@@ -198,7 +198,7 @@ const AboutUs = () => {
                           <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <span className="text-white/70 group-hover:text-white/90 transition-colors duration-300 font-medium">
+                      <span className="text-white/80 group-hover:text-white/90 transition-colors duration-300 font-medium">
                         Месяцы пост-продакшена
                       </span>
                     </li>
@@ -209,11 +209,11 @@ const AboutUs = () => {
                     <div className="grid grid-cols-2 gap-4 text-center">
                       <div className="p-3 bg-red-500/10 rounded-xl">
                         <div className="text-2xl font-bold text-red-400">2-6</div>
-                        <div className="text-xs text-white/60 uppercase">недель</div>
+                        <div className="text-xs text-white/80 uppercase">недель</div>
                       </div>
                       <div className="p-3 bg-red-500/10 rounded-xl">
                         <div className="text-2xl font-bold text-red-400">100%</div>
-                        <div className="text-xs text-white/60 uppercase">стоимость</div>
+                        <div className="text-xs text-white/80 uppercase">стоимость</div>
                       </div>
                     </div>
                   </div>
@@ -295,11 +295,11 @@ const AboutUs = () => {
                     <div className="grid grid-cols-2 gap-4 text-center">
                       <div className="p-3 bg-primary/10 rounded-xl">
                         <div className="text-2xl font-bold text-primary">1-5</div>
-                        <div className="text-xs text-white/60 uppercase">дней</div>
+                        <div className="text-xs text-white/80 uppercase">дней</div>
                       </div>
                       <div className="p-3 bg-primary/10 rounded-xl">
                         <div className="text-2xl font-bold text-primary">30%</div>
-                        <div className="text-xs text-white/60 uppercase">стоимость</div>
+                        <div className="text-xs text-white/80 uppercase">стоимость</div>
                       </div>
                     </div>
                   </div>

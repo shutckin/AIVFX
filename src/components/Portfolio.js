@@ -310,7 +310,7 @@ const Portfolio = () => {
                   {project.title}
                 </h3>
                 
-                <p className="text-white/70 leading-relaxed mb-4">
+                <p className="text-white/80 leading-relaxed mb-4">
                   {project.description}
                 </p>
               </div>

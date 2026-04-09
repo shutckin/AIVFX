@@ -512,6 +512,7 @@ h2 {
   .btn {
     padding: 0.75rem 1.5rem;
     font-size: 0.8rem;
+    min-height: 44px;
   }
 
   .card {
@@ -528,6 +529,41 @@ h2 {
 
   .pricing-card.featured:hover {
     transform: translateY(-4px);
+  }
+}
+
+/* =============================================
+   FOCUS-VISIBLE (keyboard accessibility)
+   ============================================= */
+:focus-visible {
+  outline: 2px solid #D35C00;
+  outline-offset: 2px;
+}
+
+/* =============================================
+   PREFERS-REDUCED-MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-ready {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .video-bg-layer {
+    transition: none;
+  }
+
+  .animate-float {
+    animation: none;
   }
 }
 

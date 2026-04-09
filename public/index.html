@@ -184,8 +184,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- ── Preload hero video (all devices) ── -->
-    <link rel="preload" href="%PUBLIC_URL%/fixed/aivid.mp4" as="video" type="video/mp4" />
+    <!-- Hero video — prefetch (not preload) so save-data/2G users don't waste bandwidth -->
+    <link rel="prefetch" href="%PUBLIC_URL%/fixed/aivid.mp4" as="video" type="video/mp4" />
   </head>
   <body>
     <noscript>Для работы приложения необходимо включить JavaScript.</noscript>

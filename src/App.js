@@ -74,7 +74,7 @@ const SuccessModal = ({ isVisible, onClose }) => {
           <h2 className="text-2xl font-bold text-white mb-3" style={{ fontSize: '1.5rem', letterSpacing: '-0.02em' }}>
             Заявка принята. Спасибо!
           </h2>
-          <p className="text-white/60 leading-relaxed text-sm">
+          <p className="text-white/80 leading-relaxed text-sm">
             Наш менеджер свяжется с вами в ближайшее время для обсуждения деталей.
             Пока ждёте — посмотрите больше наших работ.
           </p>
@@ -259,6 +259,12 @@ function App() {
           </Suspense>
         ) : (
           <>
+            <a
+              href="#portfolio"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg"
+            >
+              Перейти к контенту
+            </a>
             <VideoBackground currentVideo={currentVideo} />
             <Header />
             <main style={{ overflowX: 'clip' }}>

@@ -89,7 +89,7 @@ const Header = () => {
             {/* Mobile hamburger */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5"
+              className="lg:hidden w-11 h-11 flex flex-col items-center justify-center gap-1.5"
               aria-label="Toggle menu"
             >
               <span

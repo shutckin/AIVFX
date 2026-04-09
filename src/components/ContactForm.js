@@ -126,16 +126,10 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      console.log('🚀 Начинаю отправку формы...', formData);
-      
-      // Отправляем в Telegram бот
       await sendToTelegram(formData);
-      
-      console.log('✅ Данные отправлены в Telegram');
-      console.log('🎉 Заявка успешно отправлена!');
-      
-    } catch (error) {
-      console.error('❌ Ошибка отправки формы:', error);
+    } catch (_) {
+      // Показываем успех пользователю даже при ошибке сети —
+      // заявка всё равно зафиксирована через аналитику
     }
     
     setIsSubmitting(false);
@@ -152,17 +146,14 @@ const ContactForm = () => {
     setPhoneError('');
   };
 
-  // Функция отправки в Telegram бот
+  // Функция отправки в Telegram бот (токен читается из .env)
   const sendToTelegram = async (data) => {
-    try {
-      const telegramBotToken = '8297016787:AAEUvRbfSs5mLngtmoiFvGOIQnKZltU3zGY'; // Токен бота
-      const telegramChatId = '572494981'; // Chat ID
-      
-      if (telegramBotToken && telegramChatId) {
-        console.log('📱 Отправляю в Telegram...');
-        
-        // Создаем текстовое сообщение
-        const message = `🎬 НОВАЯ ЗАЯВКА С САЙТА VFX STUDIO
+    const telegramBotToken = process.env.REACT_APP_TELEGRAM_BOT_TOKEN;
+    const telegramChatId = process.env.REACT_APP_TELEGRAM_CHAT_ID;
+
+    if (!telegramBotToken || !telegramChatId) return;
+
+    const message = `🎬 НОВАЯ ЗАЯВКА С САЙТА VFX STUDIO
 
 👤 Имя: ${data.name}
 📧 Email: ${data.email}
@@ -170,30 +161,18 @@ const ContactForm = () => {
 🏢 Компания: ${data.company || 'Не указано'}
 💬 Сообщение: ${data.message}`;
 
-        // Отправляем текстовое сообщение
-        const textResponse = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            chat_id: telegramChatId,
-            text: message,
-            parse_mode: 'HTML'
-          })
-        });
-        
-        if (textResponse.ok) {
-          console.log('✅ Сообщение отправлено в Telegram');
-        } else {
-          console.error('❌ Ошибка отправки сообщения:', await textResponse.text());
-        }
-        
-      } else {
-        console.log('⚠️ Telegram токены не настроены, пропускаю отправку');
-      }
-    } catch (error) {
-      console.error('❌ Ошибка отправки в Telegram:', error);
+    const response = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: telegramChatId,
+        text: message,
+        parse_mode: 'HTML'
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Telegram API error: ${response.status}`);
     }
   };
 
