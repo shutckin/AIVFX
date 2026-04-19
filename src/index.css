@@ -16,10 +16,10 @@
   --muted-2: #5a544c;
   --line: rgba(244, 241, 236, 0.08);
   --line-2: rgba(244, 241, 236, 0.14);
-  --accent: #e85c18;
-  --accent-glow: rgba(232, 92, 24, 0.35);
-  --accent-soft: rgba(232, 92, 24, 0.12);
-  --primary: #e85c18;
+  --accent: #f0a500;
+  --accent-glow: rgba(240, 165, 0, 0.38);
+  --accent-soft: rgba(240, 165, 0, 0.14);
+  --primary: #f0a500;
 
   --font-display: "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -126,7 +126,7 @@ img, video { display: block; max-width: 100%; }
   color: inherit;
 }
 .btn-primary { background: var(--accent); color: var(--bg); }
-.btn-primary:hover { background: #ff6e2a; transform: translateY(-1px); box-shadow: 0 12px 32px var(--accent-glow); }
+.btn-primary:hover { background: #ffbc33; transform: translateY(-1px); box-shadow: 0 12px 32px var(--accent-glow); }
 .btn-ghost { background: transparent; color: var(--fg); border-color: var(--line-2); }
 .btn-ghost:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.25); }
 
@@ -192,7 +192,7 @@ img, video { display: block; max-width: 100%; }
 .logo-img {
   width: 36px; height: 36px;
   object-fit: contain;
-  filter: drop-shadow(0 0 12px rgba(234, 51, 35, 0.35));
+  filter: drop-shadow(0 0 12px rgba(240, 165, 0, 0.40));
   transition: transform 0.4s cubic-bezier(0.32,0.72,0,1), filter 0.3s ease;
 }
 .logo:hover .logo-img { transform: rotate(-8deg) scale(1.05); }
