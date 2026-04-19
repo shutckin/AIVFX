@@ -1,332 +1,200 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { useNotification } from '../App';
+import React, { useState, useEffect } from 'react';
+import { PROJECTS, CATEGORIES } from '../data/projects';
 
-// Plays video only when it enters the viewport; shows thumbnail otherwise
-const LazyVideo = ({ src, thumbnail, className }) => {
-  const videoRef = useRef(null);
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-
-  const handleIntersection = useCallback(([entry]) => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (entry.isIntersecting) {
-      video.play().catch(() => {});
-    } else {
-      video.pause();
-    }
-  }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || isMobile) return;
-    const observer = new IntersectionObserver(handleIntersection, {
-      threshold: 0.2,
-      rootMargin: '100px',
-    });
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, [handleIntersection, isMobile]);
-
-  // On mobile: show static thumbnail instead of loading video
-  if (isMobile) {
-    return thumbnail ? (
-      <img src={thumbnail} alt="" className={className} loading="lazy" decoding="async" />
-    ) : (
-      <div className={`${className} bg-gradient-to-br from-primary/20 to-primary-dark/20 flex items-center justify-center`}>
-        <svg className="w-12 h-12 text-primary/60" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M8 5v14l11-7z" />
-        </svg>
+const SecHead = ({ num, title, titleIt, side, sideTitle }) => (
+  <div className="sec-head reveal">
+    <div className="sec-num">{num}</div>
+    <h2 className="sec-title">
+      {title} {titleIt && <span className="it">{titleIt}</span>}
+    </h2>
+    {side && (
+      <div className="sec-side">
+        {sideTitle && <span className="kicker">{sideTitle}</span>}
+        <p>{side}</p>
       </div>
+    )}
+  </div>
+);
+
+const TechBadges = ({ tech }) => {
+  if (tech === 'AI+VFX') {
+    return (
+      <>
+        <span className="tag tag-ai">AI</span>
+        <span className="tag tag-vfx">VFX</span>
+      </>
     );
   }
+  if (tech === 'AI') return <span className="tag tag-ai">AI</span>;
+  return <span className="tag tag-vfx">VFX</span>;
+};
+
+const ProjectCard = ({ project, onClick }) => (
+  <div className="project reveal" onClick={onClick}>
+    <div className="thumb-wrap">
+      <video
+        src={project.preview}
+        poster={project.poster}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label={project.title}
+      />
+      <div className="badges"><TechBadges tech={project.tech} /></div>
+      <span className="duration">{project.duration}</span>
+      <div className="play-overlay" aria-hidden="true">
+        <span className="play-icon">▶</span>
+      </div>
+    </div>
+    <div className="info">
+      <div className="row">
+        <span className="cat">{project.cat}</span>
+        <span>{project.duration}</span>
+      </div>
+      <h3>{project.title}</h3>
+    </div>
+  </div>
+);
+
+const ProjectModal = ({ project, onClose }) => {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  if (!project) return null;
 
   return (
-    <video
-      ref={videoRef}
-      className={className}
-      muted
-      loop
-      playsInline
-      preload="none"
-      poster={thumbnail}
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, background: 'rgba(8,7,6,0.9)',
+        backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+        zIndex: 5000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
+      }}
     >
-      <source src={src} type="video/mp4" />
-    </video>
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: 'var(--bg-2)', border: '1px solid var(--line-2)',
+          borderRadius: 'var(--r-lg)', maxWidth: 1100, width: '100%',
+          maxHeight: '92vh', overflow: 'auto', position: 'relative',
+        }}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Закрыть"
+          style={{
+            position: 'absolute', top: 20, right: 20, width: 36, height: 36,
+            borderRadius: '50%', border: '1px solid var(--line-2)',
+            display: 'grid', placeItems: 'center', background: 'rgba(10,9,8,0.6)',
+            color: 'var(--fg-2)', fontSize: 18, cursor: 'pointer', zIndex: 10,
+          }}
+        >✕</button>
+
+        <div style={{ aspectRatio: '16/9', background: 'black', position: 'relative' }}>
+          <iframe
+            src={`${project.embed}?autoplay=1`}
+            title={project.title}
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write;"
+            allowFullScreen
+            style={{ width: '100%', height: '100%', border: 0 }}
+          />
+          <div className="badges" style={{ position: 'absolute', top: 16, left: 16, display: 'flex', gap: 6, zIndex: 2 }}>
+            <TechBadges tech={project.tech} />
+          </div>
+        </div>
+
+        <div style={{ padding: 'clamp(28px, 3vw, 48px)', display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{
+            display: 'flex', gap: 24, flexWrap: 'wrap', fontFamily: 'var(--font-mono)',
+            fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--muted)',
+          }}>
+            <span style={{ color: 'var(--accent)' }}>{project.cat}</span>
+            <span style={{ color: 'var(--fg-2)' }}>{project.tech}</span>
+            <span style={{ color: 'var(--fg-2)' }}>{project.duration}</span>
+          </div>
+          <h2 style={{
+            fontFamily: 'var(--font-display)', fontSize: 'clamp(24px, 2.5vw, 36px)',
+            fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 0.95, margin: 0,
+          }}>
+            {project.title}
+          </h2>
+        </div>
+      </div>
+    </div>
   );
 };
 
 const Portfolio = () => {
-  const { show: showNotification } = useNotification();
-  // const [activeFilter, setActiveFilter] = useState('Все'); // Убрано - не используется
+  const [cat, setCat] = useState('Все');
+  const [modalProject, setModalProject] = useState(null);
+  const filtered = cat === 'Все' ? PROJECTS : PROJECTS.filter((p) => p.cat === cat);
 
-  const projects = [
-    {
-      id: 1,
-      title: "Реклама Porsche 911",
-      category: "Автомобили",
-      technology: "AI",
-      description: "Полностью AI-сгенерированная реклама премиального автомобиля с фотореалистичными эффектами",
-      video: "/fixed/porsh.mp4",
-      thumbnail: "/thumbnails/porsh.jpg",
-      duration: "0:35",
-      views: "5.8M",
-      time: "8 дней"
-    },
-    {
-      id: 11,
-      title: "Промо автопрограммы NL",
-      category: "Автомобили",
-      technology: "AI",
-      combinedTech: true,
-      description: "Комбинированный AI + VFX проект для автомобильной программы NL с генерацией сцен и постобработкой",
-      video: "/fixed/NL2.mp4",
-      thumbnail: "/thumbnails/NL2.jpg",
-      duration: "0:30",
-      time: "7 дней"
-    },
-    {
-      id: 2,
-      title: "Ролик Rolex для стенда",
-      category: "Продукты",
-      technology: "VFX",
-      description: "VFX ролик премиальных часов Rolex для демонстрации на рекламном стенде с детализированными материалами",
-      video: "/fixed/rolex.mp4",
-      thumbnail: "/thumbnails/rolex.jpg",
-      duration: "0:25",
-      time: "10 дней"
-    },
-    {
-      id: 3,
-      title: "Реклама Dyson",
-      category: "Продукты",
-      technology: "VFX",
-      description: "Инновационная презентация бытовой техники с AI-визуализацией технологий",
-      video: "/fixed/dyson.mp4",
-      thumbnail: "/thumbnails/dyson.jpg",
-      duration: "0:45",
-      time: "6 дней"
-    },
-    {
-      id: 4,
-      title: "Архитектурная визуализация",
-      category: "Архитектура",
-      technology: "AI",
-      description: "Современная архитектурная презентация дома с AI-генерацией окружения",
-      video: "/fixed/house.mp4",
-      thumbnail: "/thumbnails/house.jpg",
-      duration: "0:50",
-      views: "150K",
-      time: "24 часа"
-    },
-    {
-      id: 5,
-      title: "Реклама YallaMarket",
-      category: "Продукты",
-      technology: "VFX",
-      description: "VFX интеграция 3D элементов и эффектов в отснятое видео для рекламы маркетплейса",
-      video: "/fixed/museum.mp4",
-      thumbnail: "/thumbnails/museum.jpg",
-      duration: "0:20",
-      views: "400K",
-      time: "6 дней"
-    },
-    {
-      id: 6,
-      title: "Deepfake технологии",
-      category: "Социальное",
-      technology: "AI",
-      description: "Демонстрация возможностей AI в создании реалистичных цифровых персонажей",
-      video: "/fixed/deepfake.mp4",
-      thumbnail: "/thumbnails/deepfake.jpg",
-      duration: "1:30",
-      time: "4 дня"
-    },
-    {
-      id: 7,
-      title: "Короткометражный фильм",
-      category: "Социальное",
-      technology: "AI",
-      description: "Экологический фильм о загрязнении морей и океанов, созданный с помощью AI технологий",
-      video: "/fixed/Runway.mp4",
-      thumbnail: "/thumbnails/Runway.jpg",
-      duration: "2:45",
-      views: "120K",
-      time: "72 часа"
-    },
-    {
-      id: 8,
-      title: "Реклама для застройщика Danube",
-      category: "Архитектура",
-      technology: "VFX",
-      description: "VFX интеграция архитектурных элементов и анимация для презентации жилого комплекса",
-      video: "/fixed/danube.mp4",
-      thumbnail: "/thumbnails/danube.jpg",
-      duration: "0:40",
-      time: "7 дней"
-    },
-    {
-      id: 9,
-      title: "Реклама очистителя",
-      category: "Продукты",
-      technology: "VFX",
-      description: "VFX интеграция 3D моделей и эффектов в отснятое видео с реалистичным композитингом",
-      video: "/fixed/synr.mp4",
-      thumbnail: "/thumbnails/synr.jpg",
-      duration: "0:20",
-      views: "700K",
-      time: "4 дня"
-    },
-    {
-      id: 10,
-      title: "Рилс для бренда одежды",
-      category: "Продукты",
-      technology: "AI",
-      description: "Стильный рилс для модного бренда с AI-сгенерированными моделями и виртуальной одеждой",
-      video: "/fixed/sacr.mp4",
-      thumbnail: "/thumbnails/sacr.jpg",
-      duration: "0:15",
-      views: "400K",
-      time: "48 часов"
-    },
-    {
-      id: 12,
-      title: "Архитектурное видео из рендеров",
-      category: "Архитектура",
-      technology: "AI",
-      description: "AI генерация архитектурного видео на основе статичных рендеров недвижимости",
-      video: "/fixed/недвижка.mp4",
-      thumbnail: "/thumbnails/недвижка.jpg",
-      duration: "2:30",
-      views: "80K",
-      time: "24 часа"
-    }
-  ];
-
-  const categories = ["Все", "Автомобили", "Продукты", "Социальное", "Архитектура"];
-  const [activeCategory, setActiveCategory] = useState("Все");
-
-  const filteredProjects = activeCategory === "Все" 
-    ? projects 
-    : projects.filter(project => project.category === activeCategory);
+  const half = Math.ceil(filtered.length / 2);
+  const row1 = filtered.slice(0, half);
+  const row2 = filtered.slice(half);
 
   return (
-    <section id="portfolio" className="py-20">
-      <div className="container">
-        {/* Заголовок секции */}
-        <div className="text-center mb-16">
-          <div className="accent-line mx-auto mb-6"></div>
-          <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
-            ПОРТФОЛИО
-          </h2>
-          <p className="text-xl text-white/80 max-w-4xl mx-auto">
-            Портфолио проектов, демонстрирующих наш опыт в создании визуального контента с помощью AI и VFX
-          </p>
-        </div>
+    <section className="section portfolio" id="portfolio" data-layout="marquee">
+      <div className="shell">
+        <SecHead
+          num="[ 02 / ПОРТФОЛИО ]"
+          title="Полный"
+          titleIt="лог работ"
+          side="Реальные проекты с AI + VFX пайплайном. Кликните на работу, чтобы посмотреть видео."
+          sideTitle="WORKS"
+        />
 
-        {/* Фильтры категорий */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category) => (
+        <div className="filter-bar reveal">
+          <span className="label">FILTER:</span>
+          {CATEGORIES.map((c) => (
             <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                activeCategory === category
-                  ? 'bg-primary text-white shadow-lg'
-                  : 'glass text-white/80 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              {category}
-            </button>
+              key={c}
+              className={`filter-chip ${cat === c ? 'active' : ''}`}
+              onClick={() => setCat(c)}
+            >{c}</button>
           ))}
+          <span style={{ flex: 1 }} />
+          <span className="label">{String(filtered.length).padStart(2, '0')} ПРОЕКТОВ</span>
         </div>
 
-        {/* Сетка проектов */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="card group cursor-pointer"
-              onClick={() => showNotification()}
-            >
-              {/* Превью — видео на ПК, картинка на мобильном */}
-              <div className="relative overflow-hidden rounded-xl mb-6">
-                <LazyVideo
-                  src={project.video}
-                  thumbnail={project.thumbnail}
-                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="text-center">
-                    <span className="text-white font-semibold">Заказать проект</span>
-                  </div>
-                </div>
-                
-                {/* Статистики на превью */}
-                <div className="absolute top-4 right-4 glass-light rounded-lg px-3 py-1">
-                  <span className="text-white text-sm font-medium">{project.duration}</span>
-                </div>
-                <div className="absolute top-4 left-4">
-                  {project.combinedTech ? (
-                    <div className="flex gap-2">
-                      <span className="px-3 py-1 rounded-lg text-xs font-bold bg-blue-500 text-white">
-                        AI
-                      </span>
-                      <span className="px-3 py-1 rounded-lg text-xs font-bold bg-pink-500 text-white">
-                        VFX
-                      </span>
-                    </div>
-                  ) : (
-                    <span className={`px-3 py-1 rounded-lg text-xs font-bold ${
-                      project.technology === 'AI' 
-                        ? 'bg-blue-500 text-white' 
-                        : 'bg-pink-500 text-white'
-                    }`}>
-                      {project.technology}
-                    </span>
-                  )}
-                </div>
-                {project.views && (
-                  <div className="absolute bottom-4 left-4 glass-light rounded-lg px-3 py-1">
-                    <span className="text-white text-sm font-medium">{project.views} просмотров</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Информация о проекте */}
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-primary text-sm font-semibold uppercase tracking-wider">
-                    {project.category}
-                  </span>
-                  <div className="flex items-center space-x-1 text-green-400">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-sm font-medium text-white">{project.time}</span>
-                  </div>
-                </div>
-                
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors duration-300">
-                  {project.title}
-                </h3>
-                
-                <p className="text-white/80 leading-relaxed mb-4">
-                  {project.description}
-                </p>
+        <div className="portfolio-list">
+          {row1.length > 0 && (
+            <div className="marquee-row">
+              <div className="marquee-track">
+                {[...row1, ...row1].map((p, i) => (
+                  <ProjectCard key={`r1-${p.id}-${i}`} project={p} onClick={() => setModalProject(p)} />
+                ))}
               </div>
             </div>
-          ))}
+          )}
+          {row2.length > 0 && (
+            <div className="marquee-row">
+              <div className="marquee-track">
+                {[...row2, ...row2].map((p, i) => (
+                  <ProjectCard key={`r2-${p.id}-${i}`} project={p} onClick={() => setModalProject(p)} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Конец контейнера проектов */}
+        <div className="portfolio-foot reveal">
+          <span className="count">{PROJECTS.length} РАБОТ С AI + VFX ПАЙПЛАЙНОМ</span>
+        </div>
       </div>
 
-        {/* CTA секция удалена по просьбе клиента */}
-
-      {/* Модальное окно проекта */}
-      {/* The modal is removed as per the edit hint. */}
+      {modalProject && <ProjectModal project={modalProject} onClose={() => setModalProject(null)} />}
     </section>
   );
 };
 
-export default Portfolio; 
+export default Portfolio;

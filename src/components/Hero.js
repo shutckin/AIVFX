@@ -1,131 +1,100 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNotification } from '../App';
-import Tilt3D from './Tilt3D';
+import { TICKER_ITEMS } from '../data/content';
+
+const RobotStage = () => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const onMove = (e) => {
+      if (!ref.current) return;
+      const x = (e.clientX / window.innerWidth - 0.5) * 16;
+      const y = (e.clientY / window.innerHeight - 0.5) * 16;
+      ref.current.style.setProperty('--mx', x + 'px');
+      ref.current.style.setProperty('--my', y + 'px');
+    };
+    window.addEventListener('mousemove', onMove);
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
+
+  return (
+    <div className="robot-stage" ref={ref} aria-hidden="true">
+      <div className="robot-halo" />
+      <div className="robot-scan" />
+      <div className="robot-glow" />
+      <svg className="robot-rings" viewBox="0 0 600 600">
+        <circle cx="300" cy="300" r="220" className="r1" />
+        <circle cx="300" cy="300" r="270" className="r2" />
+        <circle cx="300" cy="300" r="150" className="r3" />
+      </svg>
+      <div className="robot-hud hud-bl">
+        <span className="hud-dot" />
+        <span>LAT +55.75°  LON +37.61°</span>
+      </div>
+      <div className="robot-hud hud-br">
+        <span>© AIVFX SYSTEMS</span>
+      </div>
+    </div>
+  );
+};
 
 const Hero = () => {
   const { show: showNotification, scrollToSection } = useNotification();
 
   return (
-    <section id="hero" className="relative flex items-center overflow-hidden" style={{ minHeight: '100dvh' }}>
-      <div className="container relative z-10 w-full">
-        <div className="grid lg:grid-cols-12 gap-8 items-center" style={{ minHeight: '100dvh', paddingTop: '7rem', paddingBottom: '4rem' }}>
+    <section className="hero" id="hero">
+      <video
+        className="hero-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        ref={(el) => { if (el) { el.muted = true; el.play().catch(() => {}); } }}
+      >
+        <source src="/fixed/aivid.mp4" type="video/mp4" />
+      </video>
+      <div className="hero-video-overlay" />
+      <RobotStage />
+      <span className="corner tl" />
+      <span className="corner tr" />
 
-          {/* Left column — content */}
-          <div className="lg:col-span-8 space-y-8">
-
-            {/* Eyebrow */}
-            <div>
-              <span className="eyebrow">
-                <span
-                  className="inline-block rounded-full bg-primary animate-pulse"
-                  style={{ width: '6px', height: '6px', background: '#D35C00' }}
-                />
-                Революция в видеопроизводстве
-              </span>
-            </div>
-
-            {/* Headline */}
-            <div className="space-y-2">
-              <h1
-                style={{
-                  fontSize: 'clamp(3rem, 8vw, 7rem)',
-                  letterSpacing: '-0.04em',
-                  fontWeight: 800,
-                  lineHeight: 1,
-                  color: '#EFEFEF',
-                }}
-              >
-                СОЗДАЁМ<br />
-                <span style={{ color: '#D35C00' }}>ВИРУСНЫЙ</span><br />
-                КОНТЕНТ<br />С AI и VFX
-              </h1>
-              <p className="text-lg lg:text-xl font-semibold" style={{ color: 'rgba(255,255,255,0.65)', maxWidth: '36rem', paddingTop: '0.5rem' }}>
-                Быстрее. Дешевле. Качественнее.
-              </p>
-            </div>
-
-            {/* Feature pills */}
-            <div className="flex flex-wrap gap-3">
-              {['10x быстрее', '70% дешевле', 'Премиум качество', '4K видео'].map((tag) => (
-                <span
-                  key={tag}
-                  className="eyebrow"
-                  style={{ fontSize: '11px', letterSpacing: '0.12em' }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* CTA buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <button
-                onClick={showNotification}
-                className="btn btn-primary btn-large btn-arrow"
-                aria-label="Открыть форму заказа AI-контента"
-              >
-                <span>Создать AI-контент</span>
-                <span className="btn-arrow-circle">↗</span>
-              </button>
-              <button
-                onClick={() => scrollToSection('portfolio')}
-                className="btn btn-secondary btn-large"
-                aria-label="Перейти к примерам работ"
-              >
-                Смотреть примеры
-              </button>
-            </div>
-          </div>
-
-          {/* Right column — floating stat cards */}
-          <div className="hidden lg:flex lg:col-span-4 flex-col gap-4 items-end">
-            {[
-              { value: 'AI', label: 'Генерация', delay: '0s' },
-              { value: 'VFX', label: 'Эффекты', delay: '0.4s' },
-              { value: '70%', label: 'Экономия', delay: '0.8s' },
-              { value: '72ч', label: 'Средний срок', delay: '1.2s' },
-              { value: '50+', label: 'Проектов', delay: '1.6s' },
-            ].map((stat) => (
-              <Tilt3D
-                key={stat.value}
-                intensity={18}
-                className="animate-float"
-                style={{ animationDelay: stat.delay }}
-              >
-
-                <div
-                  className="bezel-outer"
-                  style={{ minWidth: '120px', transformStyle: 'preserve-3d' }}
-                >
-                  <div className="bezel-inner px-5 py-3 text-center">
-                    <div
-                      className="font-black"
-                      style={{ fontSize: '1.5rem', letterSpacing: '-0.03em', color: '#D35C00', transform: 'translateZ(14px)' }}
-                    >
-                      {stat.value}
-                    </div>
-                    <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
-                      {stat.label}
-                    </div>
-                  </div>
-                </div>
-              </Tilt3D>
-            ))}
+      <div className="shell hero-inner">
+        <div className="hero-meta">
+          <div className="hero-meta-left" style={{ alignItems: 'flex-end', marginLeft: 'auto' }}>
+            <span className="kicker">Moscow · Dubai · Bali</span>
+            <span className="kicker kicker-accent">◈ ПРИНИМАЕМ ЗАКАЗЫ</span>
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-          <span style={{ fontSize: '9px', letterSpacing: '0.25em', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase' }}>
-            Листать
-          </span>
-          <div
-            style={{
-              width: '1px',
-              height: '56px',
-              background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.4), transparent)',
-            }}
-          />
+        <h1 className="hero-headline display">
+          <span className="ln">СОЗДАЁМ</span>
+          <span className="ln"><span className="accent">вирусный</span></span>
+          <span className="ln">контент с AI+VFX</span>
+        </h1>
+
+        <div className="hero-row">
+          <p className="hero-sub">
+            Голливудский уровень визуальных эффектов за дни, а не недели.<br />
+            Быстрее × дешевле × качественнее традиционного продакшена.
+          </p>
+          <div className="hero-actions">
+            <button className="btn btn-primary" onClick={showNotification}>
+              Создать AI-контент
+              <span className="btn-arrow">↗</span>
+            </button>
+            <button className="btn btn-ghost" onClick={() => scrollToSection('portfolio')}>
+              Смотреть reel
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="hero-ticker">
+        <div className="hero-ticker-track">
+          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((t, i) => (
+            <span key={i}>{t}</span>
+          ))}
         </div>
       </div>
     </section>

@@ -1,13 +1,10 @@
-import React, { useEffect, useState, createContext, useContext, useRef, lazy, Suspense } from 'react';
+import React, { useEffect, useState, createContext, useContext, lazy, Suspense } from 'react';
 import './index.css';
 
-// Critical above-the-fold components — load immediately
 import Header from './components/Header';
 import Hero from './components/Hero';
-import VideoBackground from './components/VideoBackground';
-import Notification from './components/Notification';
+import Stats from './components/Stats';
 
-// Below-the-fold — lazy load to speed up initial paint
 const Services    = lazy(() => import('./components/Services'));
 const Portfolio   = lazy(() => import('./components/Portfolio'));
 const AboutUs     = lazy(() => import('./components/AboutUs'));
@@ -16,243 +13,201 @@ const ContactForm = lazy(() => import('./components/ContactForm'));
 const Footer      = lazy(() => import('./components/Footer'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
 
-// Minimal spinner while lazy chunks are loading
 const SectionFallback = () => (
-  <div className="py-20 flex justify-center items-center">
-    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+  <div style={{ padding: '80px 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div
+      style={{
+        width: 32,
+        height: 32,
+        border: '2px solid var(--accent)',
+        borderTopColor: 'transparent',
+        borderRadius: '50%',
+        animation: 'spin 0.8s linear infinite',
+      }}
+    />
   </div>
 );
 
-// Section → video mapping
-const SECTION_VIDEO_MAP = {
-  hero:      '/fixed/aivid.mp4',
-  services:  '/fixed/porsche.mp4',
-  portfolio: '/fixed/rolex.mp4',
-  about:     '/fixed/house.mp4',
-  clients:   '/fixed/danube.mp4',
-  contact:   '/fixed/synr.mp4',
-};
-
-// Создаем контекст для управления уведомлениями
 const NotificationContext = createContext();
 
 export const useNotification = () => {
-  const context = useContext(NotificationContext);
-  if (!context) {
-    throw new Error('useNotification must be used within NotificationProvider');
-  }
-  return context;
+  const ctx = useContext(NotificationContext);
+  if (!ctx) throw new Error('useNotification must be used within NotificationProvider');
+  return ctx;
 };
 
-// Глобальный компонент модального окна с благодарностью
+// Success modal — cinematic style
 const SuccessModal = ({ isVisible, onClose }) => {
   if (!isVisible) return null;
-
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
-      <div className="relative bg-[#0e0e0e] border border-white/10 rounded-3xl p-8 max-w-lg w-full shadow-2xl"
-           style={{ boxShadow: '0 32px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08)' }}>
-        {/* Кнопка закрытия */}
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, background: 'rgba(8,7,6,0.85)',
+        backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+        zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: 'var(--bg-2)', border: '1px solid var(--line-2)',
+          borderRadius: 'var(--r-lg)', padding: 'clamp(32px, 4vw, 56px)',
+          maxWidth: 520, width: '100%', position: 'relative',
+        }}
+      >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          aria-label="Закрыть"
+          style={{
+            position: 'absolute', top: 20, right: 20, width: 36, height: 36,
+            borderRadius: '50%', border: '1px solid var(--line-2)',
+            display: 'grid', placeItems: 'center', background: 'transparent',
+            color: 'var(--fg-2)', fontSize: 18, cursor: 'pointer',
+          }}
+        >✕</button>
+
+        <div
+          style={{
+            width: 56, height: 56, borderRadius: '50%', background: 'var(--accent)',
+            display: 'grid', placeItems: 'center', marginBottom: 24,
+            color: 'var(--bg)', fontSize: 24, fontWeight: 800,
+          }}
+        >✓</div>
+
+        <h2 style={{
+          fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 800,
+          letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: 14, margin: 0,
+        }}>
+          Заявка принята. <span style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>Спасибо!</span>
+        </h2>
+        <p style={{ fontSize: 15, color: 'var(--fg-2)', lineHeight: 1.55, marginTop: 14, marginBottom: 24 }}>
+          Наш менеджер свяжется с вами в течение 24 часов для обсуждения деталей проекта.
+        </p>
+        <button className="btn btn-primary" onClick={onClose}>
+          Вернуться на сайт <span className="btn-arrow">↗</span>
         </button>
+      </div>
+    </div>
+  );
+};
 
-        {/* Логотип */}
-        <div className="text-center mb-6">
-          <div className="text-4xl font-black mb-4">
-            <span className="text-gradient">AIVFX</span>
-          </div>
-        </div>
+// Notification for "only contact form works" hint
+const InfoNotification = ({ isVisible, onClose }) => {
+  if (!isVisible) return null;
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, background: 'rgba(8,7,6,0.85)',
+        backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+        zIndex: 9998, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: 'var(--bg-2)', border: '1px solid var(--line-2)',
+          borderRadius: 'var(--r-lg)', padding: 'clamp(32px, 4vw, 56px)',
+          maxWidth: 520, width: '100%', position: 'relative',
+        }}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Закрыть"
+          style={{
+            position: 'absolute', top: 20, right: 20, width: 36, height: 36,
+            borderRadius: '50%', border: '1px solid var(--line-2)',
+            display: 'grid', placeItems: 'center', background: 'transparent',
+            color: 'var(--fg-2)', fontSize: 18, cursor: 'pointer',
+          }}
+        >✕</button>
 
-        {/* Основное сообщение */}
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-white mb-3" style={{ fontSize: '1.5rem', letterSpacing: '-0.02em' }}>
-            Заявка принята. Спасибо!
-          </h2>
-          <p className="text-white/80 leading-relaxed text-sm">
-            Наш менеджер свяжется с вами в ближайшее время для обсуждения деталей.
-            Пока ждёте — посмотрите больше наших работ.
-          </p>
-        </div>
-
-        {/* Кнопка возврата */}
-        <div className="text-center">
-          <button
-            onClick={onClose}
-            className="btn btn-primary"
-          >
-            <span>Вернуться на сайт</span>
-            <span className="btn-arrow-circle ml-3">↗</span>
-          </button>
-        </div>
+        <span className="kicker" style={{ display: 'block', marginBottom: 12 }}>QUICK START</span>
+        <h2 style={{
+          fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 800,
+          letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: 14, margin: 0,
+        }}>
+          Оставьте <span style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>заявку</span>
+        </h2>
+        <p style={{ fontSize: 15, color: 'var(--fg-2)', lineHeight: 1.55, marginTop: 14, marginBottom: 24 }}>
+          Заполните форму ниже — менеджер свяжется в течение 24 часов и пришлёт смету.
+        </p>
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            onClose();
+            const el = document.getElementById('contact');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
+          Перейти к форме <span className="btn-arrow">↗</span>
+        </button>
       </div>
     </div>
   );
 };
 
 function App() {
-  const [showNotification, setShowNotification] = useState(false);
-  const [isNotificationAnimating, setIsNotificationAnimating] = useState(false);
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [currentVideo, setCurrentVideo] = useState(SECTION_VIDEO_MAP.hero);
+  const [showInfoNotification, setShowInfoNotification] = useState(false);
 
-  const sectionRatioMap = useRef({});
-
-  useEffect(() => {
-    if (showNotification) {
-      setIsNotificationAnimating(true);
-    } else {
-      const timer = setTimeout(() => {
-        setIsNotificationAnimating(false);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [showNotification]);
-
-  const show = () => setShowNotification(true);
-  const showSuccess = () => {
-    setShowSuccessModal(true);
-    setShowNotification(false);
+  const scrollToSection = (sectionId) => {
+    const el = document.getElementById(sectionId);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
-  const hide = () => setShowNotification(false);
+
+  const show = () => setShowInfoNotification(true);
+  const hide = () => setShowInfoNotification(false);
+  const showSuccess = () => { setShowSuccessModal(true); setShowInfoNotification(false); };
   const hideSuccess = () => setShowSuccessModal(false);
   const showPrivacy = () => setShowPrivacyPolicy(true);
   const hidePrivacy = () => setShowPrivacyPolicy(false);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  // Observer #1: scroll reveal animations
+  // Reveal on scroll animation
   useEffect(() => {
-    const ioOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px',
-    };
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-          io.unobserve(entry.target); // only animate once
-        }
-      });
-    }, ioOptions);
-
-    const observe = (el) => {
-      // Skip if already animated in
-      if (!el.classList.contains('animate-in')) io.observe(el);
-    };
-
-    // Observe elements that exist now
-    document.querySelectorAll('.reveal-ready, section').forEach(observe);
-
-    // Watch for lazy-loaded components adding new .reveal-ready elements
-    const mo = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (node.nodeType !== 1) return;
-          if (node.classList?.contains('reveal-ready')) observe(node);
-          node.querySelectorAll?.('.reveal-ready, section').forEach(observe);
-        });
-      });
-    });
-
-    mo.observe(document.body, { childList: true, subtree: true });
-
-    return () => {
-      io.disconnect();
-      mo.disconnect();
-    };
-  }, []);
-
-  // Observer #2: video switching based on section visibility
-  useEffect(() => {
-    const sectionIds = Object.keys(SECTION_VIDEO_MAP);
-
-    const videoObserver = new IntersectionObserver(
+    const obs = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          const id = entry.target.id;
-          if (sectionIds.includes(id)) {
-            sectionRatioMap.current[id] = entry.intersectionRatio;
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            obs.unobserve(e.target);
           }
         });
-
-        let maxRatio = 0;
-        let topSection = null;
-        sectionIds.forEach((id) => {
-          const ratio = sectionRatioMap.current[id] || 0;
-          if (ratio > maxRatio) {
-            maxRatio = ratio;
-            topSection = id;
-          }
-        });
-
-        if (topSection && SECTION_VIDEO_MAP[topSection]) {
-          setCurrentVideo(SECTION_VIDEO_MAP[topSection]);
-        }
       },
-      {
-        threshold: [0.1, 0.3, 0.5],
-        rootMargin: '-10% 0px -10% 0px',
-      }
+      { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
     );
 
-    const observeSection = (el) => {
-      if (el && sectionIds.includes(el.id)) videoObserver.observe(el);
+    const observe = (el) => {
+      if (!el.classList.contains('in')) obs.observe(el);
     };
 
-    // Observe sections already in DOM (hero is immediate; others may not exist yet)
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) videoObserver.observe(el);
-    });
+    document.querySelectorAll('.reveal').forEach(observe);
 
-    // Watch for lazy-loaded sections being added to the DOM
     const mo = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
+      mutations.forEach((m) => {
+        m.addedNodes.forEach((node) => {
           if (node.nodeType !== 1) return;
-          observeSection(node);
-          node.querySelectorAll?.('section[id]').forEach(observeSection);
+          if (node.classList?.contains('reveal')) observe(node);
+          node.querySelectorAll?.('.reveal').forEach(observe);
         });
       });
     });
-
     mo.observe(document.body, { childList: true, subtree: true });
 
-    return () => {
-      videoObserver.disconnect();
-      mo.disconnect();
-    };
+    return () => { obs.disconnect(); mo.disconnect(); };
   }, []);
 
-  const notificationContextValue = {
-    showNotification,
-    isNotificationAnimating,
-    show,
-    hide,
-    showSuccess,
-    hideSuccess,
-    showSuccessModal,
-    showPrivacy,
-    hidePrivacy,
-    scrollToSection
+  const ctx = {
+    show, hide, showSuccess, hideSuccess,
+    showPrivacy, hidePrivacy, scrollToSection,
   };
 
   return (
-    <NotificationContext.Provider value={notificationContextValue}>
+    <NotificationContext.Provider value={ctx}>
       <div className="app">
+        <div className="grain" aria-hidden="true" />
         {showPrivacyPolicy ? (
           <Suspense fallback={<SectionFallback />}>
             <PrivacyPolicy onBack={hidePrivacy} />
@@ -261,38 +216,35 @@ function App() {
           <>
             <a
               href="#portfolio"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg"
+              style={{
+                position: 'absolute', left: -9999, top: 'auto',
+                width: 1, height: 1, overflow: 'hidden',
+              }}
+              onFocus={(e) => {
+                e.target.style.cssText =
+                  'position:fixed;top:16px;left:16px;width:auto;height:auto;padding:10px 16px;background:var(--accent);color:var(--bg);border-radius:8px;z-index:9999;font-weight:600;';
+              }}
+              onBlur={(e) => {
+                e.target.style.cssText =
+                  'position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;';
+              }}
             >
               Перейти к контенту
             </a>
-            <VideoBackground currentVideo={currentVideo} />
             <Header />
-            <main style={{ overflowX: 'clip' }}>
-              {/* Hero loads immediately */}
+            <main>
               <Hero />
-              {/* Everything below — lazy loaded */}
-              <Suspense fallback={<SectionFallback />}>
-                <Services />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <Portfolio />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <AboutUs />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <Clients />
-              </Suspense>
-              <Suspense fallback={<SectionFallback />}>
-                <ContactForm />
-              </Suspense>
+              <Stats />
+              <Suspense fallback={<SectionFallback />}><Services /></Suspense>
+              <Suspense fallback={<SectionFallback />}><Portfolio /></Suspense>
+              <Suspense fallback={<SectionFallback />}><AboutUs /></Suspense>
+              <Suspense fallback={<SectionFallback />}><Clients /></Suspense>
+              <Suspense fallback={<SectionFallback />}><ContactForm /></Suspense>
             </main>
-            <Suspense fallback={null}>
-              <Footer />
-            </Suspense>
+            <Suspense fallback={null}><Footer /></Suspense>
           </>
         )}
-        <Notification />
+        <InfoNotification isVisible={showInfoNotification} onClose={hide} />
         <SuccessModal isVisible={showSuccessModal} onClose={hideSuccess} />
       </div>
     </NotificationContext.Provider>
