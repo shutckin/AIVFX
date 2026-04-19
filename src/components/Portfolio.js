@@ -1,5 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PROJECTS, CATEGORIES } from '../data/projects';
+
+// Ленивое видео: играет только когда попадает в viewport
+const LazyVideo = ({ src, title }) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            el.play().catch(() => {});
+          } else {
+            el.pause();
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      src={src}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-label={title}
+    />
+  );
+};
 
 const SecHead = ({ num, title, titleIt, side, sideTitle }) => (
   <div className="sec-head reveal">
@@ -32,16 +70,7 @@ const TechBadges = ({ tech }) => {
 const ProjectCard = ({ project, onClick }) => (
   <div className="project reveal" onClick={onClick}>
     <div className="thumb-wrap">
-      <video
-        src={project.preview}
-        poster={project.poster}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-label={project.title}
-      />
+      <LazyVideo src={project.preview} title={project.title} />
       <div className="badges"><TechBadges tech={project.tech} /></div>
       <span className="duration">{project.duration}</span>
       <div className="play-overlay" aria-hidden="true">
