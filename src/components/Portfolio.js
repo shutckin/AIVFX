@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { PROJECTS, CATEGORIES } from '../data/projects';
+import { useNotification } from '../App';
 
 // Ленивое видео: играет только когда попадает в viewport
 const LazyVideo = ({ src, title }) => {
@@ -165,6 +166,7 @@ const ProjectModal = ({ project, onClose }) => {
 const Portfolio = () => {
   const [cat, setCat] = useState('Все');
   const [modalProject, setModalProject] = useState(null);
+  const { showAllPortfolio } = useNotification();
   const filtered = cat === 'Все' ? PROJECTS : PROJECTS.filter((p) => p.cat === cat);
 
   const half = Math.ceil(filtered.length / 2);
@@ -218,6 +220,13 @@ const Portfolio = () => {
 
         <div className="portfolio-foot reveal">
           <span className="count">{PROJECTS.length} РАБОТ С AI + VFX ПАЙПЛАЙНОМ</span>
+        </div>
+
+        <div className="portfolio-cta reveal">
+          <button className="btn btn-primary" onClick={showAllPortfolio}>
+            Смотреть всё портфолио
+            <span className="btn-arrow">↗</span>
+          </button>
         </div>
       </div>
 

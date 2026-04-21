@@ -12,6 +12,7 @@ const Clients     = lazy(() => import('./components/Clients'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const Footer      = lazy(() => import('./components/Footer'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
+const FullPortfolio = lazy(() => import('./components/FullPortfolio'));
 
 const SectionFallback = () => (
   <div style={{ padding: '80px 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -150,6 +151,7 @@ const InfoNotification = ({ isVisible, onClose }) => {
 
 function App() {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+  const [showFullPortfolio, setShowFullPortfolio] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showInfoNotification, setShowInfoNotification] = useState(false);
 
@@ -164,6 +166,8 @@ function App() {
   const hideSuccess = () => setShowSuccessModal(false);
   const showPrivacy = () => setShowPrivacyPolicy(true);
   const hidePrivacy = () => setShowPrivacyPolicy(false);
+  const showAllPortfolio = () => setShowFullPortfolio(true);
+  const hideAllPortfolio = () => setShowFullPortfolio(false);
 
   // Reveal on scroll animation
   useEffect(() => {
@@ -202,6 +206,7 @@ function App() {
   const ctx = {
     show, hide, showSuccess, hideSuccess,
     showPrivacy, hidePrivacy, scrollToSection,
+    showAllPortfolio, hideAllPortfolio,
   };
 
   return (
@@ -211,6 +216,10 @@ function App() {
         {showPrivacyPolicy ? (
           <Suspense fallback={<SectionFallback />}>
             <PrivacyPolicy onBack={hidePrivacy} />
+          </Suspense>
+        ) : showFullPortfolio ? (
+          <Suspense fallback={<SectionFallback />}>
+            <FullPortfolio onBack={hideAllPortfolio} />
           </Suspense>
         ) : (
           <>
