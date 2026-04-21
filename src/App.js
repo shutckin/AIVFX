@@ -149,11 +149,41 @@ const InfoNotification = ({ isVisible, onClose }) => {
   );
 };
 
+// URL-based routing: читаем путь при загрузке страницы
+// Поддерживаемые URL:
+//   /          — главная
+//   /works     — полный каталог работ
+//   /privacy   — политика конфиденциальности
+const getPageFromUrl = () => {
+  if (typeof window === 'undefined') return 'main';
+  const path = window.location.pathname;
+  if (path === '/works' || path === '/portfolio') return 'works';
+  if (path === '/privacy' || path === '/privacy-policy') return 'privacy';
+  return 'main';
+};
+
 function App() {
-  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
-  const [showFullPortfolio, setShowFullPortfolio] = useState(false);
+  const [page, setPage] = useState(getPageFromUrl);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showInfoNotification, setShowInfoNotification] = useState(false);
+
+  const showPrivacyPolicy = page === 'privacy';
+  const showFullPortfolio = page === 'works';
+
+  // Синхронизируем состояние с кнопками браузера "назад"/"вперёд"
+  useEffect(() => {
+    const onPop = () => setPage(getPageFromUrl());
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
+  // Переход на новый URL без перезагрузки страницы
+  const navigate = (nextPage, url) => {
+    if (window.location.pathname !== url) {
+      window.history.pushState({}, '', url);
+    }
+    setPage(nextPage);
+  };
 
   const scrollToSection = (sectionId) => {
     const el = document.getElementById(sectionId);
@@ -164,10 +194,17 @@ function App() {
   const hide = () => setShowInfoNotification(false);
   const showSuccess = () => { setShowSuccessModal(true); setShowInfoNotification(false); };
   const hideSuccess = () => setShowSuccessModal(false);
-  const showPrivacy = () => setShowPrivacyPolicy(true);
-  const hidePrivacy = () => setShowPrivacyPolicy(false);
-  const showAllPortfolio = () => setShowFullPortfolio(true);
-  const hideAllPortfolio = () => setShowFullPortfolio(false);
+  const showPrivacy = () => navigate('privacy', '/privacy');
+  const hidePrivacy = () => navigate('main', '/');
+  const showAllPortfolio = () => navigate('works', '/works');
+  const hideAllPortfolio = () => {
+    navigate('main', '/');
+    // После возврата на главную — прокрутить к секции "Работы"
+    setTimeout(() => {
+      const el = document.getElementById('portfolio');
+      if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }, 50);
+  };
 
   // Reveal on scroll animation
   useEffect(() => {
