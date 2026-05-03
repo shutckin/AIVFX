@@ -13,6 +13,8 @@ const ContactForm = lazy(() => import('./components/ContactForm'));
 const Footer      = lazy(() => import('./components/Footer'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
 const FullPortfolio = lazy(() => import('./components/FullPortfolio'));
+const Consent      = lazy(() => import('./components/Consent'));
+const CookieBanner = lazy(() => import('./components/CookieBanner'));
 
 const SectionFallback = () => (
   <div style={{ padding: '80px 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -154,11 +156,13 @@ const InfoNotification = ({ isVisible, onClose }) => {
 //   /          — главная
 //   /works     — полный каталог работ
 //   /privacy   — политика конфиденциальности
+//   /consent   — согласие на обработку персональных данных
 const getPageFromUrl = () => {
   if (typeof window === 'undefined') return 'main';
   const path = window.location.pathname;
   if (path === '/works' || path === '/portfolio') return 'works';
   if (path === '/privacy' || path === '/privacy-policy') return 'privacy';
+  if (path === '/consent') return 'consent';
   return 'main';
 };
 
@@ -169,6 +173,7 @@ function App() {
 
   const showPrivacyPolicy = page === 'privacy';
   const showFullPortfolio = page === 'works';
+  const showConsentPage   = page === 'consent';
 
   // Синхронизируем состояние с кнопками браузера "назад"/"вперёд"
   useEffect(() => {
@@ -196,6 +201,8 @@ function App() {
   const hideSuccess = () => setShowSuccessModal(false);
   const showPrivacy = () => navigate('privacy', '/privacy');
   const hidePrivacy = () => navigate('main', '/');
+  const showConsent = () => navigate('consent', '/consent');
+  const hideConsent = () => navigate('main', '/');
   const showAllPortfolio = () => navigate('works', '/works');
   const hideAllPortfolio = () => {
     navigate('main', '/');
@@ -244,6 +251,7 @@ function App() {
     show, hide, showSuccess, hideSuccess,
     showPrivacy, hidePrivacy, scrollToSection,
     showAllPortfolio, hideAllPortfolio,
+    showConsent, hideConsent,
   };
 
   return (
@@ -253,6 +261,10 @@ function App() {
         {showPrivacyPolicy ? (
           <Suspense fallback={<SectionFallback />}>
             <PrivacyPolicy onBack={hidePrivacy} />
+          </Suspense>
+        ) : showConsentPage ? (
+          <Suspense fallback={<SectionFallback />}>
+            <Consent onBack={hideConsent} />
           </Suspense>
         ) : showFullPortfolio ? (
           <Suspense fallback={<SectionFallback />}>
@@ -292,6 +304,9 @@ function App() {
         )}
         <InfoNotification isVisible={showInfoNotification} onClose={hide} />
         <SuccessModal isVisible={showSuccessModal} onClose={hideSuccess} />
+        <Suspense fallback={null}>
+          <CookieBanner onPrivacyClick={showPrivacy} />
+        </Suspense>
       </div>
     </NotificationContext.Provider>
   );

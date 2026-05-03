@@ -2,7 +2,7 @@ import React from 'react';
 import { useNotification } from '../App';
 
 const Footer = () => {
-  const { scrollToSection, showPrivacy } = useNotification();
+  const { scrollToSection, showPrivacy, showConsent } = useNotification();
 
   return (
     <footer className="footer">
@@ -54,7 +54,7 @@ const Footer = () => {
           <span>© 2026 AIVFX. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</span>
           <div className="right">
             <button type="button" onClick={showPrivacy}>Политика конфиденциальности</button>
-            <button type="button" onClick={showPrivacy}>Условия использования</button>
+            <button type="button" onClick={showConsent}>Согласие на обработку ПД</button>
           </div>
         </div>
       </div>

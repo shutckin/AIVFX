@@ -42,12 +42,13 @@ const sendToTelegram = async (data) => {
 };
 
 const ContactForm = () => {
-  const { showSuccess } = useNotification();
+  const { showSuccess, showPrivacy, showConsent } = useNotification();
   const [form, setForm] = useState({
     name: '', email: '', phone: '', company: '', message: '', budget: ''
   });
   const [phoneErr, setPhoneErr] = useState('');
   const [sending, setSending] = useState(false);
+  const [agreed, setAgreed] = useState(false);
 
   const handle = (k, v) => {
     if (k === 'phone') {
@@ -72,6 +73,7 @@ const ContactForm = () => {
   const submit = async (e) => {
     e.preventDefault();
     if (phoneErr) return;
+    if (!agreed) return; // защита от отправки без согласия
     setSending(true);
     try {
       await sendToTelegram(form);
@@ -80,6 +82,7 @@ const ContactForm = () => {
     }
     setSending(false);
     setForm({ name: '', email: '', phone: '', company: '', message: '', budget: '' });
+    setAgreed(false);
     showSuccess();
   };
 
@@ -144,10 +147,30 @@ const ContactForm = () => {
               />
             </div>
 
+            <label className="consent-row">
+              <input
+                type="checkbox"
+                checked={agreed}
+                onChange={(e) => setAgreed(e.target.checked)}
+                aria-required="true"
+                required
+              />
+              <span className="consent-text">
+                Я согласен(на) на обработку персональных данных в соответствии с{' '}
+                <button type="button" onClick={showPrivacy} className="consent-link">
+                  Политикой конфиденциальности
+                </button>{' '}
+                и{' '}
+                <button type="button" onClick={showConsent} className="consent-link">
+                  Согласием на обработку персональных данных
+                </button>.
+              </span>
+            </label>
+
             <button
               type="submit"
               className="btn btn-primary"
-              disabled={sending}
+              disabled={sending || !agreed}
               style={{ alignSelf: 'flex-start' }}
             >
               {sending ? 'Отправка...' : 'Отправить заявку'} <span className="btn-arrow">↗</span>
