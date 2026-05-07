@@ -26,6 +26,10 @@
     <!-- Canonical -->
     <link rel="canonical" href="https://aivfx.ru/" />
 
+    <!-- ── Search engine verification ─────────────────────────── -->
+    <meta name="yandex-verification" content="d5b3709f0fc8319d" />
+    <meta name="google-site-verification" content="mhjoOXYBcAzGbf301AngRYd_gQURTO4yAs5eU92_RyM" />
+
     <!-- ── Open Graph ───────────────────────────────────────── -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="AIVFX" />
@@ -187,9 +191,55 @@
 
     <!-- Hero video — prefetch (not preload) so save-data/2G users don't waste bandwidth -->
     <link rel="prefetch" href="%PUBLIC_URL%/fixed/aivid.mp4" as="video" type="video/mp4" />
+
+    <!-- Preconnect к доменам аналитики, чтобы handshake шёл параллельно -->
+    <link rel="preconnect" href="https://mc.yandex.ru" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://mc.yandex.ru" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   </head>
   <body>
     <noscript>Для работы приложения необходимо включить JavaScript.</noscript>
     <div id="root"></div>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!-- АНАЛИТИКА: расскомментировать после получения ID-шников.  -->
+    <!-- 1) Получи Yandex.Метрика ID на metrika.yandex.ru          -->
+    <!-- 2) Получи Google Analytics 4 ID (G-XXXXXXXXXX)            -->
+    <!-- 3) Замени плейсхолдеры и убери HTML-комментарии вокруг.   -->
+    <!-- ════════════════════════════════════════════════════════ -->
+
+    <!-- ────────── Yandex.Метрика (счётчик 109098541) ────────── -->
+    <script type="text/javascript">
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+      ym(109098541, "init", {
+        ssr:true,
+        webvisor:true,
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        ecommerce:"dataLayer"
+      });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/109098541" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <!-- ────────── Google Analytics 4 ────────── -->
+    <!-- ЗАМЕНИ G-XXXXXXXXXX на свой GA4 Measurement ID и расскомментируй:
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX', {
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=None;Secure'
+      });
+    </script>
+    -->
   </body>
 </html>

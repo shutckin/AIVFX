@@ -1,7 +1,63 @@
-# Apache кэширование для статических ресурсов
+# =====================================================================
+# AIVFX — .htaccess
+# Apache конфиг: канонизация домена, SPA-роутинг, кэш, gzip, безопасность
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# 1. RewriteEngine — канонизация домена + SPA-роутинг
+# ---------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1.1 Принудительный HTTPS (если не пришли через Cloudflare с Full SSL)
+  # Cloudflare ставит X-Forwarded-Proto, поэтому учитываем оба случая
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 1.2 www → apex (canonical: aivfx.ru)
+  RewriteCond %{HTTP_HOST} ^www\.aivfx\.ru$ [NC]
+  RewriteRule ^(.*)$ https://aivfx.ru/$1 [L,R=308]
+
+  # 1.3 SPA fallback: всё, что не файл и не папка → index.html
+  # Нужно для /works, /privacy, /consent — чтобы при прямом заходе
+  # отдавался index.html (или его prerendered версия от react-snap)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/api/
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 2. Security headers (защита, рейтинг и доверие поисковиков)
+# ---------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # HSTS — заставляет браузер ВСЕГДА ходить по HTTPS год вперёд
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Защита от MIME-sniffing
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Запрет встраивания в iframe (защита от clickjacking)
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Реферер: отдавать только домен при переходе на чужой сайт
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Permissions-Policy — выключаем неиспользуемые API
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+  # Убираем заголовок-«пасспорт» сервера
+  Header unset X-Powered-By
+  Header unset Server
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 3. Кэширование статических ресурсов
+# ---------------------------------------------------------------------
 <IfModule mod_expires.c>
   ExpiresActive on
-  
+
   # Изображения
   ExpiresByType image/png "access plus 1 year"
   ExpiresByType image/jpg "access plus 1 year"
@@ -9,28 +65,46 @@
   ExpiresByType image/gif "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
   ExpiresByType image/webp "access plus 1 year"
-  
+  ExpiresByType image/avif "access plus 1 year"
+
   # Видео
   ExpiresByType video/mp4 "access plus 1 year"
   ExpiresByType video/webm "access plus 1 year"
-  
+
   # Шрифты
   ExpiresByType application/font-woff "access plus 1 year"
   ExpiresByType application/font-woff2 "access plus 1 year"
   ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
   ExpiresByType font/opentype "access plus 1 year"
   ExpiresByType font/truetype "access plus 1 year"
-  
-  # CSS и JS
-  ExpiresByType text/css "access plus 1 month"
-  ExpiresByType text/javascript "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
-  
-  # HTML
-  ExpiresByType text/html "access plus 1 day"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+
+  # CSS и JS — у CRA в имени уже есть hash, можно ставить max
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+
+  # HTML — короткий кэш (контент может обновляться)
+  ExpiresByType text/html "access plus 1 hour"
+
+  # XML / JSON / TXT — короткий кэш
+  ExpiresByType application/xml "access plus 1 day"
+  ExpiresByType text/xml "access plus 1 day"
+  ExpiresByType application/json "access plus 1 day"
+  ExpiresByType text/plain "access plus 1 day"
 </IfModule>
 
-# Gzip сжатие
+# ---------------------------------------------------------------------
+# 4. Brotli (если доступно) + Gzip-сжатие
+# ---------------------------------------------------------------------
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/plain text/html text/xml text/css
+  AddOutputFilterByType BROTLI_COMPRESS application/xml application/xhtml+xml application/rss+xml
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript application/x-javascript application/json
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml font/woff font/woff2
+</IfModule>
+
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/plain
   AddOutputFilterByType DEFLATE text/html
@@ -41,19 +115,51 @@
   AddOutputFilterByType DEFLATE application/rss+xml
   AddOutputFilterByType DEFLATE application/javascript
   AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE font/woff font/woff2
 </IfModule>
 
-# Cache-Control заголовки
+# ---------------------------------------------------------------------
+# 5. Cache-Control (точечно — для иммутабельной статики с hash)
+# ---------------------------------------------------------------------
 <IfModule mod_headers.c>
-  <FilesMatch "\.(css|js|png|jpg|jpeg|gif|svg|webp|woff|woff2|eot|ttf|otf)$">
-    Header set Cache-Control "public, max-age=31536000"
+  # Иммутабельные ассеты CRA (static/js/main.[hash].js, static/css/main.[hash].css)
+  <FilesMatch "\.(css|js)$">
+    <If "%{REQUEST_URI} =~ m#^/static/#">
+      Header set Cache-Control "public, max-age=31536000, immutable"
+    </If>
   </FilesMatch>
-  
+
+  # Картинки и шрифты — год
+  <FilesMatch "\.(png|jpg|jpeg|gif|svg|webp|avif|woff|woff2|eot|ttf|otf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Видео — год
   <FilesMatch "\.(mp4|webm|mov)$">
-    Header set Cache-Control "public, max-age=31536000"
+    Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
-  
+
+  # HTML — короткий кэш, чтобы быстро прилетали обновления контента
   <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+
+  # robots.txt / sitemap.xml — день
+  <FilesMatch "(robots\.txt|sitemap\.xml|llms\.txt)$">
     Header set Cache-Control "public, max-age=86400"
   </FilesMatch>
-</IfModule> 
+</IfModule>
+
+# ---------------------------------------------------------------------
+# 6. Запретить просмотр содержимого папок
+# ---------------------------------------------------------------------
+Options -Indexes
+
+# ---------------------------------------------------------------------
+# 7. Скрыть служебные файлы
+# ---------------------------------------------------------------------
+<FilesMatch "^\.(env|git|htaccess)">
+  Require all denied
+</FilesMatch>
