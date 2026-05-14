@@ -6,10 +6,12 @@
  *   1. Поднимает локальный Express-сервер, отдающий папку build/
  *   2. Headless Chrome заходит на каждый маршрут из ROUTES
  *   3. Ждёт, пока React отрендерит DOM, забирает HTML
- *   4. Кладёт результат в build/<route>/index.html
+ *   4. Подменяет canonical / og:url на правильный URL этой страницы
+ *   5. Кладёт результат в build/<route>/index.html
  *
  * После этого:
  *   • поисковик видит готовый текст (а не пустой <div id="root">)
+ *   • у каждой страницы свой canonical → Google индексирует их отдельно
  *   • при загрузке в браузере index.js делает hydrateRoot и React оживает
  */
 
@@ -17,6 +19,13 @@ const path = require('path');
 const fs = require('fs');
 const express = require('express');
 const puppeteer = require('puppeteer');
+
+const SITE_ORIGIN = 'https://aivfx.ru';
+// Канонический URL = origin + маршрут (заканчивается слэшем для не-корневых)
+function canonicalFor(route) {
+  if (route === '/') return `${SITE_ORIGIN}/`;
+  return `${SITE_ORIGIN}${route}/`;
+}
 
 const ROUTES = ['/', '/works', '/privacy', '/consent'];
 const BUILD_DIR = path.resolve(__dirname, '..', 'build');
@@ -56,6 +65,7 @@ async function main() {
   let success = 0;
   for (const route of ROUTES) {
     const url = `http://localhost:${PORT}${route}`;
+    const canonicalUrl = canonicalFor(route);
     const page = await browser.newPage();
     try {
       await page.setViewport({ width: 1280, height: 800 });
@@ -75,6 +85,33 @@ async function main() {
         continue;
       }
 
+      // КЛЮЧЕВОЕ: подменяем canonical и og:url ДО снятия HTML.
+      // Без этого все prerendered страницы имеют canonical=главная,
+      // и Google считает их вариантами главной → не индексирует отдельно.
+      await page.evaluate((newCanonical) => {
+        // <link rel="canonical">
+        let link = document.querySelector('link[rel="canonical"]');
+        if (!link) {
+          link = document.createElement('link');
+          link.setAttribute('rel', 'canonical');
+          document.head.appendChild(link);
+        }
+        link.setAttribute('href', newCanonical);
+
+        // <meta property="og:url">
+        let og = document.querySelector('meta[property="og:url"]');
+        if (!og) {
+          og = document.createElement('meta');
+          og.setAttribute('property', 'og:url');
+          document.head.appendChild(og);
+        }
+        og.setAttribute('content', newCanonical);
+
+        // <meta name="twitter:url">
+        let tw = document.querySelector('meta[name="twitter:url"]');
+        if (tw) tw.setAttribute('content', newCanonical);
+      }, canonicalUrl);
+
       // Получаем готовый HTML
       const html = await page.content();
 
@@ -87,7 +124,7 @@ async function main() {
       fs.writeFileSync(outFile, html, 'utf8');
 
       const sizeKb = (html.length / 1024).toFixed(1);
-      console.log(`[prerender] ✓ ${route.padEnd(12)} → ${path.relative(process.cwd(), outFile)} (${sizeKb} KB)`);
+      console.log(`[prerender] ✓ ${route.padEnd(12)} canonical=${canonicalUrl} → ${path.relative(process.cwd(), outFile)} (${sizeKb} KB)`);
       success++;
     } catch (err) {
       console.error(`[prerender] ✗ ${route}: ${err.message}`);
