@@ -159,7 +159,9 @@ const InfoNotification = ({ isVisible, onClose }) => {
 //   /consent   — согласие на обработку персональных данных
 const getPageFromUrl = () => {
   if (typeof window === 'undefined') return 'main';
-  const path = window.location.pathname;
+  // Нормализуем путь: убираем хвостовой слэш (кроме корня),
+  // чтобы /privacy и /privacy/ распознавались одинаково.
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
   if (path === '/works' || path === '/portfolio') return 'works';
   if (path === '/privacy' || path === '/privacy-policy') return 'privacy';
   if (path === '/consent') return 'consent';
@@ -199,11 +201,11 @@ function App() {
   const hide = () => setShowInfoNotification(false);
   const showSuccess = () => { setShowSuccessModal(true); setShowInfoNotification(false); };
   const hideSuccess = () => setShowSuccessModal(false);
-  const showPrivacy = () => navigate('privacy', '/privacy');
+  const showPrivacy = () => navigate('privacy', '/privacy/');
   const hidePrivacy = () => navigate('main', '/');
-  const showConsent = () => navigate('consent', '/consent');
+  const showConsent = () => navigate('consent', '/consent/');
   const hideConsent = () => navigate('main', '/');
-  const showAllPortfolio = () => navigate('works', '/works');
+  const showAllPortfolio = () => navigate('works', '/works/');
   const hideAllPortfolio = () => {
     navigate('main', '/');
     // После возврата на главную — прокрутить к секции "Работы"
