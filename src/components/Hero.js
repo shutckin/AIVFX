@@ -50,6 +50,7 @@ const Hero = () => {
         loop
         playsInline
         preload="auto"
+        poster="/fixed/aivid-poster.jpg"
         ref={(el) => { if (el) { el.muted = true; el.play().catch(() => {}); } }}
       >
         <source src="/fixed/aivid.mp4" type="video/mp4" />
