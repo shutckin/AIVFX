@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BLOG_POSTS, getPostBySlug } from '../data/blog-posts';
 
 const SITE = 'https://aivfx.ru';
@@ -88,76 +88,104 @@ const Block = ({ block, onBack }) => {
   }
 };
 
-// Карточка статьи
-const PostCard = ({ post, onOpenPost }) => (
+// Карточка статьи (обычная или featured — крупная горизонтальная)
+const PostCard = ({ post, onOpenPost, featured }) => (
   <a
     href={`/blog/${post.slug}/`}
     onClick={(e) => { e.preventDefault(); onOpenPost(post.slug); }}
-    className="card group block overflow-hidden hover:border-white/30 transition-colors"
-    style={{ textDecoration: 'none' }}
+    className={`blog-card ${featured ? 'md:grid md:grid-cols-2' : ''}`}
   >
-    <div className="aspect-video overflow-hidden bg-black/30">
-      <img
-        src={post.cover}
-        alt={post.title}
-        width="640"
-        height="360"
-        loading="lazy"
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-      />
+    <div className={`blog-card-img ${featured ? 'aspect-video md:aspect-auto' : 'aspect-video'}`}>
+      <img src={post.cover} alt={post.title} loading="lazy" />
     </div>
-    <div className="p-6">
-      <div className="text-white/50 text-sm mb-2">{post.readingTime} чтения</div>
-      <h2 className="text-xl font-bold text-white mb-3 leading-snug">{post.title}</h2>
-      <p className="text-white/70 text-sm leading-relaxed">{post.excerpt}</p>
+    <div className={featured ? 'p-7 lg:p-9 flex flex-col justify-center' : 'p-6'}>
+      <div className="flex items-center gap-3 mb-3">
+        <span className="blog-badge">{post.category}</span>
+        <span className="blog-meta">{post.readingTime}</span>
+      </div>
+      <h3
+        className={`font-bold text-white leading-snug mb-2 ${featured ? 'text-2xl lg:text-3xl' : 'text-lg'}`}
+        style={{ fontFamily: 'var(--font-display)' }}
+      >
+        {post.title}
+      </h3>
+      <p className="text-white/55 text-sm leading-relaxed">{post.excerpt}</p>
+      <span className="blog-read mt-4 inline-block">Читать →</span>
     </div>
   </a>
 );
 
-// ── Витрина блога: статьи, сгруппированные по категориям ────────────────
+// ── Витрина блога: фильтр по категориям + сетка ─────────────────────────
 const BlogList = ({ onBack, onOpenPost }) => {
-  // Группируем посты по category, сохраняя порядок появления категорий
-  const groups = [];
-  const byCat = {};
-  BLOG_POSTS.forEach((post) => {
-    const cat = post.category || 'Статьи';
-    if (!byCat[cat]) { byCat[cat] = []; groups.push(cat); }
-    byCat[cat].push(post);
+  const categories = [];
+  BLOG_POSTS.forEach((p) => {
+    const c = p.category || 'Статьи';
+    if (!categories.includes(c)) categories.push(c);
   });
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 pt-20">
-      <div className="container mx-auto px-4 py-12 max-w-5xl">
-        <div className="mb-6">
-          <button
-            onClick={onBack}
-            className="flex items-center text-white/80 hover:text-white transition-colors"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Назад на главную
-          </button>
-        </div>
+  const [active, setActive] = useState('Все');
+  const filtered = active === 'Все'
+    ? BLOG_POSTS
+    : BLOG_POSTS.filter((p) => (p.category || 'Статьи') === active);
 
-        <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Блог AIVFX</h1>
-        <p className="text-white/70 text-lg mb-10 max-w-2xl">
-          Гайды, сравнения нейросетей и разбор реальных кейсов AI-видеопроизводства.
-          Делимся тем, что узнали на практике.
+  // Featured-статья (первая) — крупным блоком только в режиме «Все»
+  const featured = active === 'Все' ? filtered[0] : null;
+  const rest = featured ? filtered.slice(1) : filtered;
+
+  return (
+    <div className="blog-page min-h-screen pt-24 pb-20">
+      <div className="blog-wrap">
+        {/* Назад */}
+        <button
+          onClick={onBack}
+          className="flex items-center text-white/55 hover:text-white transition-colors mb-10"
+          style={{ fontFamily: 'var(--font-mono)', fontSize: 13 }}
+        >
+          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          На главную
+        </button>
+
+        {/* Заголовок */}
+        <div className="blog-kicker mb-4">AIVFX · ЖУРНАЛ</div>
+        <h1
+          className="text-4xl lg:text-6xl font-bold text-white mb-5 leading-[1.05]"
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
+          Блог о&nbsp;нейросетях<br />и&nbsp;AI-видеопроизводстве
+        </h1>
+        <p className="text-white/55 text-lg max-w-2xl mb-10 leading-relaxed">
+          Пошаговые гайды по сервисам, честные сравнения моделей и разбор реальных кейсов —
+          от первого промпта до готового рекламного ролика.
         </p>
 
-        {groups.map((cat) => (
-          <section key={cat} className="mb-12">
-            <h2 className="text-sm uppercase tracking-widest text-white/40 mb-5 border-b border-white/10 pb-2">
+        {/* Навигация по категориям */}
+        <nav className="blog-cat-nav mb-12" aria-label="Категории блога">
+          {['Все', ...categories].map((cat) => (
+            <button
+              key={cat}
+              className={`blog-pill ${active === cat ? 'active' : ''}`}
+              onClick={() => setActive(cat)}
+            >
               {cat}
-            </h2>
-            <div className="grid gap-6 md:grid-cols-2">
-              {byCat[cat].map((post) => (
-                <PostCard key={post.slug} post={post} onOpenPost={onOpenPost} />
-              ))}
-            </div>
-          </section>
-        ))}
+            </button>
+          ))}
+        </nav>
+
+        {/* Featured */}
+        {featured && (
+          <div className="mb-10">
+            <PostCard post={featured} onOpenPost={onOpenPost} featured />
+          </div>
+        )}
+
+        {/* Сетка статей */}
+        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+          {rest.map((post) => (
+            <PostCard key={post.slug} post={post} onOpenPost={onOpenPost} />
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -209,8 +237,8 @@ const BlogPost = ({ post, onBack, onBackToList }) => {
   }, [post]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 pt-20">
-      <div className="container mx-auto px-4 py-12 max-w-3xl">
+    <div className="blog-page min-h-screen pt-24 pb-16">
+      <div className="container mx-auto px-4 py-6 max-w-3xl">
         <div className="mb-6 flex items-center gap-4 text-sm">
           <button onClick={onBackToList} className="flex items-center text-white/80 hover:text-white transition-colors">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

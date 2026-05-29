@@ -1780,3 +1780,71 @@ img, video { display: block; max-width: 100%; }
 }
 .bg-primary-orange { background-color: var(--accent); }
 .text-primary-orange { color: var(--accent); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Блог — в стиле сайта (тёмный нуар + янтарный акцент + техническая сетка)
+   ───────────────────────────────────────────────────────────────────────── */
+.blog-page {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: center top;
+}
+.blog-wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
+.blog-kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.blog-card {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--bg-2);
+  transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+  text-decoration: none;
+  height: 100%;
+}
+.blog-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 50px -20px var(--accent-glow);
+}
+.blog-card .blog-card-img { overflow: hidden; background: #000; }
+.blog-card img { transition: transform .5s ease; display: block; width: 100%; height: 100%; object-fit: cover; }
+.blog-card:hover img { transform: scale(1.05); }
+.blog-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 4px 9px;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.blog-meta { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.blog-cat-nav { display: flex; flex-wrap: wrap; gap: 10px; }
+.blog-pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition: all .2s ease;
+  white-space: nowrap;
+}
+.blog-pill:hover { color: var(--fg); border-color: var(--fg-2); }
+.blog-pill.active { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+.blog-read { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; }
