@@ -203,9 +203,16 @@ const BlogPost = ({ post, onBack, onBackToList }) => {
         </div>
 
         <article className="card">
-          <div className="aspect-video overflow-hidden bg-black/30 rounded-t-lg">
-            <img src={post.cover} alt={post.title} width="768" height="432" className="w-full h-full object-cover" />
-          </div>
+          <figure className="m-0">
+            <div className="aspect-video overflow-hidden bg-black/30 rounded-t-lg">
+              <img src={post.cover} alt={post.title} width="768" height="432" className="w-full h-full object-cover" />
+            </div>
+            {post.coverSource && (
+              <figcaption className="text-white/40 text-xs px-6 pt-2">
+                Источник изображения: {post.coverSource}
+              </figcaption>
+            )}
+          </figure>
           <div className="p-6 lg:p-10">
             <div className="text-white/50 text-sm mb-3">{post.readingTime} чтения</div>
             <h1 className="text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">{post.title}</h1>
