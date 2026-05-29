@@ -33,6 +33,14 @@ const BLOG_SLUGS = [
   'kak-sdelat-ai-video',
   'sravnenie-neyrosetey-dlya-video',
   'skolko-stoit-ai-video',
+  'kling-gayd',
+  'runway-gayd',
+  'veo-gayd',
+  'kak-sdelat-reklamnyy-rolik-ai',
+  'ai-video-dlya-biznesa-start',
+  'gollivud-ai-v-kino',
+  'midjourney-gayd',
+  'top-neyrosetey-video',
 ];
 
 const ROUTES = [
