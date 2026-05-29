@@ -29,6 +29,7 @@ function canonicalFor(route) {
 
 // Slug'и статей блога. ВАЖНО: держать в синхроне с src/data/blog-posts.js
 const BLOG_SLUGS = [
+  'kak-sozdat-ai-avatar-heygen',
   'kak-sdelat-ai-video',
   'sravnenie-neyrosetey-dlya-video',
   'skolko-stoit-ai-video',

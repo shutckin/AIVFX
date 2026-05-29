@@ -68,58 +68,80 @@ const Block = ({ block, onBack }) => {
   }
 };
 
-// ── Витрина блога (список статей) ───────────────────────────────────────
-const BlogList = ({ onBack, onOpenPost }) => (
-  <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 pt-20">
-    <div className="container mx-auto px-4 py-12 max-w-5xl">
-      <div className="mb-6">
-        <button
-          onClick={onBack}
-          className="flex items-center text-white/80 hover:text-white transition-colors"
-        >
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          Назад на главную
-        </button>
-      </div>
+// Карточка статьи
+const PostCard = ({ post, onOpenPost }) => (
+  <a
+    href={`/blog/${post.slug}/`}
+    onClick={(e) => { e.preventDefault(); onOpenPost(post.slug); }}
+    className="card group block overflow-hidden hover:border-white/30 transition-colors"
+    style={{ textDecoration: 'none' }}
+  >
+    <div className="aspect-video overflow-hidden bg-black/30">
+      <img
+        src={post.cover}
+        alt={post.title}
+        width="640"
+        height="360"
+        loading="lazy"
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      />
+    </div>
+    <div className="p-6">
+      <div className="text-white/50 text-sm mb-2">{post.readingTime} чтения</div>
+      <h2 className="text-xl font-bold text-white mb-3 leading-snug">{post.title}</h2>
+      <p className="text-white/70 text-sm leading-relaxed">{post.excerpt}</p>
+    </div>
+  </a>
+);
 
-      <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Блог AIVFX</h1>
-      <p className="text-white/70 text-lg mb-10 max-w-2xl">
-        Гайды, сравнения нейросетей и разбор реальных кейсов AI-видеопроизводства.
-        Делимся тем, что узнали на практике.
-      </p>
+// ── Витрина блога: статьи, сгруппированные по категориям ────────────────
+const BlogList = ({ onBack, onOpenPost }) => {
+  // Группируем посты по category, сохраняя порядок появления категорий
+  const groups = [];
+  const byCat = {};
+  BLOG_POSTS.forEach((post) => {
+    const cat = post.category || 'Статьи';
+    if (!byCat[cat]) { byCat[cat] = []; groups.push(cat); }
+    byCat[cat].push(post);
+  });
 
-      <div className="grid gap-6 md:grid-cols-2">
-        {BLOG_POSTS.map((post) => (
-          <a
-            key={post.slug}
-            href={`/blog/${post.slug}/`}
-            onClick={(e) => { e.preventDefault(); onOpenPost(post.slug); }}
-            className="card group block overflow-hidden hover:border-white/30 transition-colors"
-            style={{ textDecoration: 'none' }}
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 pt-20">
+      <div className="container mx-auto px-4 py-12 max-w-5xl">
+        <div className="mb-6">
+          <button
+            onClick={onBack}
+            className="flex items-center text-white/80 hover:text-white transition-colors"
           >
-            <div className="aspect-video overflow-hidden bg-black/30">
-              <img
-                src={post.cover}
-                alt={post.title}
-                width="640"
-                height="360"
-                loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Назад на главную
+          </button>
+        </div>
+
+        <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Блог AIVFX</h1>
+        <p className="text-white/70 text-lg mb-10 max-w-2xl">
+          Гайды, сравнения нейросетей и разбор реальных кейсов AI-видеопроизводства.
+          Делимся тем, что узнали на практике.
+        </p>
+
+        {groups.map((cat) => (
+          <section key={cat} className="mb-12">
+            <h2 className="text-sm uppercase tracking-widest text-white/40 mb-5 border-b border-white/10 pb-2">
+              {cat}
+            </h2>
+            <div className="grid gap-6 md:grid-cols-2">
+              {byCat[cat].map((post) => (
+                <PostCard key={post.slug} post={post} onOpenPost={onOpenPost} />
+              ))}
             </div>
-            <div className="p-6">
-              <div className="text-white/50 text-sm mb-2">{post.readingTime} чтения</div>
-              <h2 className="text-xl font-bold text-white mb-3 leading-snug">{post.title}</h2>
-              <p className="text-white/70 text-sm leading-relaxed">{post.excerpt}</p>
-            </div>
-          </a>
+          </section>
         ))}
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 // ── Страница статьи ─────────────────────────────────────────────────────
 const BlogPost = ({ post, onBack, onBackToList }) => {
