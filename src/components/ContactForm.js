@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNotification } from '../App';
+import { useLocale } from '../i18n';
 import { BUDGETS } from '../data/content';
+import { BUDGETS_EN } from '../data/content-en';
 
 const SecHead = ({ num, title, titleIt, side, sideTitle }) => (
   <div className="sec-head reveal">
@@ -42,6 +44,8 @@ const sendToTelegram = async (data) => {
 };
 
 const ContactForm = () => {
+  const en = useLocale() === 'en';
+  const BUDGETS_L = en ? BUDGETS_EN : BUDGETS;
   const { showSuccess, showPrivacy, showConsent } = useNotification();
   const [form, setForm] = useState({
     name: '', email: '', phone: '', company: '', message: '', budget: ''
@@ -60,7 +64,7 @@ const ContactForm = () => {
         formatted = `+7 (${d.slice(1, 4)}) ${d.slice(4, 7)}-${d.slice(7, 9)}-${d.slice(9, 11)}`;
         setPhoneErr('');
       } else if (digits.length > 0 && digits.length < 10) {
-        setPhoneErr('Номер слишком короткий');
+        setPhoneErr(en ? 'Number is too short' : 'Номер слишком короткий');
       } else {
         setPhoneErr('');
       }
@@ -90,10 +94,12 @@ const ContactForm = () => {
     <section className="section" id="contact">
       <div className="shell">
         <SecHead
-          num="[ 05 / СВЯЗЬ ]"
-          title="Начнём"
-          titleIt="проект"
-          side="Оставьте заявку — менеджер свяжется в течение 24 часов и пришлёт смету."
+          num={en ? '[ 05 / CONTACT ]' : '[ 05 / СВЯЗЬ ]'}
+          title={en ? 'Start a' : 'Начнём'}
+          titleIt={en ? 'project' : 'проект'}
+          side={en
+            ? 'Send a brief — a manager will get back to you within 24 hours with an estimate.'
+            : 'Оставьте заявку — менеджер свяжется в течение 24 часов и пришлёт смету.'}
           sideTitle="BRIEF"
         />
 
@@ -101,8 +107,8 @@ const ContactForm = () => {
           <form className="contact-form reveal" onSubmit={submit}>
             <div className="contact-grid-fields">
               <div className="field">
-                <label htmlFor="name">ИМЯ <span className="req">*</span></label>
-                <input id="name" required value={form.name} onChange={(e) => handle('name', e.target.value)} placeholder="Ваше имя" />
+                <label htmlFor="name">{en ? 'NAME' : 'ИМЯ'} <span className="req">*</span></label>
+                <input id="name" required value={form.name} onChange={(e) => handle('name', e.target.value)} placeholder={en ? 'Your name' : 'Ваше имя'} />
               </div>
               <div className="field">
                 <label htmlFor="email">EMAIL <span className="req">*</span></label>
@@ -112,20 +118,20 @@ const ContactForm = () => {
 
             <div className="contact-grid-fields">
               <div className="field">
-                <label htmlFor="phone">ТЕЛЕФОН</label>
+                <label htmlFor="phone">{en ? 'PHONE' : 'ТЕЛЕФОН'}</label>
                 <input id="phone" type="tel" value={form.phone} onChange={(e) => handle('phone', e.target.value)} placeholder="+7 (999) 123-45-67" />
                 {phoneErr && <span className="field-error">{phoneErr}</span>}
               </div>
               <div className="field">
-                <label htmlFor="company">КОМПАНИЯ</label>
-                <input id="company" value={form.company} onChange={(e) => handle('company', e.target.value)} placeholder="Название компании" />
+                <label htmlFor="company">{en ? 'COMPANY' : 'КОМПАНИЯ'}</label>
+                <input id="company" value={form.company} onChange={(e) => handle('company', e.target.value)} placeholder={en ? 'Company name' : 'Название компании'} />
               </div>
             </div>
 
             <div className="field">
-              <label>БЮДЖЕТ</label>
+              <label>{en ? 'BUDGET' : 'БЮДЖЕТ'}</label>
               <div className="budget-options">
-                {BUDGETS.map((b) => (
+                {BUDGETS_L.map((b) => (
                   <button
                     type="button"
                     key={b}
@@ -137,13 +143,15 @@ const ContactForm = () => {
             </div>
 
             <div className="field">
-              <label htmlFor="message">БРИФ <span className="req">*</span></label>
+              <label htmlFor="message">{en ? 'BRIEF' : 'БРИФ'} <span className="req">*</span></label>
               <textarea
                 id="message"
                 required
                 value={form.message}
                 onChange={(e) => handle('message', e.target.value)}
-                placeholder="Опишите проект, задачи, сроки и референсы..."
+                placeholder={en
+                  ? 'Tell us about the project, goals, timeline and references...'
+                  : 'Опишите проект, задачи, сроки и референсы...'}
               />
             </div>
 
@@ -156,13 +164,13 @@ const ContactForm = () => {
                 required
               />
               <span className="consent-text">
-                Я согласен(на) на обработку персональных данных в соответствии с{' '}
+                {en ? 'I agree to the processing of my personal data in accordance with the' : 'Я согласен(на) на обработку персональных данных в соответствии с'}{' '}
                 <button type="button" onClick={showPrivacy} className="consent-link">
-                  Политикой конфиденциальности
+                  {en ? 'Privacy Policy' : 'Политикой конфиденциальности'}
                 </button>{' '}
-                и{' '}
+                {en ? 'and the' : 'и'}{' '}
                 <button type="button" onClick={showConsent} className="consent-link">
-                  Согласием на обработку персональных данных
+                  {en ? 'Consent to Personal Data Processing' : 'Согласием на обработку персональных данных'}
                 </button>.
               </span>
             </label>
@@ -173,15 +181,17 @@ const ContactForm = () => {
               disabled={sending || !agreed}
               style={{ alignSelf: 'flex-start' }}
             >
-              {sending ? 'Отправка...' : 'Отправить заявку'} <span className="btn-arrow">↗</span>
+              {sending ? (en ? 'Sending...' : 'Отправка...') : (en ? 'Send request' : 'Отправить заявку')} <span className="btn-arrow">↗</span>
             </button>
           </form>
 
           <div className="contact-side reveal">
             <div>
-              <h3>Срочная<br /><span className="it">консультация?</span></h3>
+              <h3>{en ? 'Need it' : 'Срочная'}<br /><span className="it">{en ? 'urgently?' : 'консультация?'}</span></h3>
               <p style={{ color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55, marginTop: 8 }}>
-                Напишите в Telegram — отвечаем в течение часа.
+                {en
+                  ? 'Message us on Telegram — we reply within an hour.'
+                  : 'Напишите в Telegram — отвечаем в течение часа.'}
               </p>
               <a
                 href="https://t.me/aivfx"
@@ -190,7 +200,7 @@ const ContactForm = () => {
                 className="btn btn-primary"
                 style={{ marginTop: 16 }}
               >
-                Написать в Telegram <span className="btn-arrow">↗</span>
+                {en ? 'Message on Telegram' : 'Написать в Telegram'} <span className="btn-arrow">↗</span>
               </a>
             </div>
 
@@ -200,16 +210,16 @@ const ContactForm = () => {
             </div>
 
             <div className="contact-block">
-              <span className="lab">ВРЕМЯ РАБОТЫ</span>
+              <span className="lab">{en ? 'WORKING HOURS' : 'ВРЕМЯ РАБОТЫ'}</span>
               <div className="hours">
-                <div className="hours-row"><span>ПН — ПТ</span><span>09:00 — 18:00</span></div>
-                <div className="hours-row"><span>СБ</span><span>10:00 — 16:00</span></div>
-                <div className="hours-row"><span>ВС</span><span style={{ color: 'var(--muted)' }}>ВЫХОДНОЙ</span></div>
+                <div className="hours-row"><span>{en ? 'MON — FRI' : 'ПН — ПТ'}</span><span>09:00 — 18:00</span></div>
+                <div className="hours-row"><span>{en ? 'SAT' : 'СБ'}</span><span>10:00 — 16:00</span></div>
+                <div className="hours-row"><span>{en ? 'SUN' : 'ВС'}</span><span style={{ color: 'var(--muted)' }}>{en ? 'CLOSED' : 'ВЫХОДНОЙ'}</span></div>
               </div>
             </div>
 
             <div className="contact-block">
-              <span className="lab">ОФИСЫ</span>
+              <span className="lab">{en ? 'OFFICES' : 'ОФИСЫ'}</span>
               <span className="val" style={{ fontSize: 14, fontFamily: 'var(--font-mono)', letterSpacing: '0.08em' }}>
                 MSK · DXB · DPS
               </span>

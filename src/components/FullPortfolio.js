@@ -1,5 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ALL_PROJECTS, ALL_FILTERS } from '../data/all-projects';
+import { useLocale } from '../i18n';
+
+// Англоязычные подписи фильтров (ключ = f.key из ALL_FILTERS)
+const FILTER_LABELS_EN = {
+  all: 'All',
+  ai: 'AI',
+  vfx: 'VFX',
+  shoot: 'Shooting',
+  reels: 'Reels',
+  estate: 'Real Estate',
+  ads: 'Ads',
+};
 
 // Ленивое видео: играет только когда попадает в viewport
 const LazyVideo = ({ src, title }) => {
@@ -38,14 +50,15 @@ const LazyVideo = ({ src, title }) => {
 };
 
 const TagBadges = ({ tags }) => {
+  const en = useLocale() === 'en';
   const visible = tags.filter((t) => t !== 'ADS');
   if (visible.length === 0) return null;
   return (
     <div className="badges">
       {visible.map((t) => {
         const label =
-          t === 'Съемка' ? 'СЪЁМКА' :
-          t === 'Real Estate' ? 'ЖК' :
+          t === 'Съемка' ? (en ? 'SHOOTING' : 'СЪЁМКА') :
+          t === 'Real Estate' ? (en ? 'REAL ESTATE' : 'ЖК') :
           t.toUpperCase();
         const cls = t === 'AI' ? 'tag-ai' : t === 'VFX' ? 'tag-vfx' : 'tag-generic';
         return <span key={t} className={`tag ${cls}`}>{label}</span>;
@@ -55,6 +68,7 @@ const TagBadges = ({ tags }) => {
 };
 
 const ProjectModal = ({ project, onClose }) => {
+  const en = useLocale() === 'en';
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', onKey);
@@ -89,7 +103,7 @@ const ProjectModal = ({ project, onClose }) => {
       >
         <button
           onClick={onClose}
-          aria-label="Закрыть"
+          aria-label={en ? 'Close' : 'Закрыть'}
           style={{
             position: 'absolute', top: 20, right: 20, width: 36, height: 36,
             borderRadius: '50%', border: '1px solid var(--line-2)',
@@ -149,6 +163,7 @@ const ProjectCard = ({ project, onClick, variant = 'horizontal' }) => {
 };
 
 const FullPortfolio = ({ onBack }) => {
+  const en = useLocale() === 'en';
   const [filterKey, setFilterKey] = useState('all');
   const [modalProject, setModalProject] = useState(null);
 
@@ -169,9 +184,9 @@ const FullPortfolio = ({ onBack }) => {
     <div className="fp-page">
       <div className="fp-header">
         <div className="shell fp-header-inner">
-          <button onClick={onBack} className="fp-back" aria-label="Назад на главную">
+          <button onClick={onBack} className="fp-back" aria-label={en ? 'Back to home' : 'Назад на главную'}>
             <span style={{ fontSize: 18 }}>←</span>
-            <span>Назад на главную</span>
+            <span>{en ? 'Back to home' : 'Назад на главную'}</span>
           </button>
           <div className="fp-logo">
             <img src="/logo.png" alt="AIVFX" className="logo-img" />
@@ -182,13 +197,14 @@ const FullPortfolio = ({ onBack }) => {
 
       <div className="shell fp-content">
         <div className="fp-title-block">
-          <div className="sec-num">[ ВСЕ РАБОТЫ ]</div>
+          <div className="sec-num">{en ? '[ ALL WORKS ]' : '[ ВСЕ РАБОТЫ ]'}</div>
           <h1 className="sec-title">
-            Полный <span className="it">каталог</span>
+            {en ? 'Full' : 'Полный'} <span className="it">{en ? 'catalog' : 'каталог'}</span>
           </h1>
           <p className="fp-lede">
-            {ALL_PROJECTS.length} проектов: AI-генерация, VFX, классическая съёмка,
-            Reels для соцсетей и рекламные кампании для недвижимости.
+            {en
+              ? `${ALL_PROJECTS.length} projects: AI generation, VFX, classic shooting, Reels for social media and ad campaigns for real estate.`
+              : `${ALL_PROJECTS.length} проектов: AI-генерация, VFX, классическая съёмка, Reels для соцсетей и рекламные кампании для недвижимости.`}
           </p>
         </div>
 
@@ -198,7 +214,7 @@ const FullPortfolio = ({ onBack }) => {
             <div className="fp-section-head">
               <span className="fp-section-num">★</span>
               <h2 className="fp-section-title">
-                Избранные <span className="it">работы</span>
+                {en ? 'Featured' : 'Избранные'} <span className="it">{en ? 'works' : 'работы'}</span>
               </h2>
             </div>
             <div className="fp-grid-featured">
@@ -225,7 +241,7 @@ const FullPortfolio = ({ onBack }) => {
                 className={`filter-chip ${filterKey === f.key ? 'active' : ''}`}
                 onClick={() => setFilterKey(f.key)}
               >
-                {f.label} <span className="fp-count">{count}</span>
+                {en ? (FILTER_LABELS_EN[f.key] || f.label) : f.label} <span className="fp-count">{count}</span>
               </button>
             );
           })}
@@ -237,7 +253,7 @@ const FullPortfolio = ({ onBack }) => {
             <div className="fp-section-head">
               <span className="fp-section-num">▬</span>
               <h2 className="fp-section-title">
-                Горизонтальные <span className="it">работы</span>
+                {en ? 'Horizontal' : 'Горизонтальные'} <span className="it">{en ? 'works' : 'работы'}</span>
                 <span className="fp-section-count"> — {horizontal.length}</span>
               </h2>
             </div>
@@ -260,7 +276,7 @@ const FullPortfolio = ({ onBack }) => {
             <div className="fp-section-head">
               <span className="fp-section-num">▯</span>
               <h2 className="fp-section-title">
-                Вертикальные <span className="it">работы</span>
+                {en ? 'Vertical' : 'Вертикальные'} <span className="it">{en ? 'works' : 'работы'}</span>
                 <span className="fp-section-count"> — {vertical.length}</span>
               </h2>
             </div>
@@ -279,7 +295,7 @@ const FullPortfolio = ({ onBack }) => {
 
         {filtered.length === 0 && (
           <p style={{ color: 'var(--muted)', textAlign: 'center', padding: '60px 0' }}>
-            В этой категории пока нет работ.
+            {en ? 'No works in this category yet.' : 'В этой категории пока нет работ.'}
           </p>
         )}
       </div>

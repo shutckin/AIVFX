@@ -1,22 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '../App';
+import { useLocale, stripLocale, localizedHref } from '../i18n';
 
 const NAV_ITEMS = [
-  { id: 'hero', label: 'Главная' },
-  { id: 'services', label: 'Услуги' },
-  { id: 'portfolio', label: 'Работы' },
-  { id: 'about', label: 'Процесс' },
-  { id: 'clients', label: 'Клиенты' },
-  { id: 'contact', label: 'Контакты' },
+  { id: 'hero', ru: 'Главная', en: 'Home' },
+  { id: 'services', ru: 'Услуги', en: 'Services' },
+  { id: 'portfolio', ru: 'Работы', en: 'Work' },
+  { id: 'about', ru: 'Процесс', en: 'Process' },
+  { id: 'clients', ru: 'Клиенты', en: 'Clients' },
+  { id: 'contact', ru: 'Контакты', en: 'Contact' },
 ];
+
+// Переключатель языка — реальная навигация (полная перезагрузка),
+// т.к. локаль определяется из URL при загрузке страницы.
+const LangSwitch = ({ locale }) => {
+  const logical = typeof window !== 'undefined' ? stripLocale(window.location.pathname) : '/';
+  return (
+    <div className="lang-switch" aria-label="Language">
+      <a href={localizedHref(logical, 'ru')} className={`lang-opt ${locale === 'ru' ? 'active' : ''}`}>RU</a>
+      <span className="lang-sep">/</span>
+      <a href={localizedHref(logical, 'en')} className={`lang-opt ${locale === 'en' ? 'active' : ''}`}>EN</a>
+    </div>
+  );
+};
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSec, setActiveSec] = useState('hero');
   const { scrollToSection, showBlog } = useNotification();
+  const locale = useLocale();
+  const en = locale === 'en';
 
   const handleBlog = () => { showBlog(); setMobileOpen(false); };
+  const blogHref = localizedHref('/blog/', locale);
 
   useEffect(() => {
     const onScroll = () => {
@@ -54,15 +71,16 @@ const Header = () => {
               className={`nav-link ${activeSec === item.id ? 'active' : ''}`}
               onClick={() => handleNav(item.id)}
             >
-              {item.label}
+              {en ? item.en : item.ru}
             </button>
           ))}
-          <a href="/blog/" className="nav-link" onClick={(e) => { e.preventDefault(); handleBlog(); }}>
-            Блог
+          <a href={blogHref} className="nav-link" onClick={(e) => { e.preventDefault(); handleBlog(); }}>
+            {en ? 'Blog' : 'Блог'}
           </a>
         </nav>
         <div className="header-status">
-          <span className="status-pill"><span className="dot" /> ПРИНИМАЕМ ЗАКАЗЫ</span>
+          <LangSwitch locale={locale} />
+          <span className="status-pill"><span className="dot" /> {en ? 'OPEN FOR PROJECTS' : 'ПРИНИМАЕМ ЗАКАЗЫ'}</span>
         </div>
         <button
           className="mobile-menu-btn"
@@ -78,12 +96,13 @@ const Header = () => {
       <div className={`mobile-menu ${mobileOpen ? 'open' : ''}`}>
         {NAV_ITEMS.map((item) => (
           <button key={item.id} className="nav-link" onClick={() => handleNav(item.id)}>
-            {item.label}
+            {en ? item.en : item.ru}
           </button>
         ))}
-        <a href="/blog/" className="nav-link" onClick={(e) => { e.preventDefault(); handleBlog(); }}>
-          Блог
+        <a href={blogHref} className="nav-link" onClick={(e) => { e.preventDefault(); handleBlog(); }}>
+          {en ? 'Blog' : 'Блог'}
         </a>
+        <div className="mobile-lang"><LangSwitch locale={locale} /></div>
       </div>
     </>
   );

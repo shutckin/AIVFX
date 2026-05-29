@@ -1848,3 +1848,11 @@ img, video { display: block; max-width: 100%; }
 .blog-pill:hover { color: var(--fg); border-color: var(--fg-2); }
 .blog-pill.active { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
 .blog-read { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; }
+
+/* Переключатель языка RU/EN в шапке */
+.lang-switch { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; margin-right: 14px; }
+.lang-opt { color: var(--muted); text-decoration: none; transition: color .2s ease; padding: 2px 2px; }
+.lang-opt:hover { color: var(--fg); }
+.lang-opt.active { color: var(--accent); font-weight: 600; }
+.lang-sep { color: var(--muted-2); }
+.mobile-lang { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }

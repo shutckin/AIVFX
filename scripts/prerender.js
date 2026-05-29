@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 /**
- * Простой prerender для CRA на свежем Puppeteer.
+ * Простой prerender для CRA на свежем Puppeteer (двуязычный RU/EN).
  *
  * Что делает:
  *   1. Поднимает локальный Express-сервер, отдающий папку build/
- *   2. Headless Chrome заходит на каждый маршрут из ROUTES
+ *   2. Headless Chrome заходит на каждый маршрут (RU и /en)
  *   3. Ждёт, пока React отрендерит DOM, забирает HTML
- *   4. Подменяет canonical / og:url на правильный URL этой страницы
+ *   4. Подменяет canonical / og:url, проставляет <html lang> и hreflang
  *   5. Кладёт результат в build/<route>/index.html
  *
  * После этого:
  *   • поисковик видит готовый текст (а не пустой <div id="root">)
  *   • у каждой страницы свой canonical → Google индексирует их отдельно
+ *   • hreflang связывает RU- и EN-версии одной страницы между собой
  *   • при загрузке в браузере index.js делает hydrateRoot и React оживает
  */
 
@@ -43,14 +44,31 @@ const BLOG_SLUGS = [
   'top-neyrosetey-video',
 ];
 
-const ROUTES = [
+// Логические пути, у которых есть и RU, и EN-версия (главная, работы, блог, статьи)
+const BILINGUAL = [
   '/',
   '/works',
-  '/privacy',
-  '/consent',
   '/blog',
   ...BLOG_SLUGS.map((s) => `/blog/${s}`),
 ];
+// Юридические страницы — только на русском (своя юрисдикция)
+const RU_ONLY = ['/privacy', '/consent'];
+
+// Логический путь → EN-маршрут ('/' → '/en', '/blog' → '/en/blog')
+const enRoute = (logical) => (logical === '/' ? '/en' : `/en${logical}`);
+
+// Полный список задач рендера: для двуязычных — RU + EN, для юридических — только RU
+const TASKS = [];
+for (const logical of BILINGUAL) {
+  const ruUrl = canonicalFor(logical);
+  const enUrl = canonicalFor(enRoute(logical));
+  TASKS.push({ route: logical, locale: 'ru', bilingual: true, ruUrl, enUrl });
+  TASKS.push({ route: enRoute(logical), locale: 'en', bilingual: true, ruUrl, enUrl });
+}
+for (const logical of RU_ONLY) {
+  TASKS.push({ route: logical, locale: 'ru', bilingual: false });
+}
+
 const BUILD_DIR = path.resolve(__dirname, '..', 'build');
 const PORT = 8765;
 // Сколько ждать после networkidle, чтобы клиентские lazy-чанки успели подгрузиться
@@ -66,12 +84,17 @@ if (!fileExists(BUILD_DIR)) {
 }
 
 async function main() {
+  // Оригинальный (пустой) shell — отдаём его на все SPA-fallback запросы,
+  // чтобы React всегда стартовал с чистого #root и рендерил нужную локаль
+  // без рассинхронизации с уже перезаписанными RU-страницами.
+  const ORIGINAL_INDEX = fs.readFileSync(path.join(BUILD_DIR, 'index.html'), 'utf8');
+
   // 1. Локальный сервер для статики build/
   const app = express();
   app.use(express.static(BUILD_DIR));
-  // Любой маршрут без файла отдаём как index.html (SPA fallback)
+  // Любой маршрут без файла отдаём как чистый index.html (SPA fallback)
   app.use((req, res) => {
-    res.sendFile(path.join(BUILD_DIR, 'index.html'));
+    res.set('Content-Type', 'text/html; charset=utf-8').send(ORIGINAL_INDEX);
   });
 
   const server = await new Promise((resolve, reject) => {
@@ -86,7 +109,8 @@ async function main() {
   });
 
   let success = 0;
-  for (const route of ROUTES) {
+  for (const task of TASKS) {
+    const { route, locale } = task;
     const url = `http://localhost:${PORT}${route}`;
     const canonicalUrl = canonicalFor(route);
     const page = await browser.newPage();
@@ -108,10 +132,15 @@ async function main() {
         continue;
       }
 
-      // КЛЮЧЕВОЕ: подменяем canonical и og:url ДО снятия HTML.
-      // Без этого все prerendered страницы имеют canonical=главная,
-      // и Google считает их вариантами главной → не индексирует отдельно.
-      await page.evaluate((newCanonical) => {
+      // КЛЮЧЕВОЕ: подменяем canonical/og:url, проставляем lang и hreflang
+      // ДО снятия HTML. Без canonical все prerendered страницы выглядят как
+      // варианты главной; hreflang связывает RU↔EN версии между собой.
+      await page.evaluate((cfg) => {
+        const { canonical, locale, bilingual, ruUrl, enUrl } = cfg;
+
+        // <html lang="ru|en">
+        document.documentElement.setAttribute('lang', locale);
+
         // <link rel="canonical">
         let link = document.querySelector('link[rel="canonical"]');
         if (!link) {
@@ -119,7 +148,7 @@ async function main() {
           link.setAttribute('rel', 'canonical');
           document.head.appendChild(link);
         }
-        link.setAttribute('href', newCanonical);
+        link.setAttribute('href', canonical);
 
         // <meta property="og:url">
         let og = document.querySelector('meta[property="og:url"]');
@@ -128,12 +157,36 @@ async function main() {
           og.setAttribute('property', 'og:url');
           document.head.appendChild(og);
         }
-        og.setAttribute('content', newCanonical);
+        og.setAttribute('content', canonical);
+
+        // <meta property="og:locale">
+        let ogl = document.querySelector('meta[property="og:locale"]');
+        if (!ogl) {
+          ogl = document.createElement('meta');
+          ogl.setAttribute('property', 'og:locale');
+          document.head.appendChild(ogl);
+        }
+        ogl.setAttribute('content', locale === 'en' ? 'en_US' : 'ru_RU');
 
         // <meta name="twitter:url">
-        let tw = document.querySelector('meta[name="twitter:url"]');
-        if (tw) tw.setAttribute('content', newCanonical);
-      }, canonicalUrl);
+        const tw = document.querySelector('meta[name="twitter:url"]');
+        if (tw) tw.setAttribute('content', canonical);
+
+        // hreflang: убираем старые альтернативы и проставляем заново
+        document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
+        if (bilingual) {
+          const add = (lang, href) => {
+            const l = document.createElement('link');
+            l.setAttribute('rel', 'alternate');
+            l.setAttribute('hreflang', lang);
+            l.setAttribute('href', href);
+            document.head.appendChild(l);
+          };
+          add('ru', ruUrl);
+          add('en', enUrl);
+          add('x-default', ruUrl);
+        }
+      }, { canonical: canonicalUrl, locale, bilingual: task.bilingual, ruUrl: task.ruUrl, enUrl: task.enUrl });
 
       // Получаем готовый HTML
       const html = await page.content();
@@ -147,7 +200,7 @@ async function main() {
       fs.writeFileSync(outFile, html, 'utf8');
 
       const sizeKb = (html.length / 1024).toFixed(1);
-      console.log(`[prerender] ✓ ${route.padEnd(12)} canonical=${canonicalUrl} → ${path.relative(process.cwd(), outFile)} (${sizeKb} KB)`);
+      console.log(`[prerender] ✓ ${route.padEnd(28)} [${locale}] canonical=${canonicalUrl} (${sizeKb} KB)`);
       success++;
     } catch (err) {
       console.error(`[prerender] ✗ ${route}: ${err.message}`);
@@ -159,8 +212,8 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(`[prerender] готово: ${success}/${ROUTES.length} страниц`);
-  process.exit(success === ROUTES.length ? 0 : 1);
+  console.log(`[prerender] готово: ${success}/${TASKS.length} страниц`);
+  process.exit(success === TASKS.length ? 0 : 1);
 }
 
 main().catch(err => {

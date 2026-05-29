@@ -236,3 +236,40 @@ export const PROJECTS = [
 ]
 
 export const CATEGORIES = ['Все', 'Автомобили', 'Продукты', 'Социальное', 'Архитектура']
+
+// ── Английская локализация портфолио ──
+// Видео (preview/embed/poster) общие для обоих языков — переводим только текст.
+export const CATEGORIES_EN = ['All', 'Automotive', 'Products', 'Social', 'Architecture']
+
+// Соответствие русской категории → английской
+const CAT_EN = {
+  'Все': 'All',
+  'Автомобили': 'Automotive',
+  'Продукты': 'Products',
+  'Социальное': 'Social',
+  'Архитектура': 'Architecture',
+}
+
+// Английские названия проектов по id (только там, где русское — описательное).
+// Бренды (NL Sets, Rolex, CINQUE, Dyson и т.п.) остаются как есть.
+const TITLE_EN = {
+  1: 'AI Avatar for Willbe',
+  2: 'The Legend of the Kraken',
+  4: 'Tourism image film',
+  5: 'Chevrolet × NL — to the horizon',
+  6: 'Porsche 911 — forest hunt',
+  7: 'AI film for a property developer',
+  10: 'AI film for a property developer',
+  11: 'AI film for a property developer',
+  13: 'AI film for a property developer',
+  16: 'Santa lost his way',
+  18: 'ED Smart — mushroom cream soup',
+  21: 'ED Smart — gingerbread',
+}
+
+// Проекты с локализованными названием и категорией.
+// Все медиа-поля сохраняются → видео и постеры работают на обоих языках.
+export const localizedProjects = (locale) =>
+  locale === 'en'
+    ? PROJECTS.map((p) => ({ ...p, cat: CAT_EN[p.cat] || p.cat, title: TITLE_EN[p.id] || p.title }))
+    : PROJECTS

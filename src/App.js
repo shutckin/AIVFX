@@ -1,5 +1,6 @@
 import React, { useEffect, useState, createContext, useContext, lazy, Suspense } from 'react';
 import './index.css';
+import { LocaleContext, getLocaleFromUrl, stripLocale, localizedHref, useLocale } from './i18n';
 
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -42,6 +43,7 @@ export const useNotification = () => {
 
 // Success modal — cinematic style
 const SuccessModal = ({ isVisible, onClose }) => {
+  const en = useLocale() === 'en';
   if (!isVisible) return null;
   return (
     <div
@@ -62,7 +64,7 @@ const SuccessModal = ({ isVisible, onClose }) => {
       >
         <button
           onClick={onClose}
-          aria-label="Закрыть"
+          aria-label={en ? 'Close' : 'Закрыть'}
           style={{
             position: 'absolute', top: 20, right: 20, width: 36, height: 36,
             borderRadius: '50%', border: '1px solid var(--line-2)',
@@ -83,13 +85,15 @@ const SuccessModal = ({ isVisible, onClose }) => {
           fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 800,
           letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: 14, margin: 0,
         }}>
-          Заявка принята. <span style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>Спасибо!</span>
+          {en ? 'Request received.' : 'Заявка принята.'} <span style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>{en ? 'Thank you!' : 'Спасибо!'}</span>
         </h2>
         <p style={{ fontSize: 15, color: 'var(--fg-2)', lineHeight: 1.55, marginTop: 14, marginBottom: 24 }}>
-          Наш менеджер свяжется с вами в течение 24 часов для обсуждения деталей проекта.
+          {en
+            ? 'Our manager will get in touch within 24 hours to discuss the details of your project.'
+            : 'Наш менеджер свяжется с вами в течение 24 часов для обсуждения деталей проекта.'}
         </p>
         <button className="btn btn-primary" onClick={onClose}>
-          Вернуться на сайт <span className="btn-arrow">↗</span>
+          {en ? 'Back to the site' : 'Вернуться на сайт'} <span className="btn-arrow">↗</span>
         </button>
       </div>
     </div>
@@ -98,6 +102,7 @@ const SuccessModal = ({ isVisible, onClose }) => {
 
 // Notification for "only contact form works" hint
 const InfoNotification = ({ isVisible, onClose }) => {
+  const en = useLocale() === 'en';
   if (!isVisible) return null;
   return (
     <div
@@ -118,7 +123,7 @@ const InfoNotification = ({ isVisible, onClose }) => {
       >
         <button
           onClick={onClose}
-          aria-label="Закрыть"
+          aria-label={en ? 'Close' : 'Закрыть'}
           style={{
             position: 'absolute', top: 20, right: 20, width: 36, height: 36,
             borderRadius: '50%', border: '1px solid var(--line-2)',
@@ -132,10 +137,12 @@ const InfoNotification = ({ isVisible, onClose }) => {
           fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 800,
           letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: 14, margin: 0,
         }}>
-          Оставьте <span style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>заявку</span>
+          {en ? 'Send a' : 'Оставьте'} <span style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>{en ? 'request' : 'заявку'}</span>
         </h2>
         <p style={{ fontSize: 15, color: 'var(--fg-2)', lineHeight: 1.55, marginTop: 14, marginBottom: 24 }}>
-          Заполните форму ниже — менеджер свяжется в течение 24 часов и пришлёт смету.
+          {en
+            ? 'Fill in the form below — a manager will get back to you within 24 hours with an estimate.'
+            : 'Заполните форму ниже — менеджер свяжется в течение 24 часов и пришлёт смету.'}
         </p>
         <button
           className="btn btn-primary"
@@ -145,7 +152,7 @@ const InfoNotification = ({ isVisible, onClose }) => {
             if (el) el.scrollIntoView({ behavior: 'smooth' });
           }}
         >
-          Перейти к форме <span className="btn-arrow">↗</span>
+          {en ? 'Go to the form' : 'Перейти к форме'} <span className="btn-arrow">↗</span>
         </button>
       </div>
     </div>
@@ -160,9 +167,8 @@ const InfoNotification = ({ isVisible, onClose }) => {
 //   /consent   — согласие на обработку персональных данных
 const getPageFromUrl = () => {
   if (typeof window === 'undefined') return 'main';
-  // Нормализуем путь: убираем хвостовой слэш (кроме корня),
-  // чтобы /privacy и /privacy/ распознавались одинаково.
-  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  // Сначала снимаем языковой префикс (/en), потом разбираем логический путь.
+  const path = stripLocale(window.location.pathname);
   if (path === '/works' || path === '/portfolio') return 'works';
   if (path === '/privacy' || path === '/privacy-policy') return 'privacy';
   if (path === '/consent') return 'consent';
@@ -173,7 +179,7 @@ const getPageFromUrl = () => {
 // Достаём slug статьи из /blog/<slug>/ (для /blog/ вернёт null — это список)
 const getBlogSlugFromUrl = () => {
   if (typeof window === 'undefined') return null;
-  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  const path = stripLocale(window.location.pathname);
   const m = path.match(/^\/blog\/(.+)$/);
   return m ? m[1] : null;
 };
@@ -181,8 +187,14 @@ const getBlogSlugFromUrl = () => {
 function App() {
   const [page, setPage] = useState(getPageFromUrl);
   const [blogSlug, setBlogSlug] = useState(getBlogSlugFromUrl);
+  const [locale] = useState(getLocaleFromUrl);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showInfoNotification, setShowInfoNotification] = useState(false);
+
+  // Проставляем язык документа для SEO и доступности
+  useEffect(() => {
+    if (typeof document !== 'undefined') document.documentElement.lang = locale;
+  }, [locale]);
 
   const showPrivacyPolicy = page === 'privacy';
   const showFullPortfolio = page === 'works';
@@ -196,9 +208,12 @@ function App() {
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
-  // Переход на новый URL без перезагрузки страницы
-  const navigate = (nextPage, url) => {
-    if (window.location.pathname !== url) {
+  // Переход на новый URL без перезагрузки страницы.
+  // Принимает «логический» путь (/, /works/, /blog/...), сам добавляет /en при EN.
+  const navigate = (nextPage, logicalPath) => {
+    const url = localizedHref(logicalPath, locale);
+    const norm = (s) => s.replace(/\/+$/, '') || '/';
+    if (norm(window.location.pathname) !== norm(url)) {
       window.history.pushState({}, '', url);
     }
     setPage(nextPage);
@@ -276,6 +291,7 @@ function App() {
   };
 
   return (
+   <LocaleContext.Provider value={locale}>
     <NotificationContext.Provider value={ctx}>
       <div className="app">
         <div className="grain" aria-hidden="true" />
@@ -317,7 +333,7 @@ function App() {
                   'position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;';
               }}
             >
-              Перейти к контенту
+              {locale === 'en' ? 'Skip to content' : 'Перейти к контенту'}
             </a>
             <Header />
             <main>
@@ -339,6 +355,7 @@ function App() {
         </Suspense>
       </div>
     </NotificationContext.Provider>
+   </LocaleContext.Provider>
   );
 }
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import { TESTIMONIALS, CLIENTS } from '../data/content';
+import { TESTIMONIALS_EN, CLIENTS_EN } from '../data/content-en';
+import { useLocale } from '../i18n';
 
 const SecHead = ({ num, title, titleIt, side, sideTitle }) => (
   <div className="sec-head reveal">
@@ -17,19 +19,24 @@ const SecHead = ({ num, title, titleIt, side, sideTitle }) => (
 );
 
 const Clients = () => {
+  const en = useLocale() === 'en';
+  const TESTIMONIALS_L = en ? TESTIMONIALS_EN : TESTIMONIALS;
+  const CLIENTS_L = en ? CLIENTS_EN : CLIENTS;
   return (
     <section className="section" id="clients">
       <div className="shell">
         <SecHead
-          num="[ 04 / КЛИЕНТЫ ]"
-          title="Нам доверяют"
-          titleIt="свои бренды"
-          side="От немецких автоконцернов до арабских девелоперов — мы работаем с теми, кому важна скорость без компромиссов."
+          num={en ? '[ 04 / CLIENTS ]' : '[ 04 / КЛИЕНТЫ ]'}
+          title={en ? 'Brands that' : 'Нам доверяют'}
+          titleIt={en ? 'trust us' : 'свои бренды'}
+          side={en
+            ? 'From German automotive giants to Gulf developers — we work with those who need speed without compromise.'
+            : 'От немецких автоконцернов до арабских девелоперов — мы работаем с теми, кому важна скорость без компромиссов.'}
           sideTitle="TRUST"
         />
 
         <div className="testi-grid reveal">
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS_L.map((t) => (
             <div key={t.id} className={`testi ${t.featured ? 'featured' : ''}`}>
               <span className="quote-mark">"</span>
               <span className="project-tag">◆ {t.project}</span>
@@ -43,7 +50,7 @@ const Clients = () => {
         </div>
 
         <div className="client-row reveal">
-          {CLIENTS.map((c, i) => (
+          {CLIENTS_L.map((c, i) => (
             <div key={i} className="client-cell">{c}</div>
           ))}
         </div>

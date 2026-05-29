@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { PROJECTS, CATEGORIES } from '../data/projects';
+import { CATEGORIES, CATEGORIES_EN, localizedProjects } from '../data/projects';
+import { useLocale } from '../i18n';
 import { useNotification } from '../App';
 
 // Ленивое видео: играет только когда попадает в viewport
@@ -89,6 +90,7 @@ const ProjectCard = ({ project, onClick }) => (
 );
 
 const ProjectModal = ({ project, onClose }) => {
+  const en = useLocale() === 'en';
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', onKey);
@@ -120,7 +122,7 @@ const ProjectModal = ({ project, onClose }) => {
       >
         <button
           onClick={onClose}
-          aria-label="Закрыть"
+          aria-label={en ? 'Close' : 'Закрыть'}
           style={{
             position: 'absolute', top: 20, right: 20, width: 36, height: 36,
             borderRadius: '50%', border: '1px solid var(--line-2)',
@@ -164,10 +166,16 @@ const ProjectModal = ({ project, onClose }) => {
 };
 
 const Portfolio = () => {
-  const [cat, setCat] = useState('Все');
+  const en = useLocale() === 'en';
+  // Видео общие для обоих языков, переводятся только название и категория
+  const PROJECTS_L = localizedProjects(en ? 'en' : 'ru');
+  const CATEGORIES_L = en ? CATEGORIES_EN : CATEGORIES;
+
+  // "Все"/"All" — первая категория в локализованном наборе
+  const [cat, setCat] = useState(CATEGORIES_L[0]);
   const [modalProject, setModalProject] = useState(null);
   const { showAllPortfolio } = useNotification();
-  const filtered = cat === 'Все' ? PROJECTS : PROJECTS.filter((p) => p.cat === cat);
+  const filtered = cat === CATEGORIES_L[0] ? PROJECTS_L : PROJECTS_L.filter((p) => p.cat === cat);
 
   const half = Math.ceil(filtered.length / 2);
   const row1 = filtered.slice(0, half);
@@ -177,16 +185,18 @@ const Portfolio = () => {
     <section className="section portfolio" id="portfolio" data-layout="marquee">
       <div className="shell">
         <SecHead
-          num="[ 02 / ПОРТФОЛИО ]"
-          title="Полный"
-          titleIt="лог работ"
-          side="Реальные проекты с AI + VFX пайплайном. Кликните на работу, чтобы посмотреть видео."
+          num={en ? '[ 02 / PORTFOLIO ]' : '[ 02 / ПОРТФОЛИО ]'}
+          title={en ? 'Full' : 'Полный'}
+          titleIt={en ? 'works log' : 'лог работ'}
+          side={en
+            ? 'Real projects built on an AI + VFX pipeline. Click a work to watch the video.'
+            : 'Реальные проекты с AI + VFX пайплайном. Кликните на работу, чтобы посмотреть видео.'}
           sideTitle="WORKS"
         />
 
         <div className="filter-bar reveal">
           <span className="label">FILTER:</span>
-          {CATEGORIES.map((c) => (
+          {CATEGORIES_L.map((c) => (
             <button
               key={c}
               className={`filter-chip ${cat === c ? 'active' : ''}`}
@@ -194,7 +204,7 @@ const Portfolio = () => {
             >{c}</button>
           ))}
           <span style={{ flex: 1 }} />
-          <span className="label">{String(filtered.length).padStart(2, '0')} ПРОЕКТОВ</span>
+          <span className="label">{String(filtered.length).padStart(2, '0')} {en ? 'PROJECTS' : 'ПРОЕКТОВ'}</span>
         </div>
 
         <div className="portfolio-list">
@@ -219,12 +229,14 @@ const Portfolio = () => {
         </div>
 
         <div className="portfolio-foot reveal">
-          <span className="count">{PROJECTS.length} РАБОТ С AI + VFX ПАЙПЛАЙНОМ</span>
+          <span className="count">
+            {PROJECTS_L.length} {en ? 'WORKS BUILT ON AN AI + VFX PIPELINE' : 'РАБОТ С AI + VFX ПАЙПЛАЙНОМ'}
+          </span>
         </div>
 
         <div className="portfolio-cta reveal">
           <button className="btn btn-primary" onClick={showAllPortfolio}>
-            Смотреть всё портфолио
+            {en ? 'View full portfolio' : 'Смотреть всё портфолио'}
             <span className="btn-arrow">↗</span>
           </button>
         </div>

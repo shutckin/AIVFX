@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useLocale } from '../i18n';
 
 const STORAGE_KEY = 'aivfx_cookies_accepted_v1';
 
 const CookieBanner = ({ onPrivacyClick }) => {
   const [visible, setVisible] = useState(false);
+  const en = useLocale() === 'en';
 
   useEffect(() => {
     try {
@@ -30,7 +32,7 @@ const CookieBanner = ({ onPrivacyClick }) => {
   return (
     <div
       role="dialog"
-      aria-label="Уведомление об использовании cookies"
+      aria-label={en ? 'Cookie usage notice' : 'Уведомление об использовании cookies'}
       style={{
         position: 'fixed',
         left: 16,
@@ -54,10 +56,11 @@ const CookieBanner = ({ onPrivacyClick }) => {
     >
       <div style={{ flex: '1 1 320px', color: 'var(--fg-2)', fontSize: 13, lineHeight: 1.55 }}>
         <strong style={{ color: 'var(--fg)', display: 'block', marginBottom: 4, fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}>
-          Мы используем cookies
+          {en ? 'We use cookies' : 'Мы используем cookies'}
         </strong>
-        Сайт использует файлы cookies и метаданные браузера для корректной работы интерфейса
-        и улучшения качества сервиса. Продолжая использовать сайт, вы соглашаетесь с условиями{' '}
+        {en
+          ? 'This website uses cookies and browser metadata for the interface to work correctly and to improve the quality of the service. By continuing to use the site, you agree to the terms of the '
+          : 'Сайт использует файлы cookies и метаданные браузера для корректной работы интерфейса и улучшения качества сервиса. Продолжая использовать сайт, вы соглашаетесь с условиями '}
         <button
           onClick={onPrivacyClick}
           style={{
@@ -70,7 +73,7 @@ const CookieBanner = ({ onPrivacyClick }) => {
             font: 'inherit',
           }}
         >
-          Политики конфиденциальности
+          {en ? 'Privacy Policy' : 'Политики конфиденциальности'}
         </button>.
       </div>
       <button
@@ -78,7 +81,7 @@ const CookieBanner = ({ onPrivacyClick }) => {
         className="btn btn-primary"
         style={{ flexShrink: 0 }}
       >
-        Принять <span className="btn-arrow">↗</span>
+        {en ? 'Accept' : 'Принять'} <span className="btn-arrow">↗</span>
       </button>
     </div>
   );

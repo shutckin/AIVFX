@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useNotification } from '../App';
+import { useLocale } from '../i18n';
 import { TICKER_ITEMS } from '../data/content';
 
 const RobotStage = () => {
@@ -40,6 +41,7 @@ const RobotStage = () => {
 
 const Hero = () => {
   const { show: showNotification, scrollToSection } = useNotification();
+  const en = useLocale() === 'en';
 
   return (
     <section className="hero" id="hero">
@@ -64,28 +66,41 @@ const Hero = () => {
         <div className="hero-meta">
           <div className="hero-meta-left" style={{ alignItems: 'flex-end', marginLeft: 'auto' }}>
             <span className="kicker">Moscow · Dubai · Bali</span>
-            <span className="kicker kicker-accent">◈ ПРИНИМАЕМ ЗАКАЗЫ</span>
+            <span className="kicker kicker-accent">◈ {en ? 'OPEN FOR PROJECTS' : 'ПРИНИМАЕМ ЗАКАЗЫ'}</span>
           </div>
         </div>
 
-        <h1 className="hero-headline display">
-          <span className="ln">СОЗДАЁМ</span>
-          <span className="ln"><span className="accent">вирусный</span></span>
-          <span className="ln">контент с AI+VFX</span>
-        </h1>
+        {en ? (
+          <h1 className="hero-headline display">
+            <span className="ln">WE CREATE</span>
+            <span className="ln"><span className="accent">viral</span></span>
+            <span className="ln">content with AI+VFX</span>
+          </h1>
+        ) : (
+          <h1 className="hero-headline display">
+            <span className="ln">СОЗДАЁМ</span>
+            <span className="ln"><span className="accent">вирусный</span></span>
+            <span className="ln">контент с AI+VFX</span>
+          </h1>
+        )}
 
         <div className="hero-row">
           <p className="hero-sub">
-            Голливудский уровень визуальных эффектов за дни, а не недели.<br />
-            Быстрее × дешевле × качественнее традиционного продакшена.
+            {en ? (
+              <>Hollywood-grade visual effects in days, not weeks.<br />
+              Faster × cheaper × better than traditional production.</>
+            ) : (
+              <>Голливудский уровень визуальных эффектов за дни, а не недели.<br />
+              Быстрее × дешевле × качественнее традиционного продакшена.</>
+            )}
           </p>
           <div className="hero-actions">
             <button className="btn btn-primary" onClick={showNotification}>
-              Создать AI-контент
+              {en ? 'Start your project' : 'Создать AI-контент'}
               <span className="btn-arrow">↗</span>
             </button>
             <button className="btn btn-ghost" onClick={() => scrollToSection('portfolio')}>
-              Смотреть reel
+              {en ? 'Watch reel' : 'Смотреть reel'}
             </button>
           </div>
         </div>
