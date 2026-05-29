@@ -14,6 +14,7 @@ const Footer      = lazy(() => import('./components/Footer'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
 const FullPortfolio = lazy(() => import('./components/FullPortfolio'));
 const Consent      = lazy(() => import('./components/Consent'));
+const Blog         = lazy(() => import('./components/Blog'));
 const CookieBanner = lazy(() => import('./components/CookieBanner'));
 
 const SectionFallback = () => (
@@ -165,21 +166,32 @@ const getPageFromUrl = () => {
   if (path === '/works' || path === '/portfolio') return 'works';
   if (path === '/privacy' || path === '/privacy-policy') return 'privacy';
   if (path === '/consent') return 'consent';
+  if (path === '/blog' || path.startsWith('/blog/')) return 'blog';
   return 'main';
+};
+
+// Достаём slug статьи из /blog/<slug>/ (для /blog/ вернёт null — это список)
+const getBlogSlugFromUrl = () => {
+  if (typeof window === 'undefined') return null;
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  const m = path.match(/^\/blog\/(.+)$/);
+  return m ? m[1] : null;
 };
 
 function App() {
   const [page, setPage] = useState(getPageFromUrl);
+  const [blogSlug, setBlogSlug] = useState(getBlogSlugFromUrl);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showInfoNotification, setShowInfoNotification] = useState(false);
 
   const showPrivacyPolicy = page === 'privacy';
   const showFullPortfolio = page === 'works';
   const showConsentPage   = page === 'consent';
+  const showBlogPage      = page === 'blog';
 
   // Синхронизируем состояние с кнопками браузера "назад"/"вперёд"
   useEffect(() => {
-    const onPop = () => setPage(getPageFromUrl());
+    const onPop = () => { setPage(getPageFromUrl()); setBlogSlug(getBlogSlugFromUrl()); };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
   }, []);
@@ -214,6 +226,12 @@ function App() {
       if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
     }, 50);
   };
+
+  // ── Навигация по блогу ──
+  const showBlog = () => { navigate('blog', '/blog/'); setBlogSlug(null); window.scrollTo(0, 0); };
+  const hideBlog = () => navigate('main', '/');
+  const openBlogPost = (slug) => { navigate('blog', `/blog/${slug}/`); setBlogSlug(slug); window.scrollTo(0, 0); };
+  const backToBlogList = () => { navigate('blog', '/blog/'); setBlogSlug(null); window.scrollTo(0, 0); };
 
   // Reveal on scroll animation
   useEffect(() => {
@@ -254,6 +272,7 @@ function App() {
     showPrivacy, hidePrivacy, scrollToSection,
     showAllPortfolio, hideAllPortfolio,
     showConsent, hideConsent,
+    showBlog,
   };
 
   return (
@@ -271,6 +290,15 @@ function App() {
         ) : showFullPortfolio ? (
           <Suspense fallback={<SectionFallback />}>
             <FullPortfolio onBack={hideAllPortfolio} />
+          </Suspense>
+        ) : showBlogPage ? (
+          <Suspense fallback={<SectionFallback />}>
+            <Blog
+              slug={blogSlug}
+              onBack={hideBlog}
+              onOpenPost={openBlogPost}
+              onBackToList={backToBlogList}
+            />
           </Suspense>
         ) : (
           <>

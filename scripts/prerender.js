@@ -27,7 +27,21 @@ function canonicalFor(route) {
   return `${SITE_ORIGIN}${route}/`;
 }
 
-const ROUTES = ['/', '/works', '/privacy', '/consent'];
+// Slug'и статей блога. ВАЖНО: держать в синхроне с src/data/blog-posts.js
+const BLOG_SLUGS = [
+  'kak-sdelat-ai-video',
+  'sravnenie-neyrosetey-dlya-video',
+  'skolko-stoit-ai-video',
+];
+
+const ROUTES = [
+  '/',
+  '/works',
+  '/privacy',
+  '/consent',
+  '/blog',
+  ...BLOG_SLUGS.map((s) => `/blog/${s}`),
+];
 const BUILD_DIR = path.resolve(__dirname, '..', 'build');
 const PORT = 8765;
 // Сколько ждать после networkidle, чтобы клиентские lazy-чанки успели подгрузиться

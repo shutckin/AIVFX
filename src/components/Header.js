@@ -14,7 +14,9 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSec, setActiveSec] = useState('hero');
-  const { scrollToSection } = useNotification();
+  const { scrollToSection, showBlog } = useNotification();
+
+  const handleBlog = () => { showBlog(); setMobileOpen(false); };
 
   useEffect(() => {
     const onScroll = () => {
@@ -55,6 +57,9 @@ const Header = () => {
               {item.label}
             </button>
           ))}
+          <a href="/blog/" className="nav-link" onClick={(e) => { e.preventDefault(); handleBlog(); }}>
+            Блог
+          </a>
         </nav>
         <div className="header-status">
           <span className="status-pill"><span className="dot" /> ПРИНИМАЕМ ЗАКАЗЫ</span>
@@ -76,6 +81,9 @@ const Header = () => {
             {item.label}
           </button>
         ))}
+        <a href="/blog/" className="nav-link" onClick={(e) => { e.preventDefault(); handleBlog(); }}>
+          Блог
+        </a>
       </div>
     </>
   );

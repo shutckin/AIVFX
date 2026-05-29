@@ -3,27 +3,55 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://aivfx.ru/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/" />
   </url>
   <url>
     <loc>https://aivfx.ru/works/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/works/" />
   </url>
   <url>
+    <loc>https://aivfx.ru/blog/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/blog/kak-sdelat-ai-video/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sdelat-ai-video/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/blog/sravnenie-neyrosetey-dlya-video/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/sravnenie-neyrosetey-dlya-video/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/blog/skolko-stoit-ai-video/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/skolko-stoit-ai-video/" />
+  </url>
+  <url>
     <loc>https://aivfx.ru/privacy/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://aivfx.ru/consent/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
