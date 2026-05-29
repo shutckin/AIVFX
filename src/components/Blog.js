@@ -61,6 +61,26 @@ const Block = ({ block, onBack }) => {
           {renderRich(block.text)}
         </blockquote>
       );
+    case 'image':
+      return (
+        <figure className="my-8 -mx-2 sm:mx-0">
+          <div className="rounded-lg overflow-hidden border border-white/10 bg-black/30">
+            <img
+              src={block.src}
+              alt={block.alt || ''}
+              loading="lazy"
+              className="w-full h-auto block"
+            />
+          </div>
+          {(block.caption || block.source) && (
+            <figcaption className="text-white/45 text-xs mt-2 px-1 leading-relaxed">
+              {block.caption}
+              {block.caption && block.source ? ' · ' : ''}
+              {block.source && <span className="text-white/35">Источник: {block.source}</span>}
+            </figcaption>
+          )}
+        </figure>
+      );
     case 'cta':
       return <CtaBlock onBack={onBack} />;
     default:
