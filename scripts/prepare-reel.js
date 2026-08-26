@@ -15,7 +15,11 @@
 //   reel.mp4    — полная, подменяет лёгкую, когда докачается
 //
 // Запуск:
-//   node scripts/prepare-reel.js <путь-к-исходнику.mp4>
+//   node scripts/prepare-reel.js <путь-к-исходнику.mp4> [имя]
+//
+// Имя по умолчанию reel. Для английской версии передаётся с суффиксом,
+// например approach-en — тогда лёгкая версия станет approach-lq-en.mp4,
+// как того ждёт lib/localizedMedia.
 
 const { execFileSync } = require('child_process');
 const fs = require('fs');
@@ -34,9 +38,17 @@ if (!fs.existsSync(src)) {
 const outDir = path.join(__dirname, '..', 'public', 'process');
 fs.mkdirSync(outDir, { recursive: true });
 
-const outVideo = path.join(outDir, 'reel.mp4');
-const outLight = path.join(outDir, 'reel-lq.mp4');
-const outPoster = path.join(outDir, 'reel-poster.jpg');
+const name = process.argv[3] || 'reel';
+
+// Суффикс языка должен остаться последним, иначе сайт не найдёт файл:
+// approach-en → approach-lq-en, а не approach-en-lq
+const withLight = (n) => (n.endsWith('-en')
+  ? `${n.slice(0, -3)}-lq-en`
+  : `${n}-lq`);
+
+const outVideo = path.join(outDir, `${name}.mp4`);
+const outLight = path.join(outDir, `${withLight(name)}.mp4`);
+const outPoster = path.join(outDir, `${name}-poster.jpg`);
 
 // Опорный кадр раз в полсекунды: при 12 кадрах в секунду это каждый шестой
 const GOP = 6;
@@ -74,26 +86,26 @@ const probe = (file) => {
 const before = probe(src);
 console.log(`Исходник: ${before.width}×${before.height}, ${before.duration.toFixed(1)}с`);
 
-// 1248 по ширине — это родное разрешение исходника. Больше смысла нет:
-// новых деталей апскейл не добавит, только вес.
+// Не больше 1248 по ширине: выше апскейл новых деталей не добавит,
+// только вес. Меньше — оставляем как есть.
 console.log('Кодирую полную версию…');
-run(['-y', '-i', src, ...common(1248, 23), outVideo]);
+run(['-y', '-i', src, ...common(Math.min(1248, before.width), 23), outVideo]);
 
 // Лёгкая версия нужна ровно на те секунды, пока грузится полная.
 // 560 по ширине на полном экране мылит, но это лучше пустого места.
 console.log('Кодирую лёгкую версию для мгновенного старта…');
-run(['-y', '-i', src, ...common(560, 30), outLight]);
+run(['-y', '-i', src, ...common(Math.min(560, before.width), 30), outLight]);
 
 console.log('Снимаю постер с первого кадра…');
-run(['-y', '-i', src, '-frames:v', '1', '-vf', 'scale=1248:-2', '-q:v', '4', outPoster]);
+run(['-y', '-i', src, '-frames:v', '1', '-vf', `scale=${Math.min(1248, before.width)}:-2`, '-q:v', '4', outPoster]);
 
 const after = probe(outVideo);
 const mb = (f) => (fs.statSync(f).size / 1024 / 1024).toFixed(1);
 
 console.log('');
-console.log(`Готово: reel.mp4 — ${after.width}×${after.height}, ${mb(outVideo)} МБ`);
-console.log(`        reel-lq.mp4 — ${mb(outLight)} МБ`);
-console.log(`        reel-poster.jpg — ${mb(outPoster)} МБ`);
+console.log(`Готово: ${path.basename(outVideo)} — ${after.width}×${after.height}, ${mb(outVideo)} МБ`);
+console.log(`        ${path.basename(outLight)} — ${mb(outLight)} МБ`);
+console.log(`        ${path.basename(outPoster)} — ${mb(outPoster)} МБ`);
 console.log('');
 if (+mb(outLight) > 2) {
   console.log('Лёгкая версия великовата: она должна долетать почти мгновенно.');
