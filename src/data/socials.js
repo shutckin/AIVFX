@@ -9,6 +9,6 @@
 
 export const SOCIALS = [
   { key: 'telegram', label: 'Telegram', url: 'https://t.me/aivfx' },
-  { key: 'instagram', label: 'Instagram', url: '' },
-  { key: 'youtube', label: 'YouTube', url: '' },
+  { key: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/aivfx.ru/' },
+  { key: 'youtube', label: 'YouTube', url: 'https://www.youtube.com/@AIVFXRU' },
 ];

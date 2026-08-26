@@ -4,83 +4,21 @@ import { VIDEO_PROCESS } from '../data/systems-content';
 
 // ── Блок «Как рождается ролик» ─────────────────────────────────────────
 //
-// Слева липкая сцена, справа шаги. Пока читаешь шаги, сцена не уезжает,
-// а перестраивается: одни и те же двенадцать кадров проходят весь путь
-// от разрозненных референсов до собранного ролика.
+// Слева липкая сцена с одним кадром, справа шаги. Кадр — не абстракция,
+// а сгенерированная раскадровка одного и того же продуктового ролика на
+// пяти стадиях готовности: мудборд → карандашный сторибоард → плоский
+// черновой рендер → грейд до/после → готовый рекламный кадр.
 //
-//   01  россыпь референсов, разного размера и наклона
-//   02  выстраиваются в ровную сетку раскадровки
-//   03  сжимаются в ленту отснятых кадров
-//   04  расходятся на дорожки монтажного стола
-//   05  сходятся в один кадр: готовый ролик
-//
-// Метафора буквальная: зритель видит не пять картинок, а одну вещь,
-// которая на глазах становится фильмом.
+// Пока читаешь шаги (или водишь пальцем по сцене на телефоне), кадр
+// кросс-фейдится в следующую стадию — история буквально листается.
 
-const FRAMES = 12;
-
-// Разброс для первого состояния. Значения заданы руками, а не случайно:
-// страница отдаётся предзарендеренной, и раскладка обязана совпадать
-// с точностью до пикселя, иначе гидратация сломается.
-const SCATTER = [
-  { x: 4, y: 8, w: 26, h: 19, r: -7 },
-  { x: 38, y: 3, w: 22, h: 16, r: 5 },
-  { x: 66, y: 11, w: 28, h: 20, r: -4 },
-  { x: 8, y: 33, w: 21, h: 15, r: 6 },
-  { x: 34, y: 26, w: 27, h: 20, r: -3 },
-  { x: 68, y: 38, w: 23, h: 17, r: 8 },
-  { x: 3, y: 55, w: 25, h: 18, r: -6 },
-  { x: 33, y: 52, w: 20, h: 15, r: 4 },
-  { x: 60, y: 62, w: 26, h: 19, r: -8 },
-  { x: 12, y: 76, w: 23, h: 17, r: 7 },
-  { x: 41, y: 74, w: 27, h: 20, r: -5 },
-  { x: 71, y: 83, w: 21, h: 15, r: 3 },
+const IMAGES = [
+  '/process/p01-moodboard.jpg',
+  '/process/p02-storyboard.jpg',
+  '/process/p03-rough.jpg',
+  '/process/p04-grade.jpg',
+  '/process/p05-final.jpg',
 ];
-
-// Раскладка одного кадра для конкретного шага. Возвращает проценты
-// внутри сцены, поэтому всё тянется вместе с ней на любом экране.
-const layoutFor = (step, i) => {
-  if (step <= 0) return { ...SCATTER[i], o: 1, accent: false };
-
-  // 02 — ровная сетка раскадровки, 4 колонки на 3 ряда
-  if (step === 1) {
-    const col = i % 4;
-    const row = Math.floor(i / 4);
-    return { x: 4 + col * 24, y: 12 + row * 27, w: 20, h: 15, r: 0, o: 1, accent: false };
-  }
-
-  // 03 — лента отснятых кадров; первые семь уже собраны, остальные ждут
-  if (step === 2) {
-    return { x: 2 + i * 8.1, y: 41, w: 7, h: 18, r: 0, o: i < 7 ? 1 : 0.28, accent: i < 7 };
-  }
-
-  // 04 — монтажный стол: три дорожки разной длины
-  if (step === 3) {
-    const track = Math.floor(i / 4);
-    const pos = i % 4;
-    const w = track === 0 ? 22 : track === 1 ? 18 : 20;
-    return {
-      x: 4 + pos * (w + 2.5),
-      y: 26 + track * 18,
-      w,
-      h: 12,
-      r: 0,
-      o: 1,
-      accent: track === 1,
-    };
-  }
-
-  // 05 — всё сходится в один кадр: слои чуть смещены, виден только верхний
-  return {
-    x: 12 + i * 0.35,
-    y: 27 + i * 0.25,
-    w: 76,
-    h: 43,
-    r: 0,
-    o: i === 0 ? 1 : 0.05,
-    accent: i === 0,
-  };
-};
 
 const ProcessFlow = () => {
   const L = useLocale();
@@ -89,12 +27,13 @@ const ProcessFlow = () => {
   // совпасть с предзарендеренной разметкой
   const [active, setActive] = useState(0);
   const stepRefs = useRef([]);
+  const stageRef = useRef(null);
 
+  // ── Активная стадия по прокрутке ──
   useEffect(() => {
     const nodes = stepRefs.current.filter(Boolean);
     if (!nodes.length) return undefined;
 
-    // Активным считаем шаг, который ближе всех к середине экрана
     const observer = new IntersectionObserver(
       (entries) => {
         let best = null;
@@ -113,6 +52,56 @@ const ProcessFlow = () => {
     return () => observer.disconnect();
   }, []);
 
+  // ── Тонкая доводка стадии положением курсора / пальца над самой сценой ──
+  // Прокрутка задаёт «какой шаг сейчас читается», а движение над картинкой
+  // позволяет буквально провести историю вперёд-назад одним жестом —
+  // то самое ощущение «ролик листается за движением».
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return undefined;
+
+    let raf = 0;
+    let pending = null;
+
+    const apply = () => {
+      raf = 0;
+      if (pending == null) return;
+      setActive(pending);
+      pending = null;
+    };
+
+    const fromX = (clientX) => {
+      const r = stage.getBoundingClientRect();
+      if (r.width <= 0) return null;
+      const t = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+      return Math.min(steps.length - 1, Math.floor(t * steps.length));
+    };
+
+    const onMove = (e) => {
+      const idx = fromX(e.clientX);
+      if (idx == null) return;
+      pending = idx;
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+
+    const onTouch = (e) => {
+      const t = e.touches[0];
+      if (!t) return;
+      const idx = fromX(t.clientX);
+      if (idx == null) return;
+      pending = idx;
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+
+    stage.addEventListener('mousemove', onMove, { passive: true });
+    stage.addEventListener('touchmove', onTouch, { passive: true });
+    return () => {
+      stage.removeEventListener('mousemove', onMove);
+      stage.removeEventListener('touchmove', onTouch);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [steps.length]);
+
   const current = steps[active] || steps[0];
 
   return (
@@ -120,40 +109,37 @@ const ProcessFlow = () => {
       <p className="vpf-lead reveal">{pick(L, VIDEO_PROCESS.lead)}</p>
 
       <div className="vpf-grid">
-        {/* ── Сцена ── */}
+        {/* ── Сцена: один и тот же ролик на пяти стадиях ── */}
         <div className="vpf-visual">
-          <div className="vpf-stage" aria-hidden="true">
-            <div className="vpf-stage-inner">
-              {Array.from({ length: FRAMES }, (_, i) => {
-                const l = layoutFor(active, i);
-                return (
-                  <span
-                    key={i}
-                    className={`vpf-frame${l.accent ? ' vpf-frame--on' : ''}`}
-                    style={{
-                      left: `${l.x}%`,
-                      top: `${l.y}%`,
-                      width: `${l.w}%`,
-                      height: `${l.h}%`,
-                      opacity: l.o,
-                      transform: `rotate(${l.r}deg)`,
-                      transitionDelay: `${i * 22}ms`,
-                    }}
-                  />
-                );
-              })}
-            </div>
+          <div className="vpf-stage" ref={stageRef}>
+            {IMAGES.map((src, i) => (
+              <img
+                key={src}
+                src={src}
+                alt={i === IMAGES.length - 1
+                  ? (L === 'en' ? 'Finished commercial frame' : 'Готовый рекламный кадр')
+                  : ''}
+                aria-hidden={i !== IMAGES.length - 1}
+                className={`vpf-frame${i === active ? ' vpf-frame--on' : ''}`}
+                width={1200}
+                height={900}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            ))}
 
-            {/* Подпись текущего состояния сцены */}
             <span className="vpf-stage-label mono">
               {`${current.num} · ${pick(L, current.out)}`}
             </span>
 
-            {/* Прогресс по этапам */}
-            <span className="vpf-track">
+            <span className="vpf-track" aria-hidden="true">
               {steps.map((s, i) => (
                 <span key={s.num} className={`vpf-tick${i <= active ? ' vpf-tick--on' : ''}`} />
               ))}
+            </span>
+
+            <span className="vpf-scrub-hint mono" aria-hidden="true">
+              {L === 'en' ? 'move to scrub' : 'веди курсором'}
             </span>
           </div>
         </div>

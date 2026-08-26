@@ -111,7 +111,7 @@ export const PROBLEMS_SYS = {
     {
       time: '✕',
       ui: 'churn',
-      text: { ru: 'Клиент ушёл — никто не вернул', en: 'Customer left — no one won them back' },
+      text: { ru: 'Ушедших клиентов никто не возвращает', en: 'Nobody wins lapsed customers back' },
       tag: { ru: 'потерянная выручка', en: 'lost revenue' },
     },
   ],

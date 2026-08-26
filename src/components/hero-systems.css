@@ -204,22 +204,23 @@
   height: 672px;
   padding: 8px;
   border-radius: 46px;
-  /* Титан: холодный металл с тёплой искрой на верхней и нижней гранях */
+  /* Тёмный титан. Сам металл намеренно приглушён: он подложка,
+     а не герой. Ярким на нём остаётся только бегущий свет. */
   background:
     linear-gradient(158deg,
-      #d9dee6 0%,
-      #8d949f 12%,
-      #4a4f57 30%,
-      #2b2e34 50%,
-      #4a4f57 70%,
-      #9aa1ac 88%,
-      #e4e8ee 100%);
+      #6f757e 0%,
+      #4c5158 12%,
+      #303439 30%,
+      #202225 50%,
+      #303439 70%,
+      #52575f 88%,
+      #767c85 100%);
   box-shadow:
     /* внешняя микро-фаска */
-    0 0 0 1px rgba(0, 0, 0, 0.55),
-    /* блик на верхнем ребре */
-    inset 0 1px 1px rgba(255, 255, 255, 0.55),
-    inset 0 -1px 1px rgba(255, 255, 255, 0.22),
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    /* еле заметные рёбра: раньше они забивали собой перелив */
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.10),
     /* объём корпуса */
     0 34px 70px -24px rgba(0, 0, 0, 0.9),
     0 8px 22px -10px rgba(0, 0, 0, 0.7);
@@ -294,15 +295,19 @@
   border-radius: 46px;
   border: 2.5px solid transparent;
   pointer-events: none;
+  /* Перелив: холодный край, белое ядро, тёплый край. Именно смена
+     оттенка вдоль полосы читается как движущийся по металлу свет. */
   background:
     linear-gradient(
       118deg,
-      transparent 26%,
-      rgba(255, 255, 255, 0.30) 40%,
-      rgba(255, 255, 255, 0.92) 48%,
-      rgba(255, 255, 255, 0.30) 56%,
-      transparent 70%) border-box;
-  background-size: 260% 260%;
+      transparent 18%,
+      rgba(150, 190, 255, 0.45) 33%,
+      rgba(226, 240, 255, 0.98) 42%,
+      rgba(255, 255, 255, 1) 48%,
+      rgba(255, 226, 186, 0.85) 55%,
+      rgba(255, 190, 120, 0.35) 64%,
+      transparent 80%) border-box;
+  background-size: 300% 300%;
   background-position:
     calc(50% + var(--lx, 0) * 1%)
     calc(50% + var(--ly, 0) * 1%);
@@ -316,20 +321,59 @@
     linear-gradient(#000 0 0);
 }
 
+/* ── Мягкое свечение вокруг корпуса ──
+   Полоса света на самой грани всего 2.5px — на таком тонком контуре
+   движение почти не читается. Добавляем размытый ореол того же цвета
+   чуть за пределами корпуса: тот же градиент, но крупнее и в блюре,
+   поэтому переливающийся свет виден даже боковым зрением. */
+.hp-glow {
+  position: absolute;
+  inset: -22px;
+  z-index: 0;
+  border-radius: 60px;
+  border: 22px solid transparent;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      118deg,
+      transparent 18%,
+      rgba(150, 190, 255, 0.5) 33%,
+      rgba(226, 240, 255, 1) 42%,
+      rgba(255, 255, 255, 1) 48%,
+      rgba(255, 226, 186, 0.9) 55%,
+      rgba(255, 190, 120, 0.4) 64%,
+      transparent 80%) border-box;
+  background-size: 300% 300%;
+  background-position:
+    calc(50% + var(--lx, 0) * 1%)
+    calc(50% + var(--ly, 0) * 1%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) padding-box exclude,
+    linear-gradient(#000 0 0);
+  filter: blur(14px);
+  opacity: 0.85;
+}
+
 /* Там, где курсора нет, свет по грани ходит сам */
 @media (max-width: 768px), (hover: none), (pointer: coarse) {
-  .hp-phone::after {
+  .hp-phone::after,
+  .hp-glow {
     animation: hp-edge-sweep 9s ease-in-out infinite alternate;
   }
 }
 
 @keyframes hp-edge-sweep {
-  from { background-position: 26% 34%; }
-  to   { background-position: 74% 66%; }
+  from { background-position: 8% 26%; }
+  to   { background-position: 92% 74%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hp-phone::after { animation: none; }
+  .hp-phone::after,
+  .hp-glow { animation: none; }
 }
 
 /* Островок фронтальной камеры */
