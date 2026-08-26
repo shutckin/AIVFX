@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocale, pick, localizedHref } from '../i18n';
-import { ABOUT_SYS, FAQ_SYS } from '../data/systems-content';
+import { ABOUT_SYS } from '../data/systems-content';
 import SecHead from './SecHead';
 import './about-b2b.css';
 
 // Секция «О нас». Иерархия сверху вниз:
-// трастбар брендов → [текст о студии | карточка основателя] → «для кого» → видео → FAQ.
+// трастбар брендов → [текст о студии | карточка основателя] → «для кого» → видео.
+// FAQ вынесен в собственную секцию (FaqSection): хвостом здесь он превращал
+// «О нас» в свалку из пяти разнородных блоков.
 const AboutUs = () => {
-  const [openIdx, setOpenIdx] = useState(0);
   const locale = useLocale();
   const en = locale === 'en';
 
@@ -80,28 +81,6 @@ const AboutUs = () => {
           </a>
         </div>
 
-        {/* FAQ — отдельный смысловой блок */}
-        <div className="ab-faq reveal">
-          <div className="ab-faq-head">
-            <span className="ab-faq-kicker mono">FAQ</span>
-            <h3 className="ab-faq-title">{en ? 'Frequently asked questions' : 'Частые вопросы'}</h3>
-          </div>
-          <div className="faq-list">
-            {FAQ_SYS.map((item, i) => (
-              <div
-                key={i}
-                className={`faq-item ${openIdx === i ? 'open' : ''}`}
-                onClick={() => setOpenIdx(openIdx === i ? -1 : i)}
-              >
-                <div className="head">
-                  <span className="q">{pick(locale, item.q)}</span>
-                  <span className="ic">+</span>
-                </div>
-                <div className="body"><p>{pick(locale, item.a)}</p></div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );

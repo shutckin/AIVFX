@@ -23,6 +23,7 @@ const loadSystemFlow      = () => import('./components/SystemFlow');
 const loadServicesSystems = () => import('./components/ServicesSystems');
 const loadCases           = () => import('./components/Cases');
 const loadApproach        = () => import('./components/Approach');
+const loadFaqSection      = () => import('./components/FaqSection');
 const loadIntegrations    = () => import('./components/Integrations');
 
 // ── Новые страницы ──
@@ -48,6 +49,7 @@ const SystemFlow      = lazy(loadSystemFlow);
 const ServicesSystems = lazy(loadServicesSystems);
 const Cases           = lazy(loadCases);
 const Approach        = lazy(loadApproach);
+const FaqSection      = lazy(loadFaqSection);
 const Integrations    = lazy(loadIntegrations);
 const ServicePage     = lazy(loadServicePage);
 const VideoProduction = lazy(loadVideoProduction);
@@ -246,7 +248,7 @@ export const preloadRouteChunks = () => {
   if (page === 'main') {
     chunks.push(
       loadProblems(), loadSystemFlow(), loadCTABreak(), loadServicesSystems(),
-      loadCases(), loadApproach(), loadIntegrations(), loadAboutUs(),
+      loadCases(), loadApproach(), loadIntegrations(), loadAboutUs(), loadFaqSection(),
       loadContactForm()
     );
   } else if (page === 'service') {
@@ -482,6 +484,7 @@ function App() {
               <Suspense fallback={<SectionFallback />}><Approach /></Suspense>
               <Suspense fallback={<SectionFallback />}><Integrations /></Suspense>
               <Suspense fallback={<SectionFallback />}><AboutUs /></Suspense>
+              <Suspense fallback={<SectionFallback />}><FaqSection /></Suspense>
               <Suspense fallback={<SectionFallback />}><ContactForm /></Suspense>
             </main>
             <Suspense fallback={null}><Footer /></Suspense>
