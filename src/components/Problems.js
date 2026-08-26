@@ -191,7 +191,6 @@ const Problems = () => {
               <article className="pbx-tile reveal" key={i}>
                 {Ui ? <Ui L={L} time={time} /> : null}
                 <h3 className="pbx-text">{pick(L, item.text)}</h3>
-                <span className="pbx-tag">{pick(L, item.tag)}</span>
               </article>
             );
           })}

@@ -59,7 +59,7 @@ const CookieBanner = ({ onPrivacyClick }) => {
         </span>
       </div>
       <button onClick={accept} className="btn btn-primary cookie-banner-accept">
-        {en ? 'Accept' : 'Принять'} <span className="btn-arrow">↗</span>
+        {en ? 'Accept' : 'Принять'}<span className="btn-arrow">↗</span>
       </button>
     </div>
   );

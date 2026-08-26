@@ -28,16 +28,28 @@
   .lang-switch { margin-right: 4px; }
 }
 
-/* <1200px: статус-pill прячем — освобождаем место тумблеру */
-@media (max-width: 1200px) {
-  .status-pill { display: none; }
-}
-
-/* <960px: тумблер уходит из шапки в мобильное меню,
-   грид возвращается к трём колонкам (перебиваем базовое правило выше) */
+/* <960px: навигация и правый блок уходят в бургер, а тумблер направлений
+   остаётся в шапке. Сайт про два направления студии — прятать переключение
+   между ними в меню значит прятать половину продукта. */
 @media (max-width: 960px) {
   .header { grid-template-columns: auto 1fr auto; }
-  .header .mode-toggle { display: none; }
+  .header .mode-toggle { justify-self: end; }
+  /* В бургер-меню тумблер уже не нужен — он всегда на виду в шапке */
+  .ab-mobile-toggle { display: none; }
+  /* На тёмном фоне без backdrop-filter шапка должна оставаться читаемой */
+  .header.scrolled { background: rgba(10, 9, 8, 0.94); }
+}
+
+/* Совсем узкие экраны: ужимаем тумблер, чтобы он влез рядом с бургером */
+@media (max-width: 560px) {
+  .header { gap: 10px; }
+  .header .mode-opt {
+    padding: 6px 9px;
+    font-size: 9.5px;
+    gap: 5px;
+    letter-spacing: 0.02em;
+  }
+  .header .mode-opt::before { width: 5px; height: 5px; }
 }
 
 /* Тумблер в мобильном меню — сверху, до пунктов навигации */

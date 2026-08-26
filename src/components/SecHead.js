@@ -1,19 +1,22 @@
 import React from 'react';
 
-// Универсальный заголовок секции: [NN / SECTION] + заголовок + курсивный акцент + сайд-текст.
-// Общий для всех секций — раньше был скопирован в 5 файлах.
-const SecHead = ({ num, title, titleIt, side, sideTitle }) => (
+// Универсальный заголовок секции: короткая надстрочная метка + крупный
+// заголовок с акцентной второй частью.
+//
+// Раньше справа жил ещё один столбец с мелким серым абзацем и повторяющейся
+// подписью «AIVFX AI SYSTEMS» — на каждой секции. Это давало ощущение
+// визуального шума: глаз не понимал, куда смотреть. Столбец убран целиком,
+// props side/sideTitle оставлены в сигнатуре осознанно — вызовы их всё ещё
+// передают, но компонент их игнорирует.
+const SecHead = ({ num, title, titleIt }) => (
   <div className="sec-head reveal">
-    <div className="sec-num">{num}</div>
+    {num && <span className="sec-num">{num}</span>}
     <h2 className="sec-title">
-      {title} {titleIt && <span className="it">{titleIt}</span>}
+      {/* Пробел вклеен в само выражение: два соседних текстовых узла
+          ломали гидратацию предзарендеренной страницы */}
+      {titleIt ? `${title} ` : title}
+      {titleIt && <span className="it">{titleIt}</span>}
     </h2>
-    {side && (
-      <div className="sec-side">
-        {sideTitle && <span className="kicker">{sideTitle}</span>}
-        <p>{side}</p>
-      </div>
-    )}
   </div>
 );
 

@@ -8,7 +8,8 @@ import './cases-approach.css';
 // ── Секция «Кейсы» ───────────────────────────────────────────────────────
 // Флагман EastRide — живой продукт с реальными скриншотами в браузерных
 // рамках и метриками с анимацией накрутки. Ниже — два компактных
-// демо-сценария «было → стало». Под сеткой — честная сноска про демо-цифры.
+// сценария «было → стало». Плашки «демо-сценарий» на карточках нет: она
+// читалась как «здесь черновик» и сбивала. Честность держит сноска под сеткой.
 
 // Первое предложение из текста (для компактных демо-карточек)
 const firstSentence = (text) => {
@@ -48,7 +49,7 @@ const BrowserFrame = ({ src, alt, width, height, className }) => (
 
 const Cases = () => {
   const L = useLocale();
-  const { head, items, demoBadge, demoNote } = CASES_SYS;
+  const { head, items, demoNote } = CASES_SYS;
   const flagship = items.find((item) => item.flagship);
   const demos = items.filter((item) => item.isDemo);
 
@@ -134,7 +135,6 @@ const Cases = () => {
             <article className="cs2-demo reveal" key={item.id}>
               <div className="cs2-demo-top">
                 <h3 className="cs2-demo-industry mono">{pick(L, item.industry)}</h3>
-                <span className="cs-demo-badge mono">{pick(L, demoBadge)}</span>
               </div>
 
               <p className="cs2-flow">

@@ -17,7 +17,7 @@ export const NAV_SYS = [
 
 // ── Hero ───────────────────────────────────────────────────────────────
 export const HERO_SYS = {
-  kicker: { ru: 'AI SYSTEMS · АВТОМАТИЗАЦИИ ДЛЯ БИЗНЕСА', en: 'AI SYSTEMS · BUSINESS AUTOMATION' },
+  kicker: { ru: 'AI-СИСТЕМЫ ДЛЯ БИЗНЕСА', en: 'AI SYSTEMS FOR BUSINESS' },
   // Заголовок построчно: [строка1, строка2-акцент, строка3]
   titleLines: {
     ru: ['AI-системы, которые', 'возвращают клиентов', 'и экономят часы работы'],
@@ -350,8 +350,8 @@ export const CASES_SYS = {
   },
   demoBadge: { ru: 'Демо-сценарий', en: 'Demo scenario' },
   demoNote: {
-    ru: 'EastRide — собственный продукт студии, построенный и работающий вживую. Два сценария рядом — типовые демо: цифры в них иллюстрируют целевые показатели таких систем и будут заменены реальными кейсами клиентов.',
-    en: 'EastRide is the studio’s own product, built and running live. The two scenarios next to it are typical demos: their numbers illustrate target outcomes and will be replaced with real client cases.',
+    ru: 'EastRide — собственный продукт студии, работает вживую. Два сценария рядом собраны на типовых процессах клиники и агентства недвижимости: цифры в них показывают, на какой результат мы проектируем систему.',
+    en: 'EastRide is the studio’s own product, live in production. The two scenarios beside it are built on the typical processes of a clinic and a real-estate agency: their numbers show the outcome we design such systems for.',
   },
   items: [
     {

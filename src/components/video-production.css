@@ -20,7 +20,6 @@
 .vp-page {
   background: var(--bg);
   min-height: 100vh;
-  padding-top: clamp(32px, 6vw, 64px);
 }
 
 /* Единый ритм секций страницы: без гигантских пустот.
@@ -30,32 +29,47 @@
   padding: clamp(56px, 6.5vw, 96px) 0;
 }
 
-/* ── Верхняя строка: бренд-вордмарк + тумблер направлений ──
-   «Шага назад» на главную здесь нет: уйти со страницы можно только
-   переключением направления. Тумблер стоит по центру строки. */
-.vp2-topbar {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding-bottom: clamp(16px, 3vw, 28px);
-  border-bottom: 1px solid var(--line);
+/* ── Шапка страницы ──
+   Раньше это была строка внутри .shell: логотип и кнопка «висели» в
+   середине экрана и не попадали в углы, как на главной. Теперь это тот же
+   фиксированный .header, что и на AI-системах, только с тремя колонками:
+   логотип — тумблер — CTA. */
+.vp-header {
+  grid-template-columns: auto auto 1fr;
+  gap: 24px;
 }
-.vp2-topbar-cta {
-  margin-left: auto;
-  padding: 10px 18px;
+.vp-header .header-status {
+  align-items: center;
+  gap: 12px;
+}
+.vp-header-cta {
+  padding: 10px 20px;
   font-size: 12px;
 }
 
-.vp2-wordmark {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--fg);
-  user-select: none;
+/* Мобильная шапка — той же формы, что на главной: логотип слева, тумблер
+   справа, одна строка. Кнопку «Связаться» убираем: места нет, а призывов
+   к контакту на странице и без неё достаточно. */
+@media (max-width: 720px) {
+  .vp-header {
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+  }
+  .vp-header .mode-toggle { justify-self: end; }
+  .vp-header .header-status { display: none; }
+  .vp-header.scrolled { background: rgba(10, 9, 8, 0.94); }
 }
 
+@media (max-width: 560px) {
+  .vp-header { gap: 10px; }
+  .vp-header .mode-opt {
+    padding: 6px 9px;
+    font-size: 9.5px;
+    gap: 5px;
+    letter-spacing: 0.02em;
+  }
+  .vp-header .mode-opt::before { width: 5px; height: 5px; }
+}
 
 /* ── Hero: слева текст, справа робот-сцена ── */
 .vp-hero {
@@ -1096,17 +1110,6 @@
     font-size: 15px;
   }
 
-  /* Тумблер уходит на свою строку под вордмарк — так он остаётся заметным */
-  .vp2-topbar {
-    grid-template-columns: 1fr;
-    justify-items: start;
-    gap: 14px;
-  }
-
-  .vp2-topbar-spacer {
-    display: none;
-  }
-
   .vp-blog-note {
     flex-direction: column;
     align-items: flex-start;
@@ -1157,10 +1160,14 @@
 /* ── Первый экран восстановлен по оригиналу: видео-робот во всю секцию ──
    .hero/.hero-video/.robot-* живут в index.css — здесь только посадка
    секции на страницу, у которой уже есть верхний паддинг под топбар. */
+/* Первый экран занимает всё окно и уходит под фиксированную шапку —
+   ровно как hero на главной. Отступ сверху даёт .hero (padding-top: 120px). */
 .vp-hero-full {
-  /* Секция во всю высоту, но НЕ под шапкой: топбар остаётся видимым */
-  min-height: calc(100vh - 120px);
-  padding-top: clamp(24px, 4vw, 48px);
+  min-height: 100vh;
+}
+.vp-hero-kicker {
+  display: block;
+  margin-bottom: clamp(28px, 5vw, 56px);
 }
 
 /* Reduced motion: кадр в витрине не наезжает при наведении */

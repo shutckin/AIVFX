@@ -77,7 +77,6 @@ const Header = () => {
         </nav>
         <div className="header-status">
           <LangSwitch locale={locale} />
-          <span className="status-pill"><span className="dot" /> {en ? 'OPEN FOR PROJECTS' : 'ПРИНИМАЕМ ЗАКАЗЫ'}</span>
           <button type="button" className="btn btn-primary ab-header-cta" onClick={() => handleNav('contact')}>
             {en ? 'Contact' : 'Связаться'}
           </button>

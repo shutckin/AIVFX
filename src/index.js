@@ -1,25 +1,27 @@
 import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App, { preloadRouteChunks } from './App';
 
 const rootElement = document.getElementById('root');
 
-// react-snap кладёт уже готовый HTML → используем hydrateRoot,
-// чтобы React переиспользовал разметку, а не пересоздавал её.
-// На обычном dev-режиме (пустой div) — обычный createRoot.
+const tree = (
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// В прод-сборке страницы отдаются предзарендеренными: разметка уже в HTML,
+// поэтому гидратируем, а не пересоздаём дерево. Но сначала дожидаемся чанков
+// маршрута — иначе React.lazy на первом рендере подставит заглушку Suspense,
+// разметка не сойдётся с серверной, и React выбросит готовый HTML, перерисовав
+// страницу с нуля (ошибки #418/#423). Пользователь ничего не ждёт: готовая
+// страница уже нарисована браузером, гидратация происходит поверх неё.
 if (rootElement.hasChildNodes()) {
-  hydrateRoot(
-    rootElement,
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
+  preloadRouteChunks().then(() => {
+    hydrateRoot(rootElement, tree);
+  });
 } else {
-  const root = createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
+  // Dev-режим: в index.html пустой div, гидратировать нечего
+  createRoot(rootElement).render(tree);
 }

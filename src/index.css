@@ -133,6 +133,9 @@ img, video { display: block; max-width: 100%; }
 .btn-ghost { background: transparent; color: var(--fg); border-color: var(--line-2); }
 .btn-ghost:hover { background: rgba(216,234,255,0.05); border-color: rgba(216,234,255,0.35); }
 
+/* Стрелка отделена от текста через gap у .btn — пробела в разметке быть
+   не должно: React делал из него отдельный текстовый узел, а предзарендеренный
+   HTML склеивал его с подписью, и гидратация падала (#418). */
 .btn-arrow {
   display: inline-flex;
   width: 22px; height: 22px;
@@ -240,28 +243,6 @@ img, video { display: block; max-width: 100%; }
 }
 
 .header-status { display: flex; justify-content: flex-end; }
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--line-2);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--fg-2);
-  white-space: nowrap;
-}
-.status-pill .dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent-glow);
-  animation: pulse 2s ease-in-out infinite;
-}
-
 .mobile-menu-btn {
   display: none;
   width: 44px; height: 44px;
@@ -426,6 +407,12 @@ img, video { display: block; max-width: 100%; }
 @media (max-width: 720px) {
   .robot-hud { font-size: 9px; padding: 4px 8px; }
   .hud-br { display: none; }
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn { justify-content: center; }
 }
 
 .hero-inner {
@@ -500,13 +487,16 @@ img, video { display: block; max-width: 100%; }
   text-transform: uppercase;
   color: var(--fg-2);
 }
+/* Лента сервисов не крутится сама по себе как гирлянда: сдвиг считает JS
+   из положения скролла, поэтому она живёт ровно тогда, когда листаешь
+   страницу, и замирает, когда ты остановился. */
 .hero-ticker-track {
   display: flex;
   gap: 48px;
   padding: 14px 0;
   white-space: nowrap;
-  animation: ticker 50s linear infinite;
   width: max-content;
+  will-change: transform;
 }
 .hero-ticker-track span { display: inline-flex; align-items: center; gap: 12px; }
 .hero-ticker-track span::before {
@@ -514,11 +504,6 @@ img, video { display: block; max-width: 100%; }
   color: var(--accent);
   font-size: 8px;
 }
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
 .corner {
   position: absolute;
   width: 14px; height: 14px;
@@ -562,22 +547,22 @@ img, video { display: block; max-width: 100%; }
 }
 
 /* Section headers */
+/* Заголовок секции: метка сверху, крупный заголовок под ней.
+   Без правого столбца с мелким текстом — он только рассеивал внимание. */
 .sec-head {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 32px;
-  align-items: end;
-  padding-bottom: clamp(32px, 4vw, 56px);
+  display: block;
+  padding-bottom: clamp(28px, 3.4vw, 48px);
   border-bottom: 1px solid var(--line);
   margin-bottom: clamp(32px, 4vw, 56px);
 }
 .sec-num {
+  display: block;
   font-family: var(--font-mono);
   white-space: nowrap;
-  font-size: 12px;
-  letter-spacing: 0.18em;
+  font-size: 11px;
+  letter-spacing: 0.2em;
   color: var(--accent-2);
-  padding-top: 12px;
+  margin-bottom: clamp(14px, 1.6vw, 22px);
 }
 .sec-title {
   font-family: var(--font-display);
@@ -591,20 +576,6 @@ img, video { display: block; max-width: 100%; }
   font-style: normal;
   font-weight: 500;
   color: var(--accent);
-}
-.sec-side {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: flex-end;
-  max-width: 320px;
-  text-align: right;
-}
-.sec-side p {
-  font-size: 13px;
-  color: var(--fg-2);
-  line-height: 1.55;
-  margin: 0;
 }
 
 /* Services */
@@ -1520,6 +1491,9 @@ img, video { display: block; max-width: 100%; }
 /* Responsive */
 @media (max-width: 1100px) {
   .hero-row { grid-template-columns: 1fr; }
+  /* В одну колонку кнопки не должны прижиматься к правому краю —
+     на узком экране это читается как сбой вёрстки */
+  .hero-actions { justify-content: flex-start; }
   .stats-inner { grid-template-columns: repeat(2, 1fr); }
   .stat:nth-child(3) { border-left: none; border-top: 1px solid var(--line); }
   .stat:nth-child(4) { border-top: 1px solid var(--line); }
@@ -1532,9 +1506,6 @@ img, video { display: block; max-width: 100%; }
   .client-cell:nth-child(n+5) { border-top: 1px solid var(--line); }
   .client-cell:nth-child(5) { border-left: none; }
   .footer-cols { grid-template-columns: 1fr 1fr; }
-  .sec-head { grid-template-columns: 1fr; align-items: start; gap: 12px; }
-  .sec-head .sec-num { padding-top: 0; }
-  .sec-side { display: none; }
 }
 
 @media (max-width: 720px) {

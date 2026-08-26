@@ -96,14 +96,6 @@
   margin-top: 6px;
 }
 
-/* ── Крючки под CTA: оффер + отличие ─────────────────────────────────────
-   Закрывают пустующий низ левой колонки (CRO-аудит). */
-.hs-hook {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-  margin-top: -4px; /* чуть ближе к кнопкам, чем общий gap колонки */
-}
 
 .hs-offer {
   display: inline-flex;
@@ -127,13 +119,6 @@
   transform: translateY(-1px);
 }
 
-.hs-diff {
-  margin: 0;
-  padding-left: 16px; /* 6px точка + 10px gap — текст в одну вертикаль с оффером */
-  font-size: 11px;
-  line-height: 1.6;
-  color: var(--muted);
-}
 
 /* ═══════════════════════════════════════════════════════════════════════
    ПРАВАЯ КОЛОНКА — ТЕЛЕФОН С ЧАТ-ДЕМО (hp-)
@@ -174,36 +159,79 @@
 .hp-shadow {
   position: absolute;
   left: 50%;
-  bottom: -30px;
-  width: 78%;
-  height: 54px;
+  bottom: -34px;
+  width: 84%;
+  height: 62px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 45%, transparent 72%);
-  filter: blur(26px);
-  opacity: 0.5;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 44%, transparent 74%);
+  filter: blur(30px);
+  opacity: 0.62;
   transform: translateX(-50%) translateX(var(--sx));
   pointer-events: none;
 }
 
-/* Корпус телефона: наклон в 3D, градиентная рамка вместо плоского бордера */
+/* ── Корпус телефона ──
+   Раньше это была плоская серая коробка с тонким бордером — читалась как
+   заглушка. Теперь настоящий флагманский аппарат: титановый кант (градиент
+   с бликами на гранях), чёрная фаска под ним, стеклянный экран, боковые
+   кнопки и блик по стеклу. Всё на CSS, без картинок. */
 .hp-phone {
   position: relative;
   z-index: 1;
-  width: 340px;
-  height: 640px;
-  padding: 10px;
-  border: 1px solid transparent;
-  border-radius: 44px;
+  width: 336px;
+  height: 630px;
+  padding: 11px;
+  border-radius: 50px;
+  /* Титан: холодный металл с тёплой искрой на верхней и нижней гранях */
   background:
-    linear-gradient(var(--bg-2), var(--bg-2)) padding-box,
-    linear-gradient(145deg,
-      rgba(216, 234, 255, 0.22) 0%,
-      rgba(216, 234, 255, 0.04) 52%,
-      rgba(216, 234, 255, 0.16) 100%) border-box;
+    linear-gradient(158deg,
+      #d9dee6 0%,
+      #8d949f 12%,
+      #4a4f57 30%,
+      #2b2e34 50%,
+      #4a4f57 70%,
+      #9aa1ac 88%,
+      #e4e8ee 100%);
+  box-shadow:
+    /* внешняя микро-фаска */
+    0 0 0 1px rgba(0, 0, 0, 0.55),
+    /* блик на верхнем ребре */
+    inset 0 1px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.22),
+    /* объём корпуса */
+    0 34px 70px -24px rgba(0, 0, 0, 0.9),
+    0 8px 22px -10px rgba(0, 0, 0, 0.7);
   flex-shrink: 0;
   transform: rotateY(var(--ry)) rotateX(var(--rx)) translateZ(0);
   transform-style: preserve-3d;
 }
+
+/* Чёрная фаска между титаном и стеклом — за счёт неё кант читается как металл */
+.hp-phone::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 42px;
+  background: #050506;
+  pointer-events: none;
+}
+
+/* Боковые кнопки: качелька громкости слева, кнопка питания справа.
+   Живут за корпусом (translateZ отрицательный), поэтому при довороте
+   телефона уходят за ребро — как настоящие. */
+.hp-btn-vol,
+.hp-btn-pwr {
+  position: absolute;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #b9c0c9 0%, #6e747d 40%, #3a3e44 100%);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+  transform: translateZ(-6px);
+  pointer-events: none;
+}
+.hp-btn-vol { left: -3px; top: 132px; height: 56px; }
+.hp-btn-vol + .hp-btn-vol { top: 200px; height: 56px; }
+.hp-btn-pwr { right: -3px; top: 176px; height: 84px; }
 
 /* Экран.
    overflow: hidden здесь нельзя — он «схлопнул» бы 3D-слои внутри экрана,
@@ -213,35 +241,64 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--line);
-  border-radius: 34px;
-  background: var(--bg);
+  border-radius: 39px;
+  background: #0a0a0c;
   transform: translateZ(12px);
   transform-style: preserve-3d;
 }
 
-/* Мягкий внутренний блик по верхней трети экрана */
+/* Диагональный блик по стеклу — то, чего не хватало, чтобы экран читался
+   как стекло, а не как вырезанный прямоугольник */
 .hp-screen::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 40%;
-  z-index: 3;
-  border-radius: 33px 33px 0 0;
+  inset: 0;
+  z-index: 4;
+  border-radius: 39px;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(216, 234, 255, 0.07) 0%, transparent 100%);
+  background: linear-gradient(
+    148deg,
+    rgba(226, 238, 255, 0.13) 0%,
+    rgba(226, 238, 255, 0.05) 26%,
+    transparent 46%,
+    transparent 100%);
 }
 
-/* Чёлка-пилюля */
+/* Внутренний кант стекла */
+.hp-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: 39px;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(226, 238, 255, 0.10);
+}
+
+/* Островок фронтальной камеры */
 .hp-notch {
-  width: 88px;
-  height: 18px;
-  margin: 10px auto 2px;
+  position: relative;
+  z-index: 6;
+  width: 92px;
+  height: 26px;
+  margin: 11px auto 4px;
   border-radius: 999px;
-  background: var(--bg-2);
+  background: #000;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   flex-shrink: 0;
+}
+/* Глазок камеры в островке */
+.hp-notch::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #2b3b52 0%, #0b0f16 60%, #000 100%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 /* ── Шапка чата ───────────────────────────────────────────────────────── */
@@ -253,8 +310,7 @@
   gap: 11px;
   padding: 10px 16px 14px;
   border-bottom: 1px solid var(--line);
-  border-radius: 33px 33px 0 0;
-  background: var(--bg);
+  background: transparent;
   flex-shrink: 0;
   transform: translateZ(20px);
 }
@@ -305,7 +361,9 @@
   flex-direction: column;
   justify-content: flex-end;
   gap: 10px;
-  padding: 16px 14px;
+  /* Нижний отступ больше бокового: у экрана радиус 39px, и последняя
+     реплика иначе заезжает на скруглённый угол */
+  padding: 16px 14px 30px;
   animation: hp-cycle 16s linear infinite;
   transform-style: preserve-3d;
 }
@@ -416,20 +474,6 @@
 .hp-typing i:nth-child(2) { animation-delay: 0.15s; }
 .hp-typing i:nth-child(3) { animation-delay: 0.3s; }
 
-/* ── Нижняя строка-статус на кромке экрана ────────────────────────────── */
-.hp-footbar {
-  flex-shrink: 0;
-  padding: 12px 16px;
-  border-top: 1px solid var(--line);
-  border-radius: 0 0 33px 33px;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-align: center;
-  white-space: nowrap;
-  transform: translateZ(20px);
-}
 
 /* ── Плавающие бейджи-«доказательства» вокруг телефона ──────────────────
    Самый дальний от корпуса слой (46px) — при повороте уходят заметнее всех.
@@ -583,8 +627,7 @@
   .hp-screen { border-radius: 30px; }
   .hp-screen::before { border-radius: 29px 29px 0 0; }
   .hp-chat-head { border-radius: 29px 29px 0 0; }
-  .hp-footbar { border-radius: 0 0 29px 29px; }
-  /* Колонка уже — бейджи прижимаем ближе к корпусу */
+    /* Колонка уже — бейджи прижимаем ближе к корпусу */
   .hp-badge-crm { left: -16px; }
   .hp-badge-speed { right: -14px; }
 }
@@ -604,7 +647,16 @@
   .hp-phone {
     width: 300px;
     height: 560px;
+    border-radius: 44px;
+    padding: 10px;
   }
+  .hp-phone::before { inset: 7px; border-radius: 37px; }
+  .hp-screen,
+  .hp-screen::before,
+  .hp-screen::after { border-radius: 34px; }
+  .hp-btn-vol { top: 116px; height: 48px; }
+  .hp-btn-vol + .hp-btn-vol { top: 176px; }
+  .hp-btn-pwr { top: 154px; height: 74px; }
   /* Тач: параллакс не вешается (см. Hero.js), остаётся лёгкий статичный наклон */
   .hp-stage {
     --ry: -4deg;
@@ -635,29 +687,36 @@
   }
   .hs-actions .btn { justify-content: center; }
   .hs-sub { font-size: 14px; }
+  /* На узком экране строка-крючок переносилась на две строки капсом и
+     читалась как шум. Делаем её обычным предложением. */
   .hs-offer {
-    font-size: 10px;
-    letter-spacing: 0.12em;
+    font-size: 12.5px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--fg-2);
   }
-  .hs-diff { font-size: 10.5px; }
   .hp-phone {
-    width: 270px;
+    width: 268px;
     height: 500px;
-    border-radius: 36px;
-    padding: 8px;
+    border-radius: 40px;
+    padding: 9px;
   }
-  .hp-screen { border-radius: 28px; }
-  .hp-screen::before { border-radius: 27px 27px 0 0; }
-  .hp-chat-head { border-radius: 27px 27px 0 0; }
-  .hp-footbar { border-radius: 0 0 27px 27px; }
+  .hp-phone::before { inset: 6px; border-radius: 34px; }
+  .hp-screen,
+  .hp-screen::before,
+  .hp-screen::after { border-radius: 31px; }
+  .hp-btn-vol { top: 100px; height: 42px; }
+  .hp-btn-vol + .hp-btn-vol { top: 152px; }
+  .hp-btn-pwr { top: 134px; height: 64px; }
   /* Места по бокам нет — бейджи убираем */
   .hp-badge { display: none; }
-  .hp-notch { width: 76px; height: 16px; }
+  .hp-notch { width: 78px; height: 22px; margin-top: 9px; }
+  .hp-notch::after { width: 7px; height: 7px; margin-top: -3.5px; right: 10px; }
   .hp-chat-head { padding: 8px 14px 12px; }
   .hp-avatar { width: 30px; height: 30px; font-size: 11px; }
   .hp-thread {
     gap: 8px;
-    padding: 12px 12px;
+    padding: 12px 12px 24px;
   }
   .hp-bubble {
     font-size: 11.5px;
@@ -669,12 +728,7 @@
     letter-spacing: 0.1em;
   }
   .hp-typing { padding: 10px 12px; }
-  .hp-footbar {
-    padding: 10px 12px;
-    font-size: 9px;
-    letter-spacing: 0.14em;
   }
-}
 
 /* ── Доступность: всё видно сразу, без цикла ──────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
@@ -686,7 +740,6 @@
   }
   .hp-typing { display: none; }
   .hp-typing i { animation: none; }
-  .hs-hero .hero-ticker-track { animation: none; }
   /* Параллакс вообще не включается (слушатель не вешается в Hero.js) —
      базовый наклон остаётся статичным, бейджи просто видны. */
   .hp-badge {

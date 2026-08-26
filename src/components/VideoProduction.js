@@ -69,6 +69,34 @@ const RobotStage = () => {
     </div>
   );
 };
+// Шапка страницы — та же, что на главной: логотип прижат к левому краю
+// экрана, тумблер направлений сразу за ним, CTA — к правому краю. Раньше
+// шапка жила внутри .shell и «висела» посреди экрана, не попадая в углы.
+const VpHeader = ({ contactHref, en }) => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <header className={`header vp-header${scrolled ? ' scrolled' : ''}`}>
+      <a className="logo" href={localizedHref('/video-production/', en ? 'en' : 'ru')}>
+        <span className="logo-wm">AIVFX</span>
+      </a>
+      <ModeToggle mode="content" />
+      <div className="header-status">
+        <a className="btn btn-primary vp-header-cta" href={contactHref}>
+          {en ? 'Contact' : 'Связаться'}
+        </a>
+      </div>
+    </header>
+  );
+};
+
 // Ленивое видео: играет только когда попадает в viewport (паттерн из Portfolio).
 // При prefers-reduced-motion автоплей выключен — остаётся первый кадр.
 const LazyVideo = ({ src, title }) => {
@@ -175,70 +203,51 @@ const VideoProduction = () => {
 
   return (
     <div className="vp-page">
-      <div className="shell">
-        {/* Верхняя строка: бренд-вордмарк + тумблер направлений.
-            Ссылки «← AIVFX» тут нет намеренно: со страницы уходим только
-            переключением направления, а не шагом назад. */}
-        {/* Шапка — как на главной: лого слева, сразу за ним тумблер направлений,
-            справа CTA. Одинаковая механика на обоих разделах сайта. */}
-        <div className="vp2-topbar">
-          <span className="vp2-wordmark">AIVFX</span>
-          <ModeToggle mode="content" />
-          <a className="btn btn-primary vp2-topbar-cta" href={contactHref}>
-            {en ? 'Contact' : 'Связаться'}
-          </a>
-        </div>
+      {/* Шапка вынесена из .shell: логотип и CTA стоят в углах экрана,
+          ровно как на главной. Ссылки «← AIVFX» здесь нет намеренно —
+          со страницы уходим переключением направления, а не шагом назад. */}
+      <VpHeader contactHref={contactHref} en={en} />
 
-        {/* Первый экран — как в оригинале: видео с 3D-роботом на всю секцию,
-            градиентный overlay, кольца-HUD и текст поверх */}
-        <header className="hero vp-hero-full" id="hero">
-          <video
-            className="hero-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster="/fixed/aivid-poster.jpg"
-            ref={(el) => { if (el) { el.muted = true; el.play().catch(() => {}); } }}
-          >
-            <source src="/fixed/aivid.mp4" type="video/mp4" />
-          </video>
-          <div className="hero-video-overlay" />
-          <RobotStage />
-          <span className="corner tl" />
-          <span className="corner tr" />
+      {/* Первый экран — во всю ширину и высоту окна: видео с 3D-роботом,
+          градиентный overlay, кольца-HUD и текст поверх */}
+      <header className="hero vp-hero-full" id="hero">
+        <video
+          className="hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/fixed/aivid-poster.jpg"
+          ref={(el) => { if (el) { el.muted = true; el.play().catch(() => {}); } }}
+        >
+          <source src="/fixed/aivid.mp4" type="video/mp4" />
+        </video>
+        <div className="hero-video-overlay" />
+        <RobotStage />
 
-          <div className="shell hero-inner">
-            <div className="hero-meta">
-              <div className="hero-meta-left" style={{ alignItems: 'flex-end', marginLeft: 'auto' }}>
-                <span className="kicker">Moscow · Dubai · Bali</span>
-                <span className="kicker kicker-accent">
-                  ◈ {en ? 'AI CONTENT' : 'AI-КОНТЕНТ'}
-                </span>
-              </div>
-            </div>
+        <div className="shell hero-inner">
+          <span className="kicker vp-hero-kicker">Moscow · Dubai · Bali</span>
 
-            <h1 className="hero-headline display">
-              <span className="ln">{pick(L, VIDEO_PAGE.title)}</span>
-              <span className="ln"><span className="accent">{pick(L, VIDEO_PAGE.titleIt)}</span></span>
-            </h1>
+          <h1 className="hero-headline display">
+            <span className="ln">{pick(L, VIDEO_PAGE.title)}</span>
+            <span className="ln"><span className="accent">{pick(L, VIDEO_PAGE.titleIt)}</span></span>
+          </h1>
 
-            <div className="hero-row">
-              <p className="hero-sub">{pick(L, VIDEO_PAGE.sub)}</p>
-              <div className="hero-actions">
-                <a className="btn btn-primary" href={worksHref}>
-                  {pick(L, VIDEO_PAGE.portfolioCta)}
-                  <span className="btn-arrow">↗</span>
-                </a>
-                <a className="btn btn-ghost" href={contactHref}>
-                  {pick(L, VIDEO_PAGE.contactCta)}
-                </a>
-              </div>
+          <div className="hero-row">
+            <p className="hero-sub">{pick(L, VIDEO_PAGE.sub)}</p>
+            <div className="hero-actions">
+              <a className="btn btn-primary" href={worksHref}>
+                {pick(L, VIDEO_PAGE.portfolioCta)}
+                <span className="btn-arrow">↗</span>
+              </a>
+              <a className="btn btn-ghost" href={contactHref}>
+                {pick(L, VIDEO_PAGE.contactCta)}
+              </a>
             </div>
           </div>
-        </header>
-      </div>
+        </div>
+      </header>
 
       {/* Видео-витрина: заголовок + два встречных ряда автоиграющих превью */}
       <section className="vp2-works" aria-label={en ? 'Selected works' : 'Избранные работы'}>
@@ -271,7 +280,7 @@ const VideoProduction = () => {
         </div>
         <div className="shell">
           <a className="vp2-works-link" href={worksHref}>
-            {en ? 'See all works' : 'Смотреть все работы'} <span aria-hidden="true">→</span>
+            {en ? 'See all works ' : 'Смотреть все работы '}<span aria-hidden="true">→</span>
           </a>
         </div>
       </section>
@@ -309,8 +318,8 @@ const VideoProduction = () => {
                   <img
                     src={item.img}
                     alt={pick(L, item.title)}
-                    width="900"
-                    height="672"
+                    width="1000"
+                    height="750"
                     loading="lazy"
                     decoding="async"
                   />
@@ -546,7 +555,7 @@ const VideoProduction = () => {
           </a>
           <span className="vp2-foot-spacer" />
           <a className="btn btn-ghost" href={worksHref}>
-            {en ? 'View full portfolio' : 'Смотреть всё портфолио'} <span className="btn-arrow">↗</span>
+            {en ? 'View full portfolio' : 'Смотреть всё портфолио'}<span className="btn-arrow">↗</span>
           </a>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { SERVICE_PAGES, SERVICE_CTA } from '../data/systems-content';
+import { SERVICE_GUIDES, GUIDE_UI } from '../data/service-guides';
 import { useLocale, pick, localizedHref } from '../i18n';
 import './services-systems.css';
 
@@ -7,9 +8,31 @@ const SITE = 'https://aivfx.ru';
 
 // Универсальная страница услуги /services/<slug>/.
 // Контент целиком берётся из SERVICE_PAGES; неизвестный slug — ничего не рендерим.
+// Рендер одного блока гайда: абзац, список, нумерованные шаги или врезка
+const GuideBlock = ({ block, L }) => {
+  if (block.type === 'p') return <p className="sg-p">{pick(L, block.text)}</p>;
+  if (block.type === 'note') return <p className="sg-note">{pick(L, block.text)}</p>;
+  if (block.type === 'list') {
+    return (
+      <ul className="sg-list">
+        {block.items.map((item, i) => <li key={i}>{pick(L, item)}</li>)}
+      </ul>
+    );
+  }
+  if (block.type === 'steps') {
+    return (
+      <ol className="sg-steps">
+        {block.items.map((item, i) => <li key={i}>{pick(L, item)}</li>)}
+      </ol>
+    );
+  }
+  return null;
+};
+
 const ServicePage = ({ slug }) => {
   const L = useLocale();
   const page = SERVICE_PAGES[slug];
+  const guide = SERVICE_GUIDES[slug];
 
   // SEO: title, meta description и JSON-LD (Service + BreadcrumbList)
   useEffect(() => {
@@ -29,6 +52,7 @@ const ServicePage = ({ slug }) => {
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.setAttribute('data-service-jsonld', slug);
+    const faq = SERVICE_GUIDES[slug]?.faq;
     script.textContent = JSON.stringify([
       {
         '@context': 'https://schema.org',
@@ -66,6 +90,18 @@ const ServicePage = ({ slug }) => {
           },
         ],
       },
+      // Блок вопросов и ответов из гайда — отдельной разметкой для поиска
+      ...(faq && faq.length
+        ? [{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faq.map((item) => ({
+            '@type': 'Question',
+            name: pick(L, item.q),
+            acceptedAnswer: { '@type': 'Answer', text: pick(L, item.a) },
+          })),
+        }]
+        : []),
     ]);
     document.head.appendChild(script);
 
@@ -82,7 +118,7 @@ const ServicePage = ({ slug }) => {
         {/* Тонкая верхняя навигация */}
         <nav className="sp-topnav" aria-label={L === 'en' ? 'Breadcrumb' : 'Навигация'}>
           <a className="sp-back mono" href={localizedHref('/', L)}>
-            ← {L === 'en' ? 'Back to home' : 'На главную'}
+            {L === 'en' ? '← Back to home' : '← На главную'}
           </a>
         </nav>
 
@@ -124,7 +160,7 @@ const ServicePage = ({ slug }) => {
                   className={`sp-proof-line${i === page.proof.length - 1 ? ' sp-proof-line--last' : ''}`}
                   style={{ animationDelay: `${0.15 + i * 0.18}s` }}
                 >
-                  <span className="sp-proof-ix">{String(i + 1).padStart(2, '0')} ▸</span>
+                  <span className="sp-proof-ix">{`${String(i + 1).padStart(2, '0')} ▸`}</span>
                   <span>{pick(L, line)}</span>
                 </div>
               ))}
@@ -147,12 +183,60 @@ const ServicePage = ({ slug }) => {
           </div>
         </section>
 
+        {/* ── Развёрнутый гайд ──
+            Страница услуги перестаёт быть карточкой и становится материалом:
+            слева липкое оглавление, справа текст с подзаголовками и FAQ. */}
+        {guide && (
+          <div className="sg-wrap">
+            <aside className="sg-toc" aria-label={pick(L, GUIDE_UI.toc)}>
+              <div className="sg-toc-in">
+                <span className="sg-toc-title mono">{pick(L, GUIDE_UI.toc)}</span>
+                <ol className="sg-toc-list">
+                  {guide.sections.map((sec) => (
+                    <li key={sec.id}>
+                      <a href={`#${sec.id}`}>{pick(L, sec.h)}</a>
+                    </li>
+                  ))}
+                </ol>
+                <span className="sg-readtime mono">{pick(L, guide.readTime)}</span>
+              </div>
+            </aside>
+
+            <article className="sg-body">
+              <p className="sg-lead">{pick(L, guide.lead)}</p>
+
+              {guide.sections.map((sec) => (
+                <section className="sg-sec" id={sec.id} key={sec.id}>
+                  <h2 className="sg-h">{pick(L, sec.h)}</h2>
+                  {sec.blocks.map((block, i) => (
+                    <GuideBlock block={block} L={L} key={i} />
+                  ))}
+                </section>
+              ))}
+
+              {guide.faq && guide.faq.length > 0 && (
+                <section className="sg-sec sg-faq">
+                  <h2 className="sg-h">{pick(L, GUIDE_UI.faqTitle)}</h2>
+                  <dl className="sg-faq-list">
+                    {guide.faq.map((item, i) => (
+                      <div className="sg-faq-item" key={i}>
+                        <dt>{pick(L, item.q)}</dt>
+                        <dd>{pick(L, item.a)}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+              )}
+            </article>
+          </div>
+        )}
+
         {/* CTA */}
         <section className="sp-cta">
           <h2 className="sp-cta-title">{pick(L, SERVICE_CTA.title)}</h2>
           <p className="sp-cta-sub">{pick(L, SERVICE_CTA.sub)}</p>
           <a className="btn btn-primary" href={`${localizedHref('/', L)}#contact`}>
-            {pick(L, SERVICE_CTA.btn)} <span className="btn-arrow">↗</span>
+            {pick(L, SERVICE_CTA.btn)}<span className="btn-arrow">↗</span>
           </a>
         </section>
       </div>

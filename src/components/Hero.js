@@ -129,6 +129,60 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
   }, [sectionRef, stageRef, allowed]);
 };
 
+/* ── Лента сервисов, привязанная к скроллу ──────────────────────────────
+   Раньше лента ехала бесконечной CSS-анимацией и в покое читалась как
+   мигающая гирлянда. Теперь сдвиг считается из scrollY: листаешь — лента
+   едет, остановился — замерла. Позиция берётся по модулю половины ширины
+   трека (содержимое продублировано), поэтому стык не виден.  */
+const TICKER_SPEED = 0.42; // px сдвига ленты на 1px скролла страницы
+
+const useScrollTicker = (trackRef) => {
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return undefined;
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined;
+    }
+
+    let half = 0;
+    let raf = 0;
+
+    const measure = () => {
+      // Внутри трека контент лежит дважды — половина и есть длина петли
+      half = track.scrollWidth / 2;
+    };
+
+    const apply = () => {
+      raf = 0;
+      if (!half) return;
+      const shift = (window.scrollY * TICKER_SPEED) % half;
+      track.style.transform = `translate3d(${-shift}px, 0, 0)`;
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
+
+    measure();
+    apply();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+      if (raf) cancelAnimationFrame(raf);
+      track.style.transform = '';
+    };
+  }, [trackRef]);
+};
+
 // Телефон с самопечатающимся чат-диалогом — главное продающее демо продукта
 const HeroPhoneDemo = ({ sectionRef }) => {
   const L = useLocale();
@@ -143,6 +197,11 @@ const HeroPhoneDemo = ({ sectionRef }) => {
         <span className="hp-shadow" />
 
         <div className="hp-phone">
+          {/* Боковые кнопки корпуса */}
+          <span className="hp-btn-vol" />
+          <span className="hp-btn-vol" />
+          <span className="hp-btn-pwr" />
+
           <div className="hp-screen">
             <div className="hp-notch" />
 
@@ -181,10 +240,6 @@ const HeroPhoneDemo = ({ sectionRef }) => {
                 </div>
               ))}
             </div>
-
-            <div className="hp-footbar mono">
-              {pick(L, { ru: 'ОТВЕТ ЗА 4 СЕК · 24/7', en: 'REPLY IN 4S · 24/7' })}
-            </div>
           </div>
 
           {/* Плавающие «доказательства» — живут глубже экрана, при повороте расходятся */}
@@ -212,6 +267,9 @@ const Hero = () => {
   const L = useLocale();
   const titleLines = pick(L, HERO_SYS.titleLines);
   const sectionRef = useRef(null);
+  const tickerRef = useRef(null);
+
+  useScrollTicker(tickerRef);
 
   return (
     <section className="hero hs-hero" id="hero" ref={sectionRef}>
@@ -246,11 +304,8 @@ const Hero = () => {
               </button>
             </div>
 
-            {/* Крючки под CTA: оффер (24 часа) + отличие от чат-ботов */}
-            <div className="hs-hook">
-              <p className="hs-offer">{pick(L, HERO_SYS.offer)}</p>
-              <p className="hs-diff">{pick(L, HERO_SYS.diff)}</p>
-            </div>
+            {/* Один крючок под CTA — обещание ответа за 24 часа */}
+            <p className="hs-offer">{pick(L, HERO_SYS.offer)}</p>
           </div>
 
           <HeroPhoneDemo sectionRef={sectionRef} />
@@ -258,7 +313,7 @@ const Hero = () => {
       </div>
 
       <div className="hero-ticker">
-        <div className="hero-ticker-track">
+        <div className="hero-ticker-track" ref={tickerRef}>
           {[...TICKER_SYS, ...TICKER_SYS].map((t, i) => (
             <span key={i}>{t}</span>
           ))}

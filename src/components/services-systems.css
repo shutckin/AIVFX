@@ -52,12 +52,6 @@
   opacity: 1;
 }
 
-.ss-num {
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-}
-
 .ss-title {
   font-family: var(--font-display);
   font-size: clamp(1.45rem, 1.1rem + 1vw, 1.9rem);
@@ -71,24 +65,6 @@
   line-height: 1.65;
   color: var(--fg-2);
   margin: 0;
-}
-
-.ss-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.ss-chip {
-  font-size: 0.64rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  padding: 5px 10px;
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-sm);
-  white-space: nowrap;
 }
 
 .ss-more {
@@ -453,4 +429,218 @@
   background: var(--bg-2);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ГАЙД НА СТРАНИЦЕ УСЛУГИ (sg-)
+   Страница услуги перестала быть карточкой: ниже блока возможностей идёт
+   полноценный материал. Слева липкое оглавление, справа колонка текста
+   шириной около 68 знаков — на такой строке глаз не теряет начало.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.sg-wrap {
+  display: grid;
+  /* Ограничиваем материал шириной статьи: оглавление + колонка текста.
+     На широком мониторе полная ширина .shell оставляла справа пустоту. */
+  max-width: 1000px;
+  grid-template-columns: 218px minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  padding: clamp(56px, 7vw, 96px) 0 clamp(48px, 6vw, 80px);
+  border-top: 1px solid var(--line);
+}
+
+/* ── Оглавление ── */
+.sg-toc-in {
+  position: sticky;
+  top: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sg-toc-title {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.sg-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  counter-reset: sgtoc;
+}
+
+.sg-toc-list a {
+  display: block;
+  padding: 7px 0 7px 22px;
+  position: relative;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--fg-2);
+  transition: color 0.2s ease;
+}
+
+/* Номер пункта — тонкая направляющая, а не украшение */
+.sg-toc-list a::before {
+  counter-increment: sgtoc;
+  content: counter(sgtoc, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.sg-toc-list a:hover { color: var(--fg); }
+.sg-toc-list a:hover::before { color: var(--accent); }
+
+.sg-readtime {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Текст ── */
+.sg-body { max-width: 68ch; }
+
+.sg-lead {
+  margin: 0 0 clamp(36px, 4vw, 56px);
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.62;
+  color: var(--fg);
+}
+
+.sg-sec { scroll-margin-top: 110px; }
+.sg-sec + .sg-sec { margin-top: clamp(40px, 4.6vw, 64px); }
+
+.sg-h {
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--fg);
+}
+
+.sg-p {
+  margin: 0 0 16px;
+  font-size: 15.5px;
+  line-height: 1.68;
+  color: var(--fg-2);
+}
+.sg-p:last-child { margin-bottom: 0; }
+
+/* Врезка: мысль, которую стоит унести с собой */
+.sg-note {
+  margin: 22px 0;
+  padding: 18px 22px;
+  border-left: 2px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--r-md, 10px) var(--r-md, 10px) 0;
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--fg);
+}
+
+.sg-list,
+.sg-steps {
+  margin: 4px 0 18px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.sg-list li,
+.sg-steps li {
+  position: relative;
+  padding-left: 30px;
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: var(--fg-2);
+}
+
+.sg-list li::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 11px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.sg-steps { counter-reset: sgstep; }
+.sg-steps li::before {
+  counter-increment: sgstep;
+  content: counter(sgstep);
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent-2);
+}
+
+/* ── Вопросы и ответы ── */
+.sg-faq { padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--line); }
+
+.sg-faq-list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sg-faq-item {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.sg-faq-item:first-child { border-top: 1px solid var(--line); }
+
+.sg-faq-item dt {
+  margin-bottom: 9px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+.sg-faq-item dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--fg-2);
+}
+
+@media (max-width: 900px) {
+  .sg-wrap { grid-template-columns: 1fr; gap: 32px; }
+  .sg-toc-in {
+    position: static;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md, 10px);
+    background: var(--bg-2);
+  }
+  .sg-body { max-width: none; }
 }

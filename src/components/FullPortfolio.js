@@ -218,7 +218,7 @@ const FullPortfolio = ({ onBack }) => {
         <div className="fp-title-block">
           <div className="sec-num">{en ? 'ALL WORKS' : 'ВСЕ РАБОТЫ'}</div>
           <h1 className="sec-title">
-            {en ? 'Full' : 'Полный'} <span className="it">{en ? 'catalog' : 'каталог'}</span>
+            {en ? 'Full ' : 'Полный '}<span className="it">{en ? 'catalog' : 'каталог'}</span>
           </h1>
           <p className="fp-lede">
             {en
@@ -233,7 +233,7 @@ const FullPortfolio = ({ onBack }) => {
             <div className="fp-section-head">
               <span className="fp-section-num">01</span>
               <h2 className="fp-section-title">
-                {en ? 'Featured' : 'Избранные'} <span className="it">{en ? 'works' : 'работы'}</span>
+                {en ? 'Featured ' : 'Избранные '}<span className="it">{en ? 'works' : 'работы'}</span>
               </h2>
             </div>
             <div className="fp-grid-featured">
@@ -260,7 +260,7 @@ const FullPortfolio = ({ onBack }) => {
                 className={`filter-chip ${filterKey === f.key ? 'active' : ''}`}
                 onClick={() => setFilterKey(f.key)}
               >
-                {en ? (FILTER_LABELS_EN[f.key] || f.label) : f.label} <span className="fp-count">{count}</span>
+                {`${en ? (FILTER_LABELS_EN[f.key] || f.label) : f.label} `}<span className="fp-count">{count}</span>
               </button>
             );
           })}
@@ -272,7 +272,7 @@ const FullPortfolio = ({ onBack }) => {
             <div className="fp-section-head">
               <span className="fp-section-num">02</span>
               <h2 className="fp-section-title">
-                {en ? 'Horizontal' : 'Горизонтальные'} <span className="it">{en ? 'works' : 'работы'}</span>
+                {en ? 'Horizontal ' : 'Горизонтальные '}<span className="it">{en ? 'works' : 'работы'}</span>
                 <span className="fp-section-count"> — {horizontal.length}</span>
               </h2>
             </div>
@@ -295,7 +295,7 @@ const FullPortfolio = ({ onBack }) => {
             <div className="fp-section-head">
               <span className="fp-section-num">03</span>
               <h2 className="fp-section-title">
-                {en ? 'Vertical' : 'Вертикальные'} <span className="it">{en ? 'works' : 'работы'}</span>
+                {en ? 'Vertical ' : 'Вертикальные '}<span className="it">{en ? 'works' : 'работы'}</span>
                 <span className="fp-section-count"> — {vertical.length}</span>
               </h2>
             </div>

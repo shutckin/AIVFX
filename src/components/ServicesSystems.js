@@ -4,7 +4,9 @@ import { SERVICES_SYS } from '../data/systems-content';
 import { useLocale, pick, localizedHref } from '../i18n';
 import './services-systems.css';
 
-// Секция «Услуги» нового позиционирования: три крупные карточки-направления.
+// Секция «Услуги»: три крупные карточки-направления. Номера S/01 и ряды
+// чипов с англоязычными терминами убраны — они дробили карточку на мелочь
+// и мешали прочитать главное: название направления и что оно даёт.
 // Каждая карточка — обычная ссылка на /services/<slug>/ (полная перезагрузка, prerender).
 const ServicesSystems = () => {
   const L = useLocale();
@@ -28,14 +30,8 @@ const ServicesSystems = () => {
               href={localizedHref(`/services/${item.slug}/`, L)}
               className="ss-card reveal"
             >
-              <span className="ss-num mono">{item.num}</span>
               <h3 className="ss-title">{pick(L, item.title)}</h3>
               <p className="ss-desc">{pick(L, item.desc)}</p>
-              <div className="ss-chips">
-                {item.chips.map((chip) => (
-                  <span key={chip} className="ss-chip mono">{chip}</span>
-                ))}
-              </div>
               <span className="ss-more mono">
                 {pick(L, more)}
                 <span className="ss-more-arrow">↗</span>

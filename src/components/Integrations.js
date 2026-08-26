@@ -24,7 +24,7 @@ const Integrations = () => {
         />
 
         <div className="ig-grid">
-          {groups.map((group, i) => {
+          {groups.map((group) => {
             // Английские подписи инструментов там, где они отличаются
             // (Битрикс24 → Bitrix24, Сайт → Website). Если itemsEn нет —
             // берём общий список.
@@ -32,7 +32,6 @@ const Integrations = () => {
 
             return (
               <article className="ig-card reveal" key={pick(L, group.label)}>
-                <span className="ig-card-num mono">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className="ig-card-title">{pick(L, group.label)}</h3>
                 <p className="ig-card-desc">{pick(L, group.desc)}</p>
                 <div className="ig-chips">

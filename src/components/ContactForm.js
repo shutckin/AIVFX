@@ -4,21 +4,8 @@ import { useLocale, pick } from '../i18n';
 import { BUDGETS } from '../data/content';
 import { BUDGETS_EN } from '../data/content-en';
 import { CONTACT_SYS, VIDEO_CONTACT } from '../data/systems-content';
+import SecHead from './SecHead';
 
-const SecHead = ({ num, title, titleIt, side, sideTitle }) => (
-  <div className="sec-head reveal">
-    <div className="sec-num">{num}</div>
-    <h2 className="sec-title">
-      {title} {titleIt && <span className="it">{titleIt}</span>}
-    </h2>
-    {side && (
-      <div className="sec-side">
-        {sideTitle && <span className="kicker">{sideTitle}</span>}
-        <p>{side}</p>
-      </div>
-    )}
-  </div>
-);
 
 // Отправка в Telegram через env vars (бот-токен хранится на стороне сборки)
 const sendToTelegram = async (data, videoContext) => {
@@ -120,7 +107,7 @@ const ContactForm = ({ videoContext = false }) => {
           <form className="contact-form reveal" onSubmit={submit}>
             <div className="contact-grid-fields">
               <div className="field">
-                <label htmlFor="name">{en ? 'NAME' : 'ИМЯ'} <span className="req">*</span></label>
+                <label htmlFor="name">{`${en ? 'NAME' : 'ИМЯ'} `}<span className="req">*</span></label>
                 <input id="name" required value={form.name} onChange={(e) => handle('name', e.target.value)} placeholder={en ? 'Your name' : 'Ваше имя'} />
               </div>
               <div className="field">
@@ -158,7 +145,7 @@ const ContactForm = ({ videoContext = false }) => {
             )}
 
             <div className="field">
-              <label htmlFor="message">{pick(L, CONTENT.briefLabel)} <span className="req">*</span></label>
+              <label htmlFor="message">{`${pick(L, CONTENT.briefLabel)} `}<span className="req">*</span></label>
               <textarea
                 id="message"
                 required
@@ -177,11 +164,13 @@ const ContactForm = ({ videoContext = false }) => {
                 required
               />
               <span className="consent-text">
-                {en ? 'I agree to the processing of my personal data in accordance with the' : 'Я согласен(на) на обработку персональных данных в соответствии с'}{' '}
+                {en
+                  ? 'I agree to the processing of my personal data in accordance with the '
+                  : 'Я согласен(на) на обработку персональных данных в соответствии с '}
                 <button type="button" onClick={showPrivacy} className="consent-link">
                   {en ? 'Privacy Policy' : 'Политикой конфиденциальности'}
-                </button>{' '}
-                {en ? 'and the' : 'и'}{' '}
+                </button>
+                {en ? ' and the ' : ' и '}
                 <button type="button" onClick={showConsent} className="consent-link">
                   {en ? 'Consent to Personal Data Processing' : 'Согласием на обработку персональных данных'}
                 </button>.
@@ -194,7 +183,7 @@ const ContactForm = ({ videoContext = false }) => {
               disabled={sending || !agreed}
               style={{ alignSelf: 'flex-start' }}
             >
-              {sending ? (en ? 'Sending...' : 'Отправка...') : (en ? 'Send request' : 'Отправить заявку')} <span className="btn-arrow">↗</span>
+              {sending ? (en ? 'Sending...' : 'Отправка...') : (en ? 'Send request' : 'Отправить заявку')}<span className="btn-arrow">↗</span>
             </button>
 
             {sendError && (
@@ -232,7 +221,7 @@ const ContactForm = ({ videoContext = false }) => {
                 className="btn btn-primary"
                 style={{ marginTop: 16 }}
               >
-                {en ? 'Message on Telegram' : 'Написать в Telegram'} <span className="btn-arrow">↗</span>
+                {en ? 'Message on Telegram' : 'Написать в Telegram'}<span className="btn-arrow">↗</span>
               </a>
             </div>
 

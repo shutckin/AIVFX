@@ -250,18 +250,6 @@
   color: var(--accent);
 }
 
-.cs-demo-badge {
-  flex-shrink: 0;
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fg-2);
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-sm);
-  padding: 4px 10px;
-}
-
 /* «Было → стало» одной связкой */
 .cs2-flow {
   margin: 0;
@@ -434,14 +422,6 @@
 }
 
 /* Порядковый номер группы 01–04 */
-.ig-card-num {
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  color: var(--accent-2);
-  margin-bottom: 14px;
-}
-
 /* Заголовок-выгода: «Ваша CRM остаётся вашей» */
 .ig-card-title {
   margin: 0 0 10px;
