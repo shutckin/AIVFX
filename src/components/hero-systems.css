@@ -155,6 +155,16 @@
   transform-style: preserve-3d;
 }
 
+/* Аппарат стал выше, и на невысоких окнах низ уходил за сгиб.
+   Ужимаем сцену целиком: пропорции и толщина рамки сохраняются,
+   потому что масштабируется всё вместе, а не отдельные размеры. */
+@media (min-width: 769px) {
+  @media (max-height: 900px) { .hp-stage { transform: scale(0.93); } }
+  @media (max-height: 820px) { .hp-stage { transform: scale(0.85); } }
+  @media (max-height: 740px) { .hp-stage { transform: scale(0.77); } }
+  @media (max-height: 670px) { .hp-stage { transform: scale(0.68); } }
+}
+
 /* Эллиптическая тень-подложка: единственное место на сайте с glow/тенью */
 .hp-shadow {
   position: absolute;
@@ -178,10 +188,11 @@
 .hp-phone {
   position: relative;
   z-index: 1;
-  width: 336px;
-  height: 630px;
-  padding: 11px;
-  border-radius: 50px;
+  /* Пропорция ближе к нынешним аппаратам (примерно 19,5:9), рамка уже */
+  width: 318px;
+  height: 672px;
+  padding: 8px;
+  border-radius: 46px;
   /* Титан: холодный металл с тёплой искрой на верхней и нижней гранях */
   background:
     linear-gradient(158deg,
@@ -210,8 +221,8 @@
 .hp-phone::before {
   content: "";
   position: absolute;
-  inset: 8px;
-  border-radius: 42px;
+  inset: 6px;
+  border-radius: 40px;
   background: #050506;
   pointer-events: none;
 }
@@ -229,9 +240,9 @@
   transform: translateZ(-6px);
   pointer-events: none;
 }
-.hp-btn-vol { left: -3px; top: 132px; height: 56px; }
-.hp-btn-vol + .hp-btn-vol { top: 200px; height: 56px; }
-.hp-btn-pwr { right: -3px; top: 176px; height: 84px; }
+.hp-btn-vol { left: -3px; top: 142px; height: 58px; }
+.hp-btn-vol + .hp-btn-vol { top: 212px; height: 58px; }
+.hp-btn-pwr { right: -3px; top: 188px; height: 88px; }
 
 /* Экран.
    overflow: hidden здесь нельзя — он «схлопнул» бы 3D-слои внутри экрана,
@@ -241,7 +252,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: 39px;
+  border-radius: 38px;
   background: #0a0a0c;
   transform: translateZ(12px);
   transform-style: preserve-3d;
@@ -254,7 +265,7 @@
   position: absolute;
   inset: 0;
   z-index: 4;
-  border-radius: 39px;
+  border-radius: 38px;
   pointer-events: none;
   background: linear-gradient(
     148deg,
@@ -270,9 +281,112 @@
   position: absolute;
   inset: 0;
   z-index: 5;
-  border-radius: 39px;
+  border-radius: 38px;
   pointer-events: none;
   box-shadow: inset 0 0 0 1px rgba(226, 238, 255, 0.10);
+}
+
+/* ── Живой блик на стекле ──
+   Стекло не поворачивается вместе с корпусом: источник света остаётся
+   на месте, поэтому при наклоне отражение съезжает по экрану. --lx/--ly
+   пишет JS из положения курсора (см. Hero.js).
+
+   Слой отдельный, потому что ему нужен overflow: hidden, а экрану его
+   давать нельзя: он схлопнет 3D-слои внутри. */
+.hp-glare {
+  position: absolute;
+  inset: 8px;
+  z-index: 3;
+  border-radius: 38px;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateZ(26px);
+}
+
+.hp-glare::before {
+  content: "";
+  position: absolute;
+  top: -70%;
+  left: -70%;
+  width: 240%;
+  height: 240%;
+  background: linear-gradient(
+    112deg,
+    transparent 30%,
+    rgba(226, 238, 255, 0.06) 40%,
+    rgba(226, 238, 255, 0.22) 49%,
+    rgba(226, 238, 255, 0.06) 58%,
+    transparent 68%);
+  transform: translate3d(calc(var(--lx, 0) * 1%), calc(var(--ly, 0) * 1%), 0);
+}
+
+/* Второй, узкий и более резкий отблеск: вместе с широким читается
+   как настоящее стекло, а не как градиентная плёнка */
+.hp-glare::after {
+  content: "";
+  position: absolute;
+  top: -70%;
+  left: -70%;
+  width: 240%;
+  height: 240%;
+  background: linear-gradient(
+    112deg,
+    transparent 45%,
+    rgba(255, 255, 255, 0.14) 49.5%,
+    transparent 54%);
+  transform: translate3d(calc(var(--lx, 0) * 1.25%), calc(var(--ly, 0) * 1.15%), 0);
+}
+
+/* Отблеск на титановой грани: уезжает вместе с бликом на стекле */
+.hp-phone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 46px;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 36%,
+    rgba(255, 255, 255, 0.16) 47%,
+    rgba(255, 255, 255, 0.04) 53%,
+    transparent 64%);
+  opacity: 0.5;
+  transform: translate3d(calc(var(--lx, 0) * 0.5%), 0, 0);
+}
+
+/* Там, где курсора нет (телефон, планшет, экран без мыши), свет не может
+   зависеть от наклона. Чтобы кадр не выглядел мёртвым, блик медленно
+   ходит сам: один проход туда-обратно примерно за девять секунд. */
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  .hp-glare::before {
+    animation: hp-sheen 9s ease-in-out infinite alternate;
+  }
+  .hp-glare::after {
+    animation: hp-sheen 9s ease-in-out infinite alternate;
+    animation-delay: -0.6s;
+  }
+  .hp-phone::after {
+    animation: hp-sheen-edge 9s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes hp-sheen {
+  from { transform: translate3d(-13%, -8%, 0); }
+  to   { transform: translate3d(13%, 8%, 0); }
+}
+
+@keyframes hp-sheen-edge {
+  from { transform: translate3d(-12%, 0, 0); opacity: 0.3; }
+  to   { transform: translate3d(12%, 0, 0); opacity: 0.62; }
+}
+
+/* Уважение к системной настройке: никакого самостоятельного движения */
+@media (prefers-reduced-motion: reduce) {
+  .hp-glare::before,
+  .hp-glare::after,
+  .hp-phone::after {
+    animation: none;
+  }
 }
 
 /* Островок фронтальной камеры */
@@ -645,18 +759,20 @@
   .hs-headline { font-size: clamp(34px, 8.4vw, 52px); }
   .hs-sub { max-width: none; }
   .hp-phone {
-    width: 300px;
-    height: 560px;
-    border-radius: 44px;
-    padding: 10px;
+    width: 292px;
+    height: 616px;
+    border-radius: 42px;
+    padding: 7px;
   }
-  .hp-phone::before { inset: 7px; border-radius: 37px; }
+  .hp-phone::before { inset: 5px; border-radius: 37px; }
+  .hp-phone::after { border-radius: 42px; }
   .hp-screen,
   .hp-screen::before,
-  .hp-screen::after { border-radius: 34px; }
-  .hp-btn-vol { top: 116px; height: 48px; }
-  .hp-btn-vol + .hp-btn-vol { top: 176px; }
-  .hp-btn-pwr { top: 154px; height: 74px; }
+  .hp-screen::after { border-radius: 35px; }
+  .hp-glare { inset: 7px; border-radius: 35px; }
+  .hp-btn-vol { top: 130px; height: 52px; }
+  .hp-btn-vol + .hp-btn-vol { top: 194px; }
+  .hp-btn-pwr { top: 172px; height: 80px; }
   /* Тач: параллакс не вешается (см. Hero.js), остаётся лёгкий статичный наклон */
   .hp-stage {
     --ry: -4deg;
@@ -696,18 +812,20 @@
     color: var(--fg-2);
   }
   .hp-phone {
-    width: 268px;
-    height: 500px;
-    border-radius: 40px;
-    padding: 9px;
+    width: 262px;
+    height: 552px;
+    border-radius: 38px;
+    padding: 6px;
   }
-  .hp-phone::before { inset: 6px; border-radius: 34px; }
+  .hp-phone::before { inset: 4px; border-radius: 34px; }
+  .hp-phone::after { border-radius: 38px; }
   .hp-screen,
   .hp-screen::before,
-  .hp-screen::after { border-radius: 31px; }
-  .hp-btn-vol { top: 100px; height: 42px; }
-  .hp-btn-vol + .hp-btn-vol { top: 152px; }
-  .hp-btn-pwr { top: 134px; height: 64px; }
+  .hp-screen::after { border-radius: 32px; }
+  .hp-glare { inset: 6px; border-radius: 32px; }
+  .hp-btn-vol { top: 116px; height: 46px; }
+  .hp-btn-vol + .hp-btn-vol { top: 174px; }
+  .hp-btn-pwr { top: 154px; height: 72px; }
   /* Места по бокам нет — бейджи убираем */
   .hp-badge { display: none; }
   .hp-notch { width: 78px; height: 22px; margin-top: 9px; }

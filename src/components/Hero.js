@@ -12,6 +12,11 @@ const BASE_RX = 3;    // deg — базовый наклон по горизон
 const MAX_RY = 9;     // deg — максимальный доворот курсором влево/вправо
 const MAX_RX = 6;     // deg — максимальный доворот курсором вверх/вниз
 const SHADOW_PX = 14; // px — насколько тень уезжает против наклона
+// Ход блика. Слой с бликом в 2,4 раза больше экрана, поэтому 1% сдвига
+// это 2,4% ширины экрана: при 14 блик проходит примерно треть экрана
+// и не убегает за его край.
+const GLARE_X = 14;
+const GLARE_Y = 9;
 const LERP = 0.08;    // коэффициент сглаживания: телефон «догоняет» курсор
 const EPS = 0.01;     // порог, ниже которого считаем, что доводка закончена
 
@@ -59,10 +64,20 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
     let raf = 0;
 
     const write = () => {
-      stage.style.setProperty('--ry', `${(BASE_RY + ry).toFixed(2)}deg`);
-      stage.style.setProperty('--rx', `${(BASE_RX + rx).toFixed(2)}deg`);
-      // Тень уезжает в противоход развороту — читается как объём
-      stage.style.setProperty('--sx', `${(-(BASE_RY + ry) / MAX_RY * SHADOW_PX).toFixed(2)}px`);
+      const totalRy = BASE_RY + ry;
+      const totalRx = BASE_RX + rx;
+
+      stage.style.setProperty('--ry', `${totalRy.toFixed(2)}deg`);
+      stage.style.setProperty('--rx', `${totalRx.toFixed(2)}deg`);
+      // Тень уезжает в противоход развороту, читается как объём
+      stage.style.setProperty('--sx', `${(-totalRy / MAX_RY * SHADOW_PX).toFixed(2)}px`);
+
+      // Блик на стекле. Стекло не поворачивается вместе с корпусом:
+      // источник света остаётся на месте, поэтому отражение съезжает
+      // в ту же сторону, куда наклонили телефон, но заметно быстрее.
+      // Значения без единиц, единицы добавляет CSS.
+      stage.style.setProperty('--lx', (totalRy / MAX_RY * GLARE_X).toFixed(2));
+      stage.style.setProperty('--ly', (-totalRx / MAX_RX * GLARE_Y).toFixed(2));
     };
 
     const frame = () => {
@@ -125,6 +140,8 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
       stage.style.removeProperty('--ry');
       stage.style.removeProperty('--rx');
       stage.style.removeProperty('--sx');
+      stage.style.removeProperty('--lx');
+      stage.style.removeProperty('--ly');
     };
   }, [sectionRef, stageRef, allowed]);
 };
@@ -201,6 +218,8 @@ const HeroPhoneDemo = ({ sectionRef }) => {
           <span className="hp-btn-vol" />
           <span className="hp-btn-vol" />
           <span className="hp-btn-pwr" />
+
+          <span className="hp-glare" aria-hidden="true" />
 
           <div className="hp-screen">
             <div className="hp-notch" />
