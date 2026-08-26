@@ -28,8 +28,10 @@ const ServicePage     = lazy(() => import('./components/ServicePage'));
 const VideoProduction = lazy(() => import('./components/VideoProduction'));
 
 // ── Конверсионные элементы ──
-const CTABreak         = lazy(() => import('./components/CTABreak'));
-const FloatingTelegram = lazy(() => import('./components/FloatingTelegram'));
+const CTABreak   = lazy(() => import('./components/CTABreak'));
+// Демо-ассистент: сайт сам показывает продукт, который студия продаёт.
+// Заменяет плавающую Telegram-кнопку — Telegram живёт внутри чата.
+const ChatWidget = lazy(() => import('./components/ChatWidget'));
 
 const SectionFallback = () => (
   <div style={{ padding: '80px 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -319,6 +321,16 @@ function App() {
 
     document.querySelectorAll('.reveal').forEach(observe);
 
+    // Страховка: в фоновой вкладке браузер не запускает IntersectionObserver,
+    // и секции остались бы невидимыми. Через 2.5 с показываем всё, что уже
+    // попадает в экран, — анимация появления не должна прятать контент.
+    const safety = setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.in)').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+      });
+    }, 2500);
+
     const mo = new MutationObserver((mutations) => {
       mutations.forEach((m) => {
         m.addedNodes.forEach((node) => {
@@ -330,7 +342,7 @@ function App() {
     });
     mo.observe(document.body, { childList: true, subtree: true });
 
-    return () => { obs.disconnect(); mo.disconnect(); };
+    return () => { clearTimeout(safety); obs.disconnect(); mo.disconnect(); };
   }, []);
 
   const ctx = {
@@ -360,8 +372,11 @@ function App() {
           </Suspense>
         ) : showVideoPage ? (
           <Suspense fallback={<SectionFallback />}>
-            <VideoProduction />
-            <Footer />
+            {/* vp-theme: янтарная палитра направления «AI-контент» — вместе с футером */}
+            <div className="vp-theme">
+              <VideoProduction />
+              <Footer />
+            </div>
           </Suspense>
         ) : showServicePage ? (
           <Suspense fallback={<SectionFallback />}>
@@ -416,7 +431,7 @@ function App() {
         )}
         <InfoNotification isVisible={showInfoNotification} onClose={hide} />
         <SuccessModal isVisible={showSuccessModal} onClose={hideSuccess} />
-        <Suspense fallback={null}><FloatingTelegram /></Suspense>
+        <Suspense fallback={null}><ChatWidget /></Suspense>
         <Suspense fallback={null}>
           <CookieBanner onPrivacyClick={showPrivacy} />
         </Suspense>

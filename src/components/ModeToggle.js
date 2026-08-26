@@ -11,6 +11,7 @@ const ModeToggle = ({ mode = 'systems' }) => {
     <nav className="mode-toggle" aria-label={en ? 'Studio directions' : 'Направления студии'}>
       <a
         href={localizedHref('/', L)}
+        data-mode="systems"
         className={`mode-opt${mode === 'systems' ? ' active' : ''}`}
         aria-current={mode === 'systems' ? 'page' : undefined}
       >
@@ -18,6 +19,7 @@ const ModeToggle = ({ mode = 'systems' }) => {
       </a>
       <a
         href={localizedHref('/video-production/', L)}
+        data-mode="content"
         className={`mode-opt${mode === 'content' ? ' active' : ''}`}
         aria-current={mode === 'content' ? 'page' : undefined}
       >

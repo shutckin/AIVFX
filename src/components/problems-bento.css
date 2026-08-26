@@ -1,7 +1,11 @@
 /* ═══════════════════════════════════════════════════════════════════════
    AIVFX — секция «Проблема»: bento-сетка с мини-интерфейсами
    Префикс классов: pbx-
-   Алый сигнал проблем: rgba(255, 107, 107, ·)
+   Цветовой код:
+     алый rgba(255, 107, 107, ·) — сигнал проблемы (просрочка, разрыв, обрыв)
+     var(--fg-2)                 — нейтральные данные
+     var(--accent-2)             — «правильное» состояние, живой источник
+   Цвет точечный: иконки, бейджи, точки, линии графика. Никаких заливок.
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* ── Грид ─────────────────────────────────────────────────────────────── */
@@ -19,6 +23,7 @@
 .pbx-tile:nth-child(n + 3) { grid-column: span 2; }
 
 .pbx-tile {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -35,10 +40,32 @@
               transform 0.9s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
+/* Полоска-индикатор сверху: «это проблема» */
+.pbx-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(255, 107, 107, 0.5),
+    rgba(255, 107, 107, 0.14) 45%,
+    transparent 78%);
+  opacity: 0.75;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
 .pbx-tile:hover {
   border-color: var(--line-2);
   background: var(--bg-3);
 }
+
+.pbx-tile:hover::before { opacity: 1; }
+
+/* Мини-интерфейс тоже оживает: рамка «экрана» становится заметнее */
+.pbx-tile:hover .pbx-ui { border-color: var(--line-2); }
 
 /* Stagger появления плиток: задержка только на opacity/transform (reveal),
    hover (border/background) остаётся мгновенным */
@@ -51,7 +78,7 @@
 .pbx-text {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(17px, 1.5vw, 20px);
+  font-size: clamp(18px, 1.6vw, 20px);
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.01em;
@@ -68,23 +95,65 @@
   color: var(--muted);
 }
 
-/* ── Мини-интерфейс: общий контейнер ─────────────────────────────────── */
+/* ── Мини-интерфейс: «экран внутри карточки» ─────────────────────────── */
 
+/* Ступень фона на шаг темнее карточки (--bg внутри --bg-2) + своя рамка */
 .pbx-ui {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 132px;
-  padding: 16px;
+  /* Растёт на всю свободную высоту плитки: «экраны» в одном ряду
+     выравниваются по нижнему краю, ряд читается как один интерфейс */
+  flex: 1 0 auto;
+  gap: 11px;
+  min-height: 148px;
+  padding: 13px 14px 14px;
   background: var(--bg);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-2);
   border-radius: var(--r-md);
   overflow: hidden;
   user-select: none;
+  transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.pbx-alert { color: rgba(255, 107, 107, 0.75); }
+/* Шапка-контекст: точка + UPPERCASE-лейбл, чтобы за секунду понять экран */
+.pbx-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pbx-head-dot {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.pbx-head-live .pbx-head-dot {
+  background: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(106, 148, 255, 0.14);
+}
+
+.pbx-head-alert .pbx-head-dot {
+  background: rgba(255, 107, 107, 0.9);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.14);
+}
+
+/* Тело мини-интерфейса */
+.pbx-body {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+}
 
 /* Мелкие моно-подписи внутри мини-UI */
 .pbx-ui .pbx-cap {
@@ -95,43 +164,50 @@
   color: var(--muted);
 }
 
+.pbx-ui .pbx-cap-alert { color: rgba(255, 107, 107, 0.85); }
+
 /* ── chat: ночная заявка ждёт утра ───────────────────────────────────── */
 
-.pbx-chat { gap: 8px; display: flex; flex-direction: column; align-items: flex-start; }
+.pbx-chat {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 9px;
+}
 
 .pbx-chat-bubble {
-  max-width: 78%;
-  padding: 9px 12px;
+  max-width: 88%;
+  padding: 9px 12px 8px;
   background: var(--bg-3);
+  border: 1px solid var(--line);
   border-radius: 2px 10px 10px 10px;
 }
 
-.pbx-chat-lines { display: flex; flex-direction: column; gap: 5px; }
-
-.pbx-chat-lines i {
-  display: block;
-  height: 5px;
-  border-radius: 3px;
-  background: rgba(216, 234, 255, 0.22);
+/* Настоящая реплика клиента, а не серые полоски-заглушки */
+.pbx-chat-msg {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--fg);
 }
-
-.pbx-chat-lines i:nth-child(1) { width: 128px; }
-.pbx-chat-lines i:nth-child(2) { width: 86px; }
 
 .pbx-chat-meta {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 6px;
-  margin-top: 7px;
+  margin-top: 5px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.1em;
   color: var(--muted);
 }
 
-.pbx-chat-checks { display: inline-flex; color: var(--muted); opacity: 0.8; }
+/* Галочки серые: доставлено, но не прочитано */
+.pbx-chat-checks { display: inline-flex; color: var(--muted-2); }
 
-/* Пузырь-призрак «...» — ответ появится только утром */
+/* Пузырь-призрак «печатает» — ответ появится только утром */
 .pbx-chat-ghost {
   display: flex;
   align-items: center;
@@ -140,8 +216,9 @@
 
 .pbx-chat-ghost-bubble {
   display: inline-flex;
+  align-items: center;
   gap: 4px;
-  padding: 10px 13px;
+  padding: 9px 12px;
   border: 1px dashed var(--line-2);
   border-radius: 2px 10px 10px 10px;
 }
@@ -150,46 +227,79 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--muted);
+  background: var(--fg-2);
   animation: pbx-dots 1.6s ease-in-out infinite;
 }
 
 .pbx-chat-ghost-bubble i:nth-child(2) { animation-delay: 0.2s; }
 .pbx-chat-ghost-bubble i:nth-child(3) { animation-delay: 0.4s; }
 
+/* На hover «печатает» ускоряется — плитка еле заметно оживает */
+.pbx-tile:hover .pbx-chat-ghost-bubble i { animation-duration: 0.85s; }
+
 @keyframes pbx-dots {
-  0%, 60%, 100% { opacity: 0.35; }
+  0%, 60%, 100% { opacity: 0.28; }
   30% { opacity: 1; }
 }
 
-.pbx-chat-ghost .pbx-cap { color: rgba(255, 107, 107, 0.75); }
-
 /* ── task: просроченный follow-up ────────────────────────────────────── */
 
-.pbx-task { gap: 10px; display: flex; flex-direction: column; }
+.pbx-task {
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+}
 
 .pbx-task-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 10px;
+  padding: 9px 10px;
   background: var(--bg-2);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--r-sm);
 }
 
-.pbx-task-row-main { opacity: 0.92; }
+/* Просроченная строка — единственная с алой рамкой и левым маркером */
+.pbx-task-row-main {
+  position: relative;
+  border-color: rgba(255, 107, 107, 0.28);
+  background: var(--bg-3);
+}
+
+.pbx-task-row-main::before {
+  content: '';
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: -1px;
+  width: 2px;
+  border-radius: 2px;
+  background: rgba(255, 107, 107, 0.8);
+}
+
+/* Соседние строки чуть приглушены — глубина трекера */
+.pbx-task-row-done { opacity: 0.5; }
+.pbx-task-row-next { opacity: 0.62; }
 
 .pbx-task-check {
   flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 14px;
   height: 14px;
   border: 1.5px solid var(--line-2);
   border-radius: 3px;
 }
 
-/* Шрифт 11.5px без letter-spacing + компактный бейдж рядом:
-   «Follow-up: Иван, КП» читается целиком на 1440 без обрезки */
+/* Выполненная задача — кобальтовая галочка: «правильное» состояние */
+.pbx-task-check-done {
+  color: var(--accent-2);
+  border-color: rgba(106, 148, 255, 0.45);
+  background: var(--accent-soft);
+}
+
 .pbx-task-label {
   flex: 1;
   min-width: 0;
@@ -200,11 +310,25 @@
   font-size: 11.5px;
   letter-spacing: 0;
   color: var(--fg-2);
-  text-decoration: line-through;
-  text-decoration-color: rgba(255, 107, 107, 0.45);
-  opacity: 0.65;
 }
 
+.pbx-task-row-done .pbx-task-label {
+  text-decoration: line-through;
+  text-decoration-color: rgba(216, 234, 255, 0.35);
+}
+
+.pbx-task-row-main .pbx-task-label { color: var(--fg); }
+
+.pbx-task-date {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Бейдж просрочки еле заметно мигает */
 .pbx-task-badge {
   flex: none;
   padding: 3px 7px;
@@ -213,20 +337,16 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 107, 107, 0.75);
-  border: 1px solid rgba(255, 107, 107, 0.3);
+  color: rgba(255, 107, 107, 0.95);
+  border: 1px solid rgba(255, 107, 107, 0.4);
   border-radius: 100px;
   white-space: nowrap;
+  animation: pbx-blink 2.5s ease-in-out infinite;
 }
 
-/* Соседние строки-призраки для глубины трекера */
-.pbx-task-row-ghost {
-  opacity: 0.35;
-}
-
-.pbx-task-row-ghost .pbx-task-label {
-  text-decoration: none;
-  opacity: 1;
+@keyframes pbx-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 /* ── pipe: разрыв WhatsApp → CRM ─────────────────────────────────────── */
@@ -234,31 +354,100 @@
 .pbx-pipe {
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 0;
 }
 
-.pbx-pipe-chip {
+.pbx-pipe-node {
   flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.pbx-pipe-chip {
   padding: 8px 12px;
   font-family: var(--font-mono);
   font-size: 10.5px;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--fg-2);
+  color: var(--fg);
   background: var(--bg-3);
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
   white-space: nowrap;
 }
 
+/* Приёмник мёртв — рамка алая, текст приглушён */
+.pbx-pipe-chip-dead {
+  color: var(--fg-2);
+  border-color: rgba(255, 107, 107, 0.25);
+  border-style: dashed;
+}
+
+.pbx-pipe-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pbx-pipe-sub-ok { color: var(--accent-2); }
+.pbx-pipe-sub-alert { color: rgba(255, 107, 107, 0.85); }
+
 .pbx-pipe-line {
+  position: relative;
   flex: 1;
   height: 1px;
-  min-width: 12px;
+  min-width: 14px;
+  margin-bottom: 20px; /* компенсируем подпись под чипами */
   background-image: linear-gradient(90deg, var(--line-2) 55%, transparent 0);
   background-size: 8px 1px;
   background-repeat: repeat-x;
+}
+
+/* Правый отрезок мёртвый — почти невидим */
+.pbx-pipe-line-dead { opacity: 0.4; }
+
+/* Точка бежит по линии и врезается в разрыв.
+   Обёртка тянется во всю ширину линии, поэтому translateX(100%)
+   = ровно длина отрезка (compositor-friendly, без анимации left). */
+.pbx-pipe-dot {
+  position: absolute;
+  inset: 0;
+  animation: pbx-run 3s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.pbx-pipe-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  box-shadow: 0 0 7px rgba(106, 148, 255, 0.55);
+  animation: pbx-hit 3s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes pbx-run {
+  0%   { transform: translateX(0); }
+  55%  { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pbx-hit {
+  0%       { opacity: 0; transform: scale(1); }
+  10%, 52% { opacity: 1; transform: scale(1); }
+  60%      { opacity: 1; transform: scale(2.1); background: rgba(255, 107, 107, 0.9); }
+  70%      { opacity: 0; transform: scale(2.4); background: rgba(255, 107, 107, 0.9); }
+  100%     { opacity: 0; transform: scale(1); }
 }
 
 .pbx-pipe-break {
@@ -268,8 +457,8 @@
   justify-content: center;
   width: 26px;
   height: 26px;
-  margin: 0 6px;
-  color: rgba(255, 107, 107, 0.75);
+  margin: 0 6px 20px;
+  color: rgba(255, 107, 107, 0.9);
 }
 
 /* ── copy: ручной перенос Excel → CRM ────────────────────────────────── */
@@ -277,7 +466,7 @@
 .pbx-copy {
   flex-direction: row;
   align-items: stretch;
-  gap: 10px;
+  gap: 9px;
 }
 
 .pbx-copy-win {
@@ -285,28 +474,34 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 6px;
-  padding: 10px;
+  padding: 9px 10px;
   background: var(--bg-2);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--r-sm);
 }
 
 .pbx-copy-win .pbx-cap { margin-bottom: 2px; font-size: 8.5px; }
 
-.pbx-copy-win i {
-  display: block;
-  height: 5px;
-  border-radius: 3px;
-  background: rgba(216, 234, 255, 0.14);
+/* Слева — реальные строки данных */
+.pbx-copy-row {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0;
+  color: var(--fg-2);
 }
 
-.pbx-copy-win i:nth-of-type(1) { width: 88%; }
-.pbx-copy-win i:nth-of-type(2) { width: 64%; }
-.pbx-copy-win i:nth-of-type(3) { width: 76%; }
-.pbx-copy-win i:nth-of-type(4) { width: 52%; }
+/* Справа — пустые строки: данные не доехали. Вот здесь пустота уместна. */
+.pbx-copy-win-dst { border-style: dashed; border-color: rgba(255, 107, 107, 0.18); }
 
-.pbx-copy-win-dst i { opacity: 0.55; }
+.pbx-copy-empty {
+  height: 14px;
+  border-bottom: 1px dashed var(--line-2);
+}
 
 .pbx-copy-mid {
   flex: none;
@@ -318,21 +513,17 @@
   color: var(--muted);
 }
 
-.pbx-copy-mid .pbx-cap {
-  font-size: 8.5px;
-  color: rgba(255, 107, 107, 0.75);
-  white-space: nowrap;
-}
+.pbx-copy-mid .pbx-cap { font-size: 8.5px; white-space: nowrap; }
 
 /* Строка, «переносимая» вручную — subtle цикл 3s */
 .pbx-copy-carrier {
   position: absolute;
-  top: 50%;
-  left: 14%;
+  top: 58%;
+  left: 12%;
   width: 15%;
   height: 5px;
   border-radius: 3px;
-  background: rgba(216, 234, 255, 0.35);
+  background: rgba(216, 234, 255, 0.4);
   opacity: 0;
   animation: pbx-carry 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   pointer-events: none;
@@ -345,20 +536,86 @@
   88%, 100% { transform: translateX(340%); opacity: 0; }
 }
 
-/* ── churn: обрыв LTV ────────────────────────────────────────────────── */
+/* ── churn: обрыв выручки ────────────────────────────────────────────── */
 
-.pbx-churn { gap: 8px; }
+.pbx-churn {
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
 
-.pbx-churn svg { display: block; width: 100%; height: auto; }
+/* Растягиваем по ширине; штрихи держим на non-scaling-stroke (в JSX) */
+.pbx-churn-plot {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 100%;
+  height: 62px;
+}
+
+.pbx-churn-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Линия «дорисовывается» один раз при появлении в viewport.
+   База 0 — если .in почему-то не придёт, график всё равно виден. */
+.pbx-churn-line,
+.pbx-churn-drop {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.pbx-tile.reveal:not(.in) .pbx-churn-line,
+.pbx-tile.reveal:not(.in) .pbx-churn-drop { stroke-dashoffset: 1; }
+
+.pbx-tile.reveal.in .pbx-churn-line {
+  animation: pbx-draw 0.9s cubic-bezier(0.32, 0.72, 0, 1) 0.3s forwards;
+}
+
+.pbx-tile.reveal.in .pbx-churn-drop {
+  animation: pbx-draw 0.5s cubic-bezier(0.5, 0, 0.9, 0.5) 1.15s forwards;
+}
+
+@keyframes pbx-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Точка обрыва с ореолом — HTML, чтобы не искажалась растяжением SVG */
+.pbx-churn-dot {
+  position: absolute;
+  left: 89%;      /* x = 178 / 200 */
+  top: 91.7%;     /* y = 66 / 72  */
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: rgba(255, 107, 107, 0.95);
+  box-shadow: 0 0 0 5px rgba(255, 107, 107, 0.16), 0 0 12px rgba(255, 107, 107, 0.5);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pbx-tile.reveal.in .pbx-churn-dot {
+  animation: pbx-pop 0.4s cubic-bezier(0.32, 0.72, 0, 1) 1.6s forwards;
+}
+
+@keyframes pbx-pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
 
 .pbx-churn-label {
   display: flex;
   justify-content: flex-end;
   font-family: var(--font-mono);
   font-size: 10px;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 107, 107, 0.75);
+  color: rgba(255, 107, 107, 0.9);
 }
 
 /* ── Outro ───────────────────────────────────────────────────────────── */
@@ -395,22 +652,55 @@
   .pbx-tile:nth-child(5) { grid-column: auto; }
   .pbx-grid .pbx-tile:nth-child(n) { transition-delay: 0s; }
 
-  .pbx-ui { min-height: 112px; padding: 13px; }
-  .pbx-chat-lines i:nth-child(1) { width: 96px; }
-  .pbx-chat-lines i:nth-child(2) { width: 64px; }
+  .pbx-ui { min-height: 132px; padding: 12px 12px 13px; }
+  .pbx-chat-bubble { max-width: 92%; }
   .pbx-task-label { font-size: 11px; }
   .pbx-pipe-chip { padding: 7px 9px; font-size: 9.5px; letter-spacing: 0.08em; }
-  .pbx-pipe-break { width: 22px; margin: 0 3px; }
+  .pbx-pipe-break { width: 22px; margin: 0 3px 20px; }
   .pbx-copy-mid .pbx-cap { display: none; }
   .pbx-outro { border-radius: 0 var(--r-md) var(--r-md) 0; }
+}
+
+@media (max-width: 560px) {
+  .pbx-head { font-size: 10px; letter-spacing: 0.12em; }
+  .pbx-chat-msg { font-size: 11.5px; }
+  .pbx-copy-row { font-size: 10px; }
+  .pbx-task-date { display: none; }
+  .pbx-pipe-sub { font-size: 8.5px; }
+  /* Ужимаем бейдж, иначе «Follow-up — Иван, КП» обрезается многоточием */
+  .pbx-task-badge { padding: 3px 5px; letter-spacing: 0.03em; }
+  .pbx-task-row { padding: 9px 8px; gap: 7px; }
+}
+
+/* Самые узкие экраны: поджимаем данные, чтобы строки не уходили в многоточие */
+@media (max-width: 400px) {
+  .pbx-copy { gap: 7px; }
+  .pbx-copy-win { padding: 8px 5px; }
+  .pbx-copy-row { font-size: 9.5px; }
+  .pbx-task-label { font-size: 10.5px; }
+  .pbx-task-badge { font-size: 8px; }
 }
 
 /* ── Reduced motion ──────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   .pbx-tile,
-  .pbx-tile:hover { transition: none; }
+  .pbx-tile:hover,
+  .pbx-ui { transition: none; }
   .pbx-grid .pbx-tile:nth-child(n) { transition-delay: 0s; }
-  .pbx-chat-ghost-bubble i { animation: none; opacity: 0.6; }
+
+  .pbx-chat-ghost-bubble i,
+  .pbx-tile:hover .pbx-chat-ghost-bubble i { animation: none; opacity: 0.6; }
+  .pbx-task-badge { animation: none; opacity: 1; }
+  .pbx-pipe-dot { animation: none; transform: translateX(100%); }
+  .pbx-pipe-dot::after { animation: none; opacity: 1; background: rgba(255, 107, 107, 0.9); }
   .pbx-copy-carrier { animation: none; opacity: 0.5; transform: translateX(170%); }
+
+  /* График показываем сразу, без «дорисовки» */
+  .pbx-churn-line,
+  .pbx-churn-drop,
+  .pbx-tile.reveal:not(.in) .pbx-churn-line,
+  .pbx-tile.reveal:not(.in) .pbx-churn-drop { animation: none; stroke-dashoffset: 0; }
+  .pbx-churn-dot,
+  .pbx-tile.reveal.in .pbx-churn-dot { animation: none; opacity: 1; transform: none; }
 }

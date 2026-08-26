@@ -14,6 +14,160 @@ import './video-production.css';
 // Страница второго направления — AI-контент (/video-production/).
 // v3: hero + marquee + полоса фактов + полные услуги + сравнение + форматы работы
 // (без цен) + отзывы + FAQ + форма. Цены со страницы убраны полностью.
+// v4: своя янтарная палитра (скоуп .vp-page), робот-визуал в hero,
+// анимированные иконки услуг, топбар без «шага назад».
+
+// ── Hero-визуал: робот-сцена ──
+// Перенесён из старого Hero (коммит 2d2b20a), классы переименованы в vp-robot-*,
+// чтобы не пересекаться со старыми .robot-* в index.css.
+// Параллакс: слушатель мыши на самой сцене, passive, с очисткой;
+// при prefers-reduced-motion не вешается вовсе.
+const RobotStage = () => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches) return undefined;
+
+    const onMove = (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 16;
+      const y = (e.clientY / window.innerHeight - 0.5) * 16;
+      el.style.setProperty('--mx', `${x}px`);
+      el.style.setProperty('--my', `${y}px`);
+    };
+
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
+
+  return (
+    <div className="vp-robot-stage" ref={ref} aria-hidden="true">
+      <div className="vp-robot-halo" />
+      <div className="vp-robot-scan" />
+      <div className="vp-robot-glow" />
+      <svg className="vp-robot-rings" viewBox="0 0 600 600">
+        <circle cx="300" cy="300" r="220" className="r1" />
+        <circle cx="300" cy="300" r="270" className="r2" />
+        <circle cx="300" cy="300" r="150" className="r3" />
+      </svg>
+      <div className="vp-robot-hud vp-hud-bl">
+        <span className="vp-hud-dot" />
+        <span>LAT +55.75° LON +37.61°</span>
+      </div>
+      <div className="vp-robot-hud vp-hud-br">
+        <span>© AIVFX SYSTEMS</span>
+      </div>
+    </div>
+  );
+};
+
+// ── Анимированные иконки услуг ──
+// Заменяют глифы ∆ ○ ◇ ⌒ ∇ ✕. Каждая — свой смысл, анимация постоянная и медленная,
+// только transform / opacity / stroke-dashoffset. Отключается при reduced-motion (в CSS).
+const ICON_PROPS = {
+  className: 'vp-ico',
+  viewBox: '0 0 26 26',
+  width: 28,
+  height: 28,
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: 1.5,
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round',
+  focusable: 'false',
+  'aria-hidden': 'true',
+};
+
+// S/01 — AI-генерация видео: кадр-рамка с бегущей внутри линией-сканом
+const IcoGenerate = () => (
+  <svg {...ICON_PROPS}>
+    <rect x="2.5" y="4.5" width="21" height="17" rx="2.5" />
+    <path d="M2.5 8.5h21" opacity="0.45" />
+    <g className="vp-ico-scan">
+      <path d="M5.5 11.5h15" />
+    </g>
+    <circle cx="5.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
+    <circle cx="8" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+// S/02 — VFX и композитинг: три слоя-прямоугольника, расходящиеся и сходящиеся
+const IcoLayers = () => (
+  <svg {...ICON_PROPS}>
+    <rect className="vp-ico-layer vp-ico-layer-1" x="6" y="6" width="14" height="10" rx="1.5" />
+    <rect className="vp-ico-layer vp-ico-layer-2" x="6" y="9" width="14" height="10" rx="1.5" opacity="0.7" />
+    <rect className="vp-ico-layer vp-ico-layer-3" x="6" y="12" width="14" height="10" rx="1.5" opacity="0.45" />
+  </svg>
+);
+
+// S/03 — Гибрид AI + VFX: два перетекающих круга и точка на орбите
+const IcoHybrid = () => (
+  <svg {...ICON_PROPS}>
+    <g className="vp-ico-blend">
+      <circle cx="10" cy="13" r="6.5" />
+      <circle cx="16" cy="13" r="6.5" opacity="0.6" />
+    </g>
+    <g className="vp-ico-orbit">
+      <circle cx="13" cy="3.6" r="1.2" fill="currentColor" stroke="none" />
+    </g>
+  </svg>
+);
+
+// S/04 — Адаптация форматов: прямоугольник, морфящий 16:9 ↔ 9:16 (чистый transform)
+const IcoFormats = () => (
+  <svg {...ICON_PROPS}>
+    <rect className="vp-ico-frame" x="2" y="2" width="22" height="22" rx="2" vectorEffect="non-scaling-stroke" />
+    <path d="M13 10.5v5" opacity="0.5" />
+  </svg>
+);
+
+// S/05 — Продуктовые демо: изометрический куб с проявляющейся гранью
+const IcoCube = () => (
+  <svg {...ICON_PROPS}>
+    <g className="vp-ico-cube">
+      <path d="M13 2.5 23 8v10l-10 5.5L3 18V8z" />
+      <path d="M3 8l10 5.5L23 8" opacity="0.55" />
+      <path d="M13 13.5v10" opacity="0.55" />
+      <path className="vp-ico-face" d="M13 2.5 23 8v10l-10-4.5z" opacity="0.18" fill="currentColor" stroke="none" />
+    </g>
+  </svg>
+);
+
+// S/06 — Виртуальные персонажи: силуэт головы с пульсирующим контуром и точками
+const IcoAvatar = () => (
+  <svg {...ICON_PROPS}>
+    <g className="vp-ico-head">
+      <circle cx="13" cy="9" r="5" />
+      <path d="M4.5 22.5c0-4.4 3.8-7.5 8.5-7.5s8.5 3.1 8.5 7.5" />
+    </g>
+    <circle className="vp-ico-node vp-ico-node-1" cx="6" cy="6" r="1.1" fill="currentColor" stroke="none" />
+    <circle className="vp-ico-node vp-ico-node-2" cx="20" cy="6" r="1.1" fill="currentColor" stroke="none" />
+    <circle className="vp-ico-node vp-ico-node-3" cx="23" cy="13" r="1.1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+const SERVICE_ICONS = {
+  'S/01': IcoGenerate,
+  'S/02': IcoLayers,
+  'S/03': IcoHybrid,
+  'S/04': IcoFormats,
+  'S/05': IcoCube,
+  'S/06': IcoAvatar,
+};
+
+const ICON_ORDER = [IcoGenerate, IcoLayers, IcoHybrid, IcoFormats, IcoCube, IcoAvatar];
+
+const ServiceIcon = ({ num, index }) => {
+  const Icon = SERVICE_ICONS[num] || ICON_ORDER[index % ICON_ORDER.length];
+  return (
+    <span className="vp-ico-wrap">
+      <Icon />
+    </span>
+  );
+};
 
 // Ленивое видео: играет только когда попадает в viewport (паттерн из Portfolio).
 // При prefers-reduced-motion автоплей выключен — остаётся первый кадр.
@@ -123,30 +277,36 @@ const VideoProduction = () => {
   return (
     <div className="vp-page">
       <div className="shell">
-        {/* Верхняя строка: назад + тумблер направлений */}
+        {/* Верхняя строка: бренд-вордмарк + тумблер направлений.
+            Ссылки «← AIVFX» тут нет намеренно: со страницы уходим только
+            переключением направления, а не шагом назад. */}
         <div className="vp2-topbar">
-          <a href={localizedHref('/', L)} className="mono vp2-home">
-            ← AIVFX
-          </a>
+          <span className="vp2-wordmark">AIVFX</span>
           <ModeToggle mode="content" />
+          <span className="vp2-topbar-spacer" aria-hidden="true" />
         </div>
 
-        {/* Hero */}
+        {/* Hero: слева текст, справа робот-сцена */}
         <header className="vp-hero">
-          <span className="kicker kicker-accent">
-            {en ? 'DIRECTION 02 / AI CONTENT' : 'НАПРАВЛЕНИЕ 02 / AI-КОНТЕНТ'}
-          </span>
-          <h1 className="vp-title">
-            {pick(L, VIDEO_PAGE.title)} <span className="it">{pick(L, VIDEO_PAGE.titleIt)}</span>
-          </h1>
-          <p className="vp-sub">{pick(L, VIDEO_PAGE.sub)}</p>
-          <div className="vp-cta-row">
-            <a className="btn btn-primary" href={worksHref}>
-              {pick(L, VIDEO_PAGE.portfolioCta)} <span className="btn-arrow">↗</span>
-            </a>
-            <a className="btn btn-ghost" href={contactHref}>
-              {pick(L, VIDEO_PAGE.contactCta)} <span className="btn-arrow">↗</span>
-            </a>
+          <div className="vp-hero-copy">
+            <span className="kicker kicker-accent">
+              {en ? 'DIRECTION 02 / AI CONTENT' : 'НАПРАВЛЕНИЕ 02 / AI-КОНТЕНТ'}
+            </span>
+            <h1 className="vp-title">
+              {pick(L, VIDEO_PAGE.title)} <span className="it">{pick(L, VIDEO_PAGE.titleIt)}</span>
+            </h1>
+            <p className="vp-sub">{pick(L, VIDEO_PAGE.sub)}</p>
+            <div className="vp-cta-row">
+              <a className="btn btn-primary" href={worksHref}>
+                {pick(L, VIDEO_PAGE.portfolioCta)} <span className="btn-arrow">↗</span>
+              </a>
+              <a className="btn btn-ghost" href={contactHref}>
+                {pick(L, VIDEO_PAGE.contactCta)} <span className="btn-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+          <div className="vp-hero-visual">
+            <RobotStage />
           </div>
         </header>
       </div>
@@ -197,7 +357,7 @@ const VideoProduction = () => {
             {SERVICES_L.map((s, i) => (
               <div key={i} className="service-card reveal">
                 <span className="num">{s.num}</span>
-                <span className="glyph">{s.glyph}</span>
+                <ServiceIcon num={s.num} index={i} />
                 <h3>{s.title}</h3>
                 <p>{s.desc}</p>
               </div>

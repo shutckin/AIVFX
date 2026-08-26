@@ -457,21 +457,58 @@ export const APPROACH_SYS = {
 // ── Интеграции ─────────────────────────────────────────────────────────
 export const INTEGRATIONS_SYS = {
   head: {
-    num: { ru: '[ 06 / СТЕК ]', en: '[ 06 / STACK ]' },
-    title: { ru: 'Встраиваемся', en: 'We plug into' },
-    titleIt: { ru: 'в ваш стек', en: 'your stack' },
+    num: { ru: '[ 06 / СОВМЕСТИМОСТЬ ]', en: '[ 06 / COMPATIBILITY ]' },
+    title: { ru: 'Ничего менять', en: 'Nothing to replace' },
+    titleIt: { ru: 'не придётся', en: 'on your side' },
     side: {
-      ru: 'Технологии — вторичны, на первом месте результат. Но работаем мы на проверенных инструментах.',
-      en: 'Technology is secondary — the result comes first. But we build on proven tools.',
+      ru: 'Система подключается к тому, чем вы уже пользуетесь. Переезжать, переучивать команду и покупать новые сервисы не нужно.',
+      en: 'The system plugs into what you already use. No migrations, no retraining, no new subscriptions.',
     },
     sideTitle: 'INTEGRATIONS',
   },
+  // Группы на языке пользы: сначала что это даёт, потом чем именно делаем
   groups: [
-    { label: 'Automation', items: ['n8n', 'Make'] },
-    { label: 'AI', items: ['OpenAI', 'Claude'] },
-    { label: 'CRM', items: ['Bitrix24', 'amoCRM', 'HubSpot'] },
-    { label: 'Communication', items: ['WhatsApp API', 'Telegram Bot', 'Instagram', 'Email'] },
+    {
+      label: { ru: 'Ваша CRM остаётся вашей', en: 'Your CRM stays yours' },
+      desc: {
+        ru: 'Заявки и диалоги попадают туда, где команда уже работает — карточки создаются и обновляются сами.',
+        en: 'Leads and conversations land where your team already works — records are created and updated automatically.',
+      },
+      items: ['Битрикс24', 'amoCRM', 'HubSpot'],
+      itemsEn: ['Bitrix24', 'amoCRM', 'HubSpot'],
+    },
+    {
+      label: { ru: 'Каналы, где пишут клиенты', en: 'The channels your customers use' },
+      desc: {
+        ru: 'Подключаем мессенджеры, соцсети, почту и сайт — все обращения сходятся в один поток.',
+        en: 'We connect messengers, social media, email and the website — every inquiry flows into one place.',
+      },
+      items: ['WhatsApp', 'Telegram', 'Instagram', 'Email', 'Сайт'],
+      itemsEn: ['WhatsApp', 'Telegram', 'Instagram', 'Email', 'Website'],
+    },
+    {
+      label: { ru: 'Мозг системы', en: 'The brain of the system' },
+      desc: {
+        ru: 'Модели, которые понимают контекст переписки и отвечают по вашим правилам и базе знаний.',
+        en: 'Models that understand conversation context and answer by your rules and knowledge base.',
+      },
+      items: ['Claude', 'OpenAI'],
+      itemsEn: ['Claude', 'OpenAI'],
+    },
+    {
+      label: { ru: 'Связывающая логика', en: 'The wiring in between' },
+      desc: {
+        ru: 'Сценарии, по которым данные ходят между сервисами: кто что получает, когда напомнить, куда передать.',
+        en: 'The scenarios moving data between services: who gets what, when to remind, where to hand over.',
+      },
+      items: ['n8n', 'Make'],
+      itemsEn: ['n8n', 'Make'],
+    },
   ],
+  note: {
+    ru: 'Работаем и с другими сервисами — если у вас своя система, подключимся к ней через API.',
+    en: 'We work with other tools too — if you run your own system, we connect to it via API.',
+  },
 };
 
 // Плоский список для тикера в hero
@@ -736,5 +773,135 @@ export const VIDEO_CONTACT = {
   briefPlaceholder: {
     ru: 'Опишите ролик: продукт, длительность, референсы, дедлайн...',
     en: 'Describe the video: product, duration, references, deadline...',
+  },
+};
+
+// ═══════════════════════════════════════════════════════════════════════
+// ДЕМО-АССИСТЕНТ НА САЙТЕ
+// Сайт сам показывает продукт: ассистент консультирует по сценарию и
+// доводит до контакта. Ответы настоящие (не выдумка модели), поэтому
+// консультация честная; сложные вопросы честно передаются человеку.
+// Позже подключается живой AI — достаточно заменить источник ответов.
+// ═══════════════════════════════════════════════════════════════════════
+export const CHAT_DEMO = {
+  launcher: { ru: 'Спросить ассистента', en: 'Ask the assistant' },
+  title: 'AIVFX Assistant',
+  status: { ru: 'отвечает мгновенно · 24/7', en: 'replies instantly · 24/7' },
+  badge: { ru: 'демо', en: 'demo' },
+  inputPlaceholder: { ru: 'Напишите вопрос...', en: 'Type your question...' },
+  greeting: {
+    ru: 'Здравствуйте! Я AI-ассистент AIVFX — такой же, каких мы ставим клиентам. Расскажу, что мы делаем, и помогу понять, подойдёт ли это вашему бизнесу.',
+    en: 'Hi! I am the AIVFX AI assistant — the same kind we build for clients. I can explain what we do and help you see whether it fits your business.',
+  },
+  // Свободный ввод: ключевые слова → узел сценария
+  keywords: [
+    { node: 'price', words: ['цен', 'стои', 'сколько', 'бюджет', 'price', 'cost', 'how much', 'budget'] },
+    { node: 'time', words: ['срок', 'быстро', 'долго', 'когда', 'time', 'long', 'deadline'] },
+    { node: 'what', words: ['что вы', 'чем занима', 'услуг', 'делаете', 'what do you', 'services'] },
+    { node: 'crm', words: ['crm', 'црм', 'битрикс', 'amo', 'амо', 'hubspot', 'интеграц', 'integrat'] },
+    { node: 'clinic', words: ['клиник', 'стомат', 'медиц', 'clinic', 'dental', 'medical'] },
+    { node: 'realestate', words: ['недвиж', 'агентств', 'застройщ', 'real estate', 'property', 'broker'] },
+    { node: 'diff', words: ['бот', 'отлич', 'чем вы', 'bot', 'differ', 'why you'] },
+    { node: 'safety', words: ['данн', 'безопас', 'ошиб', 'галлюц', 'data', 'security', 'wrong', 'mistake'] },
+    { node: 'contact', words: ['связ', 'обсуд', 'заяв', 'позвон', 'contact', 'talk', 'call', 'discuss'] },
+  ],
+  fallback: {
+    ru: 'Хороший вопрос — на него точнее ответит человек, чем демо-сценарий. Оставьте контакт, и мы вернёмся с разбором именно вашей ситуации в течение 24 часов.',
+    en: 'Good question — a human will answer it better than a demo script. Leave your contact and we will come back with a review of your specific case within 24 hours.',
+  },
+  // Стартовые подсказки
+  start: ['what', 'price', 'time', 'diff'],
+  nodes: {
+    what: {
+      q: { ru: 'Что вы делаете?', en: 'What do you do?' },
+      a: {
+        ru: 'Мы строим системы, которые работают с вашими заявками: принимают обращения из WhatsApp, Telegram, Instagram, сайта и почты, отвечают клиенту за секунды в любое время, квалифицируют, заносят всё в CRM и напоминают менеджеру о следующем шаге. Плюс автоматизируем внутреннюю рутину — документы, отчёты, уведомления.',
+        en: 'We build systems that handle your inquiries: capture messages from WhatsApp, Telegram, Instagram, the website and email, reply within seconds at any hour, qualify the lead, log everything in your CRM and remind the manager about the next step. We also automate internal routine — documents, reports, notifications.',
+      },
+      next: ['clinic', 'realestate', 'crm', 'contact'],
+    },
+    price: {
+      q: { ru: 'Сколько это стоит?', en: 'How much does it cost?' },
+      a: {
+        ru: 'Фиксированного прайса нет — считаем смету под задачу: сколько каналов подключаем, какие интеграции и сценарии нужны. Начинаем с бесплатного разбора вашего процесса, после него присылаем архитектуру решения и точную цифру — в течение 24 часов.',
+        en: 'There is no fixed price list — we quote per project: how many channels, which integrations and scenarios are needed. We start with a free review of your process, then send the solution architecture and an exact figure — within 24 hours.',
+      },
+      next: ['time', 'diff', 'contact'],
+    },
+    time: {
+      q: { ru: 'Какие сроки?', en: 'How long does it take?' },
+      a: {
+        ru: 'Первый работающий контур обычно запускаем за 2–6 недель — зависит от количества каналов и сложности сценариев. Дальше система развивается итерациями: смотрим на реальные диалоги и дорабатываем.',
+        en: 'The first working loop usually goes live in 2–6 weeks, depending on the number of channels and scenario complexity. After that the system evolves in iterations: we review real conversations and refine it.',
+      },
+      next: ['price', 'safety', 'contact'],
+    },
+    diff: {
+      q: { ru: 'Чем вы отличаетесь от чат-ботов?', en: 'How are you different from chatbots?' },
+      a: {
+        ru: 'Чат — только одно окно системы. Бот отвечает и на этом всё; наша система ведёт заявку дальше: квалифицирует клиента, создаёт сделку в CRM, передаёт менеджеру в нужный момент, запускает follow-up и показывает аналитику по воронке. Мы продаём не бота, а закрытую операционную проблему.',
+        en: 'Chat is just one window of the system. A bot answers and stops there; our system carries the lead onward: qualifies the customer, creates the deal in your CRM, hands it to a manager at the right moment, triggers follow-ups and reports on the funnel. We sell a solved operational problem, not a bot.',
+      },
+      next: ['what', 'crm', 'contact'],
+    },
+    crm: {
+      q: { ru: 'А наша CRM подойдёт?', en: 'Will it work with our CRM?' },
+      a: {
+        ru: 'Да. Работаем с Битрикс24, amoCRM, HubSpot, а если у вас своя система — подключаемся через API. Менять CRM или переучивать команду не нужно: система встраивается в то, чем вы уже пользуетесь.',
+        en: 'Yes. We work with Bitrix24, amoCRM, HubSpot, and if you run your own system we connect via API. No need to change your CRM or retrain the team: the system plugs into what you already use.',
+      },
+      next: ['safety', 'time', 'contact'],
+    },
+    clinic: {
+      q: { ru: 'У нас клиника', en: 'We run a clinic' },
+      a: {
+        ru: 'Частый сценарий. Пациенты пишут вечером и в выходные, а администратор отвечает в смену — и часть уходит к конкурентам. Ассистент отвечает сразу: консультирует по услугам, записывает на приём в ваше расписание, напоминает о визите и возвращает тех, кто не дошёл. Всё фиксируется в CRM.',
+        en: 'A common scenario. Patients write in the evenings and on weekends while your front desk answers during shifts — and some go to competitors. The assistant replies instantly: explains services, books into your schedule, sends visit reminders and wins back no-shows. Everything is logged in the CRM.',
+      },
+      next: ['safety', 'price', 'contact'],
+    },
+    realestate: {
+      q: { ru: 'У нас недвижимость', en: 'We are in real estate' },
+      a: {
+        ru: 'Тоже знакомо. Лиды с рекламы падают в разные каналы, брокеры отвечают выборочно, CRM заполняется как получится. Система собирает все обращения, квалифицирует по бюджету и объекту, распределяет между брокерами и ведёт follow-up цепочки — маркетинговый бюджет перестаёт утекать.',
+        en: 'Familiar too. Ad leads land in different channels, brokers reply selectively, the CRM is filled in at random. The system collects every inquiry, qualifies by budget and property, routes to brokers and runs follow-up sequences — your marketing budget stops leaking.',
+      },
+      next: ['crm', 'price', 'contact'],
+    },
+    safety: {
+      q: { ru: 'А если AI ошибётся?', en: 'What if the AI makes a mistake?' },
+      a: {
+        ru: 'Ассистент отвечает только из вашей базы знаний и согласованных сценариев — он не фантазирует. Границы полномочий задаём на старте: чувствительные темы (диагнозы, юридические оценки, скидки) он не трогает, а сразу передаёт человеку с полным контекстом переписки. Данные остаются в вашей инфраструктуре.',
+        en: 'The assistant answers only from your knowledge base and approved scenarios — it does not improvise. We define its limits upfront: sensitive topics (diagnoses, legal assessments, discounts) go straight to a human with full conversation context. Your data stays in your infrastructure.',
+      },
+      next: ['crm', 'diff', 'contact'],
+    },
+    contact: {
+      q: { ru: 'Хочу обсудить задачу', en: 'I want to discuss my case' },
+      a: {
+        ru: 'Отлично. Оставьте контакт — вернёмся с разбором вашего процесса и архитектурой решения в течение 24 часов. Или напишите сразу в Telegram, там отвечаем в течение часа.',
+        en: 'Great. Leave your contact — we will come back with a review of your process and a solution architecture within 24 hours. Or message us on Telegram, where we reply within an hour.',
+      },
+      lead: true,
+    },
+  },
+  lead: {
+    namePlaceholder: { ru: 'Как к вам обращаться?', en: 'Your name' },
+    contactPlaceholder: { ru: 'Telegram, телефон или email', en: 'Telegram, phone or email' },
+    submit: { ru: 'Отправить', en: 'Send' },
+    tg: { ru: 'Написать в Telegram', en: 'Message on Telegram' },
+    tgUrl: 'https://t.me/aivfx',
+    success: {
+      ru: 'Записал, спасибо! Вернёмся в течение 24 часов. Если удобнее переписка — напишите в Telegram.',
+      en: 'Got it, thank you! We will get back within 24 hours. If chat suits you better — write to us on Telegram.',
+    },
+    error: {
+      ru: 'Не получилось отправить. Напишите, пожалуйста, в Telegram — так точно не потеряется.',
+      en: 'Could not send it. Please write to us on Telegram — that way it will not get lost.',
+    },
+  },
+  disclaimer: {
+    ru: 'Демо-сценарий: показывает, как ассистент работает на сайте. Живая система обучается на вашей базе знаний.',
+    en: 'Demo scenario: shows how the assistant works on a website. The live system is trained on your knowledge base.',
   },
 };

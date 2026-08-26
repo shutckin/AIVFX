@@ -25,6 +25,11 @@ export function useCountUp(finalValue, { duration = 1200 } = {}) {
     let started = false;
 
     const run = () => {
+      // Сброс в ноль делаем ЗДЕСЬ, в момент старта анимации, а не при
+      // подписке: иначе prerender снимает DOM с нулями, и в готовом HTML
+      // (то, что видят поисковики и посетители без JS) остаётся «0+»
+      // вместо «180+», а при гидрации ловим рассинхрон разметки.
+      setDisplay(prefix + '0' + suffix);
       const t0 = performance.now();
       const tick = (now) => {
         const p = Math.min((now - t0) / duration, 1);
@@ -45,7 +50,6 @@ export function useCountUp(finalValue, { duration = 1200 } = {}) {
       });
     }, { threshold: 0.4 });
 
-    setDisplay(prefix + '0' + suffix);
     obs.observe(el);
     return () => { obs.disconnect(); if (rafId) cancelAnimationFrame(rafId); };
   }, [finalValue, duration]);

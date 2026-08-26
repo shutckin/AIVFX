@@ -141,6 +141,22 @@ async function main() {
         continue;
       }
 
+      // Снимаем рантайм-следы, которых нет в первом рендере React.
+      // Классы .in навешивает IntersectionObserver уже после монтирования;
+      // если они попадут в HTML, при загрузке страницы разметка не совпадёт
+      // с тем, что рендерит React, и он выбросит весь предрендер, перерисовав
+      // страницу заново (ошибки гидрации в консоли).
+      await page.evaluate(() => {
+        // 1. Классы появления по скроллу
+        document.querySelectorAll('.reveal.in').forEach((el) => el.classList.remove('in'));
+        // 2. Cookie-баннер: React отдаёт его пустым и показывает только после
+        //    проверки localStorage — в снимке его быть не должно
+        document.querySelectorAll('.cookie-banner').forEach((el) => el.remove());
+        // 3. Чат-лаунчер всплывает по таймеру/скроллу — снимаем видимость
+        document.querySelectorAll('.chat-launcher.is-visible')
+          .forEach((el) => el.classList.remove('is-visible'));
+      });
+
       // КЛЮЧЕВОЕ: подменяем canonical/og:url, проставляем lang и hreflang
       // ДО снятия HTML. Без canonical все prerendered страницы выглядят как
       // варианты главной; hreflang связывает RU↔EN версии между собой.

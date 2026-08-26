@@ -1,9 +1,26 @@
 /* ── Страница /video-production/ — AI-контент (второе направление, v3) ── */
 
+/* ── Палитра направления ──
+   Сайт AI-систем остаётся кобальтовым, страница AI-контента — янтарная.
+   Переопределяем только акцентные токены в скоупе .vp-page: фон, текст и
+   поверхности остаются графитовыми, наследуются из :root. Всё, что внутри
+   страницы (.btn, .service-card, SecHead .it, чипы, бейджи), подхватывает
+   янтарь автоматически, потому что везде используется var(--accent). */
+/* .vp-theme — обёртка страницы вместе с футером: чтобы футер под
+   янтарной страницей не остался кобальтовым (он рендерится в App.js). */
+.vp-theme,
+.vp-page {
+  --accent: #f0a500;
+  --accent-2: #ffc247;
+  --accent-soft: rgba(240, 165, 0, 0.13);
+  --accent-glow: rgba(240, 165, 0, 0.30);
+  --primary: #f0a500;
+}
+
 .vp-page {
   background: var(--bg);
   min-height: 100vh;
-  padding-top: 120px;
+  padding-top: clamp(32px, 6vw, 64px);
 }
 
 /* Единый ритм секций страницы: без гигантских пустот */
@@ -11,35 +28,43 @@
   padding: clamp(64px, 8vw, 120px) 0;
 }
 
-/* Верхняя строка: «← AIVFX» + тумблер направлений */
+/* ── Верхняя строка: бренд-вордмарк + тумблер направлений ──
+   «Шага назад» на главную здесь нет: уйти со страницы можно только
+   переключением направления. Тумблер стоит по центру строки. */
 .vp2-topbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px 20px;
+  gap: 16px 24px;
+  padding-bottom: clamp(16px, 3vw, 28px);
+  border-bottom: 1px solid var(--line);
 }
 
-.vp2-home {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  letter-spacing: 0.12em;
+.vp2-wordmark {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  font-weight: 500;
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.2s ease;
+  color: var(--fg);
+  user-select: none;
 }
 
-.vp2-home:hover {
-  color: var(--accent);
+.vp2-topbar-spacer {
+  display: block;
 }
 
-/* Hero */
+/* ── Hero: слева текст, справа робот-сцена ── */
 .vp-hero {
-  padding: 56px 0 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  padding: clamp(36px, 5vw, 64px) 0 24px;
+}
+
+.vp-hero-copy {
+  min-width: 0;
 }
 
 .vp-hero .kicker {
@@ -49,10 +74,16 @@
 
 .vp-title {
   font-family: var(--font-display);
-  font-size: clamp(2.6rem, 1.4rem + 5vw, 5.5rem);
+  font-size: clamp(2.4rem, 1.1rem + 4.4vw, 4.8rem);
   line-height: 1.02;
   letter-spacing: -0.02em;
   margin: 0 0 22px;
+}
+
+.vp-title .it {
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 300;
 }
 
 .vp-sub {
@@ -67,6 +98,177 @@
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
+}
+
+/* ── Робот-сцена ──
+   Перенесена из старого hero (index.css, классы .robot-*), переименована в
+   .vp-robot-*, чтобы не конфликтовать со старыми правилами. Цвета — через
+   var(--accent*), то есть на этой странице они янтарные.
+   Фонового видео старого hero тут нет — только робот. */
+.vp-hero-visual {
+  position: relative;
+  min-width: 0;
+}
+
+.vp-robot-stage {
+  --mx: 0px;
+  --my: 0px;
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.vp-robot-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Ровно по боксу сцены: при большем размере градиент упирался бы в overflow
+     и рисовал видимый прямоугольный край. */
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 58%);
+  opacity: 0.75;
+  animation: vpGlowPulse 5s ease-in-out infinite;
+}
+
+@keyframes vpGlowPulse {
+  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+.vp-robot-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 108%;
+  height: 108%;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    var(--accent-soft) 18%,
+    transparent 30%,
+    transparent 55%,
+    var(--accent-soft) 68%,
+    transparent 80%
+  );
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: vpHaloSpin 60s linear infinite;
+  mask-image: radial-gradient(circle, transparent 28%, black 40%, black 70%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle, transparent 28%, black 40%, black 70%, transparent 85%);
+}
+
+@keyframes vpHaloSpin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.vp-robot-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transform: translate(calc(-50% + var(--mx)), calc(-50% + var(--my)));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vp-robot-rings circle {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.4;
+  opacity: 0.5;
+  stroke-dasharray: 2 8;
+  transform-origin: 300px 300px;
+}
+
+.vp-robot-rings .r1 { animation: vpRingSpin 80s linear infinite; }
+.vp-robot-rings .r2 { animation: vpRingSpin 120s linear infinite reverse; opacity: 0.32; stroke-dasharray: 1 12; }
+.vp-robot-rings .r3 { animation: vpRingSpin 50s linear infinite; opacity: 0.62; stroke-dasharray: 4 6; }
+
+@keyframes vpRingSpin { to { transform: rotate(360deg); } }
+
+/* Скан: двигаем обёртку через transform, а не top — так это остаётся на композиторе */
+.vp-robot-scan {
+  position: absolute;
+  top: 18%;
+  left: 6%;
+  right: 6%;
+  height: 62%;
+  z-index: 2;
+  animation: vpScanMove 4.5s ease-in-out infinite;
+}
+
+.vp-robot-scan::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+@keyframes vpScanMove {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(100%); }
+}
+
+.vp-robot-hud {
+  position: absolute;
+  bottom: 2%;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--fg-2);
+  padding: 6px 10px;
+  background: rgba(11, 11, 13, 0.55);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  backdrop-filter: blur(6px);
+  transform: translate(var(--mx), var(--my));
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vp-hud-bl { left: 0; }
+.vp-hud-br { right: 0; }
+
+.vp-hud-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+  animation: vpHudPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes vpHudPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-robot-glow,
+  .vp-robot-halo,
+  .vp-robot-rings circle,
+  .vp-robot-scan,
+  .vp-hud-dot {
+    animation: none;
+  }
 }
 
 /* ── Видео-витрина: два встречных ряда marquee ──
@@ -151,6 +353,160 @@
 /* Карточки услуг здесь не кликабельны — убираем pointer из index.css */
 .vp3-services .service-card {
   cursor: default;
+}
+
+/* ── Анимированные иконки услуг ──
+   Вместо статичных глифов ∆ ○ ◇ ⌒ ∇ ✕ — по одной осмысленной мини-иконке
+   на услугу. Анимация идёт постоянно и медленно: только transform, opacity и
+   stroke-dashoffset, никаких layout-свойств. */
+.vp-ico-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  color: var(--accent);
+  margin-bottom: 6px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.service-card:hover .vp-ico-wrap {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.vp-ico {
+  width: 28px;
+  height: 28px;
+  display: block;
+  overflow: visible;
+}
+
+/* S/01 — бегущая линия-скан внутри кадра */
+.vp-ico-scan {
+  animation: vpIcoScan 3.4s ease-in-out infinite;
+}
+
+@keyframes vpIcoScan {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  50% { transform: translateY(7px); opacity: 1; }
+}
+
+/* S/02 — три слоя сходятся и расходятся */
+.vp-ico-layer-1 { animation: vpIcoLayerIn 4.2s ease-in-out infinite; }
+.vp-ico-layer-3 { animation: vpIcoLayerOut 4.2s ease-in-out infinite; }
+.vp-ico-layer-2 { animation: vpIcoLayerFade 4.2s ease-in-out infinite; }
+
+@keyframes vpIcoLayerIn {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+@keyframes vpIcoLayerOut {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes vpIcoLayerFade {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* S/03 — два круга перетекают друг в друга, точка идёт по орбите */
+.vp-ico-blend circle:first-child { animation: vpIcoBlendL 5.2s ease-in-out infinite; }
+.vp-ico-blend circle:last-child { animation: vpIcoBlendR 5.2s ease-in-out infinite; }
+
+@keyframes vpIcoBlendL {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
+}
+
+@keyframes vpIcoBlendR {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-3px); }
+}
+
+.vp-ico-orbit {
+  transform-origin: 13px 13px;
+  animation: vpIcoOrbit 7s linear infinite;
+}
+
+@keyframes vpIcoOrbit {
+  to { transform: rotate(360deg); }
+}
+
+/* S/04 — кадр морфит из 16:9 в 9:16 и обратно (чистый scale) */
+.vp-ico-frame {
+  transform-origin: 13px 13px;
+  animation: vpIcoFormat 5.6s ease-in-out infinite;
+}
+
+@keyframes vpIcoFormat {
+  0%, 38% { transform: scale(1, 0.58); }
+  50%, 88% { transform: scale(0.58, 1); }
+  100% { transform: scale(1, 0.58); }
+}
+
+/* S/05 — куб покачивается, передняя грань проявляется */
+.vp-ico-cube {
+  transform-origin: 13px 13px;
+  animation: vpIcoCubeTilt 7.5s ease-in-out infinite;
+}
+
+@keyframes vpIcoCubeTilt {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+.vp-ico-face {
+  animation: vpIcoFace 3.6s ease-in-out infinite;
+}
+
+@keyframes vpIcoFace {
+  0%, 100% { opacity: 0.08; }
+  50% { opacity: 0.42; }
+}
+
+/* S/06 — силуэт головы пульсирует, точки загораются по очереди */
+.vp-ico-head {
+  transform-origin: 13px 15px;
+  animation: vpIcoHead 3.8s ease-in-out infinite;
+}
+
+@keyframes vpIcoHead {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+.vp-ico-node { animation: vpIcoNode 2.6s ease-in-out infinite; }
+.vp-ico-node-2 { animation-delay: 0.35s; }
+.vp-ico-node-3 { animation-delay: 0.7s; }
+
+@keyframes vpIcoNode {
+  0%, 100% { opacity: 0.18; }
+  50% { opacity: 1; }
+}
+
+/* Reduced motion — иконки остаются, но замирают в читаемом состоянии */
+@media (prefers-reduced-motion: reduce) {
+  .vp-ico * {
+    animation: none !important;
+  }
+
+  .vp-ico-frame {
+    transform: scale(1, 0.58);
+  }
+
+  .vp-ico-face {
+    opacity: 0.28;
+  }
+
+  .vp-ico-node {
+    opacity: 0.7;
+  }
 }
 
 /* ── Сравнение: старый мир против нового ── */
@@ -473,12 +829,14 @@
 
 /* ── Респонсив ── */
 @media (max-width: 1024px) {
-  .vp-page {
-    padding-top: 104px;
+  .vp-hero {
+    grid-template-columns: 1fr;
+    padding: 36px 0 18px;
   }
 
-  .vp-hero {
-    padding: 44px 0 18px;
+  /* Робот уходит под текст и не перетягивает первый экран */
+  .vp-robot-stage {
+    max-width: 400px;
   }
 
   .vp3-formats {
@@ -488,16 +846,30 @@
 }
 
 @media (max-width: 768px) {
-  .vp-page {
-    padding-top: 92px;
-  }
-
   .vp-hero {
-    padding: 34px 0 14px;
+    padding: 28px 0 14px;
   }
 
   .vp-sub {
     font-size: 16px;
+  }
+
+  .vp-robot-stage {
+    max-width: 320px;
+  }
+
+  .vp-robot-hud {
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+
+  .vp-hud-br {
+    display: none;
+  }
+
+  .vp-ico-wrap {
+    width: 52px;
+    height: 52px;
   }
 
   /* Карточки marquee меньше: 240×180 (аспект 4/3 из index.css) */
@@ -537,12 +909,8 @@
 }
 
 @media (max-width: 560px) {
-  .vp-page {
-    padding-top: 84px;
-  }
-
   .vp-hero {
-    padding: 26px 0 10px;
+    padding: 24px 0 10px;
   }
 
   .vp-cta-row .btn {
@@ -550,9 +918,15 @@
     justify-content: center;
   }
 
+  /* Тумблер уходит на свою строку под вордмарк — так он остаётся заметным */
   .vp2-topbar {
-    flex-direction: column;
-    align-items: flex-start;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: 14px;
+  }
+
+  .vp2-topbar-spacer {
+    display: none;
   }
 
   .vp-blog-note {

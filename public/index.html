@@ -183,6 +183,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
 
+    <!-- Анимации появления включаем только если JS жив: без этого класса
+         секции видны сразу (страховка от пустой страницы) -->
+    <script>document.documentElement.classList.add('js-anim');</script>
+
     <!-- Preconnect к доменам аналитики, чтобы handshake шёл параллельно -->
     <link rel="preconnect" href="https://mc.yandex.ru" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />

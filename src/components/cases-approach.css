@@ -411,56 +411,92 @@
 
 /* ── Integrations ──────────────────────────────────────────────────────── */
 
-.ig-rows {
+/* Сетка 2×2: у каждой группы теперь есть описание, строки-ряды не тянут */
+.ig-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 56px;
+}
+
+.ig-card {
   display: flex;
   flex-direction: column;
-  margin-top: 56px;
-  border-top: 1px solid var(--line);
+  padding: 28px 30px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: border-color 0.3s ease;
 }
 
-/* Лейбл группы ужат до 160px — бейджи начинаются сразу, без пустоты */
-.ig-row {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  align-items: baseline;
-  gap: 24px;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--line);
+.ig-card:hover {
+  border-color: var(--line-2);
 }
 
-.ig-label {
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
+/* Порядковый номер группы 01–04 */
+.ig-card-num {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--accent-2);
+  margin-bottom: 14px;
 }
 
-.ig-badges {
+/* Заголовок-выгода: «Ваша CRM остаётся вашей» */
+.ig-card-title {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+.ig-card-desc {
+  margin: 0 0 24px;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--fg-2);
+}
+
+/* Чипы прижаты к низу карточки — верх карточек выравнивается по тексту */
+.ig-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+  margin-top: auto;
 }
 
-/* Квадратные mono-чипы UPPERCASE — единый вид с чипами услуг */
-.ig-badge {
+/* Квадратные контурные mono-чипы UPPERCASE — единый вид с чипами услуг */
+.ig-chip {
   display: inline-flex;
   align-items: center;
-  padding: 8px 14px;
-  font-size: 0.68rem;
+  padding: 7px 12px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--fg-2);
-  background: var(--bg-2);
+  color: var(--muted);
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
-  transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transition: border-color 0.3s ease, color 0.3s ease;
 }
 
-.ig-badge:hover {
+.ig-chip:hover {
   border-color: var(--accent);
-  color: var(--fg);
-  transform: translateY(-1px);
+  color: var(--fg-2);
+}
+
+/* Приписка под сеткой */
+.ig-note {
+  max-width: 720px;
+  margin: 32px 0 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--line-2);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--muted);
 }
 
 /* ── Респонсив ─────────────────────────────────────────────────────────── */
@@ -497,8 +533,9 @@
     display: block;
   }
 
-  .ig-row {
-    grid-template-columns: 160px 1fr;
+  /* ≤1024: планшет — две карточки в ряд, паддинг ужат */
+  .ig-card {
+    padding: 26px 26px;
   }
 }
 
@@ -560,15 +597,15 @@
     margin-bottom: 8px;
   }
 
-  /* Интеграции: лейбл сверху, бейджи переносятся */
-  .ig-rows {
+  /* Интеграции: одна колонка карточек */
+  .ig-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
     margin-top: 44px;
   }
 
-  .ig-row {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 24px 0;
+  .ig-note {
+    margin-top: 26px;
   }
 }
 
@@ -616,8 +653,12 @@
     padding-bottom: 36px;
   }
 
-  .ig-badge {
-    padding: 8px 14px;
-    font-size: 0.7rem;
+  .ig-card {
+    padding: 22px 20px;
+  }
+
+  .ig-chip {
+    padding: 7px 11px;
+    font-size: 0.6875rem;
   }
 }

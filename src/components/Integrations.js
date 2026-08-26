@@ -5,11 +5,12 @@ import { INTEGRATIONS_SYS } from '../data/systems-content';
 import './cases-approach.css';
 
 // ── Секция «Стек / интеграции» ───────────────────────────────────────────
-// 4 группы инструментов: слева mono-лейбл группы, справа текстовые
-// pill-бейджи. Никаких картинок-логотипов — только типографика.
+// Стек подан на языке выгоды: 4 карточки, у каждой заголовок-обещание,
+// пояснение и ряд контурных чипов с названиями инструментов внизу.
+// Никаких картинок-логотипов — только типографика.
 const Integrations = () => {
   const L = useLocale();
-  const { head, groups } = INTEGRATIONS_SYS;
+  const { head, groups, note } = INTEGRATIONS_SYS;
 
   return (
     <section className="section" id="stack">
@@ -22,18 +23,29 @@ const Integrations = () => {
           sideTitle={head.sideTitle}
         />
 
-        <div className="ig-rows">
-          {groups.map((group) => (
-            <div className="ig-row reveal" key={group.label}>
-              <span className="ig-label mono">{group.label}</span>
-              <div className="ig-badges">
-                {group.items.map((name) => (
-                  <span className="ig-badge mono" key={name}>{name}</span>
-                ))}
-              </div>
-            </div>
-          ))}
+        <div className="ig-grid">
+          {groups.map((group, i) => {
+            // Английские подписи инструментов там, где они отличаются
+            // (Битрикс24 → Bitrix24, Сайт → Website). Если itemsEn нет —
+            // берём общий список.
+            const items = (L === 'en' && group.itemsEn) ? group.itemsEn : group.items;
+
+            return (
+              <article className="ig-card reveal" key={pick(L, group.label)}>
+                <span className="ig-card-num mono">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="ig-card-title">{pick(L, group.label)}</h3>
+                <p className="ig-card-desc">{pick(L, group.desc)}</p>
+                <div className="ig-chips">
+                  {items.map((name) => (
+                    <span className="ig-chip mono" key={name}>{name}</span>
+                  ))}
+                </div>
+              </article>
+            );
+          })}
         </div>
+
+        <p className="ig-note">{pick(L, note)}</p>
       </div>
     </section>
   );
