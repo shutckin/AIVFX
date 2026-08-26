@@ -328,10 +328,10 @@
 }
 
 /* Длина строки вопроса: не растягиваем на всю ширину секции */
-.faq-sec .faq-list { max-width: 920px; }
+
 
 /* Индикатор: у открытого — акцентный контур и цвет, без заливки */
-#faq .faq-item.open .ic {
+#about .faq-item.open .ic {
   background: transparent;
   color: var(--accent);
   border-color: var(--accent);

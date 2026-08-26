@@ -563,11 +563,7 @@ img, video { display: block; max-width: 100%; }
    свою линию сверху во всю ширину, получаются две параллельные черты
    с пустой полосой между ними — читается как ошибка вёрстки.
    Гасим верхнюю границу у таких соседей и подтягиваем их к заголовку. */
-.sec-head + .ab-trustbar,
-.sec-head + .faq-sec .faq-item:first-child,
-.sec-head + * > .faq-list > .faq-item:first-child {
-  border-top: 0;
-}
+.sec-head + .ab-trustbar { border-top: 0; }
 .sec-head + .ab-trustbar { margin-top: 0; padding-top: 0; }
 .sec-num {
   display: block;
