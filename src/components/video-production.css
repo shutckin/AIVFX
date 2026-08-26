@@ -1253,7 +1253,20 @@
 }
 /* Проявляем только когда известна длительность: до этого перематывать
    некуда и кадр может моргнуть */
-.vpf-stage--ready .vpf-video { opacity: 1; }
+.vpf-stage--ready .vpf-video--light { opacity: 1; }
+
+/* Полная версия лежит поверх лёгкой и проявляется, когда скачается
+   целиком. Обе показывают один и тот же кадр, поэтому подмена
+   не читается как смена картинки.
+
+   Слои сцены снизу вверх: лёгкая версия → полная → затемнение → текст.
+   Порядок задан явно: без этого полная версия всплывала над затемнением
+   и текст переставал читаться на светлых кадрах. */
+.vpf-video--light,
+.vpf-shot { z-index: 0; }
+.vpf-video--sharp { z-index: 1; }
+.vpf-stage--sharp .vpf-video--sharp { opacity: 1; }
+.vpf-stage--sharp .vpf-video--light { opacity: 0; }
 
 /* Запасные кадры: появляются, только если ролик не загрузился */
 .vpf-shot {
@@ -1267,6 +1280,7 @@
 .vpf-scrim {
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
   background:
     linear-gradient(100deg,
@@ -1284,7 +1298,7 @@
    друг под друга и сцена поехала бы вниз. */
 .vpf-steps {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   left: clamp(20px, 7vw, 108px);
   top: 50%;
   transform: translateY(-50%);
@@ -1409,7 +1423,7 @@
 /* ── Полоса прогресса справа ── */
 .vpf-rail {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   right: clamp(18px, 3.4vw, 54px);
   top: 50%;
   transform: translateY(-50%);

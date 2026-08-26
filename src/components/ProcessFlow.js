@@ -15,7 +15,11 @@ import { VIDEO_PROCESS } from '../data/systems-content';
 // к другому, получаем управление кадром вместо параллельно бегущего
 // видео, и текст с картинкой не могут разъехаться.
 
+// Две версии одного ролика. Лёгкая долетает почти мгновенно и сразу даёт
+// рабочую перемотку, полная подменяет её, когда докачается целиком.
+// Так блок не заставляет ждать и при этом не остаётся в мыле.
 const VIDEO_SRC = '/process/reel.mp4';
+const VIDEO_LIGHT_SRC = '/process/reel-lq.mp4';
 const POSTER_SRC = '/process/reel-poster.jpg';
 
 // Запасные кадры по одному на шаг. Нужны, если ролик не загрузился:
@@ -43,12 +47,16 @@ const ProcessFlow = () => {
   const [active, setActive] = useState(0);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
-  // Ролик весит несколько мегабайт, поэтому адрес подставляем только
-  // когда блок близко: незачем тянуть его на открытии страницы
-  const [src, setSrc] = useState(null);
+  // Полная версия весит мегабайты, поэтому адреса подставляем только
+  // когда блок близко: незачем тянуть их на открытии страницы
+  const [loading, setLoading] = useState(false);
+  // Адрес скачанной полной версии и признак того, что она уже на экране
+  const [sharpUrl, setSharpUrl] = useState(null);
+  const [sharp, setSharp] = useState(false);
 
   const wrapRef = useRef(null);
-  const videoRef = useRef(null);
+  const lightRef = useRef(null);
+  const sharpRef = useRef(null);
   // Целевая позиция в ролике, 0..1. Пишет прокрутка, читает анимация.
   const targetRef = useRef(0);
 
@@ -58,25 +66,78 @@ const ProcessFlow = () => {
     if (!wrap) return undefined;
 
     if (typeof IntersectionObserver === 'undefined') {
-      setSrc(VIDEO_SRC); // старый браузер: грузим сразу, лишь бы работало
+      setLoading(true); // старый браузер: грузим сразу, лишь бы работало
       return undefined;
     }
 
+    // Запас в три экрана: пока читают предыдущие секции, полная версия
+    // успевает скачаться и подмена проходит незаметно
     const io = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
-        setSrc(VIDEO_SRC);
+        setLoading(true);
         io.disconnect();
       }
-    }, { rootMargin: '150% 0px' });
+    }, { rootMargin: '300% 0px' });
 
     io.observe(wrap);
     return () => io.disconnect();
   }, []);
 
+  // ── Скачивание полной версии ──
+  //
+  // Просто подставить адрес в тег недостаточно: браузер по своему
+  // усмотрению тянет только начало файла и останавливается, а перемотка
+  // прыгает по всему ролику и упирается в неподгруженный конец.
+  // Поэтому качаем файл сами и отдаём тегу уже готовым.
+  useEffect(() => {
+    if (!loading) return undefined;
+
+    let url = null;
+    let cancelled = false;
+
+    fetch(VIDEO_SRC)
+      .then((r) => (r.ok ? r.blob() : Promise.reject(new Error(String(r.status)))))
+      .then((blob) => {
+        if (cancelled) return;
+        url = URL.createObjectURL(blob);
+        setSharpUrl(url);
+      })
+      .catch(() => {
+        // Полная версия не доехала — лёгкая продолжает работать,
+        // блок остаётся живым, просто менее чётким
+      });
+
+    return () => {
+      cancelled = true;
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [loading]);
+
+  // ── Передача перемотки полной версии ──
+  useEffect(() => {
+    const full = sharpRef.current;
+    if (!sharpUrl || !full) return undefined;
+
+    const handOver = () => {
+      // Подхватываем позицию у лёгкой версии, чтобы подмена не дёрнула кадр
+      const light = lightRef.current;
+      if (light && Number.isFinite(light.currentTime)) {
+        full.currentTime = light.currentTime;
+      }
+      setSharp(true);
+    };
+
+    if (full.readyState >= 1) handOver();
+    else full.addEventListener('loadedmetadata', handOver);
+
+    return () => full.removeEventListener('loadedmetadata', handOver);
+  }, [sharpUrl]);
+
   // ── Связка прокрутки с кадром и шагом ──
   useEffect(() => {
     const wrap = wrapRef.current;
-    const video = videoRef.current;
+    // Перематываем ту версию, которая сейчас на экране
+    const video = sharp ? sharpRef.current : lightRef.current;
     if (!wrap || !video) return undefined;
 
     const reduced = window.matchMedia
@@ -149,7 +210,7 @@ const ProcessFlow = () => {
       video.removeEventListener('error', onError);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [steps.length, src]);
+  }, [steps.length, loading, sharp]);
 
   const outLabel = L === 'en' ? 'You get' : 'На выходе';
 
@@ -162,12 +223,24 @@ const ProcessFlow = () => {
       {/* Высота блока задаёт длину прокрутки: экран под сцену плюс
           примерно по экрану на каждый шаг */}
       <div className="vpf" ref={wrapRef} style={{ '--vpf-count': steps.length }}>
-        <div className={`vpf-stage${ready ? ' vpf-stage--ready' : ''}`}>
+        <div className={`vpf-stage${ready ? ' vpf-stage--ready' : ''}${sharp ? ' vpf-stage--sharp' : ''}`}>
+          {/* Лёгкая версия: включается первой, чтобы блок сразу работал */}
           <video
-            ref={videoRef}
-            className="vpf-video"
-            src={src || undefined}
+            ref={lightRef}
+            className="vpf-video vpf-video--light"
+            src={loading ? VIDEO_LIGHT_SRC : undefined}
             poster={POSTER_SRC}
+            muted
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+          />
+
+          {/* Полная версия: лежит сверху и проявляется, когда докачается */}
+          <video
+            ref={sharpRef}
+            className="vpf-video vpf-video--sharp"
+            src={sharpUrl || undefined}
             muted
             playsInline
             preload="auto"
