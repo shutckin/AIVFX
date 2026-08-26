@@ -254,7 +254,7 @@ const ContactForm = ({ videoContext = false }) => {
 
             <div className="contact-block">
               <span className="lab">{en ? 'SOCIALS' : 'СОЦСЕТИ'}</span>
-              <SocialLinks locale={L} />
+              <SocialLinks tone="light" />
             </div>
 
             <div className="contact-block">

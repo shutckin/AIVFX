@@ -527,20 +527,36 @@
   width: 40px;
   height: 40px;
   border-radius: 11px;
-  border: 1px solid var(--light-line, rgba(11, 11, 13, 0.14));
-  color: var(--light-card-text, #0b0b0d);
+  border: 1px solid transparent;
   transition: transform 0.22s cubic-bezier(0.32, 0.72, 0, 1),
               background 0.22s ease,
-              border-color 0.22s ease;
+              border-color 0.22s ease,
+              color 0.22s ease;
 }
 
 .soc-link svg { width: 20px; height: 20px; }
 
-.soc-link:hover {
+/* На светлой карточке контактов */
+.soc-row--light .soc-link {
+  border-color: var(--light-line, rgba(11, 11, 13, 0.14));
+  color: var(--light-card-text, #0b0b0d);
+}
+.soc-row--light .soc-link:hover {
   transform: translateY(-2px);
   background: var(--light-card-text, #0b0b0d);
   border-color: var(--light-card-text, #0b0b0d);
   color: var(--light-card, #f2f4f8);
+}
+
+/* В тёмном футере */
+.soc-row--dark .soc-link {
+  border-color: var(--line-2);
+  color: var(--fg-2);
+}
+.soc-row--dark .soc-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .soc-link:focus-visible {

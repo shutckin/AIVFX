@@ -29,12 +29,13 @@ const ICONS = {
   ),
 };
 
-const SocialLinks = ({ locale }) => {
+// tone: 'light' — на светлой карточке контактов, 'dark' — в футере
+const SocialLinks = ({ tone = 'light' }) => {
   const links = SOCIALS.filter((item) => item.url);
   if (!links.length) return null;
 
   return (
-    <div className="soc-row">
+    <div className={`soc-row soc-row--${tone}`}>
       {links.map((item) => (
         <a
           key={item.key}

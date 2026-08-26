@@ -2,6 +2,7 @@ import React from 'react';
 import { useNotification } from '../App';
 import { useLocale, pick, localizedHref } from '../i18n';
 import { NAV_SYS, FOOTER_SYS } from '../data/systems-content';
+import SocialLinks from './SocialLinks';
 
 const Footer = () => {
   const { scrollToSection, showPrivacy, showConsent, showBlog } = useNotification();
@@ -54,8 +55,8 @@ const Footer = () => {
             <h5>{en ? 'CONTACT' : 'КОНТАКТЫ'}</h5>
             <ul>
               <li><a href="mailto:info@aivfx.ru">info@aivfx.ru</a></li>
-              <li><a href="https://t.me/aivfx" target="_blank" rel="noopener noreferrer">t.me/aivfx</a></li>
             </ul>
+            <SocialLinks tone="dark" />
           </div>
         </div>
         <div className="footer-bot">
