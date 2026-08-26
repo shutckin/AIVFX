@@ -27,6 +27,10 @@ const Integrations    = lazy(() => import('./components/Integrations'));
 const ServicePage     = lazy(() => import('./components/ServicePage'));
 const VideoProduction = lazy(() => import('./components/VideoProduction'));
 
+// ── Конверсионные элементы ──
+const CTABreak         = lazy(() => import('./components/CTABreak'));
+const FloatingTelegram = lazy(() => import('./components/FloatingTelegram'));
+
 const SectionFallback = () => (
   <div style={{ padding: '80px 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <div
@@ -357,10 +361,12 @@ function App() {
         ) : showVideoPage ? (
           <Suspense fallback={<SectionFallback />}>
             <VideoProduction />
+            <Footer />
           </Suspense>
         ) : showServicePage ? (
           <Suspense fallback={<SectionFallback />}>
             <ServicePage slug={serviceSlug} />
+            <Footer />
           </Suspense>
         ) : showBlogPage ? (
           <Suspense fallback={<SectionFallback />}>
@@ -396,8 +402,10 @@ function App() {
               <Stats />
               <Suspense fallback={<SectionFallback />}><Problems /></Suspense>
               <Suspense fallback={<SectionFallback />}><SystemFlow /></Suspense>
+              <Suspense fallback={null}><CTABreak /></Suspense>
               <Suspense fallback={<SectionFallback />}><ServicesSystems /></Suspense>
               <Suspense fallback={<SectionFallback />}><Cases /></Suspense>
+              <Suspense fallback={null}><CTABreak variant="light" /></Suspense>
               <Suspense fallback={<SectionFallback />}><Approach /></Suspense>
               <Suspense fallback={<SectionFallback />}><Integrations /></Suspense>
               <Suspense fallback={<SectionFallback />}><AboutUs /></Suspense>
@@ -408,6 +416,7 @@ function App() {
         )}
         <InfoNotification isVisible={showInfoNotification} onClose={hide} />
         <SuccessModal isVisible={showSuccessModal} onClose={hideSuccess} />
+        <Suspense fallback={null}><FloatingTelegram /></Suspense>
         <Suspense fallback={null}>
           <CookieBanner onPrivacyClick={showPrivacy} />
         </Suspense>

@@ -3,6 +3,16 @@
    Общий файл трёх компонентов: Cases.js, Approach.js, Integrations.js
    ═══════════════════════════════════════════════════════════════════════ */
 
+/* ── Ритм секций ──────────────────────────────────────────────────────────
+   Глобальный .section даёт до 160px сверху и снизу — между секциями
+   возникали провалы 300-450px. Для этих трёх секций отступы ужаты:
+   конец секции через ~64-96px после последнего контента. */
+#approach.section,
+#cases.section,
+#stack.section {
+  padding: clamp(64px, 7vw, 104px) 0 clamp(56px, 6vw, 88px);
+}
+
 /* ── Cases ─────────────────────────────────────────────────────────────── */
 
 /* Сетка: флагман на всю ширину сверху, два демо-кейса в ряд под ним */
@@ -94,13 +104,15 @@
   min-width: 0;
 }
 
+/* Единый стиль чисел: значения белые (var(--fg)), подписи muted —
+   и в демо-карточках, и у флагмана */
 .cs2-metric-value {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 1.35rem + 0.6vw, 1.75rem);
   font-weight: 300;
   line-height: 1.05;
   letter-spacing: -0.01em;
-  color: var(--accent);
+  color: var(--fg);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
@@ -220,11 +232,13 @@
   transform: translateY(-2px);
 }
 
+/* Заголовочная строка демо-карточки: индустрия + бейдж «Демо-сценарий»
+   рядом, а не мелко в углу */
 .cs2-demo-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .cs2-demo-industry {
@@ -238,13 +252,14 @@
 
 .cs-demo-badge {
   flex-shrink: 0;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--fg-2);
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
-  padding: 4px 9px;
+  padding: 4px 10px;
 }
 
 /* «Было → стало» одной связкой */
@@ -261,9 +276,13 @@
   color: var(--muted);
 }
 
+/* mono-лейбл «→ РЕШЕНИЕ» между «было» и «стало» */
 .cs2-flow-arrow {
   color: var(--accent);
-  font-size: 1rem;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   line-height: 1;
 }
 
@@ -275,44 +294,48 @@
   margin-top: auto;
 }
 
-/* Сноска честности: это демо-сценарии, не реальные кейсы */
+/* Сноска честности: просто текст с левым бордером — без глифов */
 .cs-demo-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
   max-width: 720px;
   margin: 32px 0 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--line-2);
   font-size: 0.78rem;
   line-height: 1.65;
   color: var(--muted);
 }
 
-.cs-demo-note-glyph {
-  flex-shrink: 0;
-  font-size: 0.85rem;
-  line-height: 1.4;
-  color: var(--accent-soft);
-}
-
 /* ── Approach ──────────────────────────────────────────────────────────── */
 
+/* Desktop: две колонки шагов (01-03 слева, 04-05 справа) — убирает
+   пустую правую половину экрана и вдвое сжимает высоту секции.
+   grid-auto-flow: column с 3 рядами раскладывает 5 шагов по колонкам. */
 .ap-timeline {
   list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  column-gap: clamp(48px, 6vw, 96px);
   margin: 64px 0 0;
   padding: 0;
-  max-width: 880px;
 }
 
 .ap-step {
   position: relative;
   display: grid;
-  grid-template-columns: 140px 40px 1fr;
-  gap: 0 32px;
-  padding-bottom: 72px;
+  grid-template-columns: 108px 40px 1fr;
+  gap: 0 28px;
+  padding-bottom: 48px;
 }
 
 .ap-step:last-child {
   padding-bottom: 0;
+}
+
+/* Шаг 03 — последний в левой колонке: линия вниз ведёт в пустоту, прячем */
+.ap-step:nth-child(3) .ap-line {
+  display: none;
 }
 
 .ap-num {
@@ -395,9 +418,10 @@
   border-top: 1px solid var(--line);
 }
 
+/* Лейбл группы ужат до 160px — бейджи начинаются сразу, без пустоты */
 .ig-row {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 160px 1fr;
   align-items: baseline;
   gap: 24px;
   padding: 28px 0;
@@ -417,16 +441,19 @@
   gap: 12px;
 }
 
+/* Квадратные mono-чипы UPPERCASE — единый вид с чипами услуг */
 .ig-badge {
   display: inline-flex;
   align-items: center;
-  padding: 9px 18px;
-  font-size: 0.74rem;
-  letter-spacing: 0.06em;
+  padding: 8px 14px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--fg-2);
   background: var(--bg-2);
   border: 1px solid var(--line-2);
-  border-radius: 999px;
+  border-radius: var(--r-sm);
   transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
@@ -451,10 +478,23 @@
     padding: 32px 28px;
   }
 
+  /* ≤1024: возвращаем одну колонку шагов */
+  .ap-timeline {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    max-width: 880px;
+  }
+
   .ap-step {
     grid-template-columns: 96px 32px 1fr;
     gap: 0 24px;
     padding-bottom: 56px;
+  }
+
+  /* в одной колонке линия после шага 03 снова нужна */
+  .ap-step:nth-child(3) .ap-line {
+    display: block;
   }
 
   .ig-row {

@@ -139,7 +139,9 @@ const Cases = () => {
 
               <p className="cs2-flow">
                 <span className="cs2-flow-was">{firstSentence(pick(L, item.problem))}</span>
-                <span className="cs2-flow-arrow" aria-hidden="true">→</span>
+                <span className="cs2-flow-arrow mono">
+                  {L === 'en' ? '→ Solution' : '→ Решение'}
+                </span>
                 <span className="cs2-flow-now">{firstSentence(pick(L, item.solution))}</span>
               </p>
 
@@ -156,10 +158,7 @@ const Cases = () => {
           ))}
         </div>
 
-        <p className="cs-demo-note reveal">
-          <span className="cs-demo-note-glyph" aria-hidden="true">ⓘ</span>
-          {pick(L, demoNote)}
-        </p>
+        <p className="cs-demo-note reveal">{pick(L, demoNote)}</p>
       </div>
     </section>
   );

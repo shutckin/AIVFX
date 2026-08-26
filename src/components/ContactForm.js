@@ -3,7 +3,7 @@ import { useNotification } from '../App';
 import { useLocale, pick } from '../i18n';
 import { BUDGETS } from '../data/content';
 import { BUDGETS_EN } from '../data/content-en';
-import { CONTACT_SYS } from '../data/systems-content';
+import { CONTACT_SYS, VIDEO_CONTACT } from '../data/systems-content';
 
 const SecHead = ({ num, title, titleIt, side, sideTitle }) => (
   <div className="sec-head reveal">
@@ -21,12 +21,17 @@ const SecHead = ({ num, title, titleIt, side, sideTitle }) => (
 );
 
 // Отправка в Telegram через env vars (бот-токен хранится на стороне сборки)
-const sendToTelegram = async (data) => {
+const sendToTelegram = async (data, videoContext) => {
   const token = process.env.REACT_APP_TELEGRAM_BOT_TOKEN;
   const chatId = process.env.REACT_APP_TELEGRAM_CHAT_ID;
-  if (!token || !chatId) return;
+  // Нет конфигурации — заявка физически не может уйти, честно считаем это ошибкой
+  if (!token || !chatId) throw new Error('Telegram credentials are not configured');
 
-  const message = `⚙️ НОВАЯ ЗАЯВКА — AIVFX AI SYSTEMS
+  const heading = videoContext
+    ? '🎬 НОВАЯ ЗАЯВКА — AI-КОНТЕНТ (видео)'
+    : '⚙️ НОВАЯ ЗАЯВКА — AIVFX AI SYSTEMS';
+
+  const message = `${heading}
 
 👤 Имя: ${data.name}
 📧 Email: ${data.email}
@@ -44,16 +49,19 @@ const sendToTelegram = async (data) => {
   if (!res.ok) throw new Error(`Telegram API error: ${res.status}`);
 };
 
-const ContactForm = () => {
+const ContactForm = ({ videoContext = false }) => {
   const L = useLocale();
   const en = L === 'en';
   const BUDGETS_L = en ? BUDGETS_EN : BUDGETS;
   const { showSuccess, showPrivacy, showConsent } = useNotification();
+  // В видео-контексте секция берёт свои тексты (заголовок, лейбл и плейсхолдер брифа)
+  const CONTENT = videoContext ? VIDEO_CONTACT : CONTACT_SYS;
   const [form, setForm] = useState({
     name: '', email: '', phone: '', company: '', message: '', budget: ''
   });
   const [phoneErr, setPhoneErr] = useState('');
   const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
   const [agreed, setAgreed] = useState(false);
 
   const handle = (k, v) => {
@@ -80,27 +88,32 @@ const ContactForm = () => {
     e.preventDefault();
     if (phoneErr) return;
     if (!agreed) return; // защита от отправки без согласия
+    setSendError(false); // новая попытка — сбрасываем прошлую ошибку
     setSending(true);
     try {
-      await sendToTelegram(form);
+      await sendToTelegram(form, videoContext);
+      // Успех: очищаем форму и показываем модалку
+      setForm({ name: '', email: '', phone: '', company: '', message: '', budget: '' });
+      setAgreed(false);
+      showSuccess();
     } catch (_) {
-      // показываем успех даже при сетевой ошибке
+      // Ошибка сети / API / конфигурации: успех НЕ показываем,
+      // введённые данные сохраняем, даём прямые контакты
+      setSendError(true);
+    } finally {
+      setSending(false);
     }
-    setSending(false);
-    setForm({ name: '', email: '', phone: '', company: '', message: '', budget: '' });
-    setAgreed(false);
-    showSuccess();
   };
 
   return (
     <section className="section" id="contact">
       <div className="shell">
         <SecHead
-          num={pick(L, CONTACT_SYS.head.num)}
-          title={pick(L, CONTACT_SYS.head.title)}
-          titleIt={pick(L, CONTACT_SYS.head.titleIt)}
-          side={pick(L, CONTACT_SYS.head.side)}
-          sideTitle={CONTACT_SYS.head.sideTitle}
+          num={pick(L, CONTENT.head.num)}
+          title={pick(L, CONTENT.head.title)}
+          titleIt={pick(L, CONTENT.head.titleIt)}
+          side={pick(L, CONTENT.head.side)}
+          sideTitle={CONTENT.head.sideTitle}
         />
 
         <div className="contact-grid">
@@ -128,28 +141,30 @@ const ContactForm = () => {
               </div>
             </div>
 
-            <div className="field">
-              <label>{en ? 'BUDGET' : 'БЮДЖЕТ'}</label>
-              <div className="budget-options">
-                {BUDGETS_L.map((b) => (
-                  <button
-                    type="button"
-                    key={b}
-                    className={`budget-chip ${form.budget === b ? 'active' : ''}`}
-                    onClick={() => handle('budget', b)}
-                  >{b}</button>
-                ))}
+            {!videoContext && (
+              <div className="field">
+                <label>{en ? 'BUDGET' : 'БЮДЖЕТ'}</label>
+                <div className="budget-options">
+                  {BUDGETS_L.map((b) => (
+                    <button
+                      type="button"
+                      key={b}
+                      className={`budget-chip ${form.budget === b ? 'active' : ''}`}
+                      onClick={() => handle('budget', b)}
+                    >{b}</button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="field">
-              <label htmlFor="message">{pick(L, CONTACT_SYS.briefLabel)} <span className="req">*</span></label>
+              <label htmlFor="message">{pick(L, CONTENT.briefLabel)} <span className="req">*</span></label>
               <textarea
                 id="message"
                 required
                 value={form.message}
                 onChange={(e) => handle('message', e.target.value)}
-                placeholder={pick(L, CONTACT_SYS.briefPlaceholder)}
+                placeholder={pick(L, CONTENT.briefPlaceholder)}
               />
             </div>
 
@@ -181,12 +196,31 @@ const ContactForm = () => {
             >
               {sending ? (en ? 'Sending...' : 'Отправка...') : (en ? 'Send request' : 'Отправить заявку')} <span className="btn-arrow">↗</span>
             </button>
+
+            {sendError && (
+              <div className="contact-error" role="alert">
+                <p className="contact-error-text">
+                  {en
+                    ? 'The request could not be sent. Contact us directly:'
+                    : 'Не получилось отправить. Напишите нам напрямую:'}
+                </p>
+                <div className="contact-error-links">
+                  <a
+                    href="https://t.me/aivfx"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-error-link"
+                  >Telegram @aivfx</a>
+                  <a href="mailto:info@aivfx.ru" className="contact-error-link">info@aivfx.ru</a>
+                </div>
+              </div>
+            )}
           </form>
 
-          <div className="contact-side reveal">
+          <div className="contact-side contact-aside-light reveal">
             <div>
-              <h3>{en ? 'Need it' : 'Срочная'}<br /><span className="it">{en ? 'urgently?' : 'консультация?'}</span></h3>
-              <p style={{ color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55, marginTop: 8 }}>
+              <h3>{en ? 'Need it' : 'Срочная'}<br /><span className="contact-aside-accent">{en ? 'urgently?' : 'консультация?'}</span></h3>
+              <p className="contact-aside-note">
                 {en
                   ? 'Message us on Telegram — we reply within an hour.'
                   : 'Напишите в Telegram — отвечаем в течение часа.'}
@@ -212,7 +246,7 @@ const ContactForm = () => {
               <div className="hours">
                 <div className="hours-row"><span>{en ? 'MON — FRI' : 'ПН — ПТ'}</span><span>09:00 — 18:00</span></div>
                 <div className="hours-row"><span>{en ? 'SAT' : 'СБ'}</span><span>10:00 — 16:00</span></div>
-                <div className="hours-row"><span>{en ? 'SUN' : 'ВС'}</span><span style={{ color: 'var(--muted)' }}>{en ? 'CLOSED' : 'ВЫХОДНОЙ'}</span></div>
+                <div className="hours-row"><span>{en ? 'SUN' : 'ВС'}</span><span className="hours-closed">{en ? 'CLOSED' : 'ВЫХОДНОЙ'}</span></div>
               </div>
             </div>
 

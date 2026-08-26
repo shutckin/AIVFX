@@ -151,3 +151,260 @@
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
+
+/* ── AboutUs: полоса брендов (перенос доверия из видео-направления) ──── */
+.ab-brands {
+  border-top: 1px solid var(--line-2);
+  padding-top: 20px;
+}
+
+.ab-brands-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+
+.ab-brands-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+}
+
+.ab-brand {
+  font-family: 'Onest', var(--font-display), sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.ab-brand:hover { color: var(--fg-2, var(--fg)); }
+
+/* ── AboutUs: карточка основателя ────────────────────────────────────── */
+.ab-founder {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+/* Слот под фото: круг с инициалами, позже заменится на изображение */
+.ab-founder-photo {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--fg-2, var(--fg));
+}
+
+.ab-founder-name {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin: 0;
+}
+
+.ab-founder-role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 4px 0 12px;
+}
+
+.ab-founder-line {
+  border-left: 2px solid var(--accent);
+  padding-left: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-2, var(--fg));
+  margin: 0;
+}
+
+/* ── ContactForm: инлайн-блок ошибки отправки ────────────────────────── */
+.contact-error {
+  border: 1px solid rgba(255, 122, 102, 0.35);
+  border-radius: var(--r-md, 10px);
+  padding: 14px 16px;
+  margin-top: 4px;
+}
+
+.contact-error-text {
+  color: #ff9c8a;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.contact-error-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.contact-error-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg);
+  text-decoration: none;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.contact-error-link:hover {
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+/* ── ContactForm: правая колонка — светлая карточка ──────────────────── */
+/* Двойной селектор перебивает базовые правила .contact-side из index.css
+   (включая мобильные border-top/padding-top) */
+.contact-side.contact-aside-light {
+  background: var(--light-card);
+  color: var(--light-card-text);
+  border: none;
+  border-radius: var(--r-lg);
+  padding: 28px;
+}
+
+.contact-aside-light h3 { color: var(--light-card-text); }
+
+/* Прямое слово цветом вместо курсива: акцент на светлом фоне читается */
+.contact-aside-light .contact-aside-accent {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.contact-aside-light .contact-aside-note {
+  color: rgba(11, 11, 13, 0.7);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 8px 0 0;
+}
+
+/* Второстепенные подписи */
+.contact-aside-light .lab { color: rgba(11, 11, 13, 0.55); }
+
+.contact-aside-light .val { color: var(--light-card-text); }
+.contact-aside-light .val:hover { color: var(--accent); }
+
+/* Линии-разделители и часы работы */
+.contact-aside-light .hours-row {
+  color: rgba(11, 11, 13, 0.7);
+  border-top-color: rgba(11, 11, 13, 0.12);
+}
+
+.contact-aside-light .hours-closed { color: rgba(11, 11, 13, 0.45); }
+
+/* Кнопка Telegram внутри светлой карточки — тёмная */
+.contact-aside-light .btn-primary {
+  background: #0b0b0d;
+  color: #e9eef5;
+  border-color: #0b0b0d;
+}
+
+.contact-aside-light .btn-primary:hover {
+  background: #1c1e23;
+  border-color: #1c1e23;
+}
+
+/* ── CookieBanner: компактная нижняя полоса ──────────────────────────── */
+/* z-index 9990 — ниже модалок приложения (9998/9999) */
+.cookie-banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 9990;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: rgba(10, 9, 8, 0.96);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md, 10px);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cookie-banner-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--fg-2, var(--fg));
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.cookie-banner-title {
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-right: 6px;
+}
+
+.cookie-banner-link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
+.cookie-banner-accept { flex-shrink: 0; }
+
+/* Короткий текст показываем только на мобиле */
+.cookie-banner-short { display: none; }
+
+@media (max-width: 767px) {
+  .cookie-banner {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    padding: 10px 12px;
+    gap: 12px;
+    max-height: 96px;
+    overflow: hidden;
+  }
+
+  /* Текст 11px, максимум 2 строки: короткая версия вместо полной */
+  .cookie-banner-text { font-size: 11px; line-height: 1.45; }
+  .cookie-banner-title { display: none; }
+  .cookie-banner-full { display: none; }
+  .cookie-banner-short { display: inline; }
+
+  /* Двойной селектор перебивает базовые .btn/.btn-primary из index.css */
+  .cookie-banner .cookie-banner-accept {
+    padding: 9px 16px;
+    font-size: 12px;
+  }
+
+  .cookie-banner .cookie-banner-accept .btn-arrow { display: none; }
+}

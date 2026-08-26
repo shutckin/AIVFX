@@ -5,9 +5,12 @@
    Все классы с префиксом sf2-.
    ═════════════════════════════════════════════════════════════════════ */
 
-/* Фоновая «полоса» секции — отделяет её от соседних */
+/* Фоновая «полоса» секции — отделяет её от соседних.
+   Отступы ужаты: секция заканчивается через ~64-96px после контента,
+   а не через 160px (аудит: провал до 450px после графа). */
 .sf2-band {
   background: var(--bg-2);
+  padding: clamp(64px, 7vw, 104px) 0 clamp(56px, 6vw, 88px);
 }
 
 /* ── Канвас графа (desktop) ─────────────────────────────────────────── */
@@ -82,6 +85,8 @@
   text-transform: uppercase;
   color: var(--fg);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sf2-src-1 { top: 11%; }
@@ -97,13 +102,15 @@
   border-radius: 12px;
 }
 
-/* раскладка стадий: зигзаг слева направо + вилка справа */
-.sf2-node--intake        { left: 19%;   width: 14%;   top: 50%; }
-.sf2-node--qualification { left: 34.5%; width: 14%;   top: 30%; }
-.sf2-node--crm           { left: 50.5%; width: 14%;   top: 68%; }
-.sf2-node--routing       { left: 66%;   width: 14%;   top: 40%; }
-.sf2-node--followup      { left: 84%;   width: 14.5%; top: 13%; }
-.sf2-node--analytics     { left: 84%;   width: 14.5%; top: 72%; }
+/* раскладка стадий: зигзаг слева направо + вилка справа.
+   Узлы расширены до 15% (вилка 14%), чтобы описания читались целиком —
+   координаты WIRES в SystemFlow.js пересчитаны под эти же проценты. */
+.sf2-node--intake        { left: 19%;   width: 15%; top: 50%; }
+.sf2-node--qualification { left: 35.5%; width: 15%; top: 30%; }
+.sf2-node--crm           { left: 52%;   width: 15%; top: 68%; }
+.sf2-node--routing       { left: 68.5%; width: 15%; top: 40%; }
+.sf2-node--followup      { left: 85.5%; width: 14%; top: 13%; }
+.sf2-node--analytics     { left: 85.5%; width: 14%; top: 72%; }
 
 /* хаб-узел приёма чуть акцентирован */
 .sf2-node--intake {
@@ -114,7 +121,8 @@
 .sf2-stage-head {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 4px 8px;
   margin-bottom: 6px;
 }
 
@@ -134,15 +142,12 @@
   color: var(--accent);
 }
 
+/* Описание стадии — без line-clamp: текст всегда виден целиком */
 .sf2-stage-desc {
   margin: 0;
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 11.5px;
+  line-height: 1.45;
   color: var(--muted);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 /* ── Точки-порты ────────────────────────────────────────────────────── */
@@ -193,15 +198,30 @@
   background: #5fd4a8;
 }
 
-/* ── Подпись-итог под канвасом ──────────────────────────────────────── */
+/* ── Итог под канвасом — кнопка-ссылка к контактам ──────────────────── */
 .sf2-result {
   margin-top: 16px;
+  text-align: right;
+}
+
+.sf2-result-btn {
+  padding: 0 0 4px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line-2);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted);
-  text-align: right;
+  color: var(--fg-2);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.sf2-result-btn:hover,
+.sf2-result-btn:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* ── Мобильная / планшетная версия (<1024) ──────────────────────────── */

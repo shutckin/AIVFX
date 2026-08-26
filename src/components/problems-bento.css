@@ -171,8 +171,8 @@
 .pbx-task-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 12px;
+  gap: 8px;
+  padding: 11px 10px;
   background: var(--bg-2);
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -188,6 +188,8 @@
   border-radius: 3px;
 }
 
+/* Шрифт 11.5px без letter-spacing + компактный бейдж рядом:
+   «Follow-up: Иван, КП» читается целиком на 1440 без обрезки */
 .pbx-task-label {
   flex: 1;
   min-width: 0;
@@ -195,8 +197,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.02em;
+  font-size: 11.5px;
+  letter-spacing: 0;
   color: var(--fg-2);
   text-decoration: line-through;
   text-decoration-color: rgba(255, 107, 107, 0.45);
@@ -205,11 +207,11 @@
 
 .pbx-task-badge {
   flex: none;
-  padding: 4px 8px;
+  padding: 3px 7px;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255, 107, 107, 0.75);
   border: 1px solid rgba(255, 107, 107, 0.3);

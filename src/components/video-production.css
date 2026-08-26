@@ -1,10 +1,14 @@
-/* ── Страница /video-production/ — AI-контент (второе направление) ── */
+/* ── Страница /video-production/ — AI-контент (второе направление, v3) ── */
 
 .vp-page {
   background: var(--bg);
   min-height: 100vh;
   padding-top: 120px;
-  padding-bottom: 80px;
+}
+
+/* Единый ритм секций страницы: без гигантских пустот */
+.vp-page .section {
+  padding: clamp(64px, 8vw, 120px) 0;
 }
 
 /* Верхняя строка: «← AIVFX» + тумблер направлений */
@@ -72,7 +76,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 32px 0 16px;
+  padding: 32px 0 clamp(48px, 6vw, 72px);
 }
 
 .vp2-marquee .project {
@@ -93,53 +97,345 @@
   }
 }
 
-/* ── Что делаем: компактные чипы-строки ── */
-.vp2-services {
-  padding-top: 48px;
-  padding-bottom: 24px;
-}
-
-.vp2-services-label {
-  display: block;
-  margin-bottom: 20px;
-}
-
-.vp2-chip-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px 16px;
-  max-width: 720px;
-}
-
-.vp2-chip {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 10px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
+/* ── Полоса фактов: 4 ячейки в стиле полосы статов главной ── */
+.vp3-stats {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   background: var(--bg-2);
-  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.vp2-chip:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: var(--bg-3);
+.vp3-stats-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.vp2-chip-num {
+.vp3-stat {
+  padding: clamp(28px, 4vw, 52px) clamp(16px, 2vw, 32px);
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vp3-stat:first-child {
+  border-left: none;
+}
+
+.vp3-stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.5vw, 64px);
+  font-weight: 300;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.vp3-stat-unit {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.vp3-stat-label {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Услуги: лейбл над готовой сеткой .services-grid ── */
+.vp3-sec-label {
+  display: block;
+  margin-bottom: 28px;
+}
+
+/* Карточки услуг здесь не кликабельны — убираем pointer из index.css */
+.vp3-services .service-card {
+  cursor: default;
+}
+
+/* ── Сравнение: старый мир против нового ── */
+.vp3-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.vp3-compare-col {
+  padding: clamp(28px, 3vw, 44px);
+}
+
+.vp3-compare-col + .vp3-compare-col {
+  border-left: 1px solid var(--line);
+}
+
+.vp3-compare-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.vp3-compare-new .vp3-compare-head {
+  color: var(--fg);
+}
+
+.vp3-compare-glyph {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.vp3-compare-new .vp3-compare-glyph {
   color: var(--accent);
 }
 
-.vp2-chip-title {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+/* Цифры сверху — структурная замена ценового якоря */
+.vp3-compare-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.vp3-compare-cell .v {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.5vw, 36px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.vp3-compare-new .vp3-compare-cell .v {
+  color: var(--accent);
+}
+
+.vp3-compare-cell .l {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.vp3-compare-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+.vp3-compare-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.vp3-compare-old .vp3-compare-list li::before {
+  content: "—";
+  color: var(--muted);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.vp3-compare-new .vp3-compare-list li {
+  color: var(--fg);
+}
+
+.vp3-compare-new .vp3-compare-list li::before {
+  content: "+";
+  color: var(--accent);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+/* ── Форматы работы: три карточки без цен ── */
+.vp3-formats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.vp3-format {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 2.5vw, 36px);
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  transition: border-color 0.25s ease;
+}
+
+.vp3-format:hover {
+  border-color: var(--muted);
+}
+
+.vp3-format.popular,
+.vp3-format.popular:hover {
+  border-color: var(--accent);
+}
+
+/* Маленький контурный бейдж — бордер accent, без заливки */
+.vp3-format-badge {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 3px 8px;
+  background: var(--bg);
+}
+
+.vp3-format-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+
+.vp3-format-timing {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.vp3-format-desc {
+  font-size: 14px;
+  line-height: 1.55;
   color: var(--fg-2);
+  margin: 0 0 20px;
+}
+
+.vp3-format-features {
+  list-style: none;
+  padding: 0;
+  margin: auto 0 0;
+}
+
+.vp3-format-features li {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-2);
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.vp3-format-features li:last-child {
+  padding-bottom: 0;
+}
+
+.vp3-formats-note {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 20px 0 0;
+}
+
+/* ── Отзывы: обе карточки тёмные, выделенная — контурная ── */
+.vp3-testi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: clamp(48px, 6vw, 80px);
+}
+
+.vp3-testi {
+  padding: clamp(32px, 3vw, 48px);
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.vp3-testi.featured {
+  border-color: var(--accent);
+}
+
+.vp3-testi-quote {
+  font-family: var(--font-display);
+  font-size: 80px;
+  line-height: 0.5;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--accent);
+  height: 24px;
+}
+
+.vp3-testi-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.vp3-testi-text {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  flex: 1;
+  margin: 0;
+}
+
+.vp3-testi-author {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vp3-testi-author .name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+.vp3-testi-author .role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+/* ── FAQ: базовые .faq-item из index.css, тут только контейнер ── */
+.vp3-faq {
+  max-width: 760px;
 }
 
 /* Низ: строка про блог + кнопка на портфолио */
@@ -148,8 +444,8 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 12px 16px;
-  padding: 32px 0 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
 }
 
 .vp-blog-note p {
@@ -184,12 +480,16 @@
   .vp-hero {
     padding: 44px 0 18px;
   }
+
+  .vp3-formats {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
 }
 
 @media (max-width: 768px) {
   .vp-page {
     padding-top: 92px;
-    padding-bottom: 60px;
   }
 
   .vp-hero {
@@ -203,18 +503,42 @@
   /* Карточки marquee меньше: 240×180 (аспект 4/3 из index.css) */
   .vp2-marquee {
     gap: 16px;
-    padding: 24px 0 8px;
+    padding: 24px 0 clamp(36px, 6vw, 56px);
   }
 
   .vp2-marquee .project {
     width: 240px;
+  }
+
+  .vp3-stats-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vp3-stat:nth-child(odd) {
+    border-left: none;
+  }
+
+  .vp3-stat:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+
+  .vp3-compare {
+    grid-template-columns: 1fr;
+  }
+
+  .vp3-compare-col + .vp3-compare-col {
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .vp3-testi-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 560px) {
   .vp-page {
     padding-top: 84px;
-    padding-bottom: 48px;
   }
 
   .vp-hero {
@@ -229,10 +553,6 @@
   .vp2-topbar {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .vp2-chip-grid {
-    grid-template-columns: 1fr;
   }
 
   .vp-blog-note {

@@ -1,0 +1,160 @@
+/* ===========================================================
+   CTA Break — конверсионная врезка между секциями
+   + Floating Telegram — плавающая кнопка
+   =========================================================== */
+
+.cta-break-section {
+  padding: clamp(16px, 3vw, 32px) 0;
+}
+
+.cta-break {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: clamp(24px, 4vw, 36px) clamp(24px, 4vw, 44px);
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+}
+
+.cta-break-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cta-break-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.2vw, 24px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.cta-break-sub {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cta-break-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.cta-break-arrow {
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* ── Светлый вариант: единственный светлый объект в потоке ── */
+.cta-break--light {
+  background: var(--light-card);
+  border-color: transparent;
+  color: var(--light-card-text);
+}
+
+.cta-break--light .cta-break-sub {
+  color: rgba(11, 11, 13, 0.6);
+}
+
+.cta-break--light .btn-primary {
+  background: #0b0b0d;
+  color: #e9eef5;
+}
+
+.cta-break--light .btn-primary:hover {
+  background: #1b1d21;
+}
+
+.cta-break--light .btn-ghost {
+  color: var(--light-card-text);
+  border-color: rgba(11, 11, 13, 0.25);
+}
+
+.cta-break--light .btn-ghost:hover {
+  background: rgba(11, 11, 13, 0.06);
+  border-color: rgba(11, 11, 13, 0.45);
+}
+
+@media (max-width: 768px) {
+  .cta-break {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .cta-break-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta-break-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── Floating Telegram ── */
+.floating-tg {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: var(--bg-3);
+  border: 1px solid var(--line-2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.15s ease;
+}
+
+.floating-tg.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.floating-tg:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.floating-tg-icon {
+  display: block;
+}
+
+@media (max-width: 560px) {
+  .floating-tg {
+    right: 16px;
+    bottom: 84px; /* поднимаем над cookie-баннером */
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-tg {
+    transform: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease, border-color 0.15s ease;
+  }
+
+  .floating-tg:hover {
+    transform: none;
+  }
+}

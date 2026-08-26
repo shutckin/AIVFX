@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ALL_PROJECTS, ALL_FILTERS } from '../data/all-projects';
 import { useLocale } from '../i18n';
+import './fullportfolio.css';
 
 // Англоязычные подписи фильтров (ключ = f.key из ALL_FILTERS)
 const FILTER_LABELS_EN = {
@@ -86,7 +87,7 @@ const ProjectModal = ({ project, onClose }) => {
     <div
       onClick={onClose}
       style={{
-        position: 'fixed', inset: 0, background: 'rgba(8,7,6,0.9)',
+        position: 'fixed', inset: 0, background: 'rgba(11,11,13,0.92)',
         backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
         zIndex: 5000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
       }}
@@ -106,8 +107,8 @@ const ProjectModal = ({ project, onClose }) => {
           aria-label={en ? 'Close' : 'Закрыть'}
           style={{
             position: 'absolute', top: 20, right: 20, width: 36, height: 36,
-            borderRadius: '50%', border: '1px solid var(--line-2)',
-            display: 'grid', placeItems: 'center', background: 'rgba(10,9,8,0.6)',
+            borderRadius: 'var(--r-sm)', border: '1px solid var(--line-2)',
+            display: 'grid', placeItems: 'center', background: 'rgba(11,11,13,0.6)',
             color: 'var(--fg-2)', fontSize: 18, cursor: 'pointer', zIndex: 10,
           }}
         >✕</button>
@@ -144,12 +145,16 @@ const ProjectModal = ({ project, onClose }) => {
 
 // Card variants for different layouts
 const ProjectCard = ({ project, onClick, variant = 'horizontal' }) => {
+  const en = useLocale() === 'en';
   const cls = `project fp-project fp-card-${variant}` + (project.featured ? ' fp-featured' : '');
   return (
     <div className={cls} onClick={onClick}>
       <div className="thumb-wrap">
         <LazyVideo src={project.preview} title={project.title} />
         <TagBadges tags={project.tags} />
+        {project.featured && (
+          <span className="fp3-chip">{en ? 'Featured' : 'Избранное'}</span>
+        )}
         <span className="duration">{project.duration}</span>
         <div className="play-overlay" aria-hidden="true">
           <span className="play-icon">▶</span>
@@ -178,20 +183,34 @@ const FullPortfolio = ({ onBack }) => {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
+  // Заголовок вкладки и описание страницы для поисковиков
+  useEffect(() => {
+    document.title = en ? 'Portfolio — AIVFX' : 'Портфолио — AIVFX';
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.setAttribute('name', 'description');
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute(
+      'content',
+      en
+        ? 'Full catalog of AIVFX works: AI-generated video, VFX, shooting, Reels and ad campaigns.'
+        : 'Полный каталог работ AIVFX: AI-видео, VFX, съёмка, Reels и рекламные кампании.'
+    );
+  }, [en]);
+
   const showFeatured = filterKey === 'all';
 
   return (
     <div className="fp-page">
       <div className="fp-header">
         <div className="shell fp-header-inner">
-          <button onClick={onBack} className="fp-back" aria-label={en ? 'Back to home' : 'Назад на главную'}>
-            <span style={{ fontSize: 18 }}>←</span>
+          <button onClick={onBack} className="fp3-back" aria-label={en ? 'Back to home' : 'Назад на главную'}>
+            <span aria-hidden="true">←</span>
             <span>{en ? 'Back to home' : 'Назад на главную'}</span>
           </button>
-          <div className="fp-logo">
-            <img src="/logo.png" alt="AIVFX" className="logo-img" />
-            <span className="logo-wm">AIVFX</span>
-          </div>
+          <span className="fp3-wordmark">AIVFX</span>
         </div>
       </div>
 
@@ -212,7 +231,7 @@ const FullPortfolio = ({ onBack }) => {
         {showFeatured && featured.length > 0 && (
           <section className="fp-section">
             <div className="fp-section-head">
-              <span className="fp-section-num">★</span>
+              <span className="fp-section-num">01</span>
               <h2 className="fp-section-title">
                 {en ? 'Featured' : 'Избранные'} <span className="it">{en ? 'works' : 'работы'}</span>
               </h2>
@@ -251,7 +270,7 @@ const FullPortfolio = ({ onBack }) => {
         {horizontal.length > 0 && (
           <section className="fp-section">
             <div className="fp-section-head">
-              <span className="fp-section-num">▬</span>
+              <span className="fp-section-num">02</span>
               <h2 className="fp-section-title">
                 {en ? 'Horizontal' : 'Горизонтальные'} <span className="it">{en ? 'works' : 'работы'}</span>
                 <span className="fp-section-count"> — {horizontal.length}</span>
@@ -274,7 +293,7 @@ const FullPortfolio = ({ onBack }) => {
         {vertical.length > 0 && (
           <section className="fp-section">
             <div className="fp-section-head">
-              <span className="fp-section-num">▯</span>
+              <span className="fp-section-num">03</span>
               <h2 className="fp-section-title">
                 {en ? 'Vertical' : 'Вертикальные'} <span className="it">{en ? 'works' : 'работы'}</span>
                 <span className="fp-section-count"> — {vertical.length}</span>

@@ -2,6 +2,7 @@ import React from 'react';
 import SecHead from './SecHead';
 import { useLocale, pick } from '../i18n';
 import { FLOW_SYS } from '../data/systems-content';
+import { useNotification } from '../App';
 import './flow-graph.css';
 
 // ── Секция «Система» — живой граф узлов (workflow-канвас в духе n8n) ─────
@@ -21,13 +22,13 @@ const WIRES = [
   { id: 's4', d: 'M135,336 C180,336 145,300 190,300', dur: '3.8s' },
   { id: 's5', d: 'M135,426 C180,426 145,300 190,300', dur: '4.9s' },
   { id: 's6', d: 'M135,516 C180,516 145,300 190,300', dur: '3.1s' },
-  // цепочка стадий
-  { id: 'c1', d: 'M330,300 C390,300 285,180 345,180', dur: '3.6s' }, // Intake → Qualification
-  { id: 'c2', d: 'M485,180 C545,180 445,408 505,408', dur: '4.4s' }, // Qualification → CRM
-  { id: 'c3', d: 'M645,408 C705,408 600,240 660,240', dur: '3.9s' }, // CRM → Routing
+  // цепочка стадий (узлы расширены до 15% — порты пересчитаны)
+  { id: 'c1', d: 'M340,300 C400,300 295,180 355,180', dur: '3.6s' }, // Intake → Qualification
+  { id: 'c2', d: 'M505,180 C565,180 460,408 520,408', dur: '4.4s' }, // Qualification → CRM
+  { id: 'c3', d: 'M670,408 C730,408 625,240 685,240', dur: '3.9s' }, // CRM → Routing
   // вилка
-  { id: 'f1', d: 'M800,240 C860,240 780,78 840,78', dur: '4.7s' },   // Routing → Follow-up
-  { id: 'f2', d: 'M800,240 C860,240 780,432 840,432', dur: '3.3s' }, // Routing → Analytics
+  { id: 'f1', d: 'M835,240 C895,240 795,78 855,78', dur: '4.7s' },   // Routing → Follow-up
+  { id: 'f2', d: 'M835,240 C895,240 795,432 855,432', dur: '3.3s' }, // Routing → Analytics
 ];
 
 // у каких стадий есть выходной порт (конечные узлы вилки — без выхода)
@@ -35,6 +36,7 @@ const HAS_OUT = ['intake', 'qualification', 'crm', 'routing'];
 
 const SystemFlow = () => {
   const L = useLocale();
+  const { scrollToSection } = useNotification();
   const { head, sources, stages } = FLOW_SYS;
 
   const sourceLabel = (s) => (typeof s === 'string' ? s : pick(L, s));
@@ -132,9 +134,15 @@ const SystemFlow = () => {
           </ol>
         </div>
 
-        {/* подпись-итог */}
-        <div className="sf2-result mono">
-          {L === 'en' ? '→ measurable result' : '→ измеримый результат'}
+        {/* итог — кнопка-ссылка к форме контактов */}
+        <div className="sf2-result">
+          <button
+            type="button"
+            className="sf2-result-btn mono"
+            onClick={() => scrollToSection('contact')}
+          >
+            {L === 'en' ? '→ measurable result' : '→ измеримый результат'}
+          </button>
         </div>
       </div>
     </section>

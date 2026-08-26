@@ -38,6 +38,25 @@ const AboutUs = () => {
               </div>
             </div>
 
+            <div className="ab-brands">
+              <span className="ab-brands-label">{pick(locale, ABOUT_SYS.brands.label)}</span>
+              <div className="ab-brands-row">
+                {ABOUT_SYS.brands.items.map((brand) => (
+                  <span key={brand} className="ab-brand">{brand}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="ab-founder">
+              {/* Слот под фото: пока круг с инициалами, потом заменим на изображение */}
+              <div className="ab-founder-photo" aria-hidden="true">{en ? 'AS' : 'АШ'}</div>
+              <div className="ab-founder-body">
+                <p className="ab-founder-name">{pick(locale, ABOUT_SYS.founder.name)}</p>
+                <p className="ab-founder-role">{pick(locale, ABOUT_SYS.founder.role)}</p>
+                <p className="ab-founder-line">{pick(locale, ABOUT_SYS.founder.line)}</p>
+              </div>
+            </div>
+
             <div className="ab-video-note">
               <p>{pick(locale, ABOUT_SYS.videoNote.text)}</p>
               <a className="ab-video-link mono" href={localizedHref('/video-production/', locale)}>

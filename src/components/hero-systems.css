@@ -96,6 +96,45 @@
   margin-top: 6px;
 }
 
+/* ── Крючки под CTA: оффер + отличие ─────────────────────────────────────
+   Закрывают пустующий низ левой колонки (CRO-аудит). */
+.hs-hook {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: -4px; /* чуть ближе к кнопкам, чем общий gap колонки */
+}
+
+.hs-offer {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+.hs-offer::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  transform: translateY(-1px);
+}
+
+.hs-diff {
+  margin: 0;
+  padding-left: 16px; /* 6px точка + 10px gap — текст в одну вертикаль с оффером */
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
    ПРАВАЯ КОЛОНКА — ТЕЛЕФОН С ЧАТ-ДЕМО (hp-)
    Один общий CSS-цикл 16s: все элементы анимируются keyframe-процентами
@@ -368,9 +407,17 @@
 }
 
 /* ── Мелкие доводки Stats ─────────────────────────────────────────────── */
+/* Полоса выровнена по верху, лейблы с одинаковой шириной строки —
+   4-й длинный лейбл не оставляет «пустой подвал» у соседних ячеек. */
+.hs-stat {
+  justify-content: flex-start;
+  gap: 12px;
+  padding-top: clamp(28px, 3.4vw, 44px);
+  padding-bottom: clamp(28px, 3.4vw, 44px);
+}
 .hs-stat .stat-label {
-  line-height: 1.7;
-  max-width: 30ch;
+  line-height: 1.65;
+  max-width: 24ch;
 }
 
 /* ── Респонсив ────────────────────────────────────────────────────────── */
@@ -423,6 +470,12 @@
     align-items: stretch;
   }
   .hs-actions .btn { justify-content: center; }
+  .hs-sub { font-size: 14px; }
+  .hs-offer {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+  .hs-diff { font-size: 10.5px; }
   .hp-phone {
     width: 270px;
     height: 500px;

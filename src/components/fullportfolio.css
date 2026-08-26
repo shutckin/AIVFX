@@ -1,0 +1,106 @@
+/* ── Страница /works — новая дизайн-система (fp3-*).
+   Файл импортируется в FullPortfolio.js последним и точечно
+   перебивает старые .fp-* стили из index.css. ── */
+
+/* Шапка: тихая текстовая ссылка «назад» вместо pill-кнопки */
+.fp3-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+.fp3-back:hover { color: var(--accent); }
+
+/* Строгий wordmark без картинки-робота */
+.fp3-wordmark {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.04em;
+  color: var(--fg);
+}
+
+/* Курсивные акценты в заголовках → прямые слова цветом accent */
+.fp-page .it,
+.fp-page .fp-section-title .it {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+/* Старый залитый бейдж «★ ИЗБРАННОЕ» из index.css убираем */
+.fp-page .fp-featured::before { content: none; }
+
+/* Контурный квадратный чип «ИЗБРАННОЕ / FEATURED» */
+.fp3-chip {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 4;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border: 1px solid var(--accent);
+  border-radius: var(--r-sm);
+  color: var(--accent);
+  background: rgba(11, 11, 13, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Featured-карточка: без свечения и теней */
+.fp-page .fp-featured .thumb-wrap {
+  border-color: rgba(61, 110, 247, 0.35);
+  box-shadow: none;
+}
+
+/* Фильтры: квадратные формы, актив — бордер + текст accent, без заливки */
+.fp-page .filter-chip {
+  border-radius: var(--r-sm);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+.fp-page .filter-chip.active {
+  background: none;
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+.fp-page .filter-chip.active .fp-count { opacity: 0.8; }
+
+/* Теги на карточках: тот же контурный стиль, без заливки цветом */
+.fp-page .tag {
+  background: rgba(11, 11, 13, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  color: var(--fg);
+  font-weight: 500;
+}
+.fp-page .tag-ai,
+.fp-page .tag-vfx {
+  background: rgba(11, 11, 13, 0.55);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Длительность и play-иконка: квадратные углы, без теней */
+.fp-page .project .duration { border-radius: var(--r-sm); }
+.fp-page .play-icon {
+  border-radius: var(--r-sm);
+  box-shadow: none;
+}

@@ -25,8 +25,18 @@ export const HERO_SYS = {
   },
   accentLineIndex: 1, // какая строка подсвечивается акцентом
   sub: {
-    ru: 'Проектируем и внедряем AI-автоматизации для бизнеса: от первой заявки до повторных продаж.',
-    en: 'We design and deploy AI automations for business: from the first inquiry to repeat sales.',
+    ru: 'Для клиник, недвижимости и сервисного бизнеса с потоком заявок: система отвечает клиенту за секунды, доводит до записи и фиксирует каждое обращение в CRM — 24/7.',
+    en: 'For clinics, real estate and service businesses with inquiry flow: the system replies in seconds, drives bookings and logs every lead in the CRM — 24/7.',
+  },
+  // Оффер под кнопками — главный крючок
+  offer: {
+    ru: 'Ответ с архитектурой решения — в течение 24 часов',
+    en: 'A solution architecture in reply — within 24 hours',
+  },
+  // Строка-отличие от чат-бот агентств
+  diff: {
+    ru: 'Не чат-бот, а система: приём → квалификация → CRM → follow-up',
+    en: 'Not a chatbot — a system: intake → qualification → CRM → follow-up',
   },
   cta1: { ru: 'Обсудить задачу', en: 'Discuss your case' },
   cta2: { ru: 'Посмотреть решения', en: 'See solutions' },
@@ -500,6 +510,19 @@ export const ABOUT_SYS = {
       { ru: 'Отделы продаж с потоком заявок', en: 'Sales teams with inquiry flow' },
     ],
   },
+  // Честный перенос доверия: бренды из видео-направления
+  brands: {
+    label: { ru: 'Выросли из AI-продакшна — делали работы для', en: 'We grew out of AI production — with work for' },
+    items: ['AUDI', 'PORSCHE', 'DYSON', 'DANUBE', 'NL INT.', 'WHITEWILL', 'CINQUE', 'DEHANCER'],
+  },
+  founder: {
+    name: { ru: 'Артем Шуткин', en: 'Artem Shutkin' },
+    role: { ru: 'Основатель AIVFX', en: 'Founder, AIVFX' },
+    line: {
+      ru: 'Каждый проект веду лично — от разбора процесса до запуска и сопровождения. Мне важно, чтобы система реально работала в вашем бизнесе, а не красиво выглядела в презентации.',
+      en: 'I run every project personally — from process mapping to launch and support. What matters to me is a system that actually works in your business, not one that just looks good in a deck.',
+    },
+  },
   videoNote: {
     text: {
       ru: 'Второе направление студии — AI-видеопродакшн: реклама, продуктовые ролики и контент.',
@@ -537,6 +560,20 @@ export const FAQ_SYS = [
     a: {
       ru: 'Первый работающий контур — обычно от 2 до 6 недель в зависимости от сложности. Дальше система развивается итерациями на реальных данных.',
       en: 'A first working loop typically takes 2–6 weeks depending on complexity. After that the system evolves in iterations on real data.',
+    },
+  },
+  {
+    q: { ru: 'Что если AI ответит клиенту неправильно?', en: 'What if the AI gives a customer a wrong answer?' },
+    a: {
+      ru: 'Ассистент отвечает только на основе вашей базы знаний и согласованных сценариев, а сложные и чувствительные случаи сразу передаёт человеку. Границы полномочий AI фиксируются на этапе проектирования.',
+      en: 'The assistant answers only from your knowledge base and approved scenarios, and hands complex or sensitive cases straight to a human. The AI’s limits are defined at the design stage.',
+    },
+  },
+  {
+    q: { ru: 'Что происходит после запуска?', en: 'What happens after launch?' },
+    a: {
+      ru: 'Система остаётся на нашем сопровождении: мониторим работу, разбираем реальные диалоги и дорабатываем сценарии. Если что-то меняется на стороне подключённых сервисов — чиним мы, а не вы.',
+      en: 'The system stays under our care: we monitor it, review real conversations and refine scenarios. If something changes on the side of connected services — we fix it, not you.',
     },
   },
   {
@@ -596,5 +633,108 @@ export const VIDEO_PAGE = {
   blogNote: {
     ru: 'Гайды и разборы AI-видео — в нашем блоге.',
     en: 'AI video guides and breakdowns live in our blog.',
+  },
+};
+
+// ── CTA-врезка между секциями главной ──────────────────────────────────
+export const CTA_BREAK = {
+  title: { ru: 'Разберём ваш процесс и предложим архитектуру', en: 'We will map your process and propose an architecture' },
+  sub: { ru: 'Разбор бесплатный. Ответ — в течение 24 часов.', en: 'The review is free. Reply within 24 hours.' },
+  btn: { ru: 'Обсудить задачу', en: 'Discuss your case' },
+  tg: { ru: 'Написать в Telegram', en: 'Message on Telegram' },
+  tgUrl: 'https://t.me/aivfx',
+};
+
+// ── Видео-направление: форматы работы БЕЗ цен (смета под задачу) ───────
+export const VIDEO_FORMATS = {
+  head: {
+    num: { ru: '[ ФОРМАТЫ ]', en: '[ FORMATS ]' },
+    title: { ru: 'Три формата', en: 'Three formats' },
+    titleIt: { ru: 'работы', en: 'of engagement' },
+    side: {
+      ru: 'Стоимость считаем сметой под задачу. Бриф бесплатный, оценка — в течение 24 часов.',
+      en: 'Pricing is a per-project estimate. The brief is free; you get the quote within 24 hours.',
+    },
+    sideTitle: 'HOW WE WORK',
+  },
+  items: [
+    {
+      name: { ru: 'Тест-ролик', en: 'Test video' },
+      timing: { ru: '~72 часа', en: '~72 hours' },
+      desc: { ru: 'Проверить формат и качество на короткой задаче.', en: 'Validate the format and quality on a short task.' },
+      features: [
+        { ru: '1–2 минуты готового видео', en: '1–2 minutes of finished video' },
+        { ru: 'AI-генерация + базовый VFX', en: 'AI generation + basic VFX' },
+        { ru: '3 итерации правок', en: '3 revision rounds' },
+      ],
+    },
+    {
+      name: { ru: 'Кампания', en: 'Campaign' },
+      timing: { ru: '~1 неделя', en: '~1 week' },
+      desc: { ru: 'Основной ролик плюс адаптации под площадки.', en: 'A hero video plus platform adaptations.' },
+      popular: true,
+      features: [
+        { ru: 'Ролик до 5 минут + адаптации', en: 'Up to 5 minutes + adaptations' },
+        { ru: 'Продвинутый AI + сложный VFX, 4K', en: 'Advanced AI + complex VFX, 4K' },
+        { ru: 'Безлимит правок, персональный менеджер', en: 'Unlimited revisions, dedicated manager' },
+      ],
+    },
+    {
+      name: { ru: 'Флагман', en: 'Flagship' },
+      timing: { ru: '~2 недели', en: '~2 weeks' },
+      desc: { ru: 'Фильм бренда с полной кастомизацией.', en: 'A brand film with full customization.' },
+      features: [
+        { ru: 'Без ограничений по длительности', en: 'No duration limits' },
+        { ru: 'Голливудский VFX, многокамерные сцены', en: 'Hollywood-grade VFX, multi-camera scenes' },
+        { ru: 'Полная кастомизация под бренд', en: 'Full customization for the brand' },
+      ],
+    },
+  ],
+  note: {
+    ru: 'Точную смету и сроки присылаем после брифа — в течение 24 часов.',
+    en: 'We send the exact estimate and timeline after the brief — within 24 hours.',
+  },
+};
+
+// ── Видео-направление: FAQ без цен ─────────────────────────────────────
+export const VIDEO_FAQ = [
+  {
+    q: { ru: 'Какие форматы видео вы делаете?', en: 'What video formats do you produce?' },
+    a: { ru: 'Все популярные: от Reels и Shorts до полноформатных рекламных роликов и фильмов бренда. Адаптируем под любую площадку.', en: 'All popular ones: from Reels and Shorts to full-length commercials and brand films. We adapt to any platform.' },
+  },
+  {
+    q: { ru: 'Как быстро будет готов ролик?', en: 'How fast will the video be ready?' },
+    a: { ru: 'Тест-ролик — около 72 часов, кампания — около недели, флагманский проект — около двух. Точные сроки фиксируем в смете.', en: 'A test video takes about 72 hours, a campaign about a week, a flagship project about two. Exact timelines are fixed in the estimate.' },
+  },
+  {
+    q: { ru: 'Сколько это стоит?', en: 'How much does it cost?' },
+    a: { ru: 'Каждый проект считаем сметой под задачу: длительность, сложность графики, количество адаптаций. Бриф бесплатный, оценку присылаем в течение 24 часов.', en: 'Every project is priced individually: duration, VFX complexity, number of adaptations. The brief is free; we send the quote within 24 hours.' },
+  },
+  {
+    q: { ru: 'Можно ли вносить правки?', en: 'Can we request revisions?' },
+    a: { ru: 'Да. Количество итераций зависит от формата; в «Кампании» и «Флагмане» правки безлимитные.', en: 'Yes. The number of rounds depends on the format; Campaign and Flagship come with unlimited revisions.' },
+  },
+  {
+    q: { ru: 'Чем AI-продакшн лучше классической съёмки?', en: 'Why is AI production better than a classic shoot?' },
+    a: { ru: 'Без съёмочной группы, аренды локаций и месяцев постпродакшена: любые локации и сцены собираются в разы быстрее и заметно дешевле — при кинематографичной картинке.', en: 'No film crew, location rentals or months of post: any location or scene comes together several times faster and materially cheaper — with a cinematic image.' },
+  },
+];
+
+// ── Видео-направление: свой контакт-контекст ───────────────────────────
+export const VIDEO_CONTACT = {
+  head: {
+    num: { ru: '[ КОНТАКТ ]', en: '[ CONTACT ]' },
+    title: { ru: 'Обсудим', en: 'Let’s discuss' },
+    titleIt: { ru: 'ваш ролик', en: 'your video' },
+    side: {
+      ru: 'Опишите задачу и референсы — вернёмся со сметой и сроками в течение 24 часов.',
+      en: 'Describe the task and references — we will come back with an estimate and timeline within 24 hours.',
+    },
+    sideTitle: 'START',
+  },
+  briefLabel: { ru: 'ЗАДАЧА', en: 'YOUR BRIEF' },
+  briefPlaceholder: {
+    ru: 'Опишите ролик: продукт, длительность, референсы, дедлайн...',
+    en: 'Describe the video: product, duration, references, deadline...',
   },
 };

@@ -96,6 +96,12 @@ const Hero = () => {
                 {pick(L, HERO_SYS.cta2)}
               </button>
             </div>
+
+            {/* Крючки под CTA: оффер (24 часа) + отличие от чат-ботов */}
+            <div className="hs-hook">
+              <p className="hs-offer">{pick(L, HERO_SYS.offer)}</p>
+              <p className="hs-diff">{pick(L, HERO_SYS.diff)}</p>
+            </div>
           </div>
 
           <HeroPhoneDemo />

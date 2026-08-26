@@ -1,23 +1,32 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SecHead from './SecHead';
 import ModeToggle from './ModeToggle';
+import ContactForm from './ContactForm';
 import { useLocale, pick, localizedHref } from '../i18n';
-import { VIDEO_PAGE } from '../data/systems-content';
-import { SERVICES, PRICING, TESTIMONIALS, CLIENTS } from '../data/content';
-import { SERVICES_EN, PRICING_EN, TESTIMONIALS_EN, CLIENTS_EN } from '../data/content-en';
+import { VIDEO_PAGE, VIDEO_FORMATS, VIDEO_FAQ } from '../data/systems-content';
+import { STATS, SERVICES, COMPARE_OLD, COMPARE_NEW, TESTIMONIALS, CLIENTS } from '../data/content';
+import {
+  STATS_EN, SERVICES_EN, COMPARE_OLD_EN, COMPARE_NEW_EN, TESTIMONIALS_EN, CLIENTS_EN,
+} from '../data/content-en';
 import { localizedProjects } from '../data/projects';
 import './video-production.css';
 
 // Страница второго направления — AI-контент (/video-production/).
-// Визуальная витрина: hero + видео-marquee из портфолио + компактные услуги + тарифы + отзывы.
+// v3: hero + marquee + полоса фактов + полные услуги + сравнение + форматы работы
+// (без цен) + отзывы + FAQ + форма. Цены со страницы убраны полностью.
 
-// Ленивое видео: играет только когда попадает в viewport (паттерн из Portfolio)
+// Ленивое видео: играет только когда попадает в viewport (паттерн из Portfolio).
+// При prefers-reduced-motion автоплей выключен — остаётся первый кадр.
 const LazyVideo = ({ src, title }) => {
   const ref = useRef(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Уважение к reduced motion: не автоплеим, показываем первый кадр
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches) return undefined;
 
     const obs = new IntersectionObserver(
       (entries) => {
@@ -83,9 +92,12 @@ const MarqueeCard = ({ project, href }) => (
 const VideoProduction = () => {
   const L = useLocale();
   const en = L === 'en';
+  const [openFaq, setOpenFaq] = useState(0);
 
+  const STATS_L = en ? STATS_EN : STATS;
   const SERVICES_L = en ? SERVICES_EN : SERVICES;
-  const PRICING_L = en ? PRICING_EN : PRICING;
+  const COMPARE_OLD_L = en ? COMPARE_OLD_EN : COMPARE_OLD;
+  const COMPARE_NEW_L = en ? COMPARE_NEW_EN : COMPARE_NEW;
   const TESTIMONIALS_L = en ? TESTIMONIALS_EN : TESTIMONIALS;
   const CLIENTS_L = en ? CLIENTS_EN : CLIENTS;
 
@@ -105,7 +117,7 @@ const VideoProduction = () => {
     meta.setAttribute('content', pick(L, VIDEO_PAGE.sub));
   }, [L, en]);
 
-  const contactHref = `${localizedHref('/', L)}#contact`;
+  const contactHref = '#contact';
   const worksHref = localizedHref('/works/', L);
 
   return (
@@ -161,67 +173,136 @@ const VideoProduction = () => {
         )}
       </section>
 
-      {/* Что делаем: компактные чипы-строки вместо карточной сетки */}
-      <section className="section vp2-services">
+      {/* Полоса фактов: 4 ячейки из STATS */}
+      <section className="vp3-stats" aria-label={en ? 'Key numbers' : 'Ключевые цифры'}>
+        <div className="vp3-stats-inner">
+          {STATS_L.map((s, i) => (
+            <div key={i} className="vp3-stat">
+              <span className="vp3-stat-value">
+                {s.v}<span className="vp3-stat-unit">{s.u}</span>
+              </span>
+              <span className="vp3-stat-label">{s.l}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Услуги: полные карточки из SERVICES (классы из index.css) */}
+      <section className="section vp3-services">
         <div className="shell">
-          <span className="sec-num vp2-services-label">
-            {en ? '[ 01 / WHAT WE DO ]' : '[ 01 / ЧТО ДЕЛАЕМ ]'}
+          <span className="sec-num vp3-sec-label">
+            {en ? '[ WHAT WE DO ]' : '[ ЧТО ДЕЛАЕМ ]'}
           </span>
-          <div className="vp2-chip-grid reveal">
+          <div className="services-grid">
             {SERVICES_L.map((s, i) => (
-              <div key={i} className="vp2-chip">
-                <span className="vp2-chip-num">{s.num}</span>
-                <span className="vp2-chip-title">{s.title}</span>
+              <div key={i} className="service-card reveal">
+                <span className="num">{s.num}</span>
+                <span className="glyph">{s.glyph}</span>
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Тарифы */}
+      {/* Сравнение: старый мир против нового (структурная замена ценового якоря) */}
       <section className="section">
         <div className="shell">
           <SecHead
-            num={en ? '[ 02 / PRICING ]' : '[ 02 / ТАРИФЫ ]'}
-            title={en ? 'Transparent' : 'Прозрачные'}
-            titleIt={en ? 'pricing' : 'тарифы'}
+            num={en ? '[ WHY AI ]' : '[ ПОЧЕМУ AI ]'}
+            title={en ? 'The old world' : 'Старый мир'}
+            titleIt={en ? 'vs the new' : 'против нового'}
             side={en
-              ? 'Fixed packages for videos of any complexity — from a quick test to a flagship brand film.'
-              : 'Фиксированные пакеты под ролики любой сложности — от быстрого теста до флагманского фильма бренда.'}
-            sideTitle="PRICING"
+              ? 'Classic production against an AI pipeline: same cinematic image, a fraction of the time and budget.'
+              : 'Классический продакшн против AI-пайплайна: та же кинематографичная картинка за долю времени и бюджета.'}
+            sideTitle="COMPARE"
           />
-          <div className="pricing">
-            {PRICING_L.map((p, i) => (
-              <div key={i} className={`price-card ${p.popular ? 'featured' : ''} reveal`}>
-                {p.popular && <span className="badge">{en ? 'Popular' : 'Популярный'}</span>}
-                <h4>{p.name}</h4>
-                <div className="price-row">
-                  <span className="price-amt">{p.price}</span>
-                  <span className="price-per">{p.per}</span>
+          <div className="vp3-compare reveal">
+            <div className="vp3-compare-col vp3-compare-old">
+              <h4 className="vp3-compare-head">
+                <span className="vp3-compare-glyph">⊖</span>
+                {en ? 'Traditional' : 'Традиционно'}
+              </h4>
+              <div className="vp3-compare-stats">
+                <div className="vp3-compare-cell">
+                  <span className="v">2–6</span>
+                  <span className="l">{en ? 'weeks' : 'недель'}</span>
                 </div>
-                <p className="desc">{p.desc}</p>
-                <span className="timing"><span className="dot" />{en ? `Ready in ${p.timing}` : `Готово за ${p.timing}`}</span>
-                <ul>
-                  {p.features.map((f, j) => <li key={j}>{f}</li>)}
-                </ul>
-                <a
-                  className={`btn ${p.popular ? 'btn-primary' : 'btn-ghost'}`}
-                  href={contactHref}
-                  style={{ justifyContent: 'center', width: '100%' }}
-                >
-                  {en ? 'Start a project' : 'Начать проект'} <span className="btn-arrow">↗</span>
-                </a>
+                <div className="vp3-compare-cell">
+                  <span className="v">100%</span>
+                  <span className="l">{en ? 'of cost' : 'стоимости'}</span>
+                </div>
               </div>
-            ))}
+              <ul className="vp3-compare-list">
+                {COMPARE_OLD_L.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="vp3-compare-col vp3-compare-new">
+              <h4 className="vp3-compare-head">
+                <span className="vp3-compare-glyph">⊕</span>
+                AIVFX
+              </h4>
+              <div className="vp3-compare-stats">
+                <div className="vp3-compare-cell">
+                  <span className="v">1–5</span>
+                  <span className="l">{en ? 'days' : 'дней'}</span>
+                </div>
+                <div className="vp3-compare-cell">
+                  <span className="v">~30%</span>
+                  <span className="l">{en ? 'of cost' : 'стоимости'}</span>
+                </div>
+              </div>
+              <ul className="vp3-compare-list">
+                {COMPARE_NEW_L.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Отзывы и клиенты */}
+      {/* Форматы работы — без цен, смета под задачу */}
       <section className="section">
         <div className="shell">
           <SecHead
-            num={en ? '[ 03 / CLIENTS ]' : '[ 03 / КЛИЕНТЫ ]'}
+            num={pick(L, VIDEO_FORMATS.head.num)}
+            title={pick(L, VIDEO_FORMATS.head.title)}
+            titleIt={pick(L, VIDEO_FORMATS.head.titleIt)}
+            side={pick(L, VIDEO_FORMATS.head.side)}
+            sideTitle={VIDEO_FORMATS.head.sideTitle}
+          />
+          <div className="vp3-formats reveal">
+            {VIDEO_FORMATS.items.map((f, i) => (
+              <div key={i} className={`vp3-format ${f.popular ? 'popular' : ''}`}>
+                {f.popular && (
+                  <span className="vp3-format-badge">
+                    {en ? 'MOST POPULAR' : 'ЧАЩЕ ВСЕГО'}
+                  </span>
+                )}
+                <h3 className="vp3-format-name">{pick(L, f.name)}</h3>
+                <span className="vp3-format-timing">{pick(L, f.timing)}</span>
+                <p className="vp3-format-desc">{pick(L, f.desc)}</p>
+                <ul className="vp3-format-features">
+                  {f.features.map((feat, j) => (
+                    <li key={j}>{pick(L, feat)}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <p className="vp3-formats-note">{pick(L, VIDEO_FORMATS.note)}</p>
+        </div>
+      </section>
+
+      {/* Отзывы и клиенты: тёмные карточки, выделенная — контурная */}
+      <section className="section">
+        <div className="shell">
+          <SecHead
+            num={en ? '[ CLIENTS ]' : '[ КЛИЕНТЫ ]'}
             title={en ? 'Brands that' : 'Нам доверяют'}
             titleIt={en ? 'trust us' : 'свои бренды'}
             side={en
@@ -229,13 +310,13 @@ const VideoProduction = () => {
               : 'От немецких автоконцернов до арабских девелоперов — мы работаем с теми, кому важна скорость без компромиссов.'}
             sideTitle="TRUST"
           />
-          <div className="testi-grid reveal">
+          <div className="vp3-testi-grid reveal">
             {TESTIMONIALS_L.map((t) => (
-              <div key={t.id} className={`testi ${t.featured ? 'featured' : ''}`}>
-                <span className="quote-mark">"</span>
-                <span className="project-tag">◆ {t.project}</span>
-                <p className="text">{t.text}</p>
-                <div className="author">
+              <div key={t.id} className={`vp3-testi ${t.featured ? 'featured' : ''}`}>
+                <span className="vp3-testi-quote">"</span>
+                <span className="vp3-testi-tag">◆ {t.project}</span>
+                <p className="vp3-testi-text">{t.text}</p>
+                <div className="vp3-testi-author">
                   <span className="name">{t.name}</span>
                   <span className="role">{t.role}</span>
                 </div>
@@ -250,7 +331,32 @@ const VideoProduction = () => {
         </div>
       </section>
 
-      {/* Финал: строка про блог + кнопка на портфолио */}
+      {/* FAQ: аккордеон из VIDEO_FAQ (классы .faq-item из index.css) */}
+      <section className="section">
+        <div className="shell">
+          <SecHead
+            num="[ FAQ ]"
+            title={en ? 'Frequently asked questions' : 'Частые вопросы'}
+          />
+          <div className="faq-list vp3-faq reveal">
+            {VIDEO_FAQ.map((item, i) => (
+              <div
+                key={i}
+                className={`faq-item ${openFaq === i ? 'open' : ''}`}
+                onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
+              >
+                <div className="head">
+                  <span className="q">{pick(L, item.q)}</span>
+                  <span className="ic">+</span>
+                </div>
+                <div className="body"><p>{pick(L, item.a)}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Строка про блог + кнопка на портфолио */}
       <div className="shell">
         <div className="vp-blog-note reveal">
           <p>{pick(L, VIDEO_PAGE.blogNote)}</p>
@@ -263,6 +369,9 @@ const VideoProduction = () => {
           </a>
         </div>
       </div>
+
+      {/* Форма заявки — свой контакт в контексте видео */}
+      <ContactForm videoContext />
     </div>
   );
 };

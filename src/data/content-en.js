@@ -33,32 +33,6 @@ export const SERVICES_EN = [
   { num: "S/06", glyph: "✕", title: "Virtual Characters", desc: "Digital actors, deepfake tech and facial animation at studio level." }
 ];
 
-export const PRICING_EN = [
-  {
-    name: "BASIC",
-    desc: "For tests and short videos.",
-    price: "$650", per: "/ project",
-    timing: "72 hours",
-    features: ["1–2 minutes of finished video", "Basic AI generation", "Simple VFX effects", "HD quality (1080p)", "3 revisions included"],
-    popular: false
-  },
-  {
-    name: "PROFESSIONAL",
-    desc: "For business and marketing.",
-    price: "$1,900", per: "/ project",
-    timing: "1 week",
-    features: ["Up to 5 minutes of finished video", "Advanced AI generation", "Complex VFX effects", "4K quality", "Custom animation", "Unlimited revisions", "Dedicated manager"],
-    popular: true
-  },
-  {
-    name: "PREMIUM",
-    desc: "For major brands and films.",
-    price: "$3,800", per: "/ project",
-    timing: "2 weeks",
-    features: ["Unlimited duration", "Cutting-edge AI", "Hollywood VFX", "4K+ quality", "Full customization", "Multi-camera scenes", "VIP support 24/7"],
-    popular: false
-  }
-];
 
 export const STATS_EN = [
   { v: "50", u: "+", l: "Projects delivered" },
@@ -67,13 +41,6 @@ export const STATS_EN = [
   { v: "4K", u: "+", l: "Video quality" }
 ];
 
-export const FAQ_ITEMS_EN = [
-  { q: "Which video formats do you support?", a: "We work with all popular formats and adapt content to any platform or requirement — from Reels to full-length runtimes." },
-  { q: "How long does it take to create AI content?", a: "On average from a few hours to 3 days depending on complexity. Simple videos are done in 72 hours." },
-  { q: "Can you create content for social media?", a: "Yes — we specialize in content for Instagram, TikTok, YouTube, Facebook and more, adapted to each platform's format and requirements." },
-  { q: "How much do your services cost?", a: "It depends on complexity and scope. Packages start at $650. We'll quote the exact price after a brief." },
-  { q: "Can revisions be made during the project?", a: "Yes — the number of revisions depends on the package; on Professional and Premium they're unlimited." }
-];
 
 export const TESTIMONIALS_EN = [
   {
@@ -95,9 +62,3 @@ export const COMPARE_NEW_EN = ["Hours from idea to result", "A computer and a cr
 
 export const BUDGETS_EN = ["< $1,000", "$1,000–3,000", "$3,000–10,000", "> $10,000", "Let's discuss"];
 
-export const TICKER_ITEMS_EN = [
-  "Porsche 911 — ad", "NL International — auto program", "Rolex — trade-show booth",
-  "Dyson Supersonic", "Audi e-tron — adaptation", "Danube Properties — complex",
-  "Deepfake demo", "Runway short film", "Whitewill Dubai", "Kia — product",
-  "Sacr — fashion reel", "Real estate — AI video"
-];
