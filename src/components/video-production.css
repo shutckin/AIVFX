@@ -23,21 +23,27 @@
   padding-top: clamp(32px, 6vw, 64px);
 }
 
-/* Единый ритм секций страницы: без гигантских пустот */
+/* Единый ритм секций страницы: без гигантских пустот.
+   Чуть плотнее, чем .section на главной — разделение держат не пустоты,
+   а чередование фонов и линии-границы полос (.vp-band). */
 .vp-page .section {
-  padding: clamp(64px, 8vw, 120px) 0;
+  padding: clamp(56px, 6.5vw, 96px) 0;
 }
 
 /* ── Верхняя строка: бренд-вордмарк + тумблер направлений ──
    «Шага назад» на главную здесь нет: уйти со страницы можно только
    переключением направления. Тумблер стоит по центру строки. */
 .vp2-topbar {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
-  gap: 16px 24px;
+  gap: 20px;
   padding-bottom: clamp(16px, 3vw, 28px);
   border-bottom: 1px solid var(--line);
+}
+.vp2-topbar-cta {
+  margin-left: auto;
+  padding: 10px 18px;
+  font-size: 12px;
 }
 
 .vp2-wordmark {
@@ -50,9 +56,6 @@
   user-select: none;
 }
 
-.vp2-topbar-spacer {
-  display: block;
-}
 
 /* ── Hero: слева текст, справа робот-сцена ── */
 .vp-hero {
@@ -100,175 +103,146 @@
   gap: 14px;
 }
 
-/* ── Робот-сцена ──
-   Перенесена из старого hero (index.css, классы .robot-*), переименована в
-   .vp-robot-*, чтобы не конфликтовать со старыми правилами. Цвета — через
-   var(--accent*), то есть на этой странице они янтарные.
-   Фонового видео старого hero тут нет — только робот. */
+/* ── Робот ──
+   Тот самый ролик из старого hero: /fixed/aivid.mp4, 3D-голова красного
+   робота на чёрном. Здесь это не фон, а художественный объект: круглая маска
+   с растворяющимся краем (никакой видимой рамки-«окна»), под ним тёплое
+   янтарное свечение, поверх — тонкое кольцо. Красный робот и янтарь страницы
+   лежат в одном тёплом диапазоне, поэтому объект не спорит с палитрой.
+   Наклон задаётся переменными --rx / --ry, их лерпит JS. */
 .vp-hero-visual {
   position: relative;
   min-width: 0;
 }
 
-.vp-robot-stage {
-  --mx: 0px;
-  --my: 0px;
+.vp-robot {
+  --rx: 0deg;
+  --ry: 0deg;
   position: relative;
   width: 100%;
-  max-width: 540px;
+  max-width: 520px;
   margin: 0 auto;
   aspect-ratio: 1 / 1;
-  overflow: hidden;
   pointer-events: none;
+  perspective: 1100px;
   isolation: isolate;
 }
 
+/* Свечение под видео — вынесено за круг, поэтому объект «сидит» в странице,
+   а не наклеен на неё. Единственная тень на всей странице. */
 .vp-robot-glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  /* Ровно по боксу сцены: при большем размере градиент упирался бы в overflow
-     и рисовал видимый прямоугольный край. */
-  width: 100%;
-  height: 100%;
+  width: 118%;
+  height: 118%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 58%);
-  opacity: 0.75;
-  animation: vpGlowPulse 5s ease-in-out infinite;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 62%);
+  opacity: 0.7;
+  animation: vpGlowPulse 6s ease-in-out infinite;
 }
 
 @keyframes vpGlowPulse {
-  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.08); }
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.06); }
 }
 
-.vp-robot-halo {
+.vp-robot-tilt {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 108%;
-  height: 108%;
-  transform: translate(-50%, -50%);
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    var(--accent-soft) 18%,
-    transparent 30%,
-    transparent 55%,
-    var(--accent-soft) 68%,
-    transparent 80%
-  );
+  inset: 0;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Маска: сплошная в центре, к краю плавно уходит в ноль — край видео
+   растворяется в фоне вместо того, чтобы обрубаться окружностью. */
+.vp-robot-media {
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
-  opacity: 0.5;
-  animation: vpHaloSpin 60s linear infinite;
-  mask-image: radial-gradient(circle, transparent 28%, black 40%, black 70%, transparent 85%);
-  -webkit-mask-image: radial-gradient(circle, transparent 28%, black 40%, black 70%, transparent 85%);
+  overflow: hidden;
+  mask-image: radial-gradient(
+    circle at 50% 48%,
+    #000 0%,
+    #000 54%,
+    rgba(0, 0, 0, 0.72) 72%,
+    transparent 88%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 48%,
+    #000 0%,
+    #000 54%,
+    rgba(0, 0, 0, 0.72) 72%,
+    transparent 88%
+  );
 }
 
-@keyframes vpHaloSpin {
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-.vp-robot-rings {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+.vp-robot-media video {
   width: 100%;
   height: 100%;
-  z-index: 1;
-  transform: translate(calc(-50% + var(--mx)), calc(-50% + var(--my)));
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  object-fit: cover;
+  filter: saturate(1.06) contrast(1.04);
 }
 
-.vp-robot-rings circle {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.4;
-  opacity: 0.5;
-  stroke-dasharray: 2 8;
-  transform-origin: 300px 300px;
-}
-
-.vp-robot-rings .r1 { animation: vpRingSpin 80s linear infinite; }
-.vp-robot-rings .r2 { animation: vpRingSpin 120s linear infinite reverse; opacity: 0.32; stroke-dasharray: 1 12; }
-.vp-robot-rings .r3 { animation: vpRingSpin 50s linear infinite; opacity: 0.62; stroke-dasharray: 4 6; }
-
-@keyframes vpRingSpin { to { transform: rotate(360deg); } }
-
-/* Скан: двигаем обёртку через transform, а не top — так это остаётся на композиторе */
-.vp-robot-scan {
+/* Тонкое кольцо чуть шире видео — держит форму, когда край растворился */
+.vp-robot-ring {
   position: absolute;
-  top: 18%;
-  left: 6%;
-  right: 6%;
-  height: 62%;
-  z-index: 2;
-  animation: vpScanMove 4.5s ease-in-out infinite;
+  top: 50%;
+  left: 50%;
+  width: 92%;
+  height: 92%;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--line-2);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
-.vp-robot-scan::before {
+.vp-robot-ring::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0.4;
+  inset: -7%;
+  border: 1px solid var(--line);
+  border-radius: 50%;
 }
 
-@keyframes vpScanMove {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(100%); }
+@media (prefers-reduced-motion: reduce) {
+  .vp-robot-glow {
+    animation: none;
+  }
 }
 
-.vp-robot-hud {
-  position: absolute;
-  bottom: 2%;
-  z-index: 3;
+/* ── Секции-полосы: чередование фона, чтобы страница не сливалась ── */
+.vp-page .vp-band {
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* ── Витрина работ: заголовок + marquee + ссылка «все работы» ── */
+.vp2-works {
+  padding: clamp(48px, 6vw, 88px) 0 clamp(48px, 6vw, 80px);
+}
+
+.vp2-works-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--fg-2);
-  padding: 6px 10px;
-  background: rgba(11, 11, 13, 0.55);
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  backdrop-filter: blur(6px);
-  transform: translate(var(--mx), var(--my));
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--accent);
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s ease, opacity 0.25s ease;
 }
 
-.vp-hud-bl { left: 0; }
-.vp-hud-br { right: 0; }
-
-.vp-hud-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent-glow);
-  animation: vpHudPulse 1.4s ease-in-out infinite;
-}
-
-@keyframes vpHudPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.35; transform: scale(0.8); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .vp-robot-glow,
-  .vp-robot-halo,
-  .vp-robot-rings circle,
-  .vp-robot-scan,
-  .vp-hud-dot {
-    animation: none;
-  }
+.vp2-works-link:hover {
+  border-bottom-color: var(--accent);
+  opacity: 0.85;
 }
 
 /* ── Видео-витрина: два встречных ряда marquee ──
@@ -278,7 +252,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 32px 0 clamp(48px, 6vw, 72px);
+  padding: clamp(24px, 3vw, 36px) 0 clamp(24px, 3vw, 36px);
 }
 
 .vp2-marquee .project {
@@ -311,12 +285,36 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+/* Ячейка: крупная тонкая цифра, под ней подпись; hover мягко подсвечивает
+   поверхность и добавляет тонкую акцентную черту сверху. */
 .vp3-stat {
-  padding: clamp(28px, 4vw, 52px) clamp(16px, 2vw, 32px);
+  position: relative;
+  padding: clamp(30px, 4vw, 56px) clamp(16px, 2vw, 32px);
   border-left: 1px solid var(--line);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
+  transition: background 0.3s ease;
+}
+
+.vp3-stat::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: 0;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.vp3-stat:hover {
+  background: var(--bg-3);
+}
+
+.vp3-stat:hover::before {
+  opacity: 0.7;
 }
 
 .vp3-stat:first-child {
@@ -325,274 +323,335 @@
 
 .vp3-stat-value {
   font-family: var(--font-display);
-  font-size: clamp(36px, 4.5vw, 64px);
+  font-size: clamp(40px, 5vw, 72px);
   font-weight: 300;
-  letter-spacing: -0.045em;
-  line-height: 1;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  color: var(--fg);
 }
 
 .vp3-stat-unit {
   color: var(--accent);
-  font-weight: 400;
+  font-weight: 300;
+  margin-left: 0.04em;
 }
 
 .vp3-stat-label {
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.4;
+  max-width: 26ch;
+  transition: color 0.3s ease;
+}
+
+.vp3-stat:hover .vp3-stat-label {
+  color: var(--fg-2);
+}
+
+/* ── «Что делаем»: витрина реальных кадров ──
+   Вместо иконок — кадры, сделанные нашим же пайплайном. Карточка это единый
+   скруглённый контейнер: медиа сверху, текст снизу, ничего не выпадает
+   за скругление благодаря overflow: hidden. */
+.vp-show-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.vp-show-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.vp-show-card:hover {
+  border-color: var(--line-2);
+}
+
+/* Обёртка кадра: держит пропорцию и обрезает зум при наведении */
+.vp-show-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--bg-3);
+}
+
+.vp-show-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Единственное место на странице, где допустима анимация масштаба:
+   кадр слегка наезжает, рамка карточки при этом стоит на месте. */
+.vp-show-card:hover .vp-show-media img {
+  transform: scale(1.04);
+}
+
+/* Контурный чип с типом работы — стеклянный, поверх нижнего левого угла кадра */
+.vp-show-tag {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 5px 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+  background: rgba(11, 11, 13, 0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+}
+
+.vp-show-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 22px 26px;
+}
+
+.vp-show-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(19px, 1.4vw, 21px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--fg);
+}
+
+.vp-show-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+/* ── Процесс: горизонтальный таймлайн ──
+   Линия собирается из верхних границ колонок (колонки без зазора), узел —
+   точка на линии. На мобильном та же разметка разворачивается в вертикальный
+   список с левой линией. */
+.vp-proc {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 0;
+  row-gap: 36px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vp-proc-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 26px 26px 0 0;
+  border-top: 1px solid var(--line-2);
+}
+
+/* Узел таймлайна: точка садится на линию и разрывает её фоном полосы */
+.vp-proc-step::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  border: 1px solid var(--accent);
+  transition: background 0.3s ease;
+}
+
+.vp-proc-step:hover::before {
+  background: var(--accent);
+}
+
+.vp-proc-num {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+  opacity: 0.34;
+}
+
+.vp-proc-title {
+  margin: 2px 0 0;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+.vp-proc-desc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+/* Чип «что на выходе»: контурный, мелкий, без заливки */
+.vp-proc-out {
+  margin-top: auto;
+  padding: 5px 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+}
+
+/* ── На выходе: лёгкий список с разделителями, без карточек ── */
+.vp-deliv {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vp-deliv-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+
+.vp-deliv-tick {
+  flex-shrink: 0;
+  width: 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--accent);
+  text-align: center;
+}
+
+.vp-deliv-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.vp-deliv-t {
+  font-size: 15.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--fg);
+}
+
+.vp-deliv-d {
+  font-size: 13.5px;
+  line-height: 1.55;
   color: var(--muted);
 }
 
-/* ── Услуги: лейбл над готовой сеткой .services-grid ── */
-.vp3-sec-label {
-  display: block;
-  margin-bottom: 28px;
-}
-
-/* Карточки услуг здесь не кликабельны — убираем pointer из index.css */
-.vp3-services .service-card {
-  cursor: default;
-}
-
-/* ── Анимированные иконки услуг ──
-   Вместо статичных глифов ∆ ○ ◇ ⌒ ∇ ✕ — по одной осмысленной мини-иконке
-   на услугу. Анимация идёт постоянно и медленно: только transform, opacity и
-   stroke-dashoffset, никаких layout-свойств. */
-.vp-ico-wrap {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 58px;
-  height: 58px;
-  flex-shrink: 0;
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-sm);
-  color: var(--accent);
-  margin-bottom: 6px;
-  transition: border-color 0.3s ease, background 0.3s ease;
-}
-
-.service-card:hover .vp-ico-wrap {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-}
-
-.vp-ico {
-  width: 28px;
-  height: 28px;
-  display: block;
-  overflow: visible;
-}
-
-/* S/01 — бегущая линия-скан внутри кадра */
-.vp-ico-scan {
-  animation: vpIcoScan 3.4s ease-in-out infinite;
-}
-
-@keyframes vpIcoScan {
-  0%, 100% { transform: translateY(0); opacity: 0.35; }
-  50% { transform: translateY(7px); opacity: 1; }
-}
-
-/* S/02 — три слоя сходятся и расходятся */
-.vp-ico-layer-1 { animation: vpIcoLayerIn 4.2s ease-in-out infinite; }
-.vp-ico-layer-3 { animation: vpIcoLayerOut 4.2s ease-in-out infinite; }
-.vp-ico-layer-2 { animation: vpIcoLayerFade 4.2s ease-in-out infinite; }
-
-@keyframes vpIcoLayerIn {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(3px); }
-}
-
-@keyframes vpIcoLayerOut {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
-@keyframes vpIcoLayerFade {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
-/* S/03 — два круга перетекают друг в друга, точка идёт по орбите */
-.vp-ico-blend circle:first-child { animation: vpIcoBlendL 5.2s ease-in-out infinite; }
-.vp-ico-blend circle:last-child { animation: vpIcoBlendR 5.2s ease-in-out infinite; }
-
-@keyframes vpIcoBlendL {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(3px); }
-}
-
-@keyframes vpIcoBlendR {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(-3px); }
-}
-
-.vp-ico-orbit {
-  transform-origin: 13px 13px;
-  animation: vpIcoOrbit 7s linear infinite;
-}
-
-@keyframes vpIcoOrbit {
-  to { transform: rotate(360deg); }
-}
-
-/* S/04 — кадр морфит из 16:9 в 9:16 и обратно (чистый scale) */
-.vp-ico-frame {
-  transform-origin: 13px 13px;
-  animation: vpIcoFormat 5.6s ease-in-out infinite;
-}
-
-@keyframes vpIcoFormat {
-  0%, 38% { transform: scale(1, 0.58); }
-  50%, 88% { transform: scale(0.58, 1); }
-  100% { transform: scale(1, 0.58); }
-}
-
-/* S/05 — куб покачивается, передняя грань проявляется */
-.vp-ico-cube {
-  transform-origin: 13px 13px;
-  animation: vpIcoCubeTilt 7.5s ease-in-out infinite;
-}
-
-@keyframes vpIcoCubeTilt {
-  0%, 100% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
-}
-
-.vp-ico-face {
-  animation: vpIcoFace 3.6s ease-in-out infinite;
-}
-
-@keyframes vpIcoFace {
-  0%, 100% { opacity: 0.08; }
-  50% { opacity: 0.42; }
-}
-
-/* S/06 — силуэт головы пульсирует, точки загораются по очереди */
-.vp-ico-head {
-  transform-origin: 13px 15px;
-  animation: vpIcoHead 3.8s ease-in-out infinite;
-}
-
-@keyframes vpIcoHead {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(1.06); opacity: 1; }
-}
-
-.vp-ico-node { animation: vpIcoNode 2.6s ease-in-out infinite; }
-.vp-ico-node-2 { animation-delay: 0.35s; }
-.vp-ico-node-3 { animation-delay: 0.7s; }
-
-@keyframes vpIcoNode {
-  0%, 100% { opacity: 0.18; }
-  50% { opacity: 1; }
-}
-
-/* Reduced motion — иконки остаются, но замирают в читаемом состоянии */
-@media (prefers-reduced-motion: reduce) {
-  .vp-ico * {
-    animation: none !important;
-  }
-
-  .vp-ico-frame {
-    transform: scale(1, 0.58);
-  }
-
-  .vp-ico-face {
-    opacity: 0.28;
-  }
-
-  .vp-ico-node {
-    opacity: 0.7;
-  }
-}
-
-/* ── Сравнение: старый мир против нового ── */
+/* ── Сравнение: старый мир против нового ──
+   Не два списка текста, а два столбца-доказательства: цифра-якорь сверху,
+   под ней строки с маркерами. Слева всё приглушено и помечено ✕,
+   справа — белый текст и акцентная галочка. */
 .vp3-compare {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  overflow: hidden;
+  gap: clamp(24px, 4vw, 72px);
+  padding: clamp(8px, 1vw, 16px) 0;
+}
+
+/* Вертикальный разделитель — градиентная линия, гаснущая к краям */
+.vp3-compare::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--line-2) 18%, var(--line-2) 82%, transparent);
 }
 
 .vp3-compare-col {
-  padding: clamp(28px, 3vw, 44px);
-}
-
-.vp3-compare-col + .vp3-compare-col {
-  border-left: 1px solid var(--line);
+  min-width: 0;
 }
 
 .vp3-compare-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
-  margin: 0 0 24px;
+  margin: 0 0 clamp(20px, 2.5vw, 30px);
 }
 
 .vp3-compare-new .vp3-compare-head {
-  color: var(--fg);
-}
-
-.vp3-compare-glyph {
-  font-family: var(--font-mono);
-  font-size: 16px;
-  line-height: 1;
-}
-
-.vp3-compare-new .vp3-compare-glyph {
   color: var(--accent);
 }
 
-/* Цифры сверху — структурная замена ценового якоря */
-.vp3-compare-stats {
+/* Цифры-якоря сверху — структурная замена ценового якоря */
+.vp3-compare-anchors {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  gap: clamp(16px, 2vw, 28px);
+  padding-bottom: clamp(20px, 2.5vw, 30px);
+  margin-bottom: clamp(20px, 2.5vw, 30px);
   border-bottom: 1px solid var(--line);
 }
 
-.vp3-compare-cell .v {
+.vp3-anchor .v {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(26px, 2.5vw, 36px);
+  font-size: clamp(32px, 3.4vw, 52px);
   font-weight: 300;
-  letter-spacing: -0.04em;
-  line-height: 1;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
   color: var(--muted);
 }
 
-.vp3-compare-new .vp3-compare-cell .v {
-  color: var(--accent);
+.vp3-compare-new .vp3-anchor .v {
+  color: var(--fg);
 }
 
-.vp3-compare-cell .l {
+.vp3-anchor .l {
   display: block;
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-top: 6px;
+  margin-top: 10px;
+  line-height: 1.4;
 }
 
 .vp3-compare-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0;
   padding: 0;
   margin: 0;
 }
@@ -601,27 +660,35 @@
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.45;
+  padding: 12px 0;
   color: var(--muted);
 }
 
-.vp3-compare-old .vp3-compare-list li::before {
-  content: "—";
-  color: var(--muted);
-  font-family: var(--font-mono);
-  flex-shrink: 0;
+.vp3-compare-list li + li {
+  border-top: 1px solid var(--line);
 }
 
 .vp3-compare-new .vp3-compare-list li {
   color: var(--fg);
 }
 
-.vp3-compare-new .vp3-compare-list li::before {
-  content: "+";
-  color: var(--accent);
-  font-family: var(--font-mono);
+/* Маркеры: алый ✕ слева, янтарная ✓ справа */
+.vp3-mark {
   flex-shrink: 0;
+  width: 16px;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.vp3-mark-x {
+  color: rgba(255, 107, 107, 0.7);
+}
+
+.vp3-mark-ok {
+  color: var(--accent);
 }
 
 /* ── Форматы работы: три карточки без цен ── */
@@ -646,8 +713,11 @@
   border-color: var(--muted);
 }
 
+/* Популярный формат стоит на ступень выше по поверхности: светлее фон
+   и акцентный контур — без заливок и теней. */
 .vp3-format.popular,
 .vp3-format.popular:hover {
+  background: var(--bg-3);
   border-color: var(--accent);
 }
 
@@ -668,29 +738,34 @@
   background: var(--bg);
 }
 
-.vp3-format-name {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  margin: 0 0 8px;
-}
-
+/* Срок — крупный лейбл сверху карточки, отделён линией: первое, что читается */
 .vp3-format-timing {
+  display: block;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.vp3-format-name {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 10px;
 }
 
 .vp3-format-desc {
   font-size: 14px;
   line-height: 1.55;
   color: var(--fg-2);
-  margin: 0 0 20px;
+  margin: 0 0 24px;
 }
 
 .vp3-format-features {
@@ -700,15 +775,28 @@
 }
 
 .vp3-format-features li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
   font-size: 13px;
   line-height: 1.5;
   color: var(--fg-2);
-  padding: 10px 0;
+  padding: 11px 0;
   border-top: 1px solid var(--line);
 }
 
 .vp3-format-features li:last-child {
   padding-bottom: 0;
+}
+
+/* Галочка вместо голой точки — фича читается как обещание, а не как буллит */
+.vp3-tick {
+  flex-shrink: 0;
+  width: 14px;
+  font-size: 11px;
+  line-height: 1.75;
+  color: var(--accent);
+  text-align: center;
 }
 
 .vp3-formats-note {
@@ -718,36 +806,46 @@
   margin: 20px 0 0;
 }
 
-/* ── Отзывы: обе карточки тёмные, выделенная — контурная ── */
+/* ── Отзывы: крупная цитата, автор мельче, выделенная — акцентным ребром ── */
 .vp3-testi-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  margin-bottom: clamp(48px, 6vw, 80px);
+  margin-bottom: clamp(44px, 5vw, 72px);
 }
 
 .vp3-testi {
-  padding: clamp(32px, 3vw, 48px);
-  background: var(--bg-2);
-  border: 1px solid var(--line-2);
+  padding: clamp(28px, 3vw, 44px);
+  background: var(--bg-3);
+  border: 1px solid var(--line);
   border-radius: var(--r-md);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
+  transition: border-color 0.25s ease;
 }
 
-.vp3-testi.featured {
-  border-color: var(--accent);
+.vp3-testi:hover {
+  border-color: var(--line-2);
+}
+
+/* Выделенная карточка: не рамка кругом, а акцентное ребро слева */
+.vp3-testi.featured,
+.vp3-testi.featured:hover {
+  border-color: var(--line);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding-left: calc(clamp(28px, 3vw, 44px) - 1px);
 }
 
 .vp3-testi-quote {
   font-family: var(--font-display);
-  font-size: 80px;
+  font-size: 64px;
   line-height: 0.5;
   font-weight: 500;
   font-style: italic;
   color: var(--accent);
-  height: 24px;
+  height: 18px;
 }
 
 .vp3-testi-tag {
@@ -761,10 +859,11 @@
 
 .vp3-testi-text {
   font-family: var(--font-display);
-  font-size: clamp(18px, 1.5vw, 22px);
-  font-weight: 500;
-  line-height: 1.45;
+  font-size: clamp(18px, 1.4vw, 20px);
+  font-weight: 400;
+  line-height: 1.5;
   letter-spacing: -0.015em;
+  color: var(--fg);
   flex: 1;
   margin: 0;
 }
@@ -772,14 +871,17 @@
 .vp3-testi-author {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
 }
 
 .vp3-testi-author .name {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: var(--fg-2);
 }
 
 .vp3-testi-author .role {
@@ -787,6 +889,48 @@
   font-size: 11px;
   color: var(--muted);
   letter-spacing: 0.06em;
+}
+
+/* ── Трастбар клиентов: вордмарки крупно и приглушённо ── */
+.vp3-trustbar {
+  padding: clamp(24px, 3vw, 36px) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.vp3-trustbar-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: clamp(18px, 2.4vw, 26px);
+}
+
+.vp3-trustbar-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: clamp(14px, 2vw, 24px) clamp(26px, 3.4vw, 52px);
+}
+
+.vp3-trust-brand {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.6vw, 18px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: rgba(216, 234, 255, 0.42);
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.vp3-trust-brand:hover {
+  color: var(--fg-2);
 }
 
 /* ── FAQ: базовые .faq-item из index.css, тут только контейнер ── */
@@ -834,14 +978,30 @@
     padding: 36px 0 18px;
   }
 
-  /* Робот уходит под текст и не перетягивает первый экран */
-  .vp-robot-stage {
-    max-width: 400px;
+  /* Робот уходит под текст и не перетягивает первый экран.
+     Параллакс тут уже не вешается — курсора нет. */
+  .vp-robot {
+    max-width: 380px;
   }
 
   .vp3-formats {
     grid-template-columns: 1fr;
     max-width: 560px;
+  }
+
+  /* Витрина «что делаем»: две колонки */
+  .vp-show-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Таймлайн переносится в три колонки, линия собирается по рядам */
+  .vp-proc {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .vp-deliv {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 32px;
   }
 }
 
@@ -854,22 +1014,8 @@
     font-size: 16px;
   }
 
-  .vp-robot-stage {
-    max-width: 320px;
-  }
-
-  .vp-robot-hud {
-    font-size: 9px;
-    padding: 4px 8px;
-  }
-
-  .vp-hud-br {
-    display: none;
-  }
-
-  .vp-ico-wrap {
-    width: 52px;
-    height: 52px;
+  .vp-robot {
+    max-width: 280px;
   }
 
   /* Карточки marquee меньше: 240×180 (аспект 4/3 из index.css) */
@@ -894,17 +1040,32 @@
     border-top: 1px solid var(--line);
   }
 
+  /* Колонки друг под другом, вертикальная линия меняется на горизонтальную */
   .vp3-compare {
     grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .vp3-compare::before {
+    display: none;
   }
 
   .vp3-compare-col + .vp3-compare-col {
-    border-left: none;
-    border-top: 1px solid var(--line);
+    padding-top: clamp(28px, 5vw, 40px);
+    margin-top: clamp(28px, 5vw, 40px);
+    border-top: 1px solid var(--line-2);
   }
 
   .vp3-testi-grid {
     grid-template-columns: 1fr;
+  }
+
+  .vp-proc {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vp-show-body {
+    padding: 18px 18px 22px;
   }
 }
 
@@ -916,6 +1077,23 @@
   .vp-cta-row .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .vp-robot {
+    max-width: 240px;
+  }
+
+  .vp3-compare-anchors {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .vp3-trustbar-row {
+    gap: 12px 20px;
+  }
+
+  .vp3-trust-brand {
+    font-size: 15px;
   }
 
   /* Тумблер уходит на свою строку под вордмарк — так он остаётся заметным */
@@ -938,4 +1116,72 @@
     width: 100%;
     justify-content: center;
   }
+
+  /* Витрина — в одну колонку */
+  .vp-show-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Таймлайн разворачивается в вертикальный список: линия уходит влево,
+     узлы остаются на ней, у последнего шага хвост линии гасим. */
+  .vp-proc {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+
+  .vp-proc-step {
+    padding: 0 0 28px 22px;
+    border-top: none;
+    border-left: 1px solid var(--line-2);
+  }
+
+  .vp-proc-step:last-child {
+    padding-bottom: 0;
+    border-left-color: transparent;
+  }
+
+  .vp-proc-step::before {
+    top: 7px;
+    left: -4px;
+  }
+
+  .vp-proc-out {
+    margin-top: 4px;
+  }
+
+  .vp-deliv {
+    grid-template-columns: 1fr;
+  }
 }
+
+/* ── Первый экран восстановлен по оригиналу: видео-робот во всю секцию ──
+   .hero/.hero-video/.robot-* живут в index.css — здесь только посадка
+   секции на страницу, у которой уже есть верхний паддинг под топбар. */
+.vp-hero-full {
+  /* Секция во всю высоту, но НЕ под шапкой: топбар остаётся видимым */
+  min-height: calc(100vh - 120px);
+  padding-top: clamp(24px, 4vw, 48px);
+}
+
+/* Reduced motion: кадр в витрине не наезжает при наведении */
+@media (prefers-reduced-motion: reduce) {
+  .vp-show-media img,
+  .vp-show-card:hover .vp-show-media img {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Затемнение под текстом: робот яркий, заголовок должен читаться поверх */
+.vp-hero-full .hero-video { opacity: 0.78; }
+.vp-hero-full .hero-video-overlay {
+  background:
+    radial-gradient(ellipse at 60% 42%, transparent 0%, rgba(6,6,8,0.30) 48%, rgba(6,6,8,0.86) 100%),
+    linear-gradient(180deg, rgba(6,6,8,0.55) 0%, transparent 22%, rgba(6,6,8,0.72) 72%, rgba(6,6,8,0.96) 100%);
+}
+/* Текст прижат книзу, ровный левый край — как в оригинале */
+.vp-page .vp-hero-full .hero-inner {
+  margin-top: auto;
+  padding-bottom: clamp(40px, 7vh, 88px);
+}
+.vp-page .vp-hero-full .hero-sub { max-width: 520px; }

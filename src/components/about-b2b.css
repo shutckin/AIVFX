@@ -148,20 +148,35 @@
 
 /* Слот под фото: круг с инициалами, позже заменится на изображение */
 .ab-founder-photo {
+  position: relative;
   flex-shrink: 0;
-  width: 56px;
-  height: 56px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
+  overflow: hidden;
   background: var(--bg-2);
   border: 1px solid var(--line-2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.05em;
   color: var(--fg-2, var(--fg));
 }
+
+/* Фото перекрывает инициалы; если файла нет — onError его прячет */
+.ab-founder-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  z-index: 1;
+}
+
+.ab-founder-initials { position: relative; }
 
 .ab-founder-name {
   font-size: 16px;

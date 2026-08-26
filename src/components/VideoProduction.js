@@ -3,172 +3,72 @@ import SecHead from './SecHead';
 import ModeToggle from './ModeToggle';
 import ContactForm from './ContactForm';
 import { useLocale, pick, localizedHref } from '../i18n';
-import { VIDEO_PAGE, VIDEO_FORMATS, VIDEO_FAQ } from '../data/systems-content';
-import { STATS, SERVICES, COMPARE_OLD, COMPARE_NEW, TESTIMONIALS, CLIENTS } from '../data/content';
 import {
-  STATS_EN, SERVICES_EN, COMPARE_OLD_EN, COMPARE_NEW_EN, TESTIMONIALS_EN, CLIENTS_EN,
+  VIDEO_PAGE, VIDEO_FORMATS, VIDEO_FAQ,
+  VIDEO_SHOWCASE, VIDEO_PROCESS, VIDEO_DELIVERABLES,
+} from '../data/systems-content';
+import { STATS, COMPARE_OLD, COMPARE_NEW, TESTIMONIALS, CLIENTS } from '../data/content';
+import {
+  STATS_EN, COMPARE_OLD_EN, COMPARE_NEW_EN, TESTIMONIALS_EN, CLIENTS_EN,
 } from '../data/content-en';
 import { localizedProjects } from '../data/projects';
 import './video-production.css';
 
 // Страница второго направления — AI-контент (/video-production/).
-// v3: hero + marquee + полоса фактов + полные услуги + сравнение + форматы работы
+// v3: hero + marquee + полоса фактов + услуги + сравнение + форматы работы
 // (без цен) + отзывы + FAQ + форма. Цены со страницы убраны полностью.
 // v4: своя янтарная палитра (скоуп .vp-page), робот-визуал в hero,
-// анимированные иконки услуг, топбар без «шага назад».
+// топбар без «шага назад».
+// v5: вместо иконок-карточек услуг — витрина реальных кадров (VIDEO_SHOWCASE),
+// плюс два новых блока: таймлайн процесса и список того, что клиент получает.
 
-// ── Hero-визуал: робот-сцена ──
-// Перенесён из старого Hero (коммит 2d2b20a), классы переименованы в vp-robot-*,
-// чтобы не пересекаться со старыми .robot-* в index.css.
-// Параллакс: слушатель мыши на самой сцене, passive, с очисткой;
-// при prefers-reduced-motion не вешается вовсе.
+// ── Hero-визуал: робот ──
+// Это то самое видео из старого hero (коммит 2d2b20a): /fixed/aivid.mp4 —
+// 3D-голова красного робота, светящаяся на чёрном. Раньше оно лежало фоном
+// во всю ширину, теперь это художественный объект в правой колонке: круглая
+// маска с мягко растворяющимся краем, тёплое свечение под ним и тонкое кольцо.
+//
+// Параллакс: слушатель на секции hero (не на window), passive, троттлинг через
+// requestAnimationFrame, лерп 0.08, диапазон ±6deg. Не вешается вовсе при
+// prefers-reduced-motion и на тач-устройствах (нет hover / точного курсора).
+
+// Сцена робота — точь-в-точь как в первой версии сайта: SVG-кольца, halo,
+// сканирующая линия и HUD-подписи поверх фонового видео с 3D-роботом.
 const RobotStage = () => {
   const ref = useRef(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
-
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mq.matches) return undefined;
-
     const onMove = (e) => {
+      if (!ref.current) return;
       const x = (e.clientX / window.innerWidth - 0.5) * 16;
       const y = (e.clientY / window.innerHeight - 0.5) * 16;
-      el.style.setProperty('--mx', `${x}px`);
-      el.style.setProperty('--my', `${y}px`);
+      ref.current.style.setProperty('--mx', x + 'px');
+      ref.current.style.setProperty('--my', y + 'px');
     };
-
     window.addEventListener('mousemove', onMove, { passive: true });
     return () => window.removeEventListener('mousemove', onMove);
   }, []);
 
   return (
-    <div className="vp-robot-stage" ref={ref} aria-hidden="true">
-      <div className="vp-robot-halo" />
-      <div className="vp-robot-scan" />
-      <div className="vp-robot-glow" />
-      <svg className="vp-robot-rings" viewBox="0 0 600 600">
+    <div className="robot-stage" ref={ref} aria-hidden="true">
+      <div className="robot-halo" />
+      <div className="robot-scan" />
+      <div className="robot-glow" />
+      <svg className="robot-rings" viewBox="0 0 600 600">
         <circle cx="300" cy="300" r="220" className="r1" />
         <circle cx="300" cy="300" r="270" className="r2" />
         <circle cx="300" cy="300" r="150" className="r3" />
       </svg>
-      <div className="vp-robot-hud vp-hud-bl">
-        <span className="vp-hud-dot" />
-        <span>LAT +55.75° LON +37.61°</span>
+      <div className="robot-hud hud-bl">
+        <span className="hud-dot" />
+        <span>LAT +55.75°  LON +37.61°</span>
       </div>
-      <div className="vp-robot-hud vp-hud-br">
+      <div className="robot-hud hud-br">
         <span>© AIVFX SYSTEMS</span>
       </div>
     </div>
   );
 };
-
-// ── Анимированные иконки услуг ──
-// Заменяют глифы ∆ ○ ◇ ⌒ ∇ ✕. Каждая — свой смысл, анимация постоянная и медленная,
-// только transform / opacity / stroke-dashoffset. Отключается при reduced-motion (в CSS).
-const ICON_PROPS = {
-  className: 'vp-ico',
-  viewBox: '0 0 26 26',
-  width: 28,
-  height: 28,
-  fill: 'none',
-  stroke: 'currentColor',
-  strokeWidth: 1.5,
-  strokeLinecap: 'round',
-  strokeLinejoin: 'round',
-  focusable: 'false',
-  'aria-hidden': 'true',
-};
-
-// S/01 — AI-генерация видео: кадр-рамка с бегущей внутри линией-сканом
-const IcoGenerate = () => (
-  <svg {...ICON_PROPS}>
-    <rect x="2.5" y="4.5" width="21" height="17" rx="2.5" />
-    <path d="M2.5 8.5h21" opacity="0.45" />
-    <g className="vp-ico-scan">
-      <path d="M5.5 11.5h15" />
-    </g>
-    <circle cx="5.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
-    <circle cx="8" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
-  </svg>
-);
-
-// S/02 — VFX и композитинг: три слоя-прямоугольника, расходящиеся и сходящиеся
-const IcoLayers = () => (
-  <svg {...ICON_PROPS}>
-    <rect className="vp-ico-layer vp-ico-layer-1" x="6" y="6" width="14" height="10" rx="1.5" />
-    <rect className="vp-ico-layer vp-ico-layer-2" x="6" y="9" width="14" height="10" rx="1.5" opacity="0.7" />
-    <rect className="vp-ico-layer vp-ico-layer-3" x="6" y="12" width="14" height="10" rx="1.5" opacity="0.45" />
-  </svg>
-);
-
-// S/03 — Гибрид AI + VFX: два перетекающих круга и точка на орбите
-const IcoHybrid = () => (
-  <svg {...ICON_PROPS}>
-    <g className="vp-ico-blend">
-      <circle cx="10" cy="13" r="6.5" />
-      <circle cx="16" cy="13" r="6.5" opacity="0.6" />
-    </g>
-    <g className="vp-ico-orbit">
-      <circle cx="13" cy="3.6" r="1.2" fill="currentColor" stroke="none" />
-    </g>
-  </svg>
-);
-
-// S/04 — Адаптация форматов: прямоугольник, морфящий 16:9 ↔ 9:16 (чистый transform)
-const IcoFormats = () => (
-  <svg {...ICON_PROPS}>
-    <rect className="vp-ico-frame" x="2" y="2" width="22" height="22" rx="2" vectorEffect="non-scaling-stroke" />
-    <path d="M13 10.5v5" opacity="0.5" />
-  </svg>
-);
-
-// S/05 — Продуктовые демо: изометрический куб с проявляющейся гранью
-const IcoCube = () => (
-  <svg {...ICON_PROPS}>
-    <g className="vp-ico-cube">
-      <path d="M13 2.5 23 8v10l-10 5.5L3 18V8z" />
-      <path d="M3 8l10 5.5L23 8" opacity="0.55" />
-      <path d="M13 13.5v10" opacity="0.55" />
-      <path className="vp-ico-face" d="M13 2.5 23 8v10l-10-4.5z" opacity="0.18" fill="currentColor" stroke="none" />
-    </g>
-  </svg>
-);
-
-// S/06 — Виртуальные персонажи: силуэт головы с пульсирующим контуром и точками
-const IcoAvatar = () => (
-  <svg {...ICON_PROPS}>
-    <g className="vp-ico-head">
-      <circle cx="13" cy="9" r="5" />
-      <path d="M4.5 22.5c0-4.4 3.8-7.5 8.5-7.5s8.5 3.1 8.5 7.5" />
-    </g>
-    <circle className="vp-ico-node vp-ico-node-1" cx="6" cy="6" r="1.1" fill="currentColor" stroke="none" />
-    <circle className="vp-ico-node vp-ico-node-2" cx="20" cy="6" r="1.1" fill="currentColor" stroke="none" />
-    <circle className="vp-ico-node vp-ico-node-3" cx="23" cy="13" r="1.1" fill="currentColor" stroke="none" />
-  </svg>
-);
-
-const SERVICE_ICONS = {
-  'S/01': IcoGenerate,
-  'S/02': IcoLayers,
-  'S/03': IcoHybrid,
-  'S/04': IcoFormats,
-  'S/05': IcoCube,
-  'S/06': IcoAvatar,
-};
-
-const ICON_ORDER = [IcoGenerate, IcoLayers, IcoHybrid, IcoFormats, IcoCube, IcoAvatar];
-
-const ServiceIcon = ({ num, index }) => {
-  const Icon = SERVICE_ICONS[num] || ICON_ORDER[index % ICON_ORDER.length];
-  return (
-    <span className="vp-ico-wrap">
-      <Icon />
-    </span>
-  );
-};
-
 // Ленивое видео: играет только когда попадает в viewport (паттерн из Portfolio).
 // При prefers-reduced-motion автоплей выключен — остаётся первый кадр.
 const LazyVideo = ({ src, title }) => {
@@ -249,7 +149,6 @@ const VideoProduction = () => {
   const [openFaq, setOpenFaq] = useState(0);
 
   const STATS_L = en ? STATS_EN : STATS;
-  const SERVICES_L = en ? SERVICES_EN : SERVICES;
   const COMPARE_OLD_L = en ? COMPARE_OLD_EN : COMPARE_OLD;
   const COMPARE_NEW_L = en ? COMPARE_NEW_EN : COMPARE_NEW;
   const TESTIMONIALS_L = en ? TESTIMONIALS_EN : TESTIMONIALS;
@@ -280,57 +179,101 @@ const VideoProduction = () => {
         {/* Верхняя строка: бренд-вордмарк + тумблер направлений.
             Ссылки «← AIVFX» тут нет намеренно: со страницы уходим только
             переключением направления, а не шагом назад. */}
+        {/* Шапка — как на главной: лого слева, сразу за ним тумблер направлений,
+            справа CTA. Одинаковая механика на обоих разделах сайта. */}
         <div className="vp2-topbar">
           <span className="vp2-wordmark">AIVFX</span>
           <ModeToggle mode="content" />
-          <span className="vp2-topbar-spacer" aria-hidden="true" />
+          <a className="btn btn-primary vp2-topbar-cta" href={contactHref}>
+            {en ? 'Contact' : 'Связаться'}
+          </a>
         </div>
 
-        {/* Hero: слева текст, справа робот-сцена */}
-        <header className="vp-hero">
-          <div className="vp-hero-copy">
-            <span className="kicker kicker-accent">
-              {en ? 'DIRECTION 02 / AI CONTENT' : 'НАПРАВЛЕНИЕ 02 / AI-КОНТЕНТ'}
-            </span>
-            <h1 className="vp-title">
-              {pick(L, VIDEO_PAGE.title)} <span className="it">{pick(L, VIDEO_PAGE.titleIt)}</span>
-            </h1>
-            <p className="vp-sub">{pick(L, VIDEO_PAGE.sub)}</p>
-            <div className="vp-cta-row">
-              <a className="btn btn-primary" href={worksHref}>
-                {pick(L, VIDEO_PAGE.portfolioCta)} <span className="btn-arrow">↗</span>
-              </a>
-              <a className="btn btn-ghost" href={contactHref}>
-                {pick(L, VIDEO_PAGE.contactCta)} <span className="btn-arrow">↗</span>
-              </a>
+        {/* Первый экран — как в оригинале: видео с 3D-роботом на всю секцию,
+            градиентный overlay, кольца-HUD и текст поверх */}
+        <header className="hero vp-hero-full" id="hero">
+          <video
+            className="hero-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/fixed/aivid-poster.jpg"
+            ref={(el) => { if (el) { el.muted = true; el.play().catch(() => {}); } }}
+          >
+            <source src="/fixed/aivid.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-video-overlay" />
+          <RobotStage />
+          <span className="corner tl" />
+          <span className="corner tr" />
+
+          <div className="shell hero-inner">
+            <div className="hero-meta">
+              <div className="hero-meta-left" style={{ alignItems: 'flex-end', marginLeft: 'auto' }}>
+                <span className="kicker">Moscow · Dubai · Bali</span>
+                <span className="kicker kicker-accent">
+                  ◈ {en ? 'AI CONTENT' : 'AI-КОНТЕНТ'}
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="vp-hero-visual">
-            <RobotStage />
+
+            <h1 className="hero-headline display">
+              <span className="ln">{pick(L, VIDEO_PAGE.title)}</span>
+              <span className="ln"><span className="accent">{pick(L, VIDEO_PAGE.titleIt)}</span></span>
+            </h1>
+
+            <div className="hero-row">
+              <p className="hero-sub">{pick(L, VIDEO_PAGE.sub)}</p>
+              <div className="hero-actions">
+                <a className="btn btn-primary" href={worksHref}>
+                  {pick(L, VIDEO_PAGE.portfolioCta)}
+                  <span className="btn-arrow">↗</span>
+                </a>
+                <a className="btn btn-ghost" href={contactHref}>
+                  {pick(L, VIDEO_PAGE.contactCta)}
+                </a>
+              </div>
+            </div>
           </div>
         </header>
       </div>
 
-      {/* Видео-витрина: два встречных ряда автоиграющих превью */}
-      <section className="vp2-marquee" aria-label={en ? 'Selected works' : 'Избранные работы'}>
-        {row1.length > 0 && (
-          <div className="marquee-row">
-            <div className="marquee-track">
-              {[...row1, ...row1].map((p, i) => (
-                <MarqueeCard key={`r1-${p.id}-${i}`} project={p} href={worksHref} />
-              ))}
+      {/* Видео-витрина: заголовок + два встречных ряда автоиграющих превью */}
+      <section className="vp2-works" aria-label={en ? 'Selected works' : 'Избранные работы'}>
+        <div className="shell">
+          <SecHead
+            num={en ? 'WORKS' : 'РАБОТЫ'}
+            title={en ? 'What we have' : 'Что мы уже'}
+            titleIt={en ? 'already shot' : 'сняли'}
+          />
+        </div>
+        <div className="vp2-marquee">
+          {row1.length > 0 && (
+            <div className="marquee-row">
+              <div className="marquee-track">
+                {[...row1, ...row1].map((p, i) => (
+                  <MarqueeCard key={`r1-${p.id}-${i}`} project={p} href={worksHref} />
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-        {row2.length > 0 && (
-          <div className="marquee-row">
-            <div className="marquee-track">
-              {[...row2, ...row2].map((p, i) => (
-                <MarqueeCard key={`r2-${p.id}-${i}`} project={p} href={worksHref} />
-              ))}
+          )}
+          {row2.length > 0 && (
+            <div className="marquee-row">
+              <div className="marquee-track">
+                {[...row2, ...row2].map((p, i) => (
+                  <MarqueeCard key={`r2-${p.id}-${i}`} project={p} href={worksHref} />
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+        <div className="shell">
+          <a className="vp2-works-link" href={worksHref}>
+            {en ? 'See all works' : 'Смотреть все работы'} <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </section>
 
       {/* Полоса фактов: 4 ячейки из STATS */}
@@ -347,22 +290,66 @@ const VideoProduction = () => {
         </div>
       </section>
 
-      {/* Услуги: полные карточки из SERVICES (классы из index.css) */}
-      <section className="section vp3-services">
+      {/* Что делаем — витрина реальных кадров вместо иконок.
+          Каждая карточка: кадр из нашего пайплайна + чип с типом работы,
+          под ним название формата и что именно клиент получает. */}
+      <section className="section">
         <div className="shell">
-          <span className="sec-num vp3-sec-label">
-            {en ? '[ WHAT WE DO ]' : '[ ЧТО ДЕЛАЕМ ]'}
-          </span>
-          <div className="services-grid">
-            {SERVICES_L.map((s, i) => (
-              <div key={i} className="service-card reveal">
-                <span className="num">{s.num}</span>
-                <ServiceIcon num={s.num} index={i} />
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
-              </div>
+          <SecHead
+            num={pick(L, VIDEO_SHOWCASE.head.num)}
+            title={pick(L, VIDEO_SHOWCASE.head.title)}
+            titleIt={pick(L, VIDEO_SHOWCASE.head.titleIt)}
+            side={pick(L, VIDEO_SHOWCASE.head.side)}
+            sideTitle={VIDEO_SHOWCASE.head.sideTitle}
+          />
+          <div className="vp-show-grid reveal">
+            {VIDEO_SHOWCASE.items.map((item, i) => (
+              <article key={i} className="vp-show-card">
+                <div className="vp-show-media">
+                  <img
+                    src={item.img}
+                    alt={pick(L, item.title)}
+                    width="900"
+                    height="672"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span className="vp-show-tag">{pick(L, item.tag)}</span>
+                </div>
+                <div className="vp-show-body">
+                  <h3 className="vp-show-title display">{pick(L, item.title)}</h3>
+                  <p className="vp-show-desc">{pick(L, item.desc)}</p>
+                </div>
+              </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Процесс: горизонтальный таймлайн из пяти шагов.
+          Линия с узлами сверху, под каждым шагом — что клиент получает
+          на этом этапе, чтобы работа не выглядела чёрным ящиком. */}
+      <section className="section vp-band">
+        <div className="shell">
+          <SecHead
+            num={pick(L, VIDEO_PROCESS.head.num)}
+            title={pick(L, VIDEO_PROCESS.head.title)}
+            titleIt={pick(L, VIDEO_PROCESS.head.titleIt)}
+            side={pick(L, VIDEO_PROCESS.head.side)}
+            sideTitle={VIDEO_PROCESS.head.sideTitle}
+          />
+          <ol className="vp-proc reveal">
+            {VIDEO_PROCESS.steps.map((s, i) => (
+              <li key={i} className="vp-proc-step">
+                <span className="vp-proc-num">{s.num}</span>
+                <h3 className="vp-proc-title">{pick(L, s.title)}</h3>
+                <p className="vp-proc-desc">{pick(L, s.desc)}</p>
+                <span className="vp-proc-out">
+                  <span aria-hidden="true">→</span> {pick(L, s.out)}
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -370,7 +357,7 @@ const VideoProduction = () => {
       <section className="section">
         <div className="shell">
           <SecHead
-            num={en ? '[ WHY AI ]' : '[ ПОЧЕМУ AI ]'}
+            num={en ? 'WHY AI' : 'ПОЧЕМУ AI'}
             title={en ? 'The old world' : 'Старый мир'}
             titleIt={en ? 'vs the new' : 'против нового'}
             side={en
@@ -380,48 +367,73 @@ const VideoProduction = () => {
           />
           <div className="vp3-compare reveal">
             <div className="vp3-compare-col vp3-compare-old">
-              <h4 className="vp3-compare-head">
-                <span className="vp3-compare-glyph">⊖</span>
-                {en ? 'Traditional' : 'Традиционно'}
-              </h4>
-              <div className="vp3-compare-stats">
-                <div className="vp3-compare-cell">
+              <h4 className="vp3-compare-head">{en ? 'Traditional' : 'Традиционно'}</h4>
+              <div className="vp3-compare-anchors">
+                <div className="vp3-anchor">
                   <span className="v">2–6</span>
-                  <span className="l">{en ? 'weeks' : 'недель'}</span>
+                  <span className="l">{en ? 'weeks per project' : 'недель на проект'}</span>
                 </div>
-                <div className="vp3-compare-cell">
+                <div className="vp3-anchor">
                   <span className="v">100%</span>
-                  <span className="l">{en ? 'of cost' : 'стоимости'}</span>
+                  <span className="l">{en ? 'of the budget' : 'бюджета'}</span>
                 </div>
               </div>
               <ul className="vp3-compare-list">
                 {COMPARE_OLD_L.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <li key={i}>
+                    <span className="vp3-mark vp3-mark-x" aria-hidden="true">✕</span>
+                    <span>{item}</span>
+                  </li>
                 ))}
               </ul>
             </div>
             <div className="vp3-compare-col vp3-compare-new">
-              <h4 className="vp3-compare-head">
-                <span className="vp3-compare-glyph">⊕</span>
-                AIVFX
-              </h4>
-              <div className="vp3-compare-stats">
-                <div className="vp3-compare-cell">
+              <h4 className="vp3-compare-head">AIVFX</h4>
+              <div className="vp3-compare-anchors">
+                <div className="vp3-anchor">
                   <span className="v">1–5</span>
-                  <span className="l">{en ? 'days' : 'дней'}</span>
+                  <span className="l">{en ? 'days per project' : 'дней на проект'}</span>
                 </div>
-                <div className="vp3-compare-cell">
+                <div className="vp3-anchor">
                   <span className="v">~30%</span>
-                  <span className="l">{en ? 'of cost' : 'стоимости'}</span>
+                  <span className="l">{en ? 'of the budget' : 'бюджета'}</span>
                 </div>
               </div>
               <ul className="vp3-compare-list">
                 {COMPARE_NEW_L.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <li key={i}>
+                    <span className="vp3-mark vp3-mark-ok" aria-hidden="true">✓</span>
+                    <span>{item}</span>
+                  </li>
                 ))}
               </ul>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Что получаете на выходе — лёгкий список с разделителями,
+          без карточек-коробок: это перечень, а не витрина. */}
+      <section className="section vp-band">
+        <div className="shell">
+          <SecHead
+            num={pick(L, VIDEO_DELIVERABLES.head.num)}
+            title={pick(L, VIDEO_DELIVERABLES.head.title)}
+            titleIt={pick(L, VIDEO_DELIVERABLES.head.titleIt)}
+            side={pick(L, VIDEO_DELIVERABLES.head.side)}
+            sideTitle={VIDEO_DELIVERABLES.head.sideTitle}
+          />
+          <ul className="vp-deliv reveal">
+            {VIDEO_DELIVERABLES.items.map((item, i) => (
+              <li key={i} className="vp-deliv-item">
+                <span className="vp-deliv-tick" aria-hidden="true">✓</span>
+                <span className="vp-deliv-text">
+                  <span className="vp-deliv-t">{pick(L, item.t)}</span>
+                  <span className="vp-deliv-d">{pick(L, item.d)}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -443,12 +455,15 @@ const VideoProduction = () => {
                     {en ? 'MOST POPULAR' : 'ЧАЩЕ ВСЕГО'}
                   </span>
                 )}
-                <h3 className="vp3-format-name">{pick(L, f.name)}</h3>
                 <span className="vp3-format-timing">{pick(L, f.timing)}</span>
+                <h3 className="vp3-format-name">{pick(L, f.name)}</h3>
                 <p className="vp3-format-desc">{pick(L, f.desc)}</p>
                 <ul className="vp3-format-features">
                   {f.features.map((feat, j) => (
-                    <li key={j}>{pick(L, feat)}</li>
+                    <li key={j}>
+                      <span className="vp3-tick" aria-hidden="true">✓</span>
+                      <span>{pick(L, feat)}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -458,11 +473,11 @@ const VideoProduction = () => {
         </div>
       </section>
 
-      {/* Отзывы и клиенты: тёмные карточки, выделенная — контурная */}
-      <section className="section">
+      {/* Отзывы и клиенты: тёмные карточки, выделенная — с акцентным ребром */}
+      <section className="section vp-band">
         <div className="shell">
           <SecHead
-            num={en ? '[ CLIENTS ]' : '[ КЛИЕНТЫ ]'}
+            num={en ? 'CLIENTS' : 'КЛИЕНТЫ'}
             title={en ? 'Brands that' : 'Нам доверяют'}
             titleIt={en ? 'trust us' : 'свои бренды'}
             side={en
@@ -483,10 +498,16 @@ const VideoProduction = () => {
               </div>
             ))}
           </div>
-          <div className="client-row reveal">
-            {CLIENTS_L.map((c, i) => (
-              <div key={i} className="client-cell">{c}</div>
-            ))}
+          {/* Трастбар: вордмарки клиентов крупно и приглушённо, как на главной */}
+          <div className="vp3-trustbar reveal">
+            <span className="vp3-trustbar-label">
+              {en ? 'Selected clients' : 'Среди клиентов'}
+            </span>
+            <div className="vp3-trustbar-row">
+              {CLIENTS_L.map((c, i) => (
+                <span key={i} className="vp3-trust-brand">{c}</span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -495,7 +516,7 @@ const VideoProduction = () => {
       <section className="section">
         <div className="shell">
           <SecHead
-            num="[ FAQ ]"
+            num="FAQ"
             title={en ? 'Frequently asked questions' : 'Частые вопросы'}
           />
           <div className="faq-list vp3-faq reveal">

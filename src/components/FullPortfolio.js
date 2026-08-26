@@ -216,7 +216,7 @@ const FullPortfolio = ({ onBack }) => {
 
       <div className="shell fp-content">
         <div className="fp-title-block">
-          <div className="sec-num">{en ? '[ ALL WORKS ]' : '[ ВСЕ РАБОТЫ ]'}</div>
+          <div className="sec-num">{en ? 'ALL WORKS' : 'ВСЕ РАБОТЫ'}</div>
           <h1 className="sec-title">
             {en ? 'Full' : 'Полный'} <span className="it">{en ? 'catalog' : 'каталог'}</span>
           </h1>

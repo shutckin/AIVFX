@@ -72,7 +72,7 @@ export const STATS_SYS = [
 // ── Блок проблем ───────────────────────────────────────────────────────
 export const PROBLEMS_SYS = {
   head: {
-    num: { ru: '[ 01 / ПРОБЛЕМА ]', en: '[ 01 / PROBLEM ]' },
+    num: { ru: 'ПРОБЛЕМА', en: 'PROBLEM' },
     title: { ru: 'Ваш бизнес уже получает заявки.', en: 'Your business already gets inquiries.' },
     titleIt: { ru: 'Вопрос — сколько из них теряется', en: 'The question is how many get lost' },
     side: {
@@ -124,7 +124,7 @@ export const PROBLEMS_SYS = {
 // ── Схема системы (центральный визуал) ─────────────────────────────────
 export const FLOW_SYS = {
   head: {
-    num: { ru: '[ 02 / СИСТЕМА ]', en: '[ 02 / SYSTEM ]' },
+    num: { ru: 'СИСТЕМА', en: 'SYSTEM' },
     title: { ru: 'Одна система', en: 'One system' },
     titleIt: { ru: 'вместо хаоса каналов', en: 'instead of channel chaos' },
     side: {
@@ -171,7 +171,7 @@ export const FLOW_SYS = {
 // ── Услуги (3 направления) ─────────────────────────────────────────────
 export const SERVICES_SYS = {
   head: {
-    num: { ru: '[ 03 / УСЛУГИ ]', en: '[ 03 / SERVICES ]' },
+    num: { ru: 'УСЛУГИ', en: 'SERVICES' },
     title: { ru: 'Три системы', en: 'Three systems' },
     titleIt: { ru: 'под задачи бизнеса', en: 'built for business tasks' },
     side: {
@@ -339,7 +339,7 @@ export const SERVICE_CTA = {
 // ── Кейсы (демо-сценарии — честно помечены) ────────────────────────────
 export const CASES_SYS = {
   head: {
-    num: { ru: '[ 04 / КЕЙСЫ ]', en: '[ 04 / CASES ]' },
+    num: { ru: 'КЕЙСЫ', en: 'CASES' },
     title: { ru: 'Проблема → система', en: 'Problem → system' },
     titleIt: { ru: '→ результат', en: '→ result' },
     side: {
@@ -416,7 +416,7 @@ export const CASES_SYS = {
 // ── Подход (5 шагов) ───────────────────────────────────────────────────
 export const APPROACH_SYS = {
   head: {
-    num: { ru: '[ 05 / ПОДХОД ]', en: '[ 05 / APPROACH ]' },
+    num: { ru: 'ПОДХОД', en: 'APPROACH' },
     title: { ru: 'Сначала процесс,', en: 'Process first,' },
     titleIt: { ru: 'потом технологии', en: 'technology second' },
     side: {
@@ -457,7 +457,7 @@ export const APPROACH_SYS = {
 // ── Интеграции ─────────────────────────────────────────────────────────
 export const INTEGRATIONS_SYS = {
   head: {
-    num: { ru: '[ 06 / СОВМЕСТИМОСТЬ ]', en: '[ 06 / COMPATIBILITY ]' },
+    num: { ru: 'СОВМЕСТИМОСТЬ', en: 'COMPATIBILITY' },
     title: { ru: 'Ничего менять', en: 'Nothing to replace' },
     titleIt: { ru: 'не придётся', en: 'on your side' },
     side: {
@@ -517,7 +517,7 @@ export const TICKER_SYS = ['n8n', 'Make', 'OpenAI', 'Claude', 'Bitrix24', 'amoCR
 // ── О нас ──────────────────────────────────────────────────────────────
 export const ABOUT_SYS = {
   head: {
-    num: { ru: '[ 07 / О НАС ]', en: '[ 07 / ABOUT ]' },
+    num: { ru: 'О НАС', en: 'ABOUT' },
     title: { ru: 'Инженерная студия,', en: 'An engineering studio' },
     titleIt: { ru: 'а не агентство чат-ботов', en: 'not a chatbot agency' },
     side: {
@@ -625,7 +625,7 @@ export const FAQ_SYS = [
 // ── Контакты ───────────────────────────────────────────────────────────
 export const CONTACT_SYS = {
   head: {
-    num: { ru: '[ 08 / КОНТАКТ ]', en: '[ 08 / CONTACT ]' },
+    num: { ru: 'КОНТАКТ', en: 'CONTACT' },
     title: { ru: 'Обсудим', en: 'Let’s discuss' },
     titleIt: { ru: 'вашу задачу', en: 'your case' },
     side: {
@@ -685,7 +685,7 @@ export const CTA_BREAK = {
 // ── Видео-направление: форматы работы БЕЗ цен (смета под задачу) ───────
 export const VIDEO_FORMATS = {
   head: {
-    num: { ru: '[ ФОРМАТЫ ]', en: '[ FORMATS ]' },
+    num: { ru: 'ФОРМАТЫ', en: 'FORMATS' },
     title: { ru: 'Три формата', en: 'Three formats' },
     titleIt: { ru: 'работы', en: 'of engagement' },
     side: {
@@ -760,7 +760,7 @@ export const VIDEO_FAQ = [
 // ── Видео-направление: свой контакт-контекст ───────────────────────────
 export const VIDEO_CONTACT = {
   head: {
-    num: { ru: '[ КОНТАКТ ]', en: '[ CONTACT ]' },
+    num: { ru: 'КОНТАКТ', en: 'CONTACT' },
     title: { ru: 'Обсудим', en: 'Let’s discuss' },
     titleIt: { ru: 'ваш ролик', en: 'your video' },
     side: {
@@ -904,4 +904,144 @@ export const CHAT_DEMO = {
     ru: 'Демо-сценарий: показывает, как ассистент работает на сайте. Живая система обучается на вашей базе знаний.',
     en: 'Demo scenario: shows how the assistant works on a website. The live system is trained on your knowledge base.',
   },
+};
+
+// ── Видео-направление: витрина услуг с реальными кадрами ──────────────
+// Кадры сгенерированы в фирменном луке студии (public/services/*.jpg),
+// каждый иллюстрирует конкретную услугу — вместо абстрактных иконок.
+export const VIDEO_SHOWCASE = {
+  head: {
+    num: { ru: 'ЧТО ДЕЛАЕМ', en: 'WHAT WE DO' },
+    title: { ru: 'Шесть форматов', en: 'Six kinds of work' },
+    titleIt: { ru: 'работы с кадром', en: 'with the frame' },
+    side: {
+      ru: 'Каждый кадр ниже сделан нашим пайплайном — это не стоковые картинки, а примеры того, что получает клиент.',
+      en: 'Every frame below came out of our pipeline — these are not stock images but examples of what a client gets.',
+    },
+    sideTitle: 'CAPABILITIES',
+  },
+  items: [
+    {
+      img: '/services/s01-video.jpg',
+      title: { ru: 'AI-генерация видео', en: 'AI video generation' },
+      desc: {
+        ru: 'Рекламный ролик от промпта до финального монтажа: сцены, свет и движение камеры собираются без съёмочной группы.',
+        en: 'A commercial from prompt to final cut: scenes, light and camera moves assembled without a film crew.',
+      },
+      tag: { ru: 'реклама · промо', en: 'ads · promo' },
+    },
+    {
+      img: '/services/s02-vfx.jpg',
+      title: { ru: 'VFX и композитинг', en: 'VFX & compositing' },
+      desc: {
+        ru: 'Эффекты, частицы, дым, разрушения и интеграция 3D в отснятый материал — на уровне большого продакшена.',
+        en: 'Effects, particles, smoke, destruction and 3D integration into live footage — at big-production level.',
+      },
+      tag: { ru: 'эффекты · 3D', en: 'effects · 3D' },
+    },
+    {
+      img: '/services/s03-hybrid.jpg',
+      title: { ru: 'Гибрид AI + съёмка', en: 'Hybrid AI + live action' },
+      desc: {
+        ru: 'Реальные кадры дополняем сгенерированными сценами и объектами — там, где снять дорого или невозможно.',
+        en: 'Real footage extended with generated scenes and objects — where shooting would be costly or impossible.',
+      },
+      tag: { ru: 'съёмка · доработка', en: 'shoot · augment' },
+    },
+    {
+      img: '/services/s04-formats.jpg',
+      title: { ru: 'Адаптация форматов', en: 'Format adaptation' },
+      desc: {
+        ru: 'Один ролик — десять площадок: вертикаль для Reels и Shorts, квадрат для ленты, широкий формат для сайта и ТВ.',
+        en: 'One video, ten placements: vertical for Reels and Shorts, square for feed, widescreen for site and TV.',
+      },
+      tag: { ru: 'Reels · Shorts · ТВ', en: 'Reels · Shorts · TV' },
+    },
+    {
+      img: '/services/s05-product.jpg',
+      title: { ru: 'Продуктовые демо', en: 'Product films' },
+      desc: {
+        ru: 'Фотореалистичные ролики о товаре без студии, логистики и предметного стола — с точной фактурой материалов.',
+        en: 'Photorealistic product films without a studio, logistics or a tabletop rig — with accurate material texture.',
+      },
+      tag: { ru: 'продукт · e-com', en: 'product · e-com' },
+    },
+    {
+      img: '/services/s06-avatar.jpg',
+      title: { ru: 'Виртуальные персонажи', en: 'Virtual presenters' },
+      desc: {
+        ru: 'Цифровые ведущие и лица бренда: говорят на любом языке, снимаются круглосуточно и не требуют дублей.',
+        en: 'Digital presenters and brand faces: they speak any language, shoot around the clock and never need a second take.',
+      },
+      tag: { ru: 'аватары · липсинк', en: 'avatars · lip-sync' },
+    },
+  ],
+};
+
+// ── Видео-направление: как проходит работа ────────────────────────────
+export const VIDEO_PROCESS = {
+  head: {
+    num: { ru: 'ПРОЦЕСС', en: 'PROCESS' },
+    title: { ru: 'Как рождается', en: 'How a video' },
+    titleIt: { ru: 'ролик', en: 'comes to life' },
+    side: {
+      ru: 'Прозрачный путь от брифа до финального файла: вы видите результат на каждом этапе и правите до того, как он станет дорогим.',
+      en: 'A transparent path from brief to final file: you see the result at every stage and adjust before changes get expensive.',
+    },
+    sideTitle: 'WORKFLOW',
+  },
+  steps: [
+    {
+      num: '01',
+      title: { ru: 'Бриф и референсы', en: 'Brief & references' },
+      desc: { ru: 'Разбираем задачу, площадки и настроение. Собираем мудборд, чтобы говорить об одном и том же.', en: 'We map the task, placements and mood, and build a moodboard so we are talking about the same thing.' },
+      out: { ru: 'мудборд', en: 'moodboard' },
+    },
+    {
+      num: '02',
+      title: { ru: 'Сценарий и раскадровка', en: 'Script & storyboard' },
+      desc: { ru: 'Пишем сценарий и показываем кадры до продакшена — правки здесь стоят ноль.', en: 'We write the script and show frames before production — changes here cost nothing.' },
+      out: { ru: 'раскадровка', en: 'storyboard' },
+    },
+    {
+      num: '03',
+      title: { ru: 'Генерация и съёмка', en: 'Generation & shooting' },
+      desc: { ru: 'Собираем сцены нашим пайплайном, при необходимости добавляем реальные съёмочные кадры.', en: 'We build the scenes with our pipeline, adding real footage where it is needed.' },
+      out: { ru: 'черновые сцены', en: 'rough scenes' },
+    },
+    {
+      num: '04',
+      title: { ru: 'Монтаж, звук, грейд', en: 'Edit, sound, grade' },
+      desc: { ru: 'Собираем ритм, добавляем музыку и озвучку, приводим картинку к единому фирменному луку.', en: 'We build the rhythm, add music and voice-over, and unify the image into one signature look.' },
+      out: { ru: 'превью-версия', en: 'preview cut' },
+    },
+    {
+      num: '05',
+      title: { ru: 'Правки и сдача', en: 'Revisions & delivery' },
+      desc: { ru: 'Вносим замечания и отдаём финал во всех нужных форматах и разрешениях.', en: 'We apply your notes and deliver the final in every format and resolution you need.' },
+      out: { ru: 'мастер-файлы', en: 'master files' },
+    },
+  ],
+};
+
+// ── Видео-направление: что получает клиент ────────────────────────────
+export const VIDEO_DELIVERABLES = {
+  head: {
+    num: { ru: 'НА ВЫХОДЕ', en: 'DELIVERABLES' },
+    title: { ru: 'Что вы получаете', en: 'What you get' },
+    titleIt: { ru: 'в конце', en: 'at the end' },
+    side: {
+      ru: 'Не только готовый ролик, но и всё, что нужно, чтобы запустить его в любой канал.',
+      en: 'Not just a finished video, but everything you need to launch it in any channel.',
+    },
+    sideTitle: 'OUTPUT',
+  },
+  items: [
+    { t: { ru: 'Мастер до 4K', en: 'Master up to 4K' }, d: { ru: 'Финальный файл в максимальном качестве, готовый к эфиру и сайту.', en: 'The final file at maximum quality, ready for broadcast and web.' } },
+    { t: { ru: 'Адаптации под площадки', en: 'Platform adaptations' }, d: { ru: 'Вертикаль, квадрат и широкий формат с правильной композицией, а не обрезкой.', en: 'Vertical, square and widescreen — recomposed, not just cropped.' } },
+    { t: { ru: 'Версии с субтитрами', en: 'Subtitled versions' }, d: { ru: 'Для ленты без звука — вшитые титры в фирменном стиле.', en: 'For sound-off feeds — burned-in captions in your brand style.' } },
+    { t: { ru: 'Обложки и стоп-кадры', en: 'Covers & stills' }, d: { ru: 'Кадры из ролика для превью, баннеров и постов.', en: 'Frames from the video for thumbnails, banners and posts.' } },
+    { t: { ru: 'Исходники по запросу', en: 'Source files on request' }, d: { ru: 'Проектные файлы и слои, если планируете дорабатывать сами.', en: 'Project files and layers if you plan to iterate in-house.' } },
+    { t: { ru: 'Права на использование', en: 'Usage rights' }, d: { ru: 'Материал ваш: используйте в рекламе, соцсетях и на любых носителях.', en: 'The material is yours: use it in ads, social media and any medium.' } },
+  ],
 };

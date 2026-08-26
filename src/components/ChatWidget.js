@@ -42,15 +42,86 @@ const FALLBACK_CHIPS = CHAT_DEMO.start.includes('contact')
   ? CHAT_DEMO.start
   : [...CHAT_DEMO.start, 'contact'];
 
-// Отправка лида в Telegram — тот же подход, что и в ContactForm:
-// токен и chat id приходят из env на этапе сборки.
+// ─── Фоновая запись диалога ──────────────────────────────────────────────
+// Диалог пишется в localStorage, а владельцу уходит краткая сводка — даже
+// если посетитель не оставил контакт. В интерфейсе это никак не видно.
+const LOG_KEY = 'aivfx_chat_log_v1';
+const LOG_LIMIT = 100;           // храним последние N реплик, чтобы не раздувать
+const SUMMARY_IDLE_MS = 60000;   // минута тишины после вопроса → шлём сводку
+const SUMMARY_MIN_QUESTIONS = 2; // меньше двух вопросов — владельца не дёргаем
+
+const makeSessionId = () => {
+  try {
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+      return crypto.randomUUID();
+    }
+  } catch (_) { /* старый браузер или приватный режим — уходим на фолбэк */ }
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+};
+
+const saveLog = (log) => {
+  try {
+    window.localStorage.setItem(LOG_KEY, JSON.stringify(log));
+  } catch (_) { /* приватный режим может запрещать запись — молча пропускаем */ }
+};
+
+// Единая точка отправки в Telegram: и лид, и авто-сводка идут через неё.
+// Токен и chat id приходят из env на этапе сборки; если их нет — тихо выходим.
 // parse_mode намеренно не передаём: посетитель может написать «<» или «&»,
 // и HTML-разбор на стороне Telegram сломал бы отправку.
-const sendLeadToTelegram = async ({ name, contact, questions, locale }) => {
+// beacon=true — посетитель уходит со страницы, запрос обязан пережить уход.
+const sendTelegram = (text, { beacon = false } = {}) => {
   const token = process.env.REACT_APP_TELEGRAM_BOT_TOKEN;
   const chatId = process.env.REACT_APP_TELEGRAM_CHAT_ID;
-  if (!token || !chatId) throw new Error('Telegram credentials are not configured');
+  if (!token || !chatId) return Promise.resolve(false);
 
+  const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+  if (beacon && typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+    try {
+      // sendBeacon не умеет ставить JSON-заголовки, поэтому FormData
+      const form = new FormData();
+      form.append('chat_id', chatId);
+      form.append('text', text);
+      if (navigator.sendBeacon(url, form)) return Promise.resolve(true);
+    } catch (_) { /* не вышло — падаем на обычный fetch ниже */ }
+  }
+
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: chatId, text }),
+    keepalive: beacon,
+  }).then((res) => {
+    if (!res.ok) throw new Error(`Telegram API error: ${res.status}`);
+    return true;
+  });
+};
+
+const formatDuration = (startedAt) => {
+  const sec = Math.max(0, Math.round((Date.now() - new Date(startedAt).getTime()) / 1000));
+  return sec < 60 ? `${sec} сек` : `${Math.round(sec / 60)} мин`;
+};
+
+// Сводка по диалогу без контакта: что спрашивали и по каким темам отвечал бот
+const buildSummary = (log, questions, topics) => {
+  const list = questions.length
+    ? questions.map((q, i) => `${i + 1}. ${q}`).join('\n')
+    : '—';
+  const uniqueTopics = topics.filter((t, i) => topics.indexOf(t) === i);
+  const path = typeof window !== 'undefined' ? window.location.pathname : '—';
+
+  return `👀 ДИАЛОГ В ЧАТЕ (без контакта)
+🕒 ${new Date(log.startedAt).toLocaleString('ru-RU', { hour12: false })} · ${formatDuration(log.startedAt)}
+🌐 Язык: ${String(log.locale).toUpperCase()} · Страница: ${path}
+❓ Вопросы (${questions.length}):
+${list}
+🧩 Темы: ${uniqueTopics.length ? uniqueTopics.join(', ') : '—'}
+💬 Всего сообщений: ${log.messages.length}`;
+};
+
+// Лид: посетитель оставил имя и контакт — это отдельное событие от сводки
+const sendLeadToTelegram = async ({ name, contact, questions, locale, summarySent }) => {
   const list = questions.length
     ? questions.map((q, i) => `${i + 1}. ${q}`).join('\n')
     : '—';
@@ -60,17 +131,12 @@ const sendLeadToTelegram = async ({ name, contact, questions, locale }) => {
 👤 Имя: ${name}
 📞 Контакт: ${contact}
 🌐 Язык сайта: ${String(locale).toUpperCase()}
-
+${summarySent ? '(summary отправлен ранее)\n' : ''}
 ❓ Вопросы посетителя:
 ${list}`;
 
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text: message }),
-  });
-
-  if (!res.ok) throw new Error(`Telegram API error: ${res.status}`);
+  const ok = await sendTelegram(message);
+  if (!ok) throw new Error('Telegram credentials are not configured');
 };
 
 const ChatIcon = () => (
@@ -107,8 +173,84 @@ const ChatWidget = () => {
   const timers = useRef([]);
   const greeted = useRef(false);
 
-  // Все отложенные «обдумывания» гасим при размонтировании
-  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+  // Фоновая запись: сам лог, вопросы, темы ответов и флаги отправки.
+  // Всё в ref — обработчики ухода со страницы должны видеть свежие значения.
+  const logRef = useRef(null);
+  const askedRef = useRef([]);
+  const topicsRef = useRef([]);
+  const summarySent = useRef(false);
+  const leadDelivered = useRef(false);
+  // Обёртка-объект, а не голый ref: так cleanup видит актуальный таймер
+  const summaryTimer = useRef({ id: null });
+
+  if (logRef.current === null) {
+    logRef.current = {
+      sessionId: makeSessionId(),
+      startedAt: new Date().toISOString(),
+      locale: L,
+      messages: [],
+      summarySent: false,
+    };
+  }
+
+  // Язык может переключиться посреди сессии — держим в логе актуальный
+  useEffect(() => {
+    logRef.current.locale = L;
+  }, [L]);
+
+  const appendLog = useCallback((role, text) => {
+    const log = logRef.current;
+    log.messages = [...log.messages, { role, text, ts: new Date().toISOString() }]
+      .slice(-LOG_LIMIT);
+    saveLog(log);
+  }, []);
+
+  // Сводка уходит один раз за сессию и только если вопросов было минимум два.
+  // Если контакт уже оставлен — сводка не нужна, владелец получил заявку.
+  const flushSummary = useCallback((beacon = false) => {
+    if (summarySent.current || leadDelivered.current) return;
+    if (askedRef.current.length < SUMMARY_MIN_QUESTIONS) return;
+
+    summarySent.current = true;
+    if (summaryTimer.current.id) {
+      clearTimeout(summaryTimer.current.id);
+      summaryTimer.current.id = null;
+    }
+
+    const log = logRef.current;
+    log.summarySent = true;
+    saveLog(log);
+
+    sendTelegram(buildSummary(log, askedRef.current, topicsRef.current), { beacon })
+      .catch(() => { /* сводка — фоновая история, интерфейс ломать нечем */ });
+  }, []);
+
+  // Уход со страницы и сворачивание вкладки: тут только beacon успевает
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') flushSummary(true);
+    };
+    const onLeave = () => flushSummary(true);
+
+    document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('pagehide', onLeave);
+    window.addEventListener('beforeunload', onLeave);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pagehide', onLeave);
+      window.removeEventListener('beforeunload', onLeave);
+    };
+  }, [flushSummary]);
+
+  // Все отложенные «обдумывания» и таймер сводки гасим при размонтировании
+  useEffect(() => {
+    const pending = timers.current;
+    const summary = summaryTimer.current;
+    return () => {
+      pending.forEach(clearTimeout);
+      if (summary.id) clearTimeout(summary.id);
+    };
+  }, []);
 
   // Лаунчер: после 500px скролла ИЛИ через 4 секунды — что раньше
   useEffect(() => {
@@ -131,9 +273,11 @@ const ChatWidget = () => {
   useEffect(() => {
     if (!open || greeted.current) return;
     greeted.current = true;
-    setMessages([{ id: nextId(), role: 'bot', text: pick(L, CHAT_DEMO.greeting) }]);
+    const hello = pick(L, CHAT_DEMO.greeting);
+    appendLog('bot', hello);
+    setMessages([{ id: nextId(), role: 'bot', text: hello }]);
     setChips(CHAT_DEMO.start);
-  }, [open, L]);
+  }, [open, L, appendLog]);
 
   // Esc закрывает панель
   useEffect(() => {
@@ -168,6 +312,12 @@ const ChatWidget = () => {
     setAsked((a) => [...a, text]);
     setChips([]);
 
+    appendLog('user', text);
+    askedRef.current = [...askedRef.current, text];
+    // Тишина после вопроса — повод отправить сводку, не дожидаясь ухода
+    if (summaryTimer.current.id) clearTimeout(summaryTimer.current.id);
+    summaryTimer.current.id = setTimeout(() => flushSummary(false), SUMMARY_IDLE_MS);
+
     // Сам ответ: узел либо напрямую (клик по чипу), либо через ключевые слова
     const reply = () => {
       setTyping(false);
@@ -175,18 +325,26 @@ const ChatWidget = () => {
       const node = nodeId ? CHAT_DEMO.nodes[nodeId] : null;
 
       if (!node) {
+        const miss = pick(L, CHAT_DEMO.fallback);
+        // Нераспознанные вопросы — самое ценное: видно, чего боту не хватает
+        topicsRef.current = [...topicsRef.current, `не распознано: ${text}`];
+        appendLog('bot', miss);
         setMessages((m) => [
           ...m,
-          { id: nextId(), role: 'bot', text: pick(L, CHAT_DEMO.fallback) },
+          { id: nextId(), role: 'bot', text: miss },
         ]);
         setChips(FALLBACK_CHIPS);
         return;
       }
 
+      const answer = pick(L, node.a);
+      topicsRef.current = [...topicsRef.current, nodeId];
+      appendLog('bot', answer);
+
       setMessages((m) => {
         const withAnswer = [
           ...m,
-          { id: nextId(), role: 'bot', text: pick(L, node.a) },
+          { id: nextId(), role: 'bot', text: answer },
         ];
         // Лид-форма живёт прямо в ленте и добавляется ровно один раз
         if (node.lead && !m.some((x) => x.role === 'lead')) {
@@ -205,7 +363,7 @@ const ChatWidget = () => {
     setTyping(true);
     const delay = THINK_MIN + Math.round(Math.random() * (THINK_MAX - THINK_MIN));
     timers.current.push(setTimeout(reply, delay));
-  }, [L]);
+  }, [L, appendLog, flushSummary]);
 
   const submitDraft = (e) => {
     e.preventDefault();
@@ -224,13 +382,26 @@ const ChatWidget = () => {
     setLeadError(false);
     setLeadSending(true);
     try {
-      await sendLeadToTelegram({ name, contact, questions: asked, locale: L });
+      await sendLeadToTelegram({
+        name,
+        contact,
+        questions: asked,
+        locale: L,
+        summarySent: summarySent.current,
+      });
       // Успех: форму сворачиваем, ассистент подтверждает в ленте
+      leadDelivered.current = true;
+      if (summaryTimer.current.id) {
+        clearTimeout(summaryTimer.current.id);
+        summaryTimer.current.id = null;
+      }
+      const done = pick(L, CHAT_DEMO.lead.success);
+      appendLog('bot', done);
       setLeadSent(true);
       setChips([]);
       setMessages((m) => [
         ...m,
-        { id: nextId(), role: 'bot', text: pick(L, CHAT_DEMO.lead.success) },
+        { id: nextId(), role: 'bot', text: done },
       ]);
     } catch (_) {
       // Ошибка: введённое НЕ стираем, даём прямой путь в Telegram

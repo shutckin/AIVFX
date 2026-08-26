@@ -41,8 +41,19 @@ const AboutUs = () => {
           </div>
 
           <aside className="ab-founder">
-            {/* Слот под фото: пока круг с инициалами, потом заменим на изображение */}
-            <div className="ab-founder-photo" aria-hidden="true">{en ? 'AS' : 'АШ'}</div>
+            {/* Фото основателя: подставляется автоматически, как только файл
+                public/founder.jpg появится. Пока его нет — круг с инициалами. */}
+            <div className="ab-founder-photo">
+              <img
+                src="/founder.jpg"
+                alt={pick(locale, ABOUT_SYS.founder.name)}
+                width="72"
+                height="72"
+                loading="lazy"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              />
+              <span className="ab-founder-initials" aria-hidden="true">{en ? 'AS' : 'АШ'}</span>
+            </div>
             <div className="ab-founder-body">
               <p className="ab-founder-name">{pick(locale, ABOUT_SYS.founder.name)}</p>
               <p className="ab-founder-role">{pick(locale, ABOUT_SYS.founder.role)}</p>
