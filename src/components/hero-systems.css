@@ -293,7 +293,7 @@
   position: absolute;
   inset: 0;
   border-radius: 46px;
-  border: 2.5px solid transparent;
+  border: 3px solid transparent;
   pointer-events: none;
   /* Перелив: холодный край, белое ядро, тёплый край. Именно смена
      оттенка вдоль полосы читается как движущийся по металлу свет. */
@@ -321,47 +321,9 @@
     linear-gradient(#000 0 0);
 }
 
-/* ── Мягкое свечение вокруг корпуса ──
-   Полоса света на самой грани всего 2.5px — на таком тонком контуре
-   движение почти не читается. Добавляем размытый ореол того же цвета
-   чуть за пределами корпуса: тот же градиент, но крупнее и в блюре,
-   поэтому переливающийся свет виден даже боковым зрением. */
-.hp-glow {
-  position: absolute;
-  inset: -22px;
-  z-index: 0;
-  border-radius: 60px;
-  border: 22px solid transparent;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      118deg,
-      transparent 18%,
-      rgba(150, 190, 255, 0.5) 33%,
-      rgba(226, 240, 255, 1) 42%,
-      rgba(255, 255, 255, 1) 48%,
-      rgba(255, 226, 186, 0.9) 55%,
-      rgba(255, 190, 120, 0.4) 64%,
-      transparent 80%) border-box;
-  background-size: 300% 300%;
-  background-position:
-    calc(50% + var(--lx, 0) * 1%)
-    calc(50% + var(--ly, 0) * 1%);
-  -webkit-mask:
-    linear-gradient(#000 0 0) padding-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) padding-box exclude,
-    linear-gradient(#000 0 0);
-  filter: blur(14px);
-  opacity: 0.85;
-}
-
 /* Там, где курсора нет, свет по грани ходит сам */
 @media (max-width: 768px), (hover: none), (pointer: coarse) {
-  .hp-phone::after,
-  .hp-glow {
+  .hp-phone::after {
     animation: hp-edge-sweep 9s ease-in-out infinite alternate;
   }
 }
@@ -372,8 +334,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hp-phone::after,
-  .hp-glow { animation: none; }
+  .hp-phone::after { animation: none; }
 }
 
 /* Островок фронтальной камеры */

@@ -240,7 +240,6 @@ const HeroPhoneDemo = ({ sectionRef }) => {
         <span className="hp-shadow" />
 
         <div className="hp-phone">
-          <span className="hp-glow" aria-hidden="true" />
           {/* Боковые кнопки корпуса */}
           <span className="hp-btn-vol" />
           <span className="hp-btn-vol" />
