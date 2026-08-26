@@ -35,8 +35,16 @@
    фиксированный .header, что и на AI-системах, только с тремя колонками:
    логотип — тумблер — CTA. */
 .vp-header {
-  grid-template-columns: auto auto 1fr;
+  /* Логотип, тумблер, навигация, CTA. Колонок ровно столько же,
+     сколько элементов, иначе последний переносится на вторую строку. */
+  grid-template-columns: auto auto 1fr auto;
   gap: 24px;
+}
+
+/* Навигация уходит первой: тумблер направлений важнее её */
+@media (max-width: 1180px) {
+  .vp-header { grid-template-columns: auto auto 1fr; }
+  .vp-nav { display: none; }
 }
 .vp-header .header-status {
   align-items: center;
@@ -1192,3 +1200,264 @@
   padding-bottom: clamp(40px, 7vh, 88px);
 }
 .vp-page .vp-hero-full .hero-sub { max-width: 520px; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   БЛОК «КАК РОЖДАЕТСЯ РОЛИК» (vpf-)
+   Слева липкая сцена, справа шаги. Пока читаешь шаги, сцена не уезжает,
+   а перестраивается: одни и те же двенадцать кадров проходят путь от
+   разрозненных референсов до собранного ролика.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.vpf-lead {
+  max-width: 62ch;
+  margin: 0 0 clamp(40px, 5vw, 64px);
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.62;
+  color: var(--fg-2);
+}
+
+.vpf-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  /* align-items намеренно НЕ трогаем: колонка со сценой должна
+     растянуться на всю высоту строки, иначе липкости не за что
+     держаться и сцена уезжает вместе с текстом. */
+}
+
+/* ── Сцена ── */
+/* Колонка растянута на всю высоту блока, липнет сама сцена внутри неё */
+.vpf-visual { min-width: 0; }
+
+.vpf-stage {
+  position: sticky;
+  top: 108px;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-lg, 16px);
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(240, 165, 0, 0.07) 0%, transparent 60%),
+    var(--bg-2);
+  overflow: hidden;
+}
+
+/* Тонкая сетка под кадрами: сцена читается как монтажный стол */
+.vpf-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.vpf-stage-inner {
+  position: absolute;
+  inset: clamp(16px, 3vw, 30px);
+}
+
+/* Один кадр. Позицию и размер задаёт JS, здесь только вид и плавность. */
+.vpf-frame {
+  position: absolute;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition:
+    left 0.8s cubic-bezier(0.32, 0.72, 0, 1),
+    top 0.8s cubic-bezier(0.32, 0.72, 0, 1),
+    width 0.8s cubic-bezier(0.32, 0.72, 0, 1),
+    height 0.8s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.5s ease,
+    transform 0.8s cubic-bezier(0.32, 0.72, 0, 1),
+    border-color 0.5s ease,
+    box-shadow 0.5s ease,
+    background 0.5s ease;
+}
+
+/* Кадр, который уже в деле: подсвечен фирменным янтарём */
+.vpf-frame--on {
+  border-color: rgba(240, 165, 0, 0.55);
+  background: linear-gradient(150deg, rgba(240, 165, 0, 0.22), rgba(240, 165, 0, 0.06));
+  box-shadow: 0 0 24px -6px rgba(240, 165, 0, 0.45);
+}
+
+.vpf-stage-label {
+  position: absolute;
+  left: clamp(16px, 3vw, 30px);
+  bottom: clamp(16px, 3vw, 30px);
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: rgba(10, 9, 8, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+  white-space: nowrap;
+}
+
+/* Прогресс по этапам */
+.vpf-track {
+  position: absolute;
+  right: clamp(16px, 3vw, 30px);
+  bottom: clamp(16px, 3vw, 30px);
+  display: flex;
+  gap: 6px;
+}
+
+.vpf-tick {
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--line-2);
+  transition: background 0.4s ease;
+}
+.vpf-tick--on { background: var(--accent); }
+
+/* ── Шаги ── */
+.vpf-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vpf-step {
+  /* Шаг занимает заметную часть экрана: пока читаешь его, сцена
+     успевает доиграть перестроение и не мелькает */
+  min-height: 58vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 4vw, 44px) 0;
+  border-bottom: 1px solid var(--line);
+  opacity: 0.4;
+  transition: opacity 0.45s ease;
+}
+.vpf-step:first-child { padding-top: 0; }
+.vpf-step:last-child { border-bottom: none; }
+.vpf-step--on { opacity: 1; }
+
+.vpf-step-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.vpf-step-num {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--accent-2);
+}
+
+.vpf-step-time {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.vpf-step-title {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.2vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+.vpf-step-desc {
+  margin: 0 0 18px;
+  font-size: 15.5px;
+  line-height: 1.66;
+  color: var(--fg-2);
+}
+
+.vpf-step-list {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.vpf-step-list li {
+  position: relative;
+  padding-left: 010px;
+  padding-left: 22px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+.vpf-step-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.75;
+}
+
+.vpf-step-out {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+  transition: border-color 0.4s ease, color 0.4s ease;
+}
+.vpf-step--on .vpf-step-out {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Узкие экраны: сцена сверху, шаги под ней ── */
+@media (max-width: 900px) {
+  /* В одну колонку грид не годится: строка со сценой была бы ровно
+     по её высоте, и липкости не за что держаться. Обычный поток такой
+     проблемы не имеет, родитель здесь высокий. */
+  .vpf-grid { display: block; }
+  /* В обычном потоке липнет обёртка: родитель здесь высокий,
+     а у самой сцены высота ровно по себе */
+  .vpf-visual {
+    position: sticky;
+    top: 76px;
+    z-index: 2;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    background: linear-gradient(var(--bg) 78%, transparent);
+  }
+  .vpf-stage { position: relative; top: auto; }
+  .vpf-stage { aspect-ratio: 16 / 10; }
+  .vpf-step { opacity: 0.55; }
+  /* Шаг занимает почти экран: сцена успевает доиграть переход */
+  .vpf-step { min-height: 62vh; display: flex; flex-direction: column; justify-content: center; }
+}
+
+@media (max-width: 560px) {
+  .vpf-stage { aspect-ratio: 3 / 2; }
+  .vpf-stage-label { font-size: 9px; padding: 6px 10px; }
+  .vpf-tick { width: 16px; }
+}
+
+/* Уважение к системной настройке: перестроение без анимации */
+@media (prefers-reduced-motion: reduce) {
+  .vpf-frame { transition: opacity 0.2s ease; transition-delay: 0ms !important; }
+}

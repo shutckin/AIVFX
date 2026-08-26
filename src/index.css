@@ -41,7 +41,10 @@
 html, body {
   background: var(--bg);
   color: var(--fg);
-  overflow-x: hidden;
+  /* clip, а не hidden: hidden делает body скролл-контейнером, и тогда
+     любой position: sticky внутри страницы перестаёт липнуть к окну.
+     clip так же убирает горизонтальную прокрутку, но липкость не ломает. */
+  overflow-x: clip;
   max-width: 100vw;
 }
 

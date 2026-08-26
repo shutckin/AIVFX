@@ -990,36 +990,85 @@ export const VIDEO_PROCESS = {
     },
     sideTitle: 'WORKFLOW',
   },
+  lead: {
+    ru: 'Пять этапов, на каждом из которых вы получаете готовый материал, а не обещание. Чем раньше правка, тем дешевле она стоит: поменять кадр на раскадровке это минуты, поменять его же в готовом ролике это пересборка сцены.',
+    en: 'Five stages, and at each one you get finished material rather than a promise. The earlier a change comes, the cheaper it is: swapping a frame on the storyboard takes minutes, swapping the same frame in a finished film means rebuilding the scene.',
+  },
   steps: [
     {
       num: '01',
       title: { ru: 'Бриф и референсы', en: 'Brief & references' },
-      desc: { ru: 'Разбираем задачу, площадки и настроение. Собираем мудборд, чтобы говорить об одном и том же.', en: 'We map the task, placements and mood, and build a moodboard so we are talking about the same thing.' },
+      desc: {
+        ru: 'Разбираем задачу, площадки и настроение. Собираем мудборд, чтобы говорить об одном и том же, а не про «что-то динамичное».',
+        en: 'We map the task, placements and mood, and build a moodboard so we discuss the same thing instead of “something dynamic”.',
+      },
+      detail: [
+        { ru: 'Куда идёт ролик и что должен сделать со зрителем', en: 'Where the video runs and what it should do to the viewer' },
+        { ru: 'Референсы по свету, темпу и монтажу', en: 'References for light, pace and editing' },
+        { ru: 'Ограничения бренда: палитра, шрифты, тон', en: 'Brand constraints: palette, type, tone of voice' },
+      ],
       out: { ru: 'мудборд', en: 'moodboard' },
+      time: { ru: '1–2 дня', en: '1–2 days' },
     },
     {
       num: '02',
       title: { ru: 'Сценарий и раскадровка', en: 'Script & storyboard' },
-      desc: { ru: 'Пишем сценарий и показываем кадры до продакшена — правки здесь стоят ноль.', en: 'We write the script and show frames before production — changes here cost nothing.' },
+      desc: {
+        ru: 'Пишем сценарий и показываем кадры до продакшена. Правки на этом этапе стоят ноль, и именно поэтому мы их здесь и ждём.',
+        en: 'We write the script and show the frames before production. Changes cost nothing at this point, which is exactly why we want them here.',
+      },
+      detail: [
+        { ru: 'Покадровый план: что в кадре, как движется камера', en: 'A shot-by-shot plan: what is in frame, how the camera moves' },
+        { ru: 'Хронометраж каждой сцены под площадку', en: 'Timing for each scene, matched to the placement' },
+        { ru: 'Черновой текст закадрового голоса', en: 'A draft of the voice-over script' },
+      ],
       out: { ru: 'раскадровка', en: 'storyboard' },
+      time: { ru: '2–3 дня', en: '2–3 days' },
     },
     {
       num: '03',
       title: { ru: 'Генерация и съёмка', en: 'Generation & shooting' },
-      desc: { ru: 'Собираем сцены нашим пайплайном, при необходимости добавляем реальные съёмочные кадры.', en: 'We build the scenes with our pipeline, adding real footage where it is needed.' },
+      desc: {
+        ru: 'Собираем сцены нашим пайплайном, при необходимости добавляем реальные съёмочные кадры. Каждый кадр проходит отбор: в сборку идёт лучший дубль из нескольких.',
+        en: 'We build the scenes with our pipeline and add real footage where it is needed. Every shot goes through selection: the best take of several makes the cut.',
+      },
+      detail: [
+        { ru: 'Несколько вариантов на каждый ключевой кадр', en: 'Several options for every key shot' },
+        { ru: 'Единый лук по всей сцене: свет, оптика, зерно', en: 'One look across the scene: light, optics, grain' },
+        { ru: 'Досъёмка там, где генерация не даёт точности', en: 'Live footage where generation cannot be precise enough' },
+      ],
       out: { ru: 'черновые сцены', en: 'rough scenes' },
+      time: { ru: '3–7 дней', en: '3–7 days' },
     },
     {
       num: '04',
       title: { ru: 'Монтаж, звук, грейд', en: 'Edit, sound, grade' },
-      desc: { ru: 'Собираем ритм, добавляем музыку и озвучку, приводим картинку к единому фирменному луку.', en: 'We build the rhythm, add music and voice-over, and unify the image into one signature look.' },
+      desc: {
+        ru: 'Собираем ритм, добавляем музыку и озвучку, приводим картинку к единому фирменному луку. С этого момента ролик уже можно смотреть целиком.',
+        en: 'We build the rhythm, add music and voice-over, and unify the image into one signature look. From here the film can be watched end to end.',
+      },
+      detail: [
+        { ru: 'Ритм под музыку, а не музыка под готовый монтаж', en: 'Rhythm built to the music, not music dropped onto a finished cut' },
+        { ru: 'Озвучка, шумы и сведение звука', en: 'Voice-over, sound design and the audio mix' },
+        { ru: 'Цветокоррекция и титры в стиле бренда', en: 'Colour grading and titles in the brand style' },
+      ],
       out: { ru: 'превью-версия', en: 'preview cut' },
+      time: { ru: '2–4 дня', en: '2–4 days' },
     },
     {
       num: '05',
       title: { ru: 'Правки и сдача', en: 'Revisions & delivery' },
-      desc: { ru: 'Вносим замечания и отдаём финал во всех нужных форматах и разрешениях.', en: 'We apply your notes and deliver the final in every format and resolution you need.' },
+      desc: {
+        ru: 'Вносим замечания и отдаём финал во всех нужных форматах и разрешениях, включая вертикальные адаптации и версии с субтитрами.',
+        en: 'We apply your notes and deliver the final in every format and resolution you need, including vertical adaptations and subtitled versions.',
+      },
+      detail: [
+        { ru: 'Два круга правок входят в работу', en: 'Two rounds of revisions are included' },
+        { ru: 'Мастер до 4K плюс адаптации под площадки', en: 'A master up to 4K plus placement adaptations' },
+        { ru: 'Исходники и права на использование', en: 'Source files and usage rights' },
+      ],
       out: { ru: 'мастер-файлы', en: 'master files' },
+      time: { ru: '1–2 дня', en: '1–2 days' },
     },
   ],
 };

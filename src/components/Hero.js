@@ -12,11 +12,14 @@ const BASE_RX = 3;    // deg — базовый наклон по горизон
 const MAX_RY = 9;     // deg — максимальный доворот курсором влево/вправо
 const MAX_RX = 6;     // deg — максимальный доворот курсором вверх/вниз
 const SHADOW_PX = 14; // px — насколько тень уезжает против наклона
-// Ход блика. Слой с бликом в 2,4 раза больше экрана, поэтому 1% сдвига
-// это 2,4% ширины экрана: при 14 блик проходит примерно треть экрана
-// и не убегает за его край.
-const GLARE_X = 14;
-const GLARE_Y = 9;
+// Ход светового пятна по грани корпуса, в процентах от подложки градиента
+const GLARE_X = 26;
+const GLARE_Y = 16;
+
+// Телефон живее реагирует на подход курсора: чем ближе, тем крупнее.
+// Разброс маленький, иначе выглядит как рывок, а не как объём.
+const NEAR_MAX = 1.05;
+const NEAR_MIN = 0.95;
 const LERP = 0.08;    // коэффициент сглаживания: телефон «догоняет» курсор
 const EPS = 0.01;     // порог, ниже которого считаем, что доводка закончена
 
@@ -58,6 +61,8 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
     let targetRx = 0;
     let ry = 0;
     let rx = 0;
+    let targetScale = 1;
+    let scale = 1;
     let pointerX = 0;
     let pointerY = 0;
     let pointerDirty = false;
@@ -78,6 +83,9 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
       // Значения без единиц, единицы добавляет CSS.
       stage.style.setProperty('--lx', (totalRy / MAX_RY * GLARE_X).toFixed(2));
       stage.style.setProperty('--ly', (-totalRx / MAX_RX * GLARE_Y).toFixed(2));
+
+      // Приближение курсора к телефону
+      stage.style.setProperty('--near', scale.toFixed(4));
     };
 
     const frame = () => {
@@ -92,19 +100,33 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
           const ny = clamp(((pointerY - r.top) / r.height - 0.5) * 2);
           targetRy = nx * MAX_RY;
           targetRx = -ny * MAX_RX;
+
+          // Насколько курсор близко к самому телефону: 0 — прямо на нём,
+          // 1 — в дальнем углу секции
+          const p = stage.getBoundingClientRect();
+          const dist = Math.hypot(
+            pointerX - (p.left + p.width / 2),
+            pointerY - (p.top + p.height / 2)
+          );
+          const reach = Math.hypot(r.width, r.height) / 2;
+          const t = reach > 0 ? Math.min(1, dist / reach) : 1;
+          targetScale = NEAR_MAX - (NEAR_MAX - NEAR_MIN) * t;
         }
       }
 
       const dy = targetRy - ry;
       const dx = targetRx - rx;
-      const settled = Math.abs(dy) < EPS && Math.abs(dx) < EPS;
+      const ds = targetScale - scale;
+      const settled = Math.abs(dy) < EPS && Math.abs(dx) < EPS && Math.abs(ds) < EPS / 100;
 
       if (settled) {
         ry = targetRy;
         rx = targetRx;
+        scale = targetScale;
       } else {
         ry += dy * LERP;
         rx += dx * LERP;
+        scale += ds * LERP;
       }
 
       write();
@@ -125,6 +147,7 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
     const onLeave = () => {
       targetRy = 0;
       targetRx = 0;
+      targetScale = 1;
       pointerDirty = false;
       schedule();
     };
@@ -142,6 +165,7 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
       stage.style.removeProperty('--sx');
       stage.style.removeProperty('--lx');
       stage.style.removeProperty('--ly');
+      stage.style.removeProperty('--near');
     };
   }, [sectionRef, stageRef, allowed]);
 };
@@ -218,8 +242,6 @@ const HeroPhoneDemo = ({ sectionRef }) => {
           <span className="hp-btn-vol" />
           <span className="hp-btn-vol" />
           <span className="hp-btn-pwr" />
-
-          <span className="hp-glare" aria-hidden="true" />
 
           <div className="hp-screen">
             <div className="hp-notch" />

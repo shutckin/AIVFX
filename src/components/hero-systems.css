@@ -150,19 +150,30 @@
   --ry: -8deg;
   --rx: 3deg;
   --sx: 14px;
+  /* --fit: подгонка под высоту окна (медиазапросы ниже)
+     --near: реакция на близость курсора (пишет JS)
+     Перемножаем, чтобы одно не затирало другое. */
+  --fit: 1;
+  --near: 1;
   position: relative;
   flex-shrink: 0;
+  transform: scale(calc(var(--fit) * var(--near)));
+  transition: transform 0.45s cubic-bezier(0.32, 0.72, 0, 1);
   transform-style: preserve-3d;
 }
+
+/* Пока курсор ведёт телефон, кадры идут каждые 16 мс и своя доводка
+   уже есть в JS: плавность перехода здесь только мешала бы */
+.hp-stage[style*="--near"] { transition: none; }
 
 /* Аппарат стал выше, и на невысоких окнах низ уходил за сгиб.
    Ужимаем сцену целиком: пропорции и толщина рамки сохраняются,
    потому что масштабируется всё вместе, а не отдельные размеры. */
 @media (min-width: 769px) {
-  @media (max-height: 900px) { .hp-stage { transform: scale(0.93); } }
-  @media (max-height: 820px) { .hp-stage { transform: scale(0.85); } }
-  @media (max-height: 740px) { .hp-stage { transform: scale(0.77); } }
-  @media (max-height: 670px) { .hp-stage { transform: scale(0.68); } }
+  @media (max-height: 900px) { .hp-stage { --fit: 0.93; } }
+  @media (max-height: 820px) { .hp-stage { --fit: 0.85; } }
+  @media (max-height: 740px) { .hp-stage { --fit: 0.77; } }
+  @media (max-height: 670px) { .hp-stage { --fit: 0.68; } }
 }
 
 /* Эллиптическая тень-подложка: единственное место на сайте с glow/тенью */
@@ -258,23 +269,6 @@
   transform-style: preserve-3d;
 }
 
-/* Диагональный блик по стеклу — то, чего не хватало, чтобы экран читался
-   как стекло, а не как вырезанный прямоугольник */
-.hp-screen::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  border-radius: 38px;
-  pointer-events: none;
-  background: linear-gradient(
-    148deg,
-    rgba(226, 238, 255, 0.13) 0%,
-    rgba(226, 238, 255, 0.05) 26%,
-    transparent 46%,
-    transparent 100%);
-}
-
 /* Внутренний кант стекла */
 .hp-screen::after {
   content: "";
@@ -286,107 +280,56 @@
   box-shadow: inset 0 0 0 1px rgba(226, 238, 255, 0.10);
 }
 
-/* ── Живой блик на стекле ──
-   Стекло не поворачивается вместе с корпусом: источник света остаётся
-   на месте, поэтому при наклоне отражение съезжает по экрану. --lx/--ly
-   пишет JS из положения курсора (см. Hero.js).
+/* ── Свет по грани корпуса ──
+   Единственный «живой» свет на телефоне. Никакой плёнки поверх экрана:
+   светится только ребро, как у настоящего металла под лампой.
 
-   Слой отдельный, потому что ему нужен overflow: hidden, а экрану его
-   давать нельзя: он схлопнет 3D-слои внутри. */
-.hp-glare {
-  position: absolute;
-  inset: 8px;
-  z-index: 3;
-  border-radius: 38px;
-  overflow: hidden;
-  pointer-events: none;
-  transform: translateZ(26px);
-}
-
-.hp-glare::before {
-  content: "";
-  position: absolute;
-  top: -70%;
-  left: -70%;
-  width: 240%;
-  height: 240%;
-  background: linear-gradient(
-    112deg,
-    transparent 30%,
-    rgba(226, 238, 255, 0.06) 40%,
-    rgba(226, 238, 255, 0.22) 49%,
-    rgba(226, 238, 255, 0.06) 58%,
-    transparent 68%);
-  transform: translate3d(calc(var(--lx, 0) * 1%), calc(var(--ly, 0) * 1%), 0);
-}
-
-/* Второй, узкий и более резкий отблеск: вместе с широким читается
-   как настоящее стекло, а не как градиентная плёнка */
-.hp-glare::after {
-  content: "";
-  position: absolute;
-  top: -70%;
-  left: -70%;
-  width: 240%;
-  height: 240%;
-  background: linear-gradient(
-    112deg,
-    transparent 45%,
-    rgba(255, 255, 255, 0.14) 49.5%,
-    transparent 54%);
-  transform: translate3d(calc(var(--lx, 0) * 1.25%), calc(var(--ly, 0) * 1.15%), 0);
-}
-
-/* Отблеск на титановой грани: уезжает вместе с бликом на стекле */
+   Как сделано: элемент во всю площадь с прозрачной рамкой, градиент
+   залит в border-box, а маска вырезает всё, кроме самой рамки. Позиция
+   градиента ездит от --lx/--ly, которые пишет JS из положения курсора. */
 .hp-phone::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 46px;
+  border: 2.5px solid transparent;
   pointer-events: none;
-  background: linear-gradient(
-    100deg,
-    transparent 36%,
-    rgba(255, 255, 255, 0.16) 47%,
-    rgba(255, 255, 255, 0.04) 53%,
-    transparent 64%);
-  opacity: 0.5;
-  transform: translate3d(calc(var(--lx, 0) * 0.5%), 0, 0);
+  background:
+    linear-gradient(
+      118deg,
+      transparent 26%,
+      rgba(255, 255, 255, 0.30) 40%,
+      rgba(255, 255, 255, 0.92) 48%,
+      rgba(255, 255, 255, 0.30) 56%,
+      transparent 70%) border-box;
+  background-size: 260% 260%;
+  background-position:
+    calc(50% + var(--lx, 0) * 1%)
+    calc(50% + var(--ly, 0) * 1%);
+  /* Оставляем только рамку: заливку внутри вырезаем маской */
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) padding-box exclude,
+    linear-gradient(#000 0 0);
 }
 
-/* Там, где курсора нет (телефон, планшет, экран без мыши), свет не может
-   зависеть от наклона. Чтобы кадр не выглядел мёртвым, блик медленно
-   ходит сам: один проход туда-обратно примерно за девять секунд. */
+/* Там, где курсора нет, свет по грани ходит сам */
 @media (max-width: 768px), (hover: none), (pointer: coarse) {
-  .hp-glare::before {
-    animation: hp-sheen 9s ease-in-out infinite alternate;
-  }
-  .hp-glare::after {
-    animation: hp-sheen 9s ease-in-out infinite alternate;
-    animation-delay: -0.6s;
-  }
   .hp-phone::after {
-    animation: hp-sheen-edge 9s ease-in-out infinite alternate;
+    animation: hp-edge-sweep 9s ease-in-out infinite alternate;
   }
 }
 
-@keyframes hp-sheen {
-  from { transform: translate3d(-13%, -8%, 0); }
-  to   { transform: translate3d(13%, 8%, 0); }
+@keyframes hp-edge-sweep {
+  from { background-position: 26% 34%; }
+  to   { background-position: 74% 66%; }
 }
 
-@keyframes hp-sheen-edge {
-  from { transform: translate3d(-12%, 0, 0); opacity: 0.3; }
-  to   { transform: translate3d(12%, 0, 0); opacity: 0.62; }
-}
-
-/* Уважение к системной настройке: никакого самостоятельного движения */
 @media (prefers-reduced-motion: reduce) {
-  .hp-glare::before,
-  .hp-glare::after,
-  .hp-phone::after {
-    animation: none;
-  }
+  .hp-phone::after { animation: none; }
 }
 
 /* Островок фронтальной камеры */
@@ -765,11 +708,10 @@
     padding: 7px;
   }
   .hp-phone::before { inset: 5px; border-radius: 37px; }
-  .hp-phone::after { border-radius: 42px; }
+  .hp-phone::after { border-radius: 42px; border-width: 2px; }
   .hp-screen,
   .hp-screen::before,
   .hp-screen::after { border-radius: 35px; }
-  .hp-glare { inset: 7px; border-radius: 35px; }
   .hp-btn-vol { top: 130px; height: 52px; }
   .hp-btn-vol + .hp-btn-vol { top: 194px; }
   .hp-btn-pwr { top: 172px; height: 80px; }
@@ -818,11 +760,10 @@
     padding: 6px;
   }
   .hp-phone::before { inset: 4px; border-radius: 34px; }
-  .hp-phone::after { border-radius: 38px; }
+  .hp-phone::after { border-radius: 38px; border-width: 2px; }
   .hp-screen,
   .hp-screen::before,
   .hp-screen::after { border-radius: 32px; }
-  .hp-glare { inset: 6px; border-radius: 32px; }
   .hp-btn-vol { top: 116px; height: 46px; }
   .hp-btn-vol + .hp-btn-vol { top: 174px; }
   .hp-btn-pwr { top: 154px; height: 72px; }

@@ -6,6 +6,7 @@ import { BUDGETS_EN } from '../data/content-en';
 import { CONTACT_SYS, VIDEO_CONTACT } from '../data/systems-content';
 import SecHead from './SecHead';
 import PhoneField from './PhoneField';
+import SocialLinks from './SocialLinks';
 import { sendLead } from '../lib/leadApi';
 import { isValidEmail, normalizeEmail, suggestEmailFix } from '../lib/validate';
 
@@ -249,6 +250,11 @@ const ContactForm = ({ videoContext = false }) => {
             <div className="contact-block">
               <span className="lab">EMAIL</span>
               <a href="mailto:info@aivfx.ru" className="val">info@aivfx.ru</a>
+            </div>
+
+            <div className="contact-block">
+              <span className="lab">{en ? 'SOCIALS' : 'СОЦСЕТИ'}</span>
+              <SocialLinks locale={L} />
             </div>
 
             <div className="contact-block">

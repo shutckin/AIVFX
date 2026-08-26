@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SecHead from './SecHead';
 import ModeToggle from './ModeToggle';
+import ProcessFlow from './ProcessFlow';
 import ContactForm from './ContactForm';
 import { useLocale, pick, localizedHref } from '../i18n';
 import {
@@ -72,22 +73,61 @@ const RobotStage = () => {
 // Шапка страницы — та же, что на главной: логотип прижат к левому краю
 // экрана, тумблер направлений сразу за ним, CTA — к правому краю. Раньше
 // шапка жила внутри .shell и «висела» посреди экрана, не попадая в углы.
-const VpHeader = ({ contactHref, en }) => {
+// Разделы страницы для навигации и подсветки активного пункта
+const VP_NAV = [
+  { id: 'works', label: { ru: 'Работы', en: 'Works' } },
+  { id: 'capabilities', label: { ru: 'Что делаем', en: 'What we do' } },
+  { id: 'process', label: { ru: 'Процесс', en: 'Process' } },
+  { id: 'formats', label: { ru: 'Форматы', en: 'Formats' } },
+  { id: 'contact', label: { ru: 'Контакты', en: 'Contact' } },
+];
+
+const VpHeader = ({ contactHref, en, locale }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('hero');
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60);
+
+      // Активным считаем последний раздел, чей верх уже прошёл треть экрана
+      const y = window.scrollY + window.innerHeight * 0.3;
+      let current = 'hero';
+      for (const item of VP_NAV) {
+        const el = document.getElementById(item.id);
+        if (el && el.offsetTop <= y) current = item.id;
+      }
+      setActive(current);
+    };
+
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const go = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <header className={`header vp-header${scrolled ? ' scrolled' : ''}`}>
-      <a className="logo" href={localizedHref('/video-production/', en ? 'en' : 'ru')}>
+      <a className="logo" href={localizedHref('/video-production/', locale)}>
         <span className="logo-wm">AIVFX</span>
       </a>
       <ModeToggle mode="content" />
+      <nav className="nav-loose vp-nav" aria-label={en ? 'Page sections' : 'Разделы страницы'}>
+        {VP_NAV.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            className={`nav-link${active === item.id ? ' active' : ''}`}
+            onClick={() => go(item.id)}
+          >
+            {pick(locale, item.label)}
+          </button>
+        ))}
+      </nav>
       <div className="header-status">
         <a className="btn btn-primary vp-header-cta" href={contactHref}>
           {en ? 'Contact' : 'Связаться'}
@@ -206,7 +246,7 @@ const VideoProduction = () => {
       {/* Шапка вынесена из .shell: логотип и CTA стоят в углах экрана,
           ровно как на главной. Ссылки «← AIVFX» здесь нет намеренно —
           со страницы уходим переключением направления, а не шагом назад. */}
-      <VpHeader contactHref={contactHref} en={en} />
+      <VpHeader contactHref={contactHref} en={en} locale={L} />
 
       {/* Первый экран — во всю ширину и высоту окна: видео с 3D-роботом,
           градиентный overlay, кольца-HUD и текст поверх */}
@@ -252,7 +292,7 @@ const VideoProduction = () => {
       </header>
 
       {/* Видео-витрина: заголовок + два встречных ряда автоиграющих превью */}
-      <section className="vp2-works" aria-label={en ? 'Selected works' : 'Избранные работы'}>
+      <section className="vp2-works" id="works" aria-label={en ? 'Selected works' : 'Избранные работы'}>
         <div className="shell">
           <SecHead
             num={en ? 'WORKS' : 'РАБОТЫ'}
@@ -304,7 +344,7 @@ const VideoProduction = () => {
       {/* Что делаем — витрина реальных кадров вместо иконок.
           Каждая карточка: кадр из нашего пайплайна + чип с типом работы,
           под ним название формата и что именно клиент получает. */}
-      <section className="section">
+      <section className="section" id="capabilities">
         <div className="shell">
           <SecHead
             num={pick(L, VIDEO_SHOWCASE.head.num)}
@@ -340,7 +380,7 @@ const VideoProduction = () => {
       {/* Процесс: горизонтальный таймлайн из пяти шагов.
           Линия с узлами сверху, под каждым шагом — что клиент получает
           на этом этапе, чтобы работа не выглядела чёрным ящиком. */}
-      <section className="section vp-band">
+      <section className="section vp-band" id="process">
         <div className="shell">
           <SecHead
             num={pick(L, VIDEO_PROCESS.head.num)}
@@ -349,18 +389,7 @@ const VideoProduction = () => {
             side={pick(L, VIDEO_PROCESS.head.side)}
             sideTitle={VIDEO_PROCESS.head.sideTitle}
           />
-          <ol className="vp-proc reveal">
-            {VIDEO_PROCESS.steps.map((s, i) => (
-              <li key={i} className="vp-proc-step">
-                <span className="vp-proc-num">{s.num}</span>
-                <h3 className="vp-proc-title">{pick(L, s.title)}</h3>
-                <p className="vp-proc-desc">{pick(L, s.desc)}</p>
-                <span className="vp-proc-out">
-                  <span aria-hidden="true">→</span> {pick(L, s.out)}
-                </span>
-              </li>
-            ))}
-          </ol>
+          <ProcessFlow />
         </div>
       </section>
 
@@ -449,7 +478,7 @@ const VideoProduction = () => {
       </section>
 
       {/* Форматы работы — без цен, смета под задачу */}
-      <section className="section">
+      <section className="section" id="formats">
         <div className="shell">
           <SecHead
             num={pick(L, VIDEO_FORMATS.head.num)}
