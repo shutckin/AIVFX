@@ -15,10 +15,12 @@ const FaqSection = () => {
   return (
     <section className="section" id="faq">
       <div className="shell">
+        {/* Заголовок не повторяет метку: «FAQ» уже сказано сверху,
+            крупная строка отвечает на то, что человека здесь держит */}
         <SecHead
           num="FAQ"
-          title={en ? 'Frequently asked' : 'Частые'}
-          titleIt={en ? 'questions' : 'вопросы'}
+          title={en ? 'What people ask' : 'О чём спрашивают'}
+          titleIt={en ? 'before starting' : 'перед стартом'}
         />
 
         <div className="faq-sec reveal">

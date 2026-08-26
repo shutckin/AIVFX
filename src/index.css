@@ -558,6 +558,17 @@ img, video { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--line);
   margin-bottom: clamp(32px, 4vw, 56px);
 }
+
+/* Заголовок секции уже закрыт линией снизу. Если следующий блок рисует
+   свою линию сверху во всю ширину, получаются две параллельные черты
+   с пустой полосой между ними — читается как ошибка вёрстки.
+   Гасим верхнюю границу у таких соседей и подтягиваем их к заголовку. */
+.sec-head + .ab-trustbar,
+.sec-head + .faq-sec .faq-item:first-child,
+.sec-head + * > .faq-list > .faq-item:first-child {
+  border-top: 0;
+}
+.sec-head + .ab-trustbar { margin-top: 0; padding-top: 0; }
 .sec-num {
   display: block;
   font-family: var(--font-mono);
