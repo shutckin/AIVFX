@@ -1,40 +1,17 @@
-import React, { useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useNotification } from '../App';
 import { useLocale, pick } from '../i18n';
 import { BUDGETS } from '../data/content';
 import { BUDGETS_EN } from '../data/content-en';
 import { CONTACT_SYS, VIDEO_CONTACT } from '../data/systems-content';
 import SecHead from './SecHead';
+import PhoneField from './PhoneField';
+import { sendLead } from '../lib/leadApi';
+import { isValidEmail, normalizeEmail, suggestEmailFix } from '../lib/validate';
 
-
-// Отправка в Telegram через env vars (бот-токен хранится на стороне сборки)
-const sendToTelegram = async (data, videoContext) => {
-  const token = process.env.REACT_APP_TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.REACT_APP_TELEGRAM_CHAT_ID;
-  // Нет конфигурации — заявка физически не может уйти, честно считаем это ошибкой
-  if (!token || !chatId) throw new Error('Telegram credentials are not configured');
-
-  const heading = videoContext
-    ? '🎬 НОВАЯ ЗАЯВКА — AI-КОНТЕНТ (видео)'
-    : '⚙️ НОВАЯ ЗАЯВКА — AIVFX AI SYSTEMS';
-
-  const message = `${heading}
-
-👤 Имя: ${data.name}
-📧 Email: ${data.email}
-📞 Телефон: ${data.phone || '—'}
-🏢 Компания: ${data.company || '—'}
-💰 Бюджет: ${data.budget || '—'}
-💬 Задача: ${data.message}`;
-
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' }),
-  });
-
-  if (!res.ok) throw new Error(`Telegram API error: ${res.status}`);
-};
+// Заявка уходит на наш серверный обработчик, а он уже пишет в Telegram.
+// Токена бота в браузере нет и быть не должно: раньше он лежал прямо
+// в коде сайта, и этим воспользовались.
 
 const ContactForm = ({ videoContext = false }) => {
   const L = useLocale();
@@ -46,45 +23,45 @@ const ContactForm = ({ videoContext = false }) => {
   const [form, setForm] = useState({
     name: '', email: '', phone: '', company: '', message: '', budget: ''
   });
-  const [phoneErr, setPhoneErr] = useState('');
+  const [phoneValid, setPhoneValid] = useState(true);
+  const [emailTouched, setEmailTouched] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState(false);
   const [agreed, setAgreed] = useState(false);
+  // Скрытое поле-ловушка для ботов и отметка времени открытия формы:
+  // и то и другое проверяет сервер
+  const [honeypot, setHoneypot] = useState('');
+  const startedAt = useRef(Date.now());
 
-  const handle = (k, v) => {
-    if (k === 'phone') {
-      const clean = v.replace(/[^\d\s()\-+]/g, '');
-      const digits = clean.replace(/\D/g, '');
-      let formatted = clean;
-      if (digits.length === 11 && (digits[0] === '7' || digits[0] === '8')) {
-        const d = '7' + digits.slice(1);
-        formatted = `+7 (${d.slice(1, 4)}) ${d.slice(4, 7)}-${d.slice(7, 9)}-${d.slice(9, 11)}`;
-        setPhoneErr('');
-      } else if (digits.length > 0 && digits.length < 10) {
-        setPhoneErr(en ? 'Number is too short' : 'Номер слишком короткий');
-      } else {
-        setPhoneErr('');
-      }
-      setForm((f) => ({ ...f, phone: formatted }));
-    } else {
-      setForm((f) => ({ ...f, [k]: v }));
-    }
-  };
+  const emailOk = useMemo(() => isValidEmail(form.email), [form.email]);
+  const emailFix = useMemo(() => suggestEmailFix(form.email), [form.email]);
+  const showEmailError = emailTouched && form.email.length > 0 && !emailOk;
+
+  const handle = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+
+  const canSubmit = agreed && phoneValid && !sending;
 
   const submit = async (e) => {
     e.preventDefault();
-    if (phoneErr) return;
-    if (!agreed) return; // защита от отправки без согласия
+    if (!agreed || !phoneValid) return;
+    if (!emailOk) { setEmailTouched(true); return; }
+
     setSendError(false); // новая попытка — сбрасываем прошлую ошибку
     setSending(true);
     try {
-      await sendToTelegram(form, videoContext);
+      await sendLead(
+        { ...form, email: normalizeEmail(form.email) },
+        videoContext ? 'video' : 'systems',
+        { startedAt: startedAt.current, honeypot }
+      );
       // Успех: очищаем форму и показываем модалку
       setForm({ name: '', email: '', phone: '', company: '', message: '', budget: '' });
       setAgreed(false);
+      setEmailTouched(false);
+      startedAt.current = Date.now();
       showSuccess();
     } catch (_) {
-      // Ошибка сети / API / конфигурации: успех НЕ показываем,
+      // Ошибка сети / сервера / конфигурации: успех НЕ показываем,
       // введённые данные сохраняем, даём прямые контакты
       setSendError(true);
     } finally {
@@ -111,17 +88,45 @@ const ContactForm = ({ videoContext = false }) => {
                 <input id="name" required value={form.name} onChange={(e) => handle('name', e.target.value)} placeholder={en ? 'Your name' : 'Ваше имя'} />
               </div>
               <div className="field">
-                <label htmlFor="email">EMAIL <span className="req">*</span></label>
-                <input id="email" type="email" required value={form.email} onChange={(e) => handle('email', e.target.value)} placeholder="your@email.com" />
+                <label htmlFor="email">{'EMAIL '}<span className="req">*</span></label>
+                <input
+                  id="email"
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  required
+                  value={form.email}
+                  onChange={(e) => handle('email', e.target.value)}
+                  onBlur={() => setEmailTouched(true)}
+                  placeholder="your@email.com"
+                  aria-invalid={showEmailError || undefined}
+                />
+                {showEmailError && (
+                  <span className="field-error">
+                    {en ? 'Check the email address' : 'Проверьте адрес почты'}
+                  </span>
+                )}
+                {!showEmailError && emailFix && (
+                  <button
+                    type="button"
+                    className="field-hint"
+                    onClick={() => handle('email', emailFix)}
+                  >
+                    {`${en ? 'Did you mean' : 'Возможно, вы имели в виду'} ${emailFix}?`}
+                  </button>
+                )}
               </div>
             </div>
 
             <div className="contact-grid-fields">
-              <div className="field">
-                <label htmlFor="phone">{en ? 'PHONE' : 'ТЕЛЕФОН'}</label>
-                <input id="phone" type="tel" value={form.phone} onChange={(e) => handle('phone', e.target.value)} placeholder="+7 (999) 123-45-67" />
-                {phoneErr && <span className="field-error">{phoneErr}</span>}
-              </div>
+              <PhoneField
+                id="phone"
+                locale={L}
+                label={en ? 'PHONE' : 'ТЕЛЕФОН'}
+                value={form.phone}
+                onChange={(v) => handle('phone', v)}
+                onValidityChange={setPhoneValid}
+              />
               <div className="field">
                 <label htmlFor="company">{en ? 'COMPANY' : 'КОМПАНИЯ'}</label>
                 <input id="company" value={form.company} onChange={(e) => handle('company', e.target.value)} placeholder={en ? 'Company name' : 'Название компании'} />
@@ -177,10 +182,26 @@ const ContactForm = ({ videoContext = false }) => {
               </span>
             </label>
 
+            {/* Поле-ловушка: спрятано от людей и от скринридеров,
+                но видно автозаполнялкам ботов. Если оно заполнено —
+                сервер молча отбрасывает заявку. */}
+            <div className="hp-trap" aria-hidden="true">
+              <label htmlFor="website">Website</label>
+              <input
+                id="website"
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </div>
+
             <button
               type="submit"
               className="btn btn-primary"
-              disabled={sending || !agreed}
+              disabled={!canSubmit}
               style={{ alignSelf: 'flex-start' }}
             >
               {sending ? (en ? 'Sending...' : 'Отправка...') : (en ? 'Send request' : 'Отправить заявку')}<span className="btn-arrow">↗</span>
@@ -237,13 +258,6 @@ const ContactForm = ({ videoContext = false }) => {
                 <div className="hours-row"><span>{en ? 'SAT' : 'СБ'}</span><span>10:00 — 16:00</span></div>
                 <div className="hours-row"><span>{en ? 'SUN' : 'ВС'}</span><span className="hours-closed">{en ? 'CLOSED' : 'ВЫХОДНОЙ'}</span></div>
               </div>
-            </div>
-
-            <div className="contact-block">
-              <span className="lab">{en ? 'OFFICES' : 'ОФИСЫ'}</span>
-              <span className="val" style={{ fontSize: 14, fontFamily: 'var(--font-mono)', letterSpacing: '0.08em' }}>
-                MSK · DXB · DPS
-              </span>
             </div>
           </div>
         </div>

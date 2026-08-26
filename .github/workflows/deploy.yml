@@ -36,8 +36,10 @@ jobs:
         env:
           CI: false
           GENERATE_SOURCEMAP: false
-          REACT_APP_TELEGRAM_BOT_TOKEN: ${{ secrets.REACT_APP_TELEGRAM_BOT_TOKEN }}
-          REACT_APP_TELEGRAM_CHAT_ID: ${{ secrets.REACT_APP_TELEGRAM_CHAT_ID }}
+          # Только адрес серверного обработчика заявок. Токен бота сюда
+          # класть нельзя: всё с префиксом REACT_APP_ попадает в JS-файл
+          # сайта и становится публичным.
+          REACT_APP_LEAD_API: ${{ secrets.REACT_APP_LEAD_API }}
 
       - name: 🚀 Отправляем готовые файлы на сервер
         uses: easingthemes/ssh-deploy@main

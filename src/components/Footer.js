@@ -18,7 +18,7 @@ const Footer = () => {
             <h5>{en ? 'STUDIO' : 'СТУДИЯ'}</h5>
             <p>{pick(locale, FOOTER_SYS.desc)}</p>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', color: 'var(--muted)', textTransform: 'uppercase' }}>
-              EST. 2024 · MOSCOW
+              {en ? 'EST. 2024 · REMOTE' : 'EST. 2024 · РАБОТАЕМ УДАЛЁННО'}
             </p>
           </div>
           <div className="footer-col">
@@ -55,9 +55,6 @@ const Footer = () => {
             <ul>
               <li><a href="mailto:info@aivfx.ru">info@aivfx.ru</a></li>
               <li><a href="https://t.me/aivfx" target="_blank" rel="noopener noreferrer">t.me/aivfx</a></li>
-              <li style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', color: 'var(--muted)', textTransform: 'uppercase' }}>
-                MSK · DXB · DPS
-              </li>
             </ul>
           </div>
         </div>

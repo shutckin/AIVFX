@@ -1250,6 +1250,88 @@ img, video { display: block; max-width: 100%; }
 .field textarea { min-height: 100px; }
 .field-error { color: var(--accent); font-size: 12px; font-family: var(--font-mono); }
 
+/* Подсказка «возможно, вы имели в виду ...» — кликабельная, чинит опечатку */
+.field-hint {
+  align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-2);
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px dashed var(--line-2);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.field-hint:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ── Телефон: страна слева, номер справа ──
+   Селект растянут поверх видимой подписи и прозрачен: так остаётся
+   родной выпадающий список системы (удобно на телефоне), но выглядит
+   он как остальные поля формы. */
+.phone-row {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  border-bottom: 1px solid var(--line-2);
+  transition: border-color 0.25s ease;
+}
+.phone-row:focus-within { border-color: var(--accent); }
+.phone-row--error { border-color: var(--accent); }
+
+.phone-row input {
+  flex: 1;
+  min-width: 0;
+  border-bottom: none;
+}
+
+.phone-country {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.phone-country select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 16px; /* iOS не зумит поле при фокусе */
+}
+.phone-country-view {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 10px 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--fg-2);
+  white-space: nowrap;
+}
+.phone-country-view::after {
+  content: "▾";
+  font-size: 9px;
+  color: var(--muted);
+}
+.phone-country:hover .phone-country-view { color: var(--fg); }
+.phone-dial { color: var(--fg); }
+
+/* Поле-ловушка для ботов: убрано с экрана, но остаётся в разметке
+   и в порядке автозаполнения. display:none его бы скрыл и от ботов. */
+.hp-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .consent-row {
   display: flex;
   align-items: flex-start;

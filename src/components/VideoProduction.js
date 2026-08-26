@@ -227,7 +227,9 @@ const VideoProduction = () => {
         <RobotStage />
 
         <div className="shell hero-inner">
-          <span className="kicker vp-hero-kicker">Moscow · Dubai · Bali</span>
+          <span className="kicker vp-hero-kicker">
+            {en ? 'AI VIDEO & VFX FOR BRANDS' : 'AI-ВИДЕО И VFX ДЛЯ БРЕНДОВ'}
+          </span>
 
           <h1 className="hero-headline display">
             <span className="ln">{pick(L, VIDEO_PAGE.title)}</span>
@@ -498,7 +500,7 @@ const VideoProduction = () => {
             {TESTIMONIALS_L.map((t) => (
               <div key={t.id} className={`vp3-testi ${t.featured ? 'featured' : ''}`}>
                 <span className="vp3-testi-quote">"</span>
-                <span className="vp3-testi-tag">◆ {t.project}</span>
+                <span className="vp3-testi-tag">{`◆ ${t.project}`}</span>
                 <p className="vp3-testi-text">{t.text}</p>
                 <div className="vp3-testi-author">
                   <span className="name">{t.name}</span>
@@ -551,7 +553,7 @@ const VideoProduction = () => {
         <div className="vp-blog-note reveal">
           <p>{pick(L, VIDEO_PAGE.blogNote)}</p>
           <a href={localizedHref('/blog/', L)} className="mono vp-blog-link">
-            → {en ? 'Blog' : 'Блог'}
+            {en ? '→ Blog' : '→ Блог'}
           </a>
           <span className="vp2-foot-spacer" />
           <a className="btn btn-ghost" href={worksHref}>

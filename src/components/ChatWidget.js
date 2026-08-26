@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocale, pick } from '../i18n';
 import { CHAT_DEMO } from '../data/systems-content';
+import { sendLead, sendLeadBeacon } from '../lib/leadApi';
 import './chat-widget.css';
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -65,37 +66,19 @@ const saveLog = (log) => {
   } catch (_) { /* приватный режим может запрещать запись — молча пропускаем */ }
 };
 
-// Единая точка отправки в Telegram: и лид, и авто-сводка идут через неё.
-// Токен и chat id приходят из env на этапе сборки; если их нет — тихо выходим.
-// parse_mode намеренно не передаём: посетитель может написать «<» или «&»,
-// и HTML-разбор на стороне Telegram сломал бы отправку.
+// Единая точка отправки: и лид, и авто-сводка идут через серверный
+// обработчик заявок. Токена Telegram в браузере нет — он живёт только
+// на сервере (см. src/lib/leadApi.js и папку aivfx-lead-api).
 // beacon=true — посетитель уходит со страницы, запрос обязан пережить уход.
-const sendTelegram = (text, { beacon = false } = {}) => {
-  const token = process.env.REACT_APP_TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.REACT_APP_TELEGRAM_CHAT_ID;
-  if (!token || !chatId) return Promise.resolve(false);
-
-  const url = `https://api.telegram.org/bot${token}/sendMessage`;
-
-  if (beacon && typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
-    try {
-      // sendBeacon не умеет ставить JSON-заголовки, поэтому FormData
-      const form = new FormData();
-      form.append('chat_id', chatId);
-      form.append('text', text);
-      if (navigator.sendBeacon(url, form)) return Promise.resolve(true);
-    } catch (_) { /* не вышло — падаем на обычный fetch ниже */ }
+const sendChatMessage = (text, { beacon = false } = {}) => {
+  if (beacon) {
+    // sendBeacon не сообщает результат — считаем отправку состоявшейся,
+    // если браузер принял запрос в очередь
+    if (sendLeadBeacon({ message: text })) return Promise.resolve(true);
   }
 
-  return fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text }),
-    keepalive: beacon,
-  }).then((res) => {
-    if (!res.ok) throw new Error(`Telegram API error: ${res.status}`);
-    return true;
-  });
+  return sendLead({ message: text }, 'chat', { startedAt: Date.now() - 60000 })
+    .then(() => true);
 };
 
 const formatDuration = (startedAt) => {
@@ -135,8 +118,8 @@ ${summarySent ? '(summary отправлен ранее)\n' : ''}
 ❓ Вопросы посетителя:
 ${list}`;
 
-  const ok = await sendTelegram(message);
-  if (!ok) throw new Error('Telegram credentials are not configured');
+  const ok = await sendChatMessage(message);
+  if (!ok) throw new Error('lead api is not configured');
 };
 
 const ChatIcon = () => (
@@ -221,7 +204,7 @@ const ChatWidget = () => {
     log.summarySent = true;
     saveLog(log);
 
-    sendTelegram(buildSummary(log, askedRef.current, topicsRef.current), { beacon })
+    sendChatMessage(buildSummary(log, askedRef.current, topicsRef.current), { beacon })
       .catch(() => { /* сводка — фоновая история, интерфейс ломать нечем */ });
   }, []);
 

@@ -273,7 +273,7 @@ const FullPortfolio = ({ onBack }) => {
               <span className="fp-section-num">02</span>
               <h2 className="fp-section-title">
                 {en ? 'Horizontal ' : 'Горизонтальные '}<span className="it">{en ? 'works' : 'работы'}</span>
-                <span className="fp-section-count"> — {horizontal.length}</span>
+                <span className="fp-section-count">{` — ${horizontal.length}`}</span>
               </h2>
             </div>
             <div className="fp-grid-horizontal">
@@ -296,7 +296,7 @@ const FullPortfolio = ({ onBack }) => {
               <span className="fp-section-num">03</span>
               <h2 className="fp-section-title">
                 {en ? 'Vertical ' : 'Вертикальные '}<span className="it">{en ? 'works' : 'работы'}</span>
-                <span className="fp-section-count"> — {vertical.length}</span>
+                <span className="fp-section-count">{` — ${vertical.length}`}</span>
               </h2>
             </div>
             <div className="fp-grid-vertical">

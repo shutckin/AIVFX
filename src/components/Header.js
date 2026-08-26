@@ -25,12 +25,10 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSec, setActiveSec] = useState('hero');
-  const { scrollToSection, showBlog } = useNotification();
+  const { scrollToSection } = useNotification();
   const locale = useLocale();
   const en = locale === 'en';
 
-  const handleBlog = () => { showBlog(); setMobileOpen(false); };
-  const blogHref = localizedHref('/blog/', locale);
 
   useEffect(() => {
     const onScroll = () => {
@@ -71,9 +69,6 @@ const Header = () => {
               {pick(locale, item.label)}
             </button>
           ))}
-          <a href={blogHref} className="nav-link" onClick={(e) => { e.preventDefault(); handleBlog(); }}>
-            {en ? 'Blog' : 'Блог'}
-          </a>
         </nav>
         <div className="header-status">
           <LangSwitch locale={locale} />
@@ -101,9 +96,6 @@ const Header = () => {
             {pick(locale, item.label)}
           </button>
         ))}
-        <a href={blogHref} className="nav-link" onClick={(e) => { e.preventDefault(); handleBlog(); }}>
-          {en ? 'Blog' : 'Блог'}
-        </a>
         <button type="button" className="btn btn-primary ab-mobile-cta" onClick={() => handleNav('contact')}>
           {en ? 'Contact' : 'Связаться'}
         </button>

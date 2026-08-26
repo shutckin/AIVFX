@@ -85,7 +85,11 @@ const Block = ({ block, onBack }) => {
             <figcaption className="text-white/45 text-xs mt-2 px-1 leading-relaxed">
               {block.caption}
               {block.caption && block.source ? ' · ' : ''}
-              {block.source && <span className="text-white/35">{en ? 'Source' : 'Источник'}: {block.source}</span>}
+              {block.source && (
+                <span className="text-white/35">
+                  {`${en ? 'Source' : 'Источник'}: ${block.source}`}
+                </span>
+              )}
             </figcaption>
           )}
         </figure>
@@ -282,7 +286,7 @@ const BlogPost = ({ post, onBack, onBackToList }) => {
             </div>
             {post.coverSource && (
               <figcaption className="text-white/40 text-xs px-6 pt-2">
-                {en ? 'Image source' : 'Источник изображения'}: {post.coverSource}
+                {`${en ? 'Image source' : 'Источник изображения'}: ${post.coverSource}`}
               </figcaption>
             )}
           </figure>

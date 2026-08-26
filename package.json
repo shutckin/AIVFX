@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "libphonenumber-js": "^1.13.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -17,7 +18,8 @@
     "postbuild": "node scripts/prerender.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "optimize-videos": "node scripts/optimize-videos.js"
+    "optimize-videos": "node scripts/optimize-videos.js",
+    "prebuild": "node scripts/find-hydration-splits.js"
   },
   "eslintConfig": {
     "extends": [
