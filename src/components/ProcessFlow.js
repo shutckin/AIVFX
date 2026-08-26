@@ -4,21 +4,22 @@ import { VIDEO_PROCESS } from '../data/systems-content';
 
 // ── Блок «Как рождается ролик» ─────────────────────────────────────────
 //
-// Слева липкий ролик, справа шаги. Ролик не играет сам по себе: он
-// перематывается вместе с прокруткой. Листаешь текст вниз, и производство
-// на экране идёт вперёд; листаешь вверх, и оно отматывается назад.
-// Шаг, который сейчас читают, подсвечивается из того же прогресса, поэтому
-// текст и картинка не могут разъехаться.
+// Ролик занимает весь экран и держится на месте, пока читаешь шаги.
+// Текст этапа лежит прямо поверх кадра слева, справа идёт полоса
+// прогресса. Прокрутка сверху вниз ведёт одновременно и текст, и кадр:
+// производство на экране движется вперёд ровно настолько, насколько
+// прочитано шагов.
 //
-// Почему перемотка, а не обычное воспроизведение: у блока пять шагов и своя
-// длина прокрутки, а у ролика своя длительность. Привязав одно к другому,
-// получаем управление кадром вместо параллельно бегущего видео.
+// Почему перемотка, а не обычное воспроизведение: у блока пять шагов
+// и своя длина прокрутки, а у ролика своя длительность. Привязав одно
+// к другому, получаем управление кадром вместо параллельно бегущего
+// видео, и текст с картинкой не могут разъехаться.
 
 const VIDEO_SRC = '/process/reel.mp4';
 const POSTER_SRC = '/process/reel-poster.jpg';
 
 // Запасные кадры по одному на шаг. Нужны, если ролик не загрузился:
-// у зрителя вместо чёрной дыры остаётся понятная картинка этапа.
+// у зрителя вместо чёрного экрана остаётся понятная картинка этапа.
 const FALLBACK_SHOTS = [
   '/process/p01-moodboard.jpg',
   '/process/p02-storyboard.jpg',
@@ -37,17 +38,42 @@ const ProcessFlow = () => {
   const L = useLocale();
   const steps = VIDEO_PROCESS.steps;
 
-  // Стартовое значение не зависит от браузера: первый рендер обязан
+  // Стартовые значения не зависят от браузера: первый рендер обязан
   // совпасть с предзарендеренной разметкой
   const [active, setActive] = useState(0);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
+  // Ролик весит несколько мегабайт, поэтому адрес подставляем только
+  // когда блок близко: незачем тянуть его на открытии страницы
+  const [src, setSrc] = useState(null);
 
   const wrapRef = useRef(null);
   const videoRef = useRef(null);
-  // Целевая позиция в ролике, 0..1. Пишет скролл, читает анимация.
+  // Целевая позиция в ролике, 0..1. Пишет прокрутка, читает анимация.
   const targetRef = useRef(0);
 
+  // ── Подгрузка ролика на подлёте ──
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return undefined;
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setSrc(VIDEO_SRC); // старый браузер: грузим сразу, лишь бы работало
+      return undefined;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        setSrc(VIDEO_SRC);
+        io.disconnect();
+      }
+    }, { rootMargin: '150% 0px' });
+
+    io.observe(wrap);
+    return () => io.disconnect();
+  }, []);
+
+  // ── Связка прокрутки с кадром и шагом ──
   useEffect(() => {
     const wrap = wrapRef.current;
     const video = videoRef.current;
@@ -106,7 +132,6 @@ const ProcessFlow = () => {
       setReady(true);
       onScroll();
     };
-
     const onError = () => setFailed(true);
 
     if (video.readyState >= 1) onLoaded();
@@ -124,86 +149,98 @@ const ProcessFlow = () => {
       video.removeEventListener('error', onError);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [steps.length]);
+  }, [steps.length, src]);
 
-  const current = steps[active] || steps[0];
+  const outLabel = L === 'en' ? 'You get' : 'На выходе';
 
   return (
-    <div className="vpf" ref={wrapRef}>
-      <p className="vpf-lead reveal">{pick(L, VIDEO_PROCESS.lead)}</p>
-
-      <div className="vpf-grid">
-        {/* ── Ролик, привязанный к прокрутке ── */}
-        <div className="vpf-visual">
-          <div className={`vpf-stage${ready ? ' vpf-stage--ready' : ''}`}>
-            <video
-              ref={videoRef}
-              className="vpf-video"
-              src={VIDEO_SRC}
-              poster={POSTER_SRC}
-              muted
-              playsInline
-              preload="auto"
-              // Ролик управляется прокруткой, поэтому не играет сам
-              // и не зациклен
-              aria-label={L === 'en'
-                ? 'How a commercial is made, from brief to final frame'
-                : 'Как рождается ролик, от брифа до финального кадра'}
-            />
-
-            {failed && steps.map((s, i) => (
-              <img
-                key={s.num}
-                className={`vpf-shot${i === active ? ' vpf-shot--on' : ''}`}
-                src={FALLBACK_SHOTS[i] || FALLBACK_SHOTS[0]}
-                alt={pick(L, s.title)}
-                loading="lazy"
-                width="720"
-                height="960"
-              />
-            ))}
-
-            <span className="vpf-stage-label mono">
-              {`${current.num} · ${pick(L, current.out)}`}
-            </span>
-
-            <span className="vpf-track" aria-hidden="true">
-              {steps.map((s, i) => (
-                <span key={s.num} className={`vpf-tick${i <= active ? ' vpf-tick--on' : ''}`} />
-              ))}
-            </span>
-          </div>
-        </div>
-
-        {/* ── Шаги ── */}
-        <ol className="vpf-steps">
-          {steps.map((s, i) => (
-            <li
-              key={s.num}
-              className={`vpf-step${i === active ? ' vpf-step--on' : ''}`}
-            >
-              <div className="vpf-step-head">
-                <span className="vpf-step-num mono">{s.num}</span>
-                <span className="vpf-step-time mono">{pick(L, s.time)}</span>
-              </div>
-
-              <h3 className="vpf-step-title">{pick(L, s.title)}</h3>
-              <p className="vpf-step-desc">{pick(L, s.desc)}</p>
-
-              <ul className="vpf-step-list">
-                {s.detail.map((d, j) => (
-                  <li key={j}>{pick(L, d)}</li>
-                ))}
-              </ul>
-
-              <span className="vpf-step-out mono">
-                {`${L === 'en' ? 'You get' : 'На выходе'} · ${pick(L, s.out)}`}
-              </span>
-            </li>
-          ))}
-        </ol>
+    <>
+      <div className="shell">
+        <p className="vpf-lead reveal">{pick(L, VIDEO_PROCESS.lead)}</p>
       </div>
-    </div>
+
+      {/* Высота блока задаёт длину прокрутки: экран под сцену плюс
+          примерно по экрану на каждый шаг */}
+      <div className="vpf" ref={wrapRef} style={{ '--vpf-count': steps.length }}>
+        <div className={`vpf-stage${ready ? ' vpf-stage--ready' : ''}`}>
+          <video
+            ref={videoRef}
+            className="vpf-video"
+            src={src || undefined}
+            poster={POSTER_SRC}
+            muted
+            playsInline
+            preload="auto"
+            // Ролик управляется прокруткой, поэтому не играет сам
+            // и не зациклен
+            aria-label={L === 'en'
+              ? 'How a commercial is made, from brief to final frame'
+              : 'Как рождается ролик, от брифа до финального кадра'}
+          />
+
+          {failed && steps.map((s, i) => (
+            <img
+              key={s.num}
+              className={`vpf-shot${i === active ? ' vpf-shot--on' : ''}`}
+              src={FALLBACK_SHOTS[i] || FALLBACK_SHOTS[0]}
+              alt={pick(L, s.title)}
+              loading="lazy"
+              width="1080"
+              height="1440"
+            />
+          ))}
+
+          {/* Затемнение под текстом: кадр местами светлый, без него
+              подпись читалась бы через раз */}
+          <span className="vpf-scrim" aria-hidden="true" />
+
+          <ol className="vpf-steps">
+            {steps.map((s, i) => (
+              <li
+                key={s.num}
+                className={`vpf-step${i === active ? ' vpf-step--on' : ''}`}
+                // Шаги лежат стопкой друг на друге. Скрытые от глаза
+                // прячем и от чтения вслух, иначе всё сливается в кашу.
+                aria-hidden={i === active ? undefined : 'true'}
+              >
+                <span className="vpf-step-ghost" aria-hidden="true">{s.num}</span>
+
+                <div className="vpf-step-head">
+                  <span className="vpf-step-num mono">{s.num}</span>
+                  <span className="vpf-step-time mono">{pick(L, s.time)}</span>
+                </div>
+
+                <h3 className="vpf-step-title">{pick(L, s.title)}</h3>
+                <p className="vpf-step-desc">{pick(L, s.desc)}</p>
+
+                <ul className="vpf-step-list">
+                  {s.detail.map((d, j) => (
+                    <li key={j}>{pick(L, d)}</li>
+                  ))}
+                </ul>
+
+                <span className="vpf-step-out mono">
+                  {`${outLabel} · ${pick(L, s.out)}`}
+                </span>
+              </li>
+            ))}
+          </ol>
+
+          {/* Полоса прогресса: сколько этапов позади и что будет дальше */}
+          <ol className="vpf-rail" aria-hidden="true">
+            {steps.map((s, i) => (
+              <li
+                key={s.num}
+                className={`vpf-rail-item${i <= active ? ' vpf-rail-item--done' : ''}${i === active ? ' vpf-rail-item--on' : ''}`}
+              >
+                <span className="vpf-rail-label mono">{pick(L, s.out)}</span>
+                <span className="vpf-rail-tick" />
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </>
   );
 };
 

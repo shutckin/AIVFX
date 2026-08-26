@@ -377,10 +377,10 @@ const VideoProduction = () => {
         </div>
       </section>
 
-      {/* Процесс: горизонтальный таймлайн из пяти шагов.
-          Линия с узлами сверху, под каждым шагом — что клиент получает
-          на этом этапе, чтобы работа не выглядела чёрным ящиком. */}
-      <section className="section vp-band" id="process">
+      {/* Процесс: пять шагов поверх полноэкранного ролика.
+          Заголовок остаётся в колонке, а сам блок вынесен из .shell —
+          сцена должна доставать до краёв экрана, иначе это снова окно. */}
+      <section className="section vp-band vp-band--flow" id="process">
         <div className="shell">
           <SecHead
             num={pick(L, VIDEO_PROCESS.head.num)}
@@ -389,8 +389,8 @@ const VideoProduction = () => {
             side={pick(L, VIDEO_PROCESS.head.side)}
             sideTitle={VIDEO_PROCESS.head.sideTitle}
           />
-          <ProcessFlow />
         </div>
+        <ProcessFlow />
       </section>
 
       {/* Сравнение: старый мир против нового (структурная замена ценового якоря) */}

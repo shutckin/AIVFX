@@ -1203,10 +1203,11 @@
 
 /* ═══════════════════════════════════════════════════════════════════════
    БЛОК «КАК РОЖДАЕТСЯ РОЛИК» (vpf-)
-   Слева липкая сцена с одним сгенерированным кадром на пяти стадиях
-   готовности (мудборд → сторибоард → черновой рендер → грейд → финал),
-   справа шаги. Пока читаешь шаги — кадр кросс-фейдится сам. Проведи
-   курсором (или пальцем) по самой сцене — история листается вручную.
+
+   Полноэкранная сцена: ролик заполняет весь экран и стоит на месте,
+   пока читаешь шаги. Текст этапа лежит поверх кадра слева, полоса
+   прогресса справа. Ролик не играет сам — кадр выбирает прокрутка,
+   см. ProcessFlow.js.
    ═══════════════════════════════════════════════════════════════════════ */
 
 .vpf-lead {
@@ -1217,220 +1218,307 @@
   color: var(--fg-2);
 }
 
-.vpf-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(32px, 5vw, 80px);
-  /* align-items намеренно НЕ трогаем: колонка со сценой должна
-     растянуться на всю высоту строки, иначе липкости не за что
-     держаться и сцена уезжает вместе с текстом. */
+/* Высота блока = длина его прокрутки. Один экран уходит под саму сцену,
+   остальное делится между шагами: чем больше на шаг, тем спокойнее темп.
+   --vpf-count приходит из разметки, чтобы шаги можно было добавлять,
+   не трогая стили. */
+.vpf {
+  position: relative;
+  height: calc(100vh + var(--vpf-count, 5) * 88vh);
 }
-
-.vpf-visual { min-width: 0; }
 
 .vpf-stage {
   position: sticky;
-  top: 108px;
-  aspect-ratio: 3 / 4;
-  border-radius: var(--r-lg, 16px);
+  top: 0;
+  height: 100vh;
   overflow: hidden;
-  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7);
+  background: #05060a;
 }
 
-/* Ролик заполняет сцену целиком. Он не играет сам: кадр выбирает
-   прокрутка, см. ProcessFlow.js */
-.vpf-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-/* Проявляем только когда известна длительность: до этого перематывать
-   некуда и кадр может моргнуть */
-.vpf-stage--ready .vpf-video { opacity: 1; }
-
-/* Запасные кадры: появляются только если ролик не загрузился.
-   Кроссфейд между ними даёт ту же смену картинки по шагам, что и
-   перемотка ролика, просто ступеньками вместо плавного хода. */
+/* Кадр заполняет экран целиком. Ролик вертикальный, на широком мониторе
+   он обрезается по высоте — держим центр, там и находится всё главное. */
+.vpf-video,
 .vpf-shot {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+}
+
+.vpf-video {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+/* Проявляем только когда известна длительность: до этого перематывать
+   некуда и кадр может моргнуть */
+.vpf-stage--ready .vpf-video { opacity: 1; }
+
+/* Запасные кадры: появляются, только если ролик не загрузился */
+.vpf-shot {
   opacity: 0;
   transition: opacity 0.6s ease;
 }
 .vpf-shot--on { opacity: 1; }
 
-.vpf-stage-label {
+/* Затемнение слева направо: текст лежит на тёмной части, продукт
+   в центре кадра остаётся открытым */
+.vpf-scrim {
   position: absolute;
-  left: clamp(14px, 2.4vw, 22px);
-  bottom: clamp(14px, 2.4vw, 22px);
-  padding: 7px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(10, 9, 8, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #fff;
-  white-space: nowrap;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(100deg,
+      rgba(5, 6, 10, 0.94) 0%,
+      rgba(5, 6, 10, 0.82) 26%,
+      rgba(5, 6, 10, 0.38) 52%,
+      rgba(5, 6, 10, 0) 74%),
+    linear-gradient(to top, rgba(5, 6, 10, 0.7) 0%, rgba(5, 6, 10, 0) 34%);
 }
 
-.vpf-track {
-  position: absolute;
-  right: clamp(14px, 2.4vw, 22px);
-  bottom: clamp(14px, 2.4vw, 22px);
-  display: flex;
-  gap: 6px;
-}
+/* ── Текст этапа поверх кадра ── */
 
-.vpf-tick {
-  width: 22px;
-  height: 3px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.22);
-  transition: background 0.4s ease;
-}
-.vpf-tick--on { background: var(--accent); }
-
-/* ── Шаги ── */
+/* Шаги лежат стопкой в одном месте: активный проявляется, остальные ждут.
+   Абсолютное позиционирование нужно именно для этого — иначе они встали бы
+   друг под друга и сцена поехала бы вниз. */
 .vpf-steps {
+  position: absolute;
+  z-index: 2;
+  left: clamp(20px, 7vw, 108px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(46ch, 42vw);
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
+/* Уходящий шаг гаснет быстро и без задержки, приходящий ждёт и только
+   потом проявляется. Если пустить их одновременно, два текста разной
+   длины на мгновение накладываются друг на друга и читаются как каша. */
 .vpf-step {
-  min-height: 58vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(28px, 4vw, 44px) 0;
-  border-bottom: 1px solid var(--line);
-  opacity: 0.4;
-  transition: opacity 0.45s ease;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(calc(-50% + 26px));
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
 }
-.vpf-step:first-child { padding-top: 0; }
-.vpf-step:last-child { border-bottom: none; }
-.vpf-step--on { opacity: 1; }
+.vpf-step--on {
+  opacity: 1;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  transition:
+    opacity 0.42s ease 0.22s,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.22s;
+}
+
+/* Крупный номер за текстом: даёт глубину и сразу говорит, где мы */
+.vpf-step-ghost {
+  position: absolute;
+  left: -0.06em;
+  top: -0.42em;
+  z-index: -1;
+  font-family: var(--font-display);
+  font-size: clamp(140px, 17vw, 260px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.05);
+  user-select: none;
+}
 
 .vpf-step-head {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
   margin-bottom: 14px;
 }
-
 .vpf-step-num {
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  color: var(--accent-2);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
 }
-
 .vpf-step-time {
   font-size: 10px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.42);
 }
 
 .vpf-step-title {
-  margin: 0 0 12px;
+  margin: 0 0 16px;
   font-family: var(--font-display);
-  font-size: clamp(22px, 2.2vw, 32px);
   font-weight: 500;
+  font-size: clamp(30px, 3.6vw, 56px);
+  line-height: 1.02;
   letter-spacing: -0.03em;
-  line-height: 1.12;
+  color: #fff;
 }
 
 .vpf-step-desc {
-  margin: 0 0 18px;
-  font-size: 15.5px;
-  line-height: 1.66;
-  color: var(--fg-2);
+  margin: 0 0 22px;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .vpf-step-list {
   list-style: none;
-  margin: 0 0 18px;
+  margin: 0 0 26px;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 9px;
 }
-
 .vpf-step-list li {
   position: relative;
-  padding-left: 22px;
-  font-size: 14.5px;
-  line-height: 1.55;
-  color: var(--fg-2);
+  padding-left: 20px;
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.56);
 }
-
 .vpf-step-list li::before {
-  content: "";
+  content: '';
   position: absolute;
-  left: 4px;
-  top: 9px;
-  width: 5px;
-  height: 5px;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--accent);
   opacity: 0.75;
 }
 
 .vpf-step-out {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 14px;
+  display: inline-block;
+  padding: 8px 15px;
   border-radius: 999px;
-  border: 1px solid var(--line-2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--fg-2);
-  transition: border-color 0.4s ease, color 0.4s ease;
-}
-.vpf-step--on .vpf-step-out {
-  border-color: var(--accent);
-  color: var(--accent);
+  color: #fff;
 }
 
-/* ── Узкие экраны: сцена сверху, шаги под ней ── */
+/* ── Полоса прогресса справа ── */
+.vpf-rail {
+  position: absolute;
+  z-index: 2;
+  right: clamp(18px, 3.4vw, 54px);
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vpf-rail-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.vpf-rail-label {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  /* Подпись зажигается только у текущего этапа: пять горящих строк
+     спорили бы с заголовком */
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease, color 0.4s ease;
+}
+.vpf-rail-item--on .vpf-rail-label {
+  opacity: 1;
+  transform: none;
+  color: #fff;
+}
+
+.vpf-rail-tick {
+  width: 2px;
+  height: 26px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.4s ease, height 0.4s ease;
+}
+.vpf-rail-item--done .vpf-rail-tick { background: rgba(255, 255, 255, 0.5); }
+.vpf-rail-item--on .vpf-rail-tick {
+  height: 38px;
+  background: var(--accent);
+}
+
+/* ── Узкие экраны ── */
 @media (max-width: 900px) {
-  .vpf-grid { display: block; }
-  .vpf-visual {
-    position: sticky;
-    top: 76px;
-    z-index: 2;
-    margin-bottom: 20px;
-    /* Шаги проезжают под сценой. Полоса растворения нужна, чтобы текст
-       уходил под неё мягко, а не обрубался по краю картинки. */
-    padding-bottom: 24px;
-    background: linear-gradient(var(--bg) calc(100% - 24px), transparent);
-  }
-  .vpf-stage {
-    position: relative;
+  .vpf { height: calc(100vh + var(--vpf-count, 5) * 78vh); }
+
+  /* Текст встаёт на нижнюю треть: по центру он спорил бы с продуктом,
+     который на вертикальном кадре занимает середину */
+  .vpf-steps {
+    left: 20px;
+    right: 20px;
     top: auto;
-    aspect-ratio: 3 / 4;
-    /* Вертикальный кадр во всю ширину телефона занимал почти весь экран,
-       и на текст шага места не оставалось. Ограничиваем по высоте экрана,
-       ширину считаем от неё, чтобы кадр не пришлось обрезать. */
-    max-width: calc(50vh * 3 / 4);
-    margin-inline: auto;
+    bottom: clamp(58px, 11vh, 96px);
+    width: auto;
+    transform: none;
   }
-  .vpf-step { opacity: 0.55; min-height: 0; }
+  .vpf-step {
+    top: auto;
+    bottom: 0;
+    transform: translateY(20px);
+  }
+  .vpf-step--on {
+    transform: none;
+    transition:
+      opacity 0.42s ease 0.22s,
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.22s;
   }
 
-/* Уважение к системной настройке: перестроение без анимации */
+  .vpf-scrim {
+    background: linear-gradient(to top,
+      rgba(5, 6, 10, 0.95) 0%,
+      rgba(5, 6, 10, 0.86) 34%,
+      rgba(5, 6, 10, 0.3) 62%,
+      rgba(5, 6, 10, 0.15) 100%);
+  }
+
+  .vpf-step-ghost { display: none; }
+  .vpf-step-desc { margin-bottom: 16px; }
+  .vpf-step-list { margin-bottom: 18px; gap: 7px; }
+
+  /* Полоса ложится горизонтально под текст: вертикальная на телефоне
+     упирается в края экрана */
+  .vpf-rail {
+    right: 20px;
+    left: 20px;
+    top: auto;
+    bottom: clamp(24px, 4.5vh, 40px);
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 8px;
+    transform: none;
+  }
+  .vpf-rail-item { justify-content: stretch; }
+  .vpf-rail-label { display: none; }
+  .vpf-rail-tick { width: 100%; height: 3px; }
+  .vpf-rail-item--on .vpf-rail-tick { height: 3px; }
+}
+
+/* Уважение к системной настройке: смена этапов без разъездов */
 @media (prefers-reduced-motion: reduce) {
-  .vpf-video { transition: none; }
+  .vpf-video,
+  .vpf-shot,
+  .vpf-step,
+  .vpf-rail-tick,
+  .vpf-rail-label { transition: none; }
+  .vpf-step { transform: translateY(-50%); }
 }
