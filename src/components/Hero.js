@@ -1,114 +1,110 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useNotification } from '../App';
-import { useLocale } from '../i18n';
-import { TICKER_ITEMS } from '../data/content';
+import { useLocale, pick } from '../i18n';
+import { HERO_SYS, HERO_CHAT, TICKER_SYS } from '../data/systems-content';
+import './hero-systems.css';
 
-const RobotStage = () => {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const onMove = (e) => {
-      if (!ref.current) return;
-      const x = (e.clientX / window.innerWidth - 0.5) * 16;
-      const y = (e.clientY / window.innerHeight - 0.5) * 16;
-      ref.current.style.setProperty('--mx', x + 'px');
-      ref.current.style.setProperty('--my', y + 'px');
-    };
-    window.addEventListener('mousemove', onMove);
-    return () => window.removeEventListener('mousemove', onMove);
-  }, []);
+// Телефон с самопечатающимся чат-диалогом — главное продающее демо продукта
+const HeroPhoneDemo = () => {
+  const L = useLocale();
 
   return (
-    <div className="robot-stage" ref={ref} aria-hidden="true">
-      <div className="robot-halo" />
-      <div className="robot-scan" />
-      <div className="robot-glow" />
-      <svg className="robot-rings" viewBox="0 0 600 600">
-        <circle cx="300" cy="300" r="220" className="r1" />
-        <circle cx="300" cy="300" r="270" className="r2" />
-        <circle cx="300" cy="300" r="150" className="r3" />
-      </svg>
-      <div className="robot-hud hud-bl">
-        <span className="hud-dot" />
-        <span>LAT +55.75°  LON +37.61°</span>
-      </div>
-      <div className="robot-hud hud-br">
-        <span>© AIVFX SYSTEMS</span>
+    <div className="hp-visual reveal" aria-hidden="true">
+      <div className="hp-phone">
+        <div className="hp-screen">
+          <div className="hp-notch" />
+
+          <div className="hp-chat-head">
+            <span className="hp-avatar">AI</span>
+            <span className="hp-head-text">
+              <span className="hp-name">AIVFX Assistant</span>
+              <span className="hp-head-status">
+                {pick(L, { ru: 'online · отвечает мгновенно', en: 'online · replies instantly' })}
+              </span>
+            </span>
+            <i className="hp-online-dot" />
+          </div>
+
+          <div className="hp-thread">
+            {HERO_CHAT.map((m, i) => (
+              <div key={i} className={`hp-msg hp-${m.from} hp-d${i}`}>
+                {m.from === 'ai' && (
+                  <span className="hp-typing">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                )}
+                {m.from === 'system' ? (
+                  <span className="hp-sysrow hp-entry">
+                    <span className="hp-sys-check">✓</span>
+                    {pick(L, m.text)}
+                  </span>
+                ) : (
+                  <span className="hp-bubble hp-entry">
+                    {pick(L, m.text)}
+                    <span className="hp-time mono">{m.t}</span>
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="hp-footbar mono">
+            {pick(L, { ru: 'ОТВЕТ ЗА 4 СЕК · 24/7', en: 'REPLY IN 4S · 24/7' })}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 const Hero = () => {
-  const { show: showNotification, scrollToSection } = useNotification();
-  const en = useLocale() === 'en';
+  const { scrollToSection } = useNotification();
+  const L = useLocale();
+  const titleLines = pick(L, HERO_SYS.titleLines);
 
   return (
-    <section className="hero" id="hero">
-      <video
-        className="hero-video"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster="/fixed/aivid-poster.jpg"
-        ref={(el) => { if (el) { el.muted = true; el.play().catch(() => {}); } }}
-      >
-        <source src="/fixed/aivid.mp4" type="video/mp4" />
-      </video>
-      <div className="hero-video-overlay" />
-      <RobotStage />
+    <section className="hero hs-hero" id="hero">
+      <div className="hs-bg" aria-hidden="true" />
       <span className="corner tl" />
       <span className="corner tr" />
 
-      <div className="shell hero-inner">
-        <div className="hero-meta">
-          <div className="hero-meta-left" style={{ alignItems: 'flex-end', marginLeft: 'auto' }}>
-            <span className="kicker">Moscow · Dubai · Bali</span>
-            <span className="kicker kicker-accent">◈ {en ? 'OPEN FOR PROJECTS' : 'ПРИНИМАЕМ ЗАКАЗЫ'}</span>
-          </div>
-        </div>
+      <div className="shell hs-hero-inner">
+        <div className="hs-hero-grid">
+          <div className="hs-copy reveal">
+            <span className="kicker kicker-accent hs-kicker">{pick(L, HERO_SYS.kicker)}</span>
 
-        {en ? (
-          <h1 className="hero-headline display">
-            <span className="ln">WE CREATE</span>
-            <span className="ln"><span className="accent">viral</span></span>
-            <span className="ln">content with AI+VFX</span>
-          </h1>
-        ) : (
-          <h1 className="hero-headline display">
-            <span className="ln">СОЗДАЁМ</span>
-            <span className="ln"><span className="accent">вирусный</span></span>
-            <span className="ln">контент с AI+VFX</span>
-          </h1>
-        )}
+            <h1 className="hs-headline display">
+              {titleLines.map((line, i) => (
+                <span className="ln" key={i}>
+                  {i === HERO_SYS.accentLineIndex
+                    ? <span className="accent">{line}</span>
+                    : line}
+                </span>
+              ))}
+            </h1>
 
-        <div className="hero-row">
-          <p className="hero-sub">
-            {en ? (
-              <>Hollywood-grade visual effects in days, not weeks.<br />
-              Faster × cheaper × better than traditional production.</>
-            ) : (
-              <>Голливудский уровень визуальных эффектов за дни, а не недели.<br />
-              Быстрее × дешевле × качественнее традиционного продакшена.</>
-            )}
-          </p>
-          <div className="hero-actions">
-            <button className="btn btn-primary" onClick={showNotification}>
-              {en ? 'Start your project' : 'Создать AI-контент'}
-              <span className="btn-arrow">↗</span>
-            </button>
-            <button className="btn btn-ghost" onClick={() => scrollToSection('portfolio')}>
-              {en ? 'Watch reel' : 'Смотреть reel'}
-            </button>
+            <p className="hs-sub">{pick(L, HERO_SYS.sub)}</p>
+
+            <div className="hs-actions">
+              <button className="btn btn-primary" onClick={() => scrollToSection('contact')}>
+                {pick(L, HERO_SYS.cta1)}
+                <span className="btn-arrow">↗</span>
+              </button>
+              <button className="btn btn-ghost" onClick={() => scrollToSection('services')}>
+                {pick(L, HERO_SYS.cta2)}
+              </button>
+            </div>
           </div>
+
+          <HeroPhoneDemo />
         </div>
       </div>
 
       <div className="hero-ticker">
         <div className="hero-ticker-track">
-          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((t, i) => (
+          {[...TICKER_SYS, ...TICKER_SYS].map((t, i) => (
             <span key={i}>{t}</span>
           ))}
         </div>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNotification } from '../App';
-import { useLocale } from '../i18n';
+import { useLocale, pick } from '../i18n';
 import { BUDGETS } from '../data/content';
 import { BUDGETS_EN } from '../data/content-en';
+import { CONTACT_SYS } from '../data/systems-content';
 
 const SecHead = ({ num, title, titleIt, side, sideTitle }) => (
   <div className="sec-head reveal">
@@ -25,14 +26,14 @@ const sendToTelegram = async (data) => {
   const chatId = process.env.REACT_APP_TELEGRAM_CHAT_ID;
   if (!token || !chatId) return;
 
-  const message = `🎬 НОВАЯ ЗАЯВКА С САЙТА AIVFX
+  const message = `⚙️ НОВАЯ ЗАЯВКА — AIVFX AI SYSTEMS
 
 👤 Имя: ${data.name}
 📧 Email: ${data.email}
 📞 Телефон: ${data.phone || '—'}
 🏢 Компания: ${data.company || '—'}
 💰 Бюджет: ${data.budget || '—'}
-💬 Бриф: ${data.message}`;
+💬 Задача: ${data.message}`;
 
   const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
@@ -44,7 +45,8 @@ const sendToTelegram = async (data) => {
 };
 
 const ContactForm = () => {
-  const en = useLocale() === 'en';
+  const L = useLocale();
+  const en = L === 'en';
   const BUDGETS_L = en ? BUDGETS_EN : BUDGETS;
   const { showSuccess, showPrivacy, showConsent } = useNotification();
   const [form, setForm] = useState({
@@ -94,13 +96,11 @@ const ContactForm = () => {
     <section className="section" id="contact">
       <div className="shell">
         <SecHead
-          num={en ? '[ 05 / CONTACT ]' : '[ 05 / СВЯЗЬ ]'}
-          title={en ? 'Start a' : 'Начнём'}
-          titleIt={en ? 'project' : 'проект'}
-          side={en
-            ? 'Send a brief — a manager will get back to you within 24 hours with an estimate.'
-            : 'Оставьте заявку — менеджер свяжется в течение 24 часов и пришлёт смету.'}
-          sideTitle="BRIEF"
+          num={pick(L, CONTACT_SYS.head.num)}
+          title={pick(L, CONTACT_SYS.head.title)}
+          titleIt={pick(L, CONTACT_SYS.head.titleIt)}
+          side={pick(L, CONTACT_SYS.head.side)}
+          sideTitle={CONTACT_SYS.head.sideTitle}
         />
 
         <div className="contact-grid">
@@ -143,15 +143,13 @@ const ContactForm = () => {
             </div>
 
             <div className="field">
-              <label htmlFor="message">{en ? 'BRIEF' : 'БРИФ'} <span className="req">*</span></label>
+              <label htmlFor="message">{pick(L, CONTACT_SYS.briefLabel)} <span className="req">*</span></label>
               <textarea
                 id="message"
                 required
                 value={form.message}
                 onChange={(e) => handle('message', e.target.value)}
-                placeholder={en
-                  ? 'Tell us about the project, goals, timeline and references...'
-                  : 'Опишите проект, задачи, сроки и референсы...'}
+                placeholder={pick(L, CONTACT_SYS.briefPlaceholder)}
               />
             </div>
 

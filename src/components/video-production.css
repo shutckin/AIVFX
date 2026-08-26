@@ -1,0 +1,247 @@
+/* ── Страница /video-production/ — AI-контент (второе направление) ── */
+
+.vp-page {
+  background: var(--bg);
+  min-height: 100vh;
+  padding-top: 120px;
+  padding-bottom: 80px;
+}
+
+/* Верхняя строка: «← AIVFX» + тумблер направлений */
+.vp2-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
+
+.vp2-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.vp2-home:hover {
+  color: var(--accent);
+}
+
+/* Hero */
+.vp-hero {
+  padding: 56px 0 24px;
+}
+
+.vp-hero .kicker {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.vp-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 1.4rem + 5vw, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin: 0 0 22px;
+}
+
+.vp-sub {
+  color: var(--fg-2);
+  max-width: 640px;
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0 0 32px;
+}
+
+.vp-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* ── Видео-витрина: два встречных ряда marquee ──
+   Базовые .marquee-row / .marquee-track / .project стилизованы в index.css,
+   здесь — только контейнер и размеры карточек вне .portfolio. */
+.vp2-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px 0 16px;
+}
+
+.vp2-marquee .project {
+  width: 320px;
+  flex-shrink: 0;
+}
+
+/* Карточка — ссылка на портфолио, а не модалка */
+.vp2-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Marquee останавливается при reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .vp2-marquee .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* ── Что делаем: компактные чипы-строки ── */
+.vp2-services {
+  padding-top: 48px;
+  padding-bottom: 24px;
+}
+
+.vp2-services-label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.vp2-chip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  max-width: 720px;
+}
+
+.vp2-chip {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  background: var(--bg-2);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.vp2-chip:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: var(--bg-3);
+}
+
+.vp2-chip-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.vp2-chip-title {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+
+/* Низ: строка про блог + кнопка на портфолио */
+.vp-blog-note {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  padding: 32px 0 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.vp-blog-note p {
+  margin: 0;
+  color: var(--fg-2);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.vp-blog-link {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.vp-blog-link:hover {
+  opacity: 0.75;
+}
+
+.vp2-foot-spacer {
+  flex: 1;
+}
+
+/* ── Респонсив ── */
+@media (max-width: 1024px) {
+  .vp-page {
+    padding-top: 104px;
+  }
+
+  .vp-hero {
+    padding: 44px 0 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .vp-page {
+    padding-top: 92px;
+    padding-bottom: 60px;
+  }
+
+  .vp-hero {
+    padding: 34px 0 14px;
+  }
+
+  .vp-sub {
+    font-size: 16px;
+  }
+
+  /* Карточки marquee меньше: 240×180 (аспект 4/3 из index.css) */
+  .vp2-marquee {
+    gap: 16px;
+    padding: 24px 0 8px;
+  }
+
+  .vp2-marquee .project {
+    width: 240px;
+  }
+}
+
+@media (max-width: 560px) {
+  .vp-page {
+    padding-top: 84px;
+    padding-bottom: 48px;
+  }
+
+  .vp-hero {
+    padding: 26px 0 10px;
+  }
+
+  .vp-cta-row .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .vp2-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .vp2-chip-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vp-blog-note {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .vp-blog-note .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 
 const PrivacyPolicy = ({ onBack }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 pt-20">
+    <div className="min-h-screen legal-page pt-20">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <div className="mb-6">
           <button

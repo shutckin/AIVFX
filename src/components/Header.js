@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '../App';
-import { useLocale, stripLocale, localizedHref } from '../i18n';
+import { useLocale, pick, stripLocale, localizedHref } from '../i18n';
+import { NAV_SYS } from '../data/systems-content';
+import ModeToggle from './ModeToggle';
+import './about-b2b.css';
 
-const NAV_ITEMS = [
-  { id: 'hero', ru: 'Главная', en: 'Home' },
-  { id: 'services', ru: 'Услуги', en: 'Services' },
-  { id: 'portfolio', ru: 'Работы', en: 'Work' },
-  { id: 'about', ru: 'Процесс', en: 'Process' },
-  { id: 'clients', ru: 'Клиенты', en: 'Clients' },
-  { id: 'contact', ru: 'Контакты', en: 'Contact' },
-];
+// Секции для scroll-spy (порядок = порядок на странице)
+const SPY_SECTIONS = ['hero', 'services', 'cases', 'approach', 'about', 'contact'];
 
 // Переключатель языка — реальная навигация (полная перезагрузка),
 // т.к. локаль определяется из URL при загрузке страницы.
@@ -41,9 +38,9 @@ const Header = () => {
       // scroll spy
       const y = window.scrollY + window.innerHeight * 0.3;
       let current = 'hero';
-      for (const item of NAV_ITEMS) {
-        const el = document.getElementById(item.id);
-        if (el && el.offsetTop <= y) current = item.id;
+      for (const id of SPY_SECTIONS) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= y) current = id;
       }
       setActiveSec(current);
     };
@@ -61,17 +58,17 @@ const Header = () => {
     <>
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>
         <div className="logo" onClick={() => handleNav('hero')}>
-          <img src="/logo.png" alt="AIVFX" className="logo-img" />
           <span className="logo-wm">AIVFX</span>
         </div>
+        <ModeToggle mode="systems" />
         <nav className="nav-loose" aria-label="Main navigation">
-          {NAV_ITEMS.map((item) => (
+          {NAV_SYS.map((item) => (
             <button
               key={item.id}
               className={`nav-link ${activeSec === item.id ? 'active' : ''}`}
               onClick={() => handleNav(item.id)}
             >
-              {en ? item.en : item.ru}
+              {pick(locale, item.label)}
             </button>
           ))}
           <a href={blogHref} className="nav-link" onClick={(e) => { e.preventDefault(); handleBlog(); }}>
@@ -81,6 +78,9 @@ const Header = () => {
         <div className="header-status">
           <LangSwitch locale={locale} />
           <span className="status-pill"><span className="dot" /> {en ? 'OPEN FOR PROJECTS' : 'ПРИНИМАЕМ ЗАКАЗЫ'}</span>
+          <button type="button" className="btn btn-primary ab-header-cta" onClick={() => handleNav('contact')}>
+            {en ? 'Contact' : 'Связаться'}
+          </button>
         </div>
         <button
           className="mobile-menu-btn"
@@ -94,14 +94,20 @@ const Header = () => {
       </header>
 
       <div className={`mobile-menu ${mobileOpen ? 'open' : ''}`}>
-        {NAV_ITEMS.map((item) => (
+        <div className="ab-mobile-toggle">
+          <ModeToggle mode="systems" />
+        </div>
+        {NAV_SYS.map((item) => (
           <button key={item.id} className="nav-link" onClick={() => handleNav(item.id)}>
-            {en ? item.en : item.ru}
+            {pick(locale, item.label)}
           </button>
         ))}
         <a href={blogHref} className="nav-link" onClick={(e) => { e.preventDefault(); handleBlog(); }}>
           {en ? 'Blog' : 'Блог'}
         </a>
+        <button type="button" className="btn btn-primary ab-mobile-cta" onClick={() => handleNav('contact')}>
+          {en ? 'Contact' : 'Связаться'}
+        </button>
         <div className="mobile-lang"><LangSwitch locale={locale} /></div>
       </div>
     </>

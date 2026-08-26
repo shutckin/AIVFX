@@ -23,12 +23,12 @@ const CtaBlock = ({ onBack }) => {
   return (
     <div className="mt-10 p-6 lg:p-8 bg-white/5 rounded-lg border border-white/10 text-center">
       <p className="text-xl font-bold text-white mb-3">
-        {en ? 'Need an AI video for your business?' : 'Нужен AI-ролик для вашего бизнеса?'}
+        {en ? 'Need an AI system or a video for your business?' : 'Нужна AI-система или видео для вашего бизнеса?'}
       </p>
       <p className="text-white/70 mb-6">
         {en
-          ? 'Describe the task — we’ll send an estimate and timeline within a day. A finished video in 72 hours.'
-          : 'Опишите задачу — пришлём смету и сроки в течение дня. Готовый ролик за 72 часа.'}
+          ? 'Describe your case — we will come back with a proposal and an estimate within a day.'
+          : 'Опишите задачу — вернёмся с предложением и оценкой в течение дня.'}
       </p>
       <a
         href={`${localizedHref('/', locale)}#contact`}
@@ -36,7 +36,7 @@ const CtaBlock = ({ onBack }) => {
         className="inline-block px-8 py-3 font-semibold rounded-lg hover:opacity-90 transition-opacity"
         style={{ background: 'var(--accent)', color: 'var(--bg)' }}
       >
-        {en ? 'Discuss the project' : 'Обсудить проект'}
+        {en ? 'Discuss your case' : 'Обсудить задачу'}
       </a>
     </div>
   );

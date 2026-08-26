@@ -1,0 +1,381 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   AIVFX AI SYSTEMS — стили новых секций главной
+   pb-  → Problems  («Проблема»)
+   sf-  → SystemFlow («Система», центральный визуал)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── PROBLEMS ─────────────────────────────────────────────────────────── */
+
+.pb-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+/* Desktop: 2 крупные карточки в первом ряду, 3 во втором */
+.pb-card:nth-child(1),
+.pb-card:nth-child(2) { grid-column: span 3; }
+.pb-card:nth-child(n + 3) { grid-column: span 2; }
+
+.pb-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: clamp(22px, 2.6vw, 34px);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: border-color 0.35s ease, transform 0.35s ease, background 0.35s ease;
+}
+
+.pb-card:hover {
+  border-color: var(--line-2);
+  background: var(--bg-3);
+  transform: translateY(-3px);
+}
+
+/* Таймстамп — приглушённо-алый, «момент потери» */
+.pb-time {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: rgba(255, 107, 107, 0.75);
+}
+
+.pb-card:nth-child(1) .pb-text,
+.pb-card:nth-child(2) .pb-text {
+  font-size: clamp(19px, 1.8vw, 24px);
+}
+
+.pb-text {
+  margin: 0 0 auto;
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.35vw, 19px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+.pb-tag {
+  align-self: flex-start;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+}
+
+/* Строка-вывод под сеткой */
+.pb-outro {
+  margin-top: clamp(28px, 3.5vw, 48px);
+  padding: clamp(24px, 3vw, 40px) clamp(24px, 3.4vw, 48px);
+  background: linear-gradient(90deg, var(--accent-soft), transparent 70%);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+}
+
+.pb-outro p {
+  margin: 0;
+  max-width: 860px;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--fg);
+}
+
+/* ── SYSTEM FLOW ──────────────────────────────────────────────────────── */
+
+.sf-diagram {
+  display: grid;
+  grid-template-columns: 280px 72px 1fr;
+  align-items: start;
+  margin-top: clamp(40px, 5vw, 72px);
+}
+
+/* Панель источников */
+.sf-sources {
+  position: sticky;
+  top: 110px;
+  padding: clamp(20px, 2.2vw, 28px);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+.sf-panel-label {
+  display: block;
+  margin-bottom: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sf-chips {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.sf-chip {
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--fg-2);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+
+.sf-chip:hover {
+  border-color: var(--accent);
+  color: var(--fg);
+  background: var(--accent-soft);
+}
+
+/* Коннектор панель → рельс */
+.sf-connector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: start;
+  margin-top: 120px;
+  height: 1px;
+}
+
+.sf-connector-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-2), var(--accent-glow));
+}
+
+.sf-connector-arrow {
+  margin-left: 4px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.sf-connector-arrow-down { display: none; }
+
+/* Рельс */
+.sf-rail-wrap {
+  position: relative;
+  padding-left: 56px;
+}
+
+.sf-rail {
+  position: absolute;
+  top: 10px;
+  bottom: 44px;
+  left: 20px;
+  width: 1px;
+  background: var(--line-2);
+  overflow: hidden;
+}
+
+/* Бегущий световой импульс */
+.sf-pulse {
+  position: absolute;
+  left: -1px;
+  top: 0;
+  width: 3px;
+  height: 130px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, transparent, var(--accent) 50%, transparent);
+  filter: drop-shadow(0 0 6px var(--accent-glow));
+  animation: sfPulseRun 6s linear infinite;
+}
+
+@keyframes sfPulseRun {
+  0% { transform: translateY(-140px); }
+  100% { transform: translateY(1400px); }
+}
+
+/* Этапы */
+.sf-stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sf-stage { position: relative; }
+
+/* Узел на линии рельса */
+.sf-node {
+  position: absolute;
+  top: 26px;
+  left: -42px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 0 0 var(--accent-glow);
+  animation: sfNodeGlow 6s ease-in-out infinite;
+}
+
+/* Подсветка узлов волной — синхронно с импульсом на рельсе */
+.sf-stage:nth-child(1) .sf-node { animation-delay: 0s; }
+.sf-stage:nth-child(2) .sf-node { animation-delay: 1s; }
+.sf-stage:nth-child(3) .sf-node { animation-delay: 2s; }
+.sf-stage:nth-child(4) .sf-node { animation-delay: 3s; }
+.sf-stage:nth-child(5) .sf-node { animation-delay: 4s; }
+.sf-stage:nth-child(6) .sf-node { animation-delay: 5s; }
+
+@keyframes sfNodeGlow {
+  0%, 14%, 100% {
+    background: var(--bg);
+    box-shadow: 0 0 0 0 rgba(61, 110, 247, 0);
+  }
+  7% {
+    background: var(--accent);
+    box-shadow: 0 0 14px 3px var(--accent-glow);
+  }
+}
+
+.sf-stage-card {
+  padding: clamp(20px, 2.2vw, 30px) clamp(22px, 2.6vw, 36px);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: border-color 0.35s ease, background 0.35s ease, transform 0.35s ease;
+}
+
+.sf-stage-card:hover {
+  border-color: rgba(61, 110, 247, 0.35);
+  background: var(--bg-3);
+  transform: translateX(4px);
+}
+
+.sf-stage-top {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.sf-stage-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+.sf-stage-title {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.sf-stage-desc {
+  margin: 0;
+  max-width: 640px;
+  font-size: clamp(14px, 1.1vw, 15.5px);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* Финальная подпись */
+.sf-result {
+  margin-top: 22px;
+  padding-left: 2px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  /* Problems: 2 колонки */
+  .pb-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pb-card:nth-child(n) { grid-column: auto; }
+  .pb-card:nth-child(5) { grid-column: 1 / -1; }
+  .pb-card:nth-child(1) .pb-text,
+  .pb-card:nth-child(2) .pb-text { font-size: 18px; }
+
+  /* SystemFlow: вертикальная раскладка */
+  .sf-diagram { grid-template-columns: 1fr; }
+
+  .sf-sources { position: static; }
+
+  .sf-chips { grid-template-columns: repeat(3, 1fr); }
+  .sf-chip { text-align: center; }
+
+  .sf-connector {
+    margin: 18px 0;
+    height: auto;
+    justify-content: center;
+  }
+  .sf-connector-line,
+  .sf-connector-arrow { display: none; }
+  .sf-connector-arrow-down {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--accent);
+  }
+
+  .sf-rail-wrap { padding-left: 44px; }
+  .sf-rail { left: 14px; }
+  .sf-node { left: -36px; }
+}
+
+@media (max-width: 768px) {
+  .pb-grid { grid-template-columns: 1fr; }
+  .pb-card:nth-child(5) { grid-column: auto; }
+
+  .pb-outro { border-radius: 0 var(--r-md) var(--r-md) 0; }
+
+  .sf-chips { grid-template-columns: repeat(2, 1fr); }
+
+  .sf-stage-top { flex-wrap: wrap; gap: 8px 14px; }
+}
+
+@media (max-width: 560px) {
+  .pb-card { gap: 14px; }
+  .pb-text { font-size: 16px; }
+
+  .sf-rail-wrap { padding-left: 34px; }
+  .sf-rail { left: 10px; }
+  .sf-node {
+    left: -29px;
+    width: 9px;
+    height: 9px;
+    top: 24px;
+  }
+
+  .sf-stage-card:hover { transform: none; }
+}
+
+/* ── Reduced motion: убрать все анимации схемы ───────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-pulse { display: none; }
+  .sf-node { animation: none; }
+  .pb-card,
+  .sf-chip,
+  .sf-stage-card { transition: none; }
+  .pb-card:hover,
+  .sf-stage-card:hover { transform: none; }
+}

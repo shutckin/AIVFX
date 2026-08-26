@@ -1,0 +1,153 @@
+/* ══════════════════════════════════════════════════════════════════════
+   about-b2b.css — стили новых B2B-элементов (зона E, волна 1).
+   Префикс ab- чтобы не пересекаться с глобальными классами index.css.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Header: CTA-кнопка «Связаться» ──────────────────────────────────── */
+.ab-header-cta {
+  padding: 9px 18px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+  .ab-header-cta { display: none; }
+}
+
+/* ── Header: тумблер направлений «AI-системы | AI-контент» ───────────── */
+/* Четвёртая колонка грида под тумблер: логотип | тумблер | nav | статус */
+.header { grid-template-columns: auto auto 1fr auto; }
+
+/* Правый блок: выравнивание и явный gap между языком, pill и CTA */
+.header-status { align-items: center; gap: 12px; }
+
+/* 1200–1440px: ужимаем зазоры, чтобы шапка с тумблером не переполнялась */
+@media (max-width: 1440px) {
+  .header { gap: 20px; }
+  .header-status { gap: 10px; }
+  .lang-switch { margin-right: 4px; }
+}
+
+/* <1200px: статус-pill прячем — освобождаем место тумблеру */
+@media (max-width: 1200px) {
+  .status-pill { display: none; }
+}
+
+/* <960px: тумблер уходит из шапки в мобильное меню,
+   грид возвращается к трём колонкам (перебиваем базовое правило выше) */
+@media (max-width: 960px) {
+  .header { grid-template-columns: auto 1fr auto; }
+  .header .mode-toggle { display: none; }
+}
+
+/* Тумблер в мобильном меню — сверху, до пунктов навигации */
+.ab-mobile-toggle { margin-bottom: 8px; }
+
+.ab-mobile-cta {
+  margin-top: 12px;
+  align-self: flex-start;
+}
+
+/* ── AboutUs: раскладка секции ───────────────────────────────────────── */
+.ab-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .ab-grid { grid-template-columns: 1fr; }
+}
+
+/* Текстовая колонка */
+.ab-main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.ab-text {
+  max-width: 640px;
+}
+
+.ab-text p {
+  color: var(--fg-2, var(--fg));
+  line-height: 1.7;
+  margin: 0 0 1em;
+}
+
+.ab-text p:last-child { margin-bottom: 0; }
+
+/* Карточка «Для кого» */
+.ab-audience {
+  border: 1px solid var(--line-2);
+  padding: clamp(20px, 2.5vw, 28px);
+}
+
+.ab-audience-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+.ab-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ab-chip {
+  display: inline-block;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--fg-2, var(--fg));
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.ab-chip:hover {
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+/* Заметка о видео-направлении */
+.ab-video-note {
+  border-left: 2px solid var(--accent);
+  padding-left: 18px;
+}
+
+.ab-video-note p {
+  color: var(--fg-2, var(--fg));
+  margin: 0 0 8px;
+  line-height: 1.6;
+}
+
+.ab-video-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+
+.ab-video-link:hover { opacity: 0.75; }
+
+/* Колонка FAQ */
+.ab-faq-title {
+  margin: 0 0 20px;
+}
+
+/* ── Полоса-фон секции «О нас»: отделяем от соседних секций ──────────── */
+#about.section {
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}

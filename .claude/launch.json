@@ -7,6 +7,12 @@
       "runtimeArgs": ["node_modules/react-scripts/bin/react-scripts.js", "start"],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "Build Preview",
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": ["scripts/serve-build.js"],
+      "port": 4100
     }
   ]
 }

@@ -44,9 +44,18 @@ const BLOG_SLUGS = [
   'top-neyrosetey-video',
 ];
 
-// Логические пути, у которых есть и RU, и EN-версия (главная, работы, блог, статьи)
+// Slug'и страниц услуг. Держать в синхроне с src/data/systems-content.js
+const SERVICE_SLUGS = [
+  'ai-sales-automation',
+  'ai-assistants',
+  'business-process-automation',
+];
+
+// Логические пути, у которых есть и RU, и EN-версия
 const BILINGUAL = [
   '/',
+  ...SERVICE_SLUGS.map((s) => `/services/${s}`),
+  '/video-production',
   '/works',
   '/blog',
   ...BLOG_SLUGS.map((s) => `/blog/${s}`),

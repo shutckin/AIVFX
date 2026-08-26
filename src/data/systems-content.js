@@ -1,0 +1,600 @@
+// ═══════════════════════════════════════════════════════════════════════
+// AIVFX AI SYSTEMS — весь контент нового позиционирования.
+// Двуязычные поля — объекты { ru, en }; в компонентах выбираются через
+// pick(locale, obj) из src/i18n.js.
+// Здесь НЕТ выдуманных достижений: кейсы помечены isDemo и показываются
+// как демо-сценарии, пока не заменим реальными.
+// ═══════════════════════════════════════════════════════════════════════
+
+// ── Навигация ──────────────────────────────────────────────────────────
+export const NAV_SYS = [
+  { id: 'services', label: { ru: 'Услуги', en: 'Services' } },
+  { id: 'cases', label: { ru: 'Кейсы', en: 'Cases' } },
+  { id: 'approach', label: { ru: 'Подход', en: 'Approach' } },
+  { id: 'about', label: { ru: 'О нас', en: 'About' } },
+];
+// Кнопка «Блог» и CTA «Связаться» добавляются в Header отдельно.
+
+// ── Hero ───────────────────────────────────────────────────────────────
+export const HERO_SYS = {
+  kicker: { ru: 'AI SYSTEMS · АВТОМАТИЗАЦИИ ДЛЯ БИЗНЕСА', en: 'AI SYSTEMS · BUSINESS AUTOMATION' },
+  // Заголовок построчно: [строка1, строка2-акцент, строка3]
+  titleLines: {
+    ru: ['AI-системы, которые', 'возвращают клиентов', 'и экономят часы работы'],
+    en: ['AI systems that', 'win customers back', 'and save hours of work'],
+  },
+  accentLineIndex: 1, // какая строка подсвечивается акцентом
+  sub: {
+    ru: 'Проектируем и внедряем AI-автоматизации для бизнеса: от первой заявки до повторных продаж.',
+    en: 'We design and deploy AI automations for business: from the first inquiry to repeat sales.',
+  },
+  cta1: { ru: 'Обсудить задачу', en: 'Discuss your case' },
+  cta2: { ru: 'Посмотреть решения', en: 'See solutions' },
+};
+
+// Чат-диалог в hero-телефоне: продукт показан буквально.
+// from: 'client' | 'ai' | 'system'. t — время сообщения.
+export const HERO_CHAT = [
+  { from: 'client', t: '21:47', text: { ru: 'Здравствуйте! Сколько стоит имплантация под ключ?', en: 'Hi! How much is a full dental implant?' } },
+  { from: 'ai', t: '21:47', text: { ru: 'Добрый вечер! От 45 000 ₽ за зуб — зависит от снимка. Могу записать вас на бесплатную консультацию — удобно завтра в 12:00 или 18:30?', en: 'Good evening! From $600 per tooth — it depends on your scan. I can book you a free consultation — tomorrow at 12:00 or 6:30 pm?' } },
+  { from: 'client', t: '21:48', text: { ru: 'Давайте в 18:30', en: '6:30 pm works' } },
+  { from: 'ai', t: '21:48', text: { ru: 'Записал: завтра, 18:30, доктор Соколова. Пришлю напоминание за 2 часа 👌', en: 'Booked: tomorrow, 6:30 pm, Dr. Sokolova. I will remind you 2 hours before 👌' } },
+  { from: 'system', t: '21:48', text: { ru: 'Сделка создана в CRM · Менеджер уведомлён', en: 'Deal created in CRM · Manager notified' } },
+];
+
+// Живая лента событий в hero-визуале («интерфейсное доказательство»)
+export const HERO_PIPELINE = [
+  { icon: '↓', label: { ru: 'Новая заявка · WhatsApp', en: 'Incoming lead · WhatsApp' }, tone: 'in' },
+  { icon: '◈', label: { ru: 'AI-квалификация: горячий лид', en: 'AI qualification: hot lead' }, tone: 'ai' },
+  { icon: '⇄', label: { ru: 'Карточка создана в CRM', en: 'CRM record created' }, tone: 'sys' },
+  { icon: '⚑', label: { ru: 'Менеджер получил уведомление', en: 'Manager notified' }, tone: 'sys' },
+  { icon: '↻', label: { ru: 'Follow-up запланирован на завтра', en: 'Follow-up scheduled for tomorrow' }, tone: 'ok' },
+];
+
+// Полоса метрик — свойства систем, а не «достижения» (ничего выдуманного)
+export const STATS_SYS = [
+  { v: '24/7', l: { ru: 'обработка обращений', en: 'inquiry handling' } },
+  { v: '6+', l: { ru: 'каналов в одной системе', en: 'channels in one system' } },
+  { v: '100%', l: { ru: 'заявок фиксируются в CRM', en: 'of leads logged in the CRM' } },
+  { v: '0', l: { ru: 'изменений вашего стека — встраиваемся в текущий', en: 'changes to your stack — we plug into it' } },
+];
+
+// ── Блок проблем ───────────────────────────────────────────────────────
+export const PROBLEMS_SYS = {
+  head: {
+    num: { ru: '[ 01 / ПРОБЛЕМА ]', en: '[ 01 / PROBLEM ]' },
+    title: { ru: 'Ваш бизнес уже получает заявки.', en: 'Your business already gets inquiries.' },
+    titleIt: { ru: 'Вопрос — сколько из них теряется', en: 'The question is how many get lost' },
+    side: {
+      ru: 'Чаще всего дело не в маркетинге, а в том, что происходит с обращением после того, как клиент написал.',
+      en: 'Most of the time the issue is not marketing — it is what happens to an inquiry after the customer reaches out.',
+    },
+    sideTitle: 'REALITY CHECK',
+  },
+  // ui — тип мини-интерфейса в bento-плитке: chat | task | pipe | copy | churn
+  items: [
+    {
+      time: '21:47',
+      ui: 'chat',
+      text: { ru: 'Написал вечером — ответ утром', en: 'Wrote at night — answered in the morning' },
+      tag: { ru: 'упущенное время', en: 'lost time' },
+    },
+    {
+      time: 'DAY 3',
+      ui: 'task',
+      text: { ru: 'Follow-up забыт', en: 'Follow-up forgotten' },
+      tag: { ru: 'человеческий фактор', en: 'human factor' },
+    },
+    {
+      time: '—',
+      ui: 'pipe',
+      text: { ru: 'Заявка потерялась между WhatsApp и CRM', en: 'Lead lost between WhatsApp and the CRM' },
+      tag: { ru: 'разрыв каналов', en: 'channel gap' },
+    },
+    {
+      time: '2:30/д',
+      timeEn: '2:30/day',
+      ui: 'copy',
+      text: { ru: 'Данные переносят вручную', en: 'Data is copied by hand' },
+      tag: { ru: 'ручная работа', en: 'manual work' },
+    },
+    {
+      time: '✕',
+      ui: 'churn',
+      text: { ru: 'Клиент ушёл — никто не вернул', en: 'Customer left — no one won them back' },
+      tag: { ru: 'потерянная выручка', en: 'lost revenue' },
+    },
+  ],
+  outro: {
+    ru: 'AIVFX соединяет каналы, CRM и людей в одну систему, где ни одно обращение не проваливается в щели.',
+    en: 'AIVFX connects channels, CRM and people into one system where no inquiry falls through the cracks.',
+  },
+};
+
+// ── Схема системы (центральный визуал) ─────────────────────────────────
+export const FLOW_SYS = {
+  head: {
+    num: { ru: '[ 02 / СИСТЕМА ]', en: '[ 02 / SYSTEM ]' },
+    title: { ru: 'Одна система', en: 'One system' },
+    titleIt: { ru: 'вместо хаоса каналов', en: 'instead of channel chaos' },
+    side: {
+      ru: 'Каждое обращение проходит один и тот же управляемый путь — независимо от того, откуда оно пришло.',
+      en: 'Every inquiry travels the same managed path — no matter which channel it came from.',
+    },
+    sideTitle: 'ARCHITECTURE',
+  },
+  sources: ['Website', 'WhatsApp', 'Instagram', 'Telegram', { ru: 'Звонки', en: 'Calls' }, 'Email'],
+  stages: [
+    {
+      key: 'intake',
+      title: 'AI Intake',
+      desc: { ru: 'Принимает обращение из любого канала и понимает контекст', en: 'Captures the inquiry from any channel and understands context' },
+    },
+    {
+      key: 'qualification',
+      title: 'AI Qualification',
+      desc: { ru: 'Квалифицирует клиента, отвечает на базовые вопросы, собирает данные', en: 'Qualifies the lead, answers basic questions, collects data' },
+    },
+    {
+      key: 'crm',
+      title: 'CRM Integration',
+      desc: { ru: 'Создаёт и обновляет карточку в вашей CRM автоматически', en: 'Creates and updates the record in your CRM automatically' },
+    },
+    {
+      key: 'routing',
+      title: 'Smart Routing',
+      desc: { ru: 'Передаёт человека нужному менеджеру в нужный момент', en: 'Hands the customer to the right manager at the right moment' },
+    },
+    {
+      key: 'followup',
+      title: 'Follow-up & Nurturing',
+      desc: { ru: 'Напоминает, догревает и возвращает клиентов к покупке', en: 'Reminds, nurtures and brings customers back to purchase' },
+    },
+    {
+      key: 'analytics',
+      title: 'Analytics Dashboard',
+      desc: { ru: 'Показывает весь процесс и узкие места в цифрах', en: 'Shows the whole process and its bottlenecks in numbers' },
+    },
+  ],
+};
+
+// ── Услуги (3 направления) ─────────────────────────────────────────────
+export const SERVICES_SYS = {
+  head: {
+    num: { ru: '[ 03 / УСЛУГИ ]', en: '[ 03 / SERVICES ]' },
+    title: { ru: 'Три системы', en: 'Three systems' },
+    titleIt: { ru: 'под задачи бизнеса', en: 'built for business tasks' },
+    side: {
+      ru: 'Не каталог из десятков услуг — три направления, которые закрывают путь клиента от заявки до повторной продажи.',
+      en: 'Not a catalog of dozens of services — three directions that cover the customer journey from inquiry to repeat sale.',
+    },
+    sideTitle: 'WHAT WE BUILD',
+  },
+  items: [
+    {
+      slug: 'ai-sales-automation',
+      num: 'S/01',
+      title: { ru: 'AI для заявок и продаж', en: 'AI for leads & sales' },
+      desc: {
+        ru: 'Принимает обращения из всех каналов, квалифицирует клиентов, обновляет CRM, распределяет лиды и запускает follow-up.',
+        en: 'Captures inquiries from every channel, qualifies leads, updates the CRM, routes conversations and triggers follow-ups.',
+      },
+      chips: ['Intake', 'Qualification', 'CRM', 'Routing', 'Follow-up'],
+    },
+    {
+      slug: 'ai-assistants',
+      num: 'S/02',
+      title: { ru: 'AI-ассистенты', en: 'AI assistants' },
+      desc: {
+        ru: 'Работают с клиентами и сотрудниками через сайт, WhatsApp, Telegram и другие интерфейсы — от консультаций до базы знаний компании.',
+        en: 'Serve customers and employees via the website, WhatsApp, Telegram and other interfaces — from consultations to the company knowledge base.',
+      },
+      chips: ['Website', 'WhatsApp', 'Telegram', 'Knowledge base', 'Internal'],
+    },
+    {
+      slug: 'business-process-automation',
+      num: 'S/03',
+      title: { ru: 'Автоматизация процессов', en: 'Process automation' },
+      desc: {
+        ru: 'Убирает ручную работу с CRM, документами, отчётами, уведомлениями и внутренними операциями.',
+        en: 'Removes manual work across CRM, documents, reports, notifications and internal operations.',
+      },
+      chips: ['CRM ops', 'Docs', 'Reports', 'Alerts', 'Data sync'],
+    },
+  ],
+  more: { ru: 'Подробнее', en: 'Learn more' },
+};
+
+// ── Страницы услуг (/services/<slug>) ──────────────────────────────────
+export const SERVICE_PAGES = {
+  'ai-sales-automation': {
+    kicker: { ru: 'УСЛУГА / AI ДЛЯ ЗАЯВОК И ПРОДАЖ', en: 'SERVICE / AI FOR LEADS & SALES' },
+    title: { ru: 'Ни одна заявка больше не теряется', en: 'No lead ever gets lost again' },
+    sub: {
+      ru: 'Система принимает входящие обращения из всех каналов, понимает контекст, квалифицирует клиента, отвечает на базовые вопросы, собирает данные и передаёт человека менеджеру в нужный момент.',
+      en: 'The system captures inbound inquiries from every channel, understands context, qualifies the customer, answers basic questions, collects data and hands the person to a manager at the right moment.',
+    },
+    pains: {
+      title: { ru: 'Когда это нужно', en: 'When you need this' },
+      items: [
+        { ru: 'Заявки приходят в 5 разных каналов, и часть из них никто не видит', en: 'Leads arrive in 5 different channels and some are never seen' },
+        { ru: 'Клиенты пишут вечером и в выходные, а отвечают им в рабочее время', en: 'Customers write in the evenings and weekends but get answers during office hours' },
+        { ru: 'Менеджеры тратят время на нецелевые обращения', en: 'Managers waste time on unqualified inquiries' },
+        { ru: 'CRM заполняется вручную и с ошибками — или не заполняется вовсе', en: 'The CRM is filled in manually with mistakes — or not at all' },
+      ],
+    },
+    // «интерфейсное доказательство» — что реально делает система
+    proof: [
+      { ru: 'Новая заявка · Instagram Direct', en: 'Incoming lead · Instagram DM' },
+      { ru: 'AI уточняет задачу и бюджет', en: 'AI clarifies the task and budget' },
+      { ru: 'Лид квалифицирован: целевой', en: 'Lead qualified: sales-ready' },
+      { ru: 'Сделка создана в amoCRM', en: 'Deal created in the CRM' },
+      { ru: 'Менеджер подключён к диалогу', en: 'Manager joined the conversation' },
+      { ru: 'Follow-up: напоминание через 24 ч', en: 'Follow-up reminder in 24 h' },
+    ],
+    features: {
+      title: { ru: 'Что делает система', en: 'What the system does' },
+      items: [
+        { t: { ru: 'Мгновенный первый ответ', en: 'Instant first response' }, d: { ru: 'Отвечает за секунды в любое время суток — клиент не успевает уйти к конкуренту.', en: 'Replies within seconds at any hour — before the customer moves on to a competitor.' } },
+        { t: { ru: 'Квалификация и сбор данных', en: 'Qualification & data capture' }, d: { ru: 'Задаёт правильные вопросы, отделяет целевые обращения от шума, собирает контакты и детали задачи.', en: 'Asks the right questions, separates real leads from noise, captures contacts and task details.' } },
+        { t: { ru: 'CRM без ручного ввода', en: 'CRM without manual entry' }, d: { ru: 'Каждое обращение автоматически становится карточкой сделки с полной историей.', en: 'Every inquiry automatically becomes a deal record with full history.' } },
+        { t: { ru: 'Передача менеджеру вовремя', en: 'Timely human handover' }, d: { ru: 'Система знает, когда подключить человека, и передаёт диалог с контекстом.', en: 'The system knows when to bring a human in — and hands over the conversation with context.' } },
+        { t: { ru: 'Follow-up и возврат клиентов', en: 'Follow-up & win-back' }, d: { ru: 'Напоминания, дожим и повторные касания происходят сами, по сценарию.', en: 'Reminders, nudges and repeat touches happen automatically, on schedule.' } },
+        { t: { ru: 'Прозрачная аналитика', en: 'Transparent analytics' }, d: { ru: 'Видно каждый этап воронки: сколько пришло, где буксует, что конвертируется.', en: 'Every funnel stage is visible: what comes in, where it stalls, what converts.' } },
+      ],
+    },
+  },
+  'ai-assistants': {
+    kicker: { ru: 'УСЛУГА / AI-АССИСТЕНТЫ', en: 'SERVICE / AI ASSISTANTS' },
+    title: { ru: 'Ассистент, который знает ваш бизнес', en: 'An assistant that knows your business' },
+    sub: {
+      ru: 'AI-ассистенты для клиентов и сотрудников: консультант на сайте, ассистент в WhatsApp и Telegram, внутренний помощник с доступом к базе знаний компании. Чат — лишь один из интерфейсов большой системы.',
+      en: 'AI assistants for customers and employees: a website consultant, WhatsApp and Telegram assistants, an internal helper connected to the company knowledge base. Chat is just one interface of a larger system.',
+    },
+    pains: {
+      title: { ru: 'Когда это нужно', en: 'When you need this' },
+      items: [
+        { ru: 'Команда отвечает на одни и те же вопросы десятки раз в день', en: 'The team answers the same questions dozens of times a day' },
+        { ru: 'Знания компании разбросаны по документам, чатам и головам', en: 'Company knowledge is scattered across documents, chats and heads' },
+        { ru: 'Новые сотрудники неделями ищут, у кого что спросить', en: 'New employees spend weeks figuring out who to ask about what' },
+        { ru: 'Подготовка типовых ответов и документов съедает часы', en: 'Drafting routine replies and documents eats up hours' },
+      ],
+    },
+    proof: [
+      { ru: 'Вопрос клиента на сайте', en: 'Customer question on the website' },
+      { ru: 'Ассистент отвечает из базы знаний', en: 'Assistant answers from the knowledge base' },
+      { ru: 'Уточняет детали и предлагает запись', en: 'Clarifies details, offers a booking' },
+      { ru: 'Сложный случай — эскалация человеку', en: 'Complex case — escalated to a human' },
+      { ru: 'Диалог сохранён в CRM', en: 'Conversation saved to the CRM' },
+    ],
+    features: {
+      title: { ru: 'Что делает система', en: 'What the system does' },
+      items: [
+        { t: { ru: 'Клиентский консультант', en: 'Customer-facing consultant' }, d: { ru: 'Отвечает на вопросы о продуктах, ценах и условиях на сайте и в мессенджерах — на языке клиента.', en: 'Answers questions about products, prices and terms on the website and in messengers — in the customer’s language.' } },
+        { t: { ru: 'Работа с базой знаний', en: 'Knowledge-base grounding' }, d: { ru: 'Ассистент опирается на ваши документы и регламенты, а не на фантазии модели.', en: 'The assistant is grounded in your documents and policies — not in the model’s imagination.' } },
+        { t: { ru: 'Внутренний помощник', en: 'Internal copilot' }, d: { ru: 'Сотрудники мгновенно находят информацию, готовят ответы и документы.', en: 'Employees instantly find information, draft replies and documents.' } },
+        { t: { ru: 'Эскалация человеку', en: 'Human escalation' }, d: { ru: 'Ассистент понимает границы своих полномочий и вовремя передаёт диалог команде.', en: 'The assistant knows its limits and hands the conversation to the team at the right time.' } },
+        { t: { ru: 'Многоканальность', en: 'Multi-channel by design' }, d: { ru: 'Один ассистент — сайт, WhatsApp, Telegram, Instagram, внутренние чаты.', en: 'One assistant — website, WhatsApp, Telegram, Instagram, internal chats.' } },
+        { t: { ru: 'Обучение на ваших данных', en: 'Trained on your data' }, d: { ru: 'Тон, сценарии и знания настраиваются под компанию и обновляются по мере роста.', en: 'Tone, scenarios and knowledge are tailored to the company and updated as it grows.' } },
+      ],
+    },
+  },
+  'business-process-automation': {
+    kicker: { ru: 'УСЛУГА / АВТОМАТИЗАЦИЯ ПРОЦЕССОВ', en: 'SERVICE / PROCESS AUTOMATION' },
+    title: { ru: 'Рутина исчезает из расписания команды', en: 'Routine work disappears from your team’s day' },
+    sub: {
+      ru: 'Автоматизируем рутинные операции: CRM, документы, отчёты, распределение заявок, напоминания, согласования, уведомления и синхронизацию данных между сервисами. Главная ценность — не сам AI, а часы ручной работы, которые он убирает.',
+      en: 'We automate routine operations: CRM upkeep, documents, reports, lead distribution, reminders, approvals, notifications and data sync between tools. The value is not the AI itself — it is the hours of manual work it removes.',
+    },
+    pains: {
+      title: { ru: 'Когда это нужно', en: 'When you need this' },
+      items: [
+        { ru: 'Данные вручную переносятся между CRM, таблицами и чатами', en: 'Data is copied by hand between the CRM, spreadsheets and chats' },
+        { ru: 'Отчёты собираются полдня и устаревают к моменту готовности', en: 'Reports take half a day to compile and are stale on arrival' },
+        { ru: 'Согласования и напоминания держатся на памяти людей', en: 'Approvals and reminders rely on human memory' },
+        { ru: 'Бизнес растёт — и количество ручной работы растёт вместе с ним', en: 'The business grows — and manual work grows with it' },
+      ],
+    },
+    proof: [
+      { ru: 'Закрыта сделка в CRM', en: 'Deal closed in the CRM' },
+      { ru: 'Договор сформирован автоматически', en: 'Contract generated automatically' },
+      { ru: 'Счёт отправлен клиенту', en: 'Invoice sent to the customer' },
+      { ru: 'Задача поставлена аккаунт-менеджеру', en: 'Task assigned to the account manager' },
+      { ru: 'Отчёт за день собран в 19:00', en: 'Daily report compiled at 7 pm' },
+    ],
+    features: {
+      title: { ru: 'Что делает система', en: 'What the system does' },
+      items: [
+        { t: { ru: 'Порядок в CRM', en: 'CRM hygiene' }, d: { ru: 'Карточки создаются, обновляются и двигаются по воронке без ручного ввода.', en: 'Records are created, updated and moved along the pipeline without manual entry.' } },
+        { t: { ru: 'Документы и отчёты', en: 'Documents & reports' }, d: { ru: 'Договоры, счета и регулярные отчёты формируются автоматически из ваших данных.', en: 'Contracts, invoices and recurring reports are generated automatically from your data.' } },
+        { t: { ru: 'Напоминания и согласования', en: 'Reminders & approvals' }, d: { ru: 'Система сама следит за дедлайнами и двигает согласования дальше.', en: 'The system tracks deadlines and pushes approvals forward on its own.' } },
+        { t: { ru: 'Синхронизация сервисов', en: 'Tool-to-tool sync' }, d: { ru: 'CRM, таблицы, календари и мессенджеры обмениваются данными без людей-курьеров.', en: 'CRM, spreadsheets, calendars and messengers exchange data without human couriers.' } },
+        { t: { ru: 'Уведомления по делу', en: 'Signal-only notifications' }, d: { ru: 'Команда получает только важные события, а не поток шума.', en: 'The team gets only the events that matter — not a stream of noise.' } },
+        { t: { ru: 'Повторные продажи', en: 'Repeat sales triggers' }, d: { ru: 'Система напоминает клиентам о продлении и возвращает их к покупке.', en: 'The system reminds customers about renewals and brings them back to buy.' } },
+      ],
+    },
+  },
+};
+
+// Общий CTA-блок для страниц услуг
+export const SERVICE_CTA = {
+  title: { ru: 'Разберём ваш процесс?', en: 'Shall we map your process?' },
+  sub: {
+    ru: 'Расскажите, как устроена работа с заявками сейчас — предложим архитектуру системы и оценку.',
+    en: 'Tell us how you handle inquiries today — we will propose a system architecture and an estimate.',
+  },
+  btn: { ru: 'Обсудить задачу', en: 'Discuss your case' },
+};
+
+// ── Кейсы (демо-сценарии — честно помечены) ────────────────────────────
+export const CASES_SYS = {
+  head: {
+    num: { ru: '[ 04 / КЕЙСЫ ]', en: '[ 04 / CASES ]' },
+    title: { ru: 'Проблема → система', en: 'Problem → system' },
+    titleIt: { ru: '→ результат', en: '→ result' },
+    side: {
+      ru: 'Каждый проект строится вокруг измеримого результата, а не вокруг технологии ради технологии.',
+      en: 'Every project is built around a measurable result — not around technology for its own sake.',
+    },
+    sideTitle: 'OUTCOMES',
+  },
+  demoBadge: { ru: 'Демо-сценарий', en: 'Demo scenario' },
+  demoNote: {
+    ru: 'EastRide — собственный продукт студии, построенный и работающий вживую. Два сценария рядом — типовые демо: цифры в них иллюстрируют целевые показатели таких систем и будут заменены реальными кейсами клиентов.',
+    en: 'EastRide is the studio’s own product, built and running live. The two scenarios next to it are typical demos: their numbers illustrate target outcomes and will be replaced with real client cases.',
+  },
+  items: [
+    {
+      id: 'eastride',
+      isDemo: false,
+      flagship: true,
+      badge: { ru: 'Наш продукт · работает вживую', en: 'Our product · live' },
+      industry: { ru: 'EastRide — travel-платформа', en: 'EastRide — travel platform' },
+      problem: {
+        ru: 'Запустить маркетплейс аренды байков и мото-туров по Азии командой без штата: сотни карточек техники, партнёры в 13 городах, заявки, контент и соцсети — всё требовало бы отдела операторов.',
+        en: 'Launch a bike-rental and moto-tour marketplace across Asia without hiring a staff: hundreds of vehicle listings, partners in 13 cities, inquiries, content and social media — all of it would normally take a team of operators.',
+      },
+      solution: {
+        ru: 'Построили всю инфраструктуру AI-инструментами: платформа eastride.cc, партнёрский Telegram-бот с кабинетом, CRM-контур, мгновенные уведомления о заявках, автогенерация и автопубликация контента по расписанию, SEO-автоматика.',
+        en: 'We built the entire infrastructure with AI tooling: the eastride.cc platform, a partner Telegram bot with a dashboard, a CRM loop, instant inquiry notifications, scheduled content generation and auto-publishing, SEO automation.',
+      },
+      metrics: [
+        { v: '180+', l: { ru: 'байков в каталоге', en: 'bikes in the catalog' } },
+        { v: '13', l: { ru: 'городов Азии', en: 'cities across Asia' } },
+        { v: '24/7', l: { ru: 'работа без операторов', en: 'runs without operators' } },
+      ],
+    },
+    {
+      id: 'clinic',
+      isDemo: true,
+      industry: { ru: 'Клиника', en: 'Clinic' },
+      problem: {
+        ru: 'Пациенты пишут в WhatsApp вечером и в выходные. Администраторы отвечают только в смену — к утру часть пациентов уже записалась к конкурентам.',
+        en: 'Patients message on WhatsApp in the evenings and on weekends. Admins reply only during shifts — by morning some patients have already booked elsewhere.',
+      },
+      solution: {
+        ru: 'AI-приём обращений в WhatsApp и на сайте: ответы на вопросы, запись на приём, интеграция с CRM и расписанием, напоминания о визите.',
+        en: 'AI intake on WhatsApp and the website: answering questions, booking appointments, CRM and schedule integration, visit reminders.',
+      },
+      metrics: [
+        { v: '<2 мин', vEn: '<2 min', l: { ru: 'время ответа', en: 'response time' } },
+        { v: '24/7', l: { ru: 'приём обращений', en: 'inquiry intake' } },
+        { v: '+35%', l: { ru: 'конверсия в запись', en: 'booking conversion' } },
+      ],
+    },
+    {
+      id: 'realestate',
+      isDemo: true,
+      industry: { ru: 'Недвижимость', en: 'Real estate' },
+      problem: {
+        ru: 'Лиды с рекламы падают в Instagram, Telegram и на сайт. Брокеры отвечают выборочно, CRM заполняется от случая к случаю — маркетинговый бюджет утекает.',
+        en: 'Ad leads land in Instagram, Telegram and on the website. Brokers reply selectively, the CRM is updated sporadically — the marketing budget leaks away.',
+      },
+      solution: {
+        ru: 'Единый AI-контур: квалификация по бюджету и объекту, автоматические карточки сделок, умное распределение по брокерам, follow-up цепочки.',
+        en: 'A single AI loop: qualification by budget and property, automatic deal records, smart broker routing, follow-up sequences.',
+      },
+      metrics: [
+        { v: '100%', l: { ru: 'лидов в CRM', en: 'of leads in the CRM' } },
+        { v: '-70%', l: { ru: 'ручной работы', en: 'manual work' } },
+        { v: '+35%', l: { ru: 'конверсия в встречи', en: 'meeting conversion' } },
+      ],
+    },
+  ],
+};
+
+// ── Подход (5 шагов) ───────────────────────────────────────────────────
+export const APPROACH_SYS = {
+  head: {
+    num: { ru: '[ 05 / ПОДХОД ]', en: '[ 05 / APPROACH ]' },
+    title: { ru: 'Сначала процесс,', en: 'Process first,' },
+    titleIt: { ru: 'потом технологии', en: 'technology second' },
+    side: {
+      ru: 'Мы не продаём готовую коробку. Мы разбираем, как работает ваш бизнес, и собираем систему под него.',
+      en: 'We do not sell a pre-built box. We study how your business works and assemble a system around it.',
+    },
+    sideTitle: 'HOW WE WORK',
+  },
+  steps: [
+    {
+      num: '01',
+      title: { ru: 'Разбираем процесс', en: 'Map the process' },
+      desc: { ru: 'Изучаем текущую инфраструктуру, каналы, CRM и то, как сотрудники работают сейчас.', en: 'We study your current infrastructure, channels, CRM and how the team works today.' },
+    },
+    {
+      num: '02',
+      title: { ru: 'Находим узкие места', en: 'Find the bottlenecks' },
+      desc: { ru: 'Определяем, где бизнес теряет заявки, время или деньги.', en: 'We pinpoint where the business loses leads, time or money.' },
+    },
+    {
+      num: '03',
+      title: { ru: 'Проектируем систему', en: 'Design the system' },
+      desc: { ru: 'Выбираем AI, автоматизации и интеграции, которые действительно нужны — без лишнего.', en: 'We choose the AI, automations and integrations that are actually needed — nothing extra.' },
+    },
+    {
+      num: '04',
+      title: { ru: 'Внедряем', en: 'Deploy' },
+      desc: { ru: 'Подключаем систему к существующей инфраструктуре — без перестройки компании под нас.', en: 'We plug the system into your existing infrastructure — without rebuilding the company around us.' },
+    },
+    {
+      num: '05',
+      title: { ru: 'Проверяем и улучшаем', en: 'Measure & improve' },
+      desc: { ru: 'Смотрим на реальные данные и дорабатываем workflow, пока метрики не встанут на место.', en: 'We look at real data and refine the workflow until the metrics settle where they should.' },
+    },
+  ],
+};
+
+// ── Интеграции ─────────────────────────────────────────────────────────
+export const INTEGRATIONS_SYS = {
+  head: {
+    num: { ru: '[ 06 / СТЕК ]', en: '[ 06 / STACK ]' },
+    title: { ru: 'Встраиваемся', en: 'We plug into' },
+    titleIt: { ru: 'в ваш стек', en: 'your stack' },
+    side: {
+      ru: 'Технологии — вторичны, на первом месте результат. Но работаем мы на проверенных инструментах.',
+      en: 'Technology is secondary — the result comes first. But we build on proven tools.',
+    },
+    sideTitle: 'INTEGRATIONS',
+  },
+  groups: [
+    { label: 'Automation', items: ['n8n', 'Make'] },
+    { label: 'AI', items: ['OpenAI', 'Claude'] },
+    { label: 'CRM', items: ['Bitrix24', 'amoCRM', 'HubSpot'] },
+    { label: 'Communication', items: ['WhatsApp API', 'Telegram Bot', 'Instagram', 'Email'] },
+  ],
+};
+
+// Плоский список для тикера в hero
+export const TICKER_SYS = ['n8n', 'Make', 'OpenAI', 'Claude', 'Bitrix24', 'amoCRM', 'HubSpot', 'WhatsApp API', 'Telegram Bot', 'Instagram', 'Email', 'Analytics'];
+
+// ── О нас ──────────────────────────────────────────────────────────────
+export const ABOUT_SYS = {
+  head: {
+    num: { ru: '[ 07 / О НАС ]', en: '[ 07 / ABOUT ]' },
+    title: { ru: 'Инженерная студия,', en: 'An engineering studio' },
+    titleIt: { ru: 'а не агентство чат-ботов', en: 'not a chatbot agency' },
+    side: {
+      ru: 'AIVFX проектирует системы под процесс конкретной компании — от архитектуры до внедрения и поддержки.',
+      en: 'AIVFX designs systems around a specific company’s process — from architecture to deployment and support.',
+    },
+    sideTitle: 'AIVFX AI SYSTEMS',
+  },
+  paragraphs: [
+    {
+      ru: 'Мы начинали как AI-продакшн: генеративное видео, VFX и автоматизированные контент-конвейеры для брендов. Именно там мы научились главному — собирать из AI-моделей, API и интеграций рабочие системы, которые крутятся каждый день без присмотра.',
+      en: 'We started as an AI production studio: generative video, VFX and automated content pipelines for brands. That is where we learned the key skill — assembling AI models, APIs and integrations into working systems that run every day without supervision.',
+    },
+    {
+      ru: 'Сегодня главный фокус AIVFX — AI-системы и автоматизации для бизнеса: приём и квалификация заявок, ассистенты, процессы. Для кого это? Клиники, недвижимость, юридические и сервисные компании, образовательные проекты — любой бизнес с потоком обращений и отделом продаж.',
+      en: 'Today the main focus of AIVFX is AI systems and automation for business: lead intake and qualification, assistants, processes. Who is it for? Clinics, real estate, legal and service companies, education projects — any business with an inquiry flow and a sales team.',
+    },
+  ],
+  audience: {
+    title: { ru: 'Для кого', en: 'Who it’s for' },
+    items: [
+      { ru: 'Клиники и стоматологии', en: 'Clinics & dental practices' },
+      { ru: 'Недвижимость', en: 'Real estate' },
+      { ru: 'Юридические компании', en: 'Legal firms' },
+      { ru: 'Сервисные компании', en: 'Service companies' },
+      { ru: 'Образовательные проекты', en: 'Education projects' },
+      { ru: 'Отделы продаж с потоком заявок', en: 'Sales teams with inquiry flow' },
+    ],
+  },
+  videoNote: {
+    text: {
+      ru: 'Второе направление студии — AI-видеопродакшн: реклама, продуктовые ролики и контент.',
+      en: 'The studio’s second direction is AI video production: ads, product videos and content.',
+    },
+    link: { ru: 'Смотреть направление AI-видео →', en: 'Explore AI video →' },
+  },
+};
+
+// ── FAQ (новый, про системы) ───────────────────────────────────────────
+export const FAQ_SYS = [
+  {
+    q: { ru: 'Чем вы отличаетесь от агентства чат-ботов?', en: 'How are you different from a chatbot agency?' },
+    a: {
+      ru: 'Чат — лишь один из интерфейсов. Мы проектируем систему целиком: приём обращений, квалификация, CRM, распределение, follow-up и аналитика. Продаём не бота, а решение конкретной операционной проблемы с измеримым результатом.',
+      en: 'Chat is just one interface. We design the whole system: intake, qualification, CRM, routing, follow-up and analytics. We sell not a bot but a solution to a specific operational problem, with a measurable result.',
+    },
+  },
+  {
+    q: { ru: 'Придётся ли менять нашу CRM или сервисы?', en: 'Will we have to change our CRM or tools?' },
+    a: {
+      ru: 'Нет. Система встраивается в существующий стек: вашу CRM, мессенджеры, телефонию и таблицы. Мы адаптируемся под вас, а не наоборот.',
+      en: 'No. The system plugs into your existing stack: your CRM, messengers, telephony and spreadsheets. We adapt to you — not the other way around.',
+    },
+  },
+  {
+    q: { ru: 'Сколько это стоит?', en: 'How much does it cost?' },
+    a: {
+      ru: 'Зависит от объёма: количества каналов, интеграций и сценариев. Начинаем с разбора процесса — после него даём архитектуру решения и точную смету.',
+      en: 'It depends on scope: the number of channels, integrations and scenarios. We start by mapping your process — then provide the solution architecture and an exact estimate.',
+    },
+  },
+  {
+    q: { ru: 'Какие сроки внедрения?', en: 'How long does deployment take?' },
+    a: {
+      ru: 'Первый работающий контур — обычно от 2 до 6 недель в зависимости от сложности. Дальше система развивается итерациями на реальных данных.',
+      en: 'A first working loop typically takes 2–6 weeks depending on complexity. After that the system evolves in iterations on real data.',
+    },
+  },
+  {
+    q: { ru: 'Что с данными и безопасностью?', en: 'What about data and security?' },
+    a: {
+      ru: 'Данные остаются в вашей инфраструктуре и ваших сервисах. Доступы выдаются по минимуму, ключи и токены — только на вашей стороне.',
+      en: 'Data stays in your infrastructure and your tools. Access is granted on a least-privilege basis; keys and tokens remain on your side.',
+    },
+  },
+];
+
+// ── Контакты ───────────────────────────────────────────────────────────
+export const CONTACT_SYS = {
+  head: {
+    num: { ru: '[ 08 / КОНТАКТ ]', en: '[ 08 / CONTACT ]' },
+    title: { ru: 'Обсудим', en: 'Let’s discuss' },
+    titleIt: { ru: 'вашу задачу', en: 'your case' },
+    side: {
+      ru: 'Опишите процесс или проблему — вернёмся с вопросами и предложением архитектуры в течение 24 часов.',
+      en: 'Describe your process or problem — we will come back with questions and a proposed architecture within 24 hours.',
+    },
+    sideTitle: 'START',
+  },
+  briefLabel: { ru: 'ЗАДАЧА', en: 'YOUR CASE' },
+  briefPlaceholder: {
+    ru: 'Опишите процесс, который хотите автоматизировать: откуда приходят заявки, какая CRM, что сейчас болит...',
+    en: 'Describe the process you want to automate: where inquiries come from, which CRM you use, what hurts today...',
+  },
+};
+
+// ── Футер ──────────────────────────────────────────────────────────────
+export const FOOTER_SYS = {
+  desc: {
+    ru: 'Студия AI-систем и автоматизаций для бизнеса. Проектируем и внедряем решения от первой заявки до повторных продаж.',
+    en: 'A studio for business AI systems and automation. We design and deploy solutions from the first inquiry to repeat sales.',
+  },
+  servicesTitle: { ru: 'УСЛУГИ', en: 'SERVICES' },
+  services: [
+    { slug: 'ai-sales-automation', label: { ru: 'AI для заявок и продаж', en: 'AI for leads & sales' } },
+    { slug: 'ai-assistants', label: { ru: 'AI-ассистенты', en: 'AI assistants' } },
+    { slug: 'business-process-automation', label: { ru: 'Автоматизация процессов', en: 'Process automation' } },
+  ],
+  videoLink: { ru: 'AI-видеопродакшн', en: 'AI video production' },
+};
+
+// ── Страница /video-production (второе направление) ────────────────────
+export const VIDEO_PAGE = {
+  kicker: { ru: 'НАПРАВЛЕНИЕ / AI-ВИДЕОПРОДАКШН', en: 'DIRECTION / AI VIDEO PRODUCTION' },
+  title: { ru: 'AI-видео и VFX', en: 'AI video & VFX' },
+  titleIt: { ru: 'для брендов', en: 'for brands' },
+  sub: {
+    ru: 'Второе направление AIVFX: рекламные ролики, продуктовые видео и вирусный контент с помощью генеративного AI и классического VFX. Голливудский уровень за дни, а не недели.',
+    en: 'AIVFX’s second direction: commercials, product videos and viral content built with generative AI and classic VFX. Hollywood-grade quality in days, not weeks.',
+  },
+  portfolioCta: { ru: 'Смотреть портфолио', en: 'View portfolio' },
+  contactCta: { ru: 'Обсудить ролик', en: 'Discuss a video' },
+  blogNote: {
+    ru: 'Гайды и разборы AI-видео — в нашем блоге.',
+    en: 'AI video guides and breakdowns live in our blog.',
+  },
+};

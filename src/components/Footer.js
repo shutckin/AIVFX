@@ -1,10 +1,13 @@
 import React from 'react';
 import { useNotification } from '../App';
-import { useLocale } from '../i18n';
+import { useLocale, pick, localizedHref } from '../i18n';
+import { NAV_SYS, FOOTER_SYS } from '../data/systems-content';
 
 const Footer = () => {
-  const { scrollToSection, showPrivacy, showConsent } = useNotification();
-  const en = useLocale() === 'en';
+  const { scrollToSection, showPrivacy, showConsent, showBlog } = useNotification();
+  const locale = useLocale();
+  const en = locale === 'en';
+  const blogHref = localizedHref('/blog/', locale);
 
   return (
     <footer className="footer">
@@ -13,11 +16,7 @@ const Footer = () => {
         <div className="footer-cols">
           <div className="footer-col">
             <h5>{en ? 'STUDIO' : 'СТУДИЯ'}</h5>
-            <p>
-              {en
-                ? 'A revolutionary AI + VFX studio for creating viral content. Faster, cheaper and higher quality than traditional production.'
-                : 'Революционная AI + VFX студия для создания вирусного контента. Быстрее, дешевле, качественнее традиционного производства.'}
-            </p>
+            <p>{pick(locale, FOOTER_SYS.desc)}</p>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', color: 'var(--muted)', textTransform: 'uppercase' }}>
               EST. 2024 · MOSCOW
             </p>
@@ -26,20 +25,29 @@ const Footer = () => {
             <h5>{en ? 'NAVIGATION' : 'НАВИГАЦИЯ'}</h5>
             <ul>
               <li><button type="button" onClick={() => scrollToSection('hero')}>{en ? 'Home' : 'Главная'}</button></li>
-              <li><button type="button" onClick={() => scrollToSection('services')}>{en ? 'Services' : 'Услуги'}</button></li>
-              <li><button type="button" onClick={() => scrollToSection('portfolio')}>{en ? 'Portfolio' : 'Портфолио'}</button></li>
-              <li><button type="button" onClick={() => scrollToSection('about')}>{en ? 'Process' : 'Процесс'}</button></li>
-              <li><button type="button" onClick={() => scrollToSection('clients')}>{en ? 'Clients' : 'Клиенты'}</button></li>
+              {NAV_SYS.map((item) => (
+                <li key={item.id}>
+                  <button type="button" onClick={() => scrollToSection(item.id)}>{pick(locale, item.label)}</button>
+                </li>
+              ))}
+              <li>
+                <a href={blogHref} onClick={(e) => { e.preventDefault(); showBlog(); }}>
+                  {en ? 'Blog' : 'Блог'}
+                </a>
+              </li>
             </ul>
           </div>
           <div className="footer-col">
-            <h5>{en ? 'SERVICES' : 'УСЛУГИ'}</h5>
+            <h5>{pick(locale, FOOTER_SYS.servicesTitle)}</h5>
             <ul>
-              <li>{en ? 'AI + VFX Content' : 'AI + VFX Контент'}</li>
-              <li>{en ? 'Viral Videos' : 'Вирусные ролики'}</li>
-              <li>{en ? 'Ad Films' : 'Рекламные видео'}</li>
-              <li>{en ? 'Product Demos' : 'Продуктовые демо'}</li>
-              <li>{en ? 'Format Adaptations' : 'Адаптации форматов'}</li>
+              {FOOTER_SYS.services.map((s) => (
+                <li key={s.slug}>
+                  <a href={localizedHref(`/services/${s.slug}/`, locale)}>{pick(locale, s.label)}</a>
+                </li>
+              ))}
+              <li>
+                <a href={localizedHref('/video-production/', locale)}>{pick(locale, FOOTER_SYS.videoLink)}</a>
+              </li>
             </ul>
           </div>
           <div className="footer-col">

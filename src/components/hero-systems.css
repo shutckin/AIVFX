@@ -1,0 +1,468 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   HERO — AI SYSTEMS (новое позиционирование)
+   hs- — раскладка/левая колонка, hp- — телефон с чат-демо справа.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.hs-hero {
+  background: var(--bg);
+}
+
+/* ── Фон: тонкая сетка + мягкое свечение сверху-справа ────────────────── */
+.hs-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.45;
+  mask-image: radial-gradient(ellipse 90% 80% at 55% 35%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 55% 35%, black 30%, transparent 100%);
+}
+.hs-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(720px 560px at 82% 8%, var(--accent-glow) 0%, transparent 65%),
+    radial-gradient(480px 420px at 8% 90%, var(--accent-soft) 0%, transparent 70%);
+  opacity: 0.55;
+}
+
+/* ── Раскладка ────────────────────────────────────────────────────────── */
+.hs-hero-inner {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-bottom: clamp(40px, 6vw, 80px);
+}
+
+.hs-hero-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: clamp(40px, 5vw, 88px);
+  align-items: center;
+  width: 100%;
+}
+
+/* ── Левая колонка ────────────────────────────────────────────────────── */
+.hs-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(20px, 2.4vw, 30px);
+}
+
+.hs-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: rgba(61, 110, 247, 0.06);
+}
+
+.hs-headline {
+  font-size: clamp(38px, 4.8vw, 76px);
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin: 0;
+  color: var(--fg);
+}
+.hs-headline .ln { display: block; }
+.hs-headline .accent {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.hs-sub {
+  font-size: clamp(15px, 1.35vw, 18px);
+  line-height: 1.6;
+  color: var(--fg-2);
+  max-width: 46ch;
+  margin: 0;
+}
+
+.hs-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ПРАВАЯ КОЛОНКА — ТЕЛЕФОН С ЧАТ-ДЕМО (hp-)
+   Один общий CSS-цикл 16s: все элементы анимируются keyframe-процентами
+   одного периода, поэтому петля всегда синхронна.
+   Тайминги (сек → % от 16s):
+     0.5  msg1 client   →  3.1%
+     2.0  typing №1 in  → 12.5%   (0.9s «печатает…»)
+     2.9  msg2 ai       → 18.1%
+     5.4  msg3 client   → 33.8%
+     6.9  typing №2 in  → 43.1%
+     7.8  msg4 ai       → 48.8%
+    10.3  msg5 system   → 64.4%
+    14.5–15.5 общий fade-out ленты → 90.6–96.9%
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.hp-visual {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Корпус телефона: стоит прямо, глубина — ступени поверхностей + бордеры */
+.hp-phone {
+  width: 340px;
+  height: 640px;
+  padding: 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 44px;
+  background: var(--bg-2);
+  flex-shrink: 0;
+}
+
+/* Экран */
+.hp-screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* Чёлка-пилюля */
+.hp-notch {
+  width: 88px;
+  height: 18px;
+  margin: 10px auto 2px;
+  border-radius: 999px;
+  background: var(--bg-2);
+  flex-shrink: 0;
+}
+
+/* ── Шапка чата ───────────────────────────────────────────────────────── */
+.hp-chat-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 16px 14px;
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+}
+.hp-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+.hp-head-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.hp-name {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.hp-head-status {
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.hp-online-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5fd4a8;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── Лента сообщений ──────────────────────────────────────────────────── */
+.hp-thread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 14px;
+  overflow: hidden;
+  animation: hp-cycle 16s linear infinite;
+}
+
+.hp-msg { display: flex; }
+.hp-client { justify-content: flex-start; }
+.hp-ai {
+  justify-content: flex-end;
+  position: relative;
+}
+.hp-system { justify-content: center; }
+
+/* Появление реплики: масштаб + fade + сдвиг снизу, каскад по keyframes */
+.hp-entry {
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  animation-duration: 16s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-iteration-count: infinite;
+}
+.hp-d0 .hp-entry { animation-name: hp-in-0; }
+.hp-d1 .hp-entry { animation-name: hp-in-1; }
+.hp-d2 .hp-entry { animation-name: hp-in-2; }
+.hp-d3 .hp-entry { animation-name: hp-in-3; }
+.hp-d4 .hp-entry { animation-name: hp-in-4; }
+
+/* Пузыри */
+.hp-bubble {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 82%;
+  padding: 9px 12px 7px;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+.hp-client .hp-bubble {
+  background: var(--bg-3);
+  color: var(--fg);
+  border-radius: 14px 14px 14px 4px;
+}
+.hp-ai .hp-bubble {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 14px 14px 4px 14px;
+}
+.hp-time {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  align-self: flex-end;
+}
+.hp-ai .hp-time { color: rgba(255, 255, 255, 0.65); }
+
+/* Системная строка */
+.hp-sysrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+.hp-sys-check {
+  color: #5fd4a8;
+  font-size: 11px;
+}
+
+/* «Печатает…» — появляется на месте будущего ai-пузыря на ~0.9s */
+.hp-typing {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 11px 14px;
+  background: var(--accent);
+  border-radius: 14px 14px 4px 14px;
+  opacity: 0;
+  animation-duration: 16s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-iteration-count: infinite;
+}
+.hp-d1 .hp-typing { animation-name: hp-typing-1; }
+.hp-d3 .hp-typing { animation-name: hp-typing-2; }
+.hp-typing i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  animation: hp-dot 0.9s ease-in-out infinite;
+}
+.hp-typing i:nth-child(2) { animation-delay: 0.15s; }
+.hp-typing i:nth-child(3) { animation-delay: 0.3s; }
+
+/* ── Нижняя строка-статус на кромке экрана ────────────────────────────── */
+.hp-footbar {
+  flex-shrink: 0;
+  padding: 12px 16px;
+  border-top: 1px solid var(--line);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── Keyframes цикла ──────────────────────────────────────────────────── */
+@keyframes hp-in-0 {
+  0%, 3.1% { opacity: 0; transform: translateY(8px) scale(0.96); }
+  5.6%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes hp-in-1 {
+  0%, 18.1% { opacity: 0; transform: translateY(8px) scale(0.96); }
+  20.6%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes hp-in-2 {
+  0%, 33.8% { opacity: 0; transform: translateY(8px) scale(0.96); }
+  36.3%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes hp-in-3 {
+  0%, 48.8% { opacity: 0; transform: translateY(8px) scale(0.96); }
+  51.3%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes hp-in-4 {
+  0%, 64.4% { opacity: 0; transform: translateY(8px) scale(0.96); }
+  66.9%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes hp-typing-1 {
+  0%, 12.5% { opacity: 0; transform: translateY(6px); }
+  14.1% { opacity: 1; transform: translateY(0); }
+  17.2% { opacity: 1; transform: translateY(0); }
+  18.4%, 100% { opacity: 0; transform: translateY(0); }
+}
+@keyframes hp-typing-2 {
+  0%, 43.1% { opacity: 0; transform: translateY(6px); }
+  44.7% { opacity: 1; transform: translateY(0); }
+  47.8% { opacity: 1; transform: translateY(0); }
+  49%, 100% { opacity: 0; transform: translateY(0); }
+}
+
+/* Общий fade всей ленты в конце цикла */
+@keyframes hp-cycle {
+  0%, 90.6% { opacity: 1; }
+  96.9%, 100% { opacity: 0; }
+}
+
+@keyframes hp-dot {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  40% { transform: translateY(-3px); opacity: 1; }
+}
+
+/* ── Мелкие доводки Stats ─────────────────────────────────────────────── */
+.hs-stat .stat-label {
+  line-height: 1.7;
+  max-width: 30ch;
+}
+
+/* ── Респонсив ────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hs-hero-grid {
+    grid-template-columns: 1fr 0.95fr;
+    gap: 36px;
+  }
+  .hs-headline { font-size: clamp(34px, 4.4vw, 56px); }
+  .hp-phone {
+    width: 300px;
+    height: 600px;
+    border-radius: 40px;
+  }
+  .hp-screen { border-radius: 30px; }
+}
+
+@media (max-width: 768px) {
+  /* Мобильный — вертикальная история: текст → телефон по центру */
+  .hs-hero-inner {
+    align-items: flex-start;
+    padding-top: 16px;
+  }
+  .hs-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .hs-headline { font-size: clamp(34px, 8.4vw, 52px); }
+  .hs-sub { max-width: none; }
+  .hp-phone {
+    width: 300px;
+    height: 560px;
+  }
+  .hs-bg {
+    mask-image: radial-gradient(ellipse 120% 70% at 50% 20%, black 25%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 120% 70% at 50% 20%, black 25%, transparent 100%);
+  }
+}
+
+@media (max-width: 560px) {
+  .hs-headline { font-size: clamp(30px, 9.6vw, 40px); letter-spacing: -0.03em; }
+  .hs-kicker {
+    font-size: 9px;
+    padding: 7px 12px;
+    letter-spacing: 0.14em;
+  }
+  .hs-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hs-actions .btn { justify-content: center; }
+  .hp-phone {
+    width: 270px;
+    height: 500px;
+    border-radius: 36px;
+    padding: 8px;
+  }
+  .hp-screen { border-radius: 28px; }
+  .hp-notch { width: 76px; height: 16px; }
+  .hp-chat-head { padding: 8px 14px 12px; }
+  .hp-avatar { width: 30px; height: 30px; font-size: 11px; }
+  .hp-thread {
+    gap: 8px;
+    padding: 12px 12px;
+  }
+  .hp-bubble {
+    font-size: 11.5px;
+    padding: 8px 10px 6px;
+    max-width: 86%;
+  }
+  .hp-sysrow {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+  .hp-typing { padding: 10px 12px; }
+  .hp-footbar {
+    padding: 10px 12px;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+  }
+}
+
+/* ── Доступность: всё видно сразу, без цикла ──────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hp-thread { animation: none; opacity: 1; }
+  .hp-entry {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .hp-typing { display: none; }
+  .hp-typing i { animation: none; }
+  .hs-hero .hero-ticker-track { animation: none; }
+}

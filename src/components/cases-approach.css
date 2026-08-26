@@ -1,0 +1,583 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Секции «Кейсы» (cs-/cs2-), «Подход» (ap-) и «Стек» (ig-)
+   Общий файл трёх компонентов: Cases.js, Approach.js, Integrations.js
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Cases ─────────────────────────────────────────────────────────────── */
+
+/* Сетка: флагман на всю ширину сверху, два демо-кейса в ряд под ним */
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+/* ── Флагман EastRide: текст слева, стопка скриншотов справа ── */
+
+.cs2-flagship {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 48px;
+  align-items: center;
+  padding: 44px 48px;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-lg);
+}
+
+.cs2-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  min-width: 0;
+}
+
+.cs2-badge {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: var(--r-sm);
+  padding: 6px 12px;
+}
+
+.cs2-title {
+  margin: 0;
+  font-size: clamp(1.625rem, 1.4rem + 0.9vw, 2rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+.cs2-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs2-block-label {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cs2-block-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--fg-2);
+}
+
+/* ── Метрики с накруткой ── */
+
+.cs2-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.cs2-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cs2-metric-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.35rem + 0.6vw, 1.75rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.cs2-metric--lg .cs2-metric-value {
+  font-size: clamp(2.125rem, 1.9rem + 0.9vw, 2.5rem);
+}
+
+.cs2-metric-label {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.cs2-link {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cs2-link:hover {
+  color: var(--fg);
+}
+
+/* ── Стопка скриншотов в браузерных рамках ── */
+
+.cs2-shots {
+  position: relative;
+  min-width: 0;
+  /* запас снизу под смещённый второй скрин */
+  padding-bottom: 17%;
+}
+
+.cs2-frame {
+  margin: 0;
+  background: var(--bg-3);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  overflow: hidden;
+  /* Единственная допустимая тень: мягкая, чтобы рамка «лежала» на фоне */
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.cs2-frame-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.cs2-frame-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line-2);
+}
+
+.cs2-frame-url {
+  margin-left: 10px;
+  padding: 3px 14px;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: var(--bg);
+  border-radius: 999px;
+}
+
+.cs2-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: top;
+}
+
+.cs2-shot--main {
+  width: 85%;
+}
+
+.cs2-shot--overlay {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 55%;
+  transition: transform 0.2s ease;
+}
+
+.cs2-shots:hover .cs2-shot--overlay {
+  transform: translateY(-4px);
+}
+
+/* ── Демо-кейсы: компактно, «было → стало» + цифры ── */
+
+.cs2-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-lg);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.cs2-demo:hover {
+  border-color: var(--accent-soft);
+  transform: translateY(-2px);
+}
+
+.cs2-demo-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cs2-demo-industry {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.cs-demo-badge {
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  padding: 4px 9px;
+}
+
+/* «Было → стало» одной связкой */
+.cs2-flow {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.cs2-flow-was {
+  color: var(--muted);
+}
+
+.cs2-flow-arrow {
+  color: var(--accent);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.cs2-flow-now {
+  color: var(--fg-2);
+}
+
+.cs2-metrics--demo {
+  margin-top: auto;
+}
+
+/* Сноска честности: это демо-сценарии, не реальные кейсы */
+.cs-demo-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 720px;
+  margin: 32px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.cs-demo-note-glyph {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--accent-soft);
+}
+
+/* ── Approach ──────────────────────────────────────────────────────────── */
+
+.ap-timeline {
+  list-style: none;
+  margin: 64px 0 0;
+  padding: 0;
+  max-width: 880px;
+}
+
+.ap-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 140px 40px 1fr;
+  gap: 0 32px;
+  padding-bottom: 72px;
+}
+
+.ap-step:last-child {
+  padding-bottom: 0;
+}
+
+.ap-num {
+  font-size: clamp(3rem, 2.4rem + 2.4vw, 4.75rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  opacity: 0.22;
+  text-align: right;
+  transition: opacity 0.35s ease;
+}
+
+/* Рельса: узел-точка + соединительная линия вниз до следующего шага */
+.ap-rail {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.ap-node {
+  position: relative;
+  z-index: 1;
+  width: 12px;
+  height: 12px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--accent-soft);
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.ap-line {
+  position: absolute;
+  top: 22px;
+  bottom: -10px;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, var(--accent-soft), var(--line-2));
+}
+
+.ap-step:hover .ap-num {
+  opacity: 0.5;
+}
+
+.ap-step:hover .ap-node {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.ap-body {
+  padding-top: 2px;
+  max-width: 560px;
+}
+
+.ap-title {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--fg);
+}
+
+.ap-desc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ── Integrations ──────────────────────────────────────────────────────── */
+
+.ig-rows {
+  display: flex;
+  flex-direction: column;
+  margin-top: 56px;
+  border-top: 1px solid var(--line);
+}
+
+.ig-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: baseline;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ig-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ig-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ig-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--fg-2);
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.ig-badge:hover {
+  border-color: var(--accent);
+  color: var(--fg);
+  transform: translateY(-1px);
+}
+
+/* ── Респонсив ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .cs-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Флагман в одну колонку: текст сверху, скрины под ним */
+  .cs2-flagship {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 32px 28px;
+  }
+
+  .ap-step {
+    grid-template-columns: 96px 32px 1fr;
+    gap: 0 24px;
+    padding-bottom: 56px;
+  }
+
+  .ig-row {
+    grid-template-columns: 160px 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .cs-grid {
+    margin-top: 44px;
+  }
+
+  .cs2-flagship {
+    padding: 26px 22px;
+  }
+
+  .cs2-demo {
+    padding: 26px 22px;
+  }
+
+  .ap-timeline {
+    margin-top: 48px;
+  }
+
+  /* Mobile-таймлайн: номер меньше, линия сохраняется */
+  .ap-step {
+    grid-template-columns: 28px 1fr;
+    gap: 0 18px;
+    padding-bottom: 44px;
+  }
+
+  .ap-num {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    opacity: 0.55;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .ap-rail {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .ap-node {
+    width: 10px;
+    height: 10px;
+    margin-top: 4px;
+  }
+
+  .ap-line {
+    top: 16px;
+  }
+
+  .ap-body {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .ap-title {
+    margin-bottom: 8px;
+  }
+
+  /* Интеграции: лейбл сверху, бейджи переносятся */
+  .ig-rows {
+    margin-top: 44px;
+  }
+
+  .ig-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .cs2-flagship {
+    padding: 22px 18px;
+  }
+
+  .cs2-demo {
+    padding: 22px 18px;
+  }
+
+  /* Один скрин во всю ширину, второй скрыт */
+  .cs2-shots {
+    padding-bottom: 0;
+  }
+
+  .cs2-shot--main {
+    width: 100%;
+  }
+
+  .cs2-shot--overlay {
+    display: none;
+  }
+
+  /* Метрики переносятся в строки «цифра — подпись» */
+  .cs2-metrics {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .cs2-metric {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .cs2-metric-value,
+  .cs2-metric--lg .cs2-metric-value {
+    font-size: 1.4rem;
+  }
+
+  .ap-step {
+    padding-bottom: 36px;
+  }
+
+  .ig-badge {
+    padding: 8px 14px;
+    font-size: 0.7rem;
+  }
+}

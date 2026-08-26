@@ -1,0 +1,323 @@
+/* ═════════════════════════════════════════════════════════════════════
+   Секция «Схема системы» — живой граф узлов в духе n8n.
+   Desktop (≥1024): канвас с absolute-узлами и SVG-связями с бегущими
+   импульсами. Mobile/tablet (<1024): вертикальная версия с рельсом.
+   Все классы с префиксом sf2-.
+   ═════════════════════════════════════════════════════════════════════ */
+
+/* Фоновая «полоса» секции — отделяет её от соседних */
+.sf2-band {
+  background: var(--bg-2);
+}
+
+/* ── Канвас графа (desktop) ─────────────────────────────────────────── */
+.sf2-canvas {
+  position: relative;
+  height: 600px;
+  margin-top: 8px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background-color: var(--bg);
+  /* точечная сетка node-редактора */
+  background-image: radial-gradient(rgba(216, 234, 255, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: 12px 12px;
+  overflow: hidden;
+}
+
+/* SVG со связями — под узлами, поверх сетки */
+.sf2-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* базовая нить связи */
+.sf2-wire {
+  fill: none;
+  stroke: var(--line-2);
+  stroke-width: 1.5px;
+}
+
+/* бегущий импульс поверх нити */
+.sf2-pulse {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5px;
+  stroke-dasharray: 6 14;
+  stroke-linecap: round;
+  animation: sf2-dash 4s linear infinite;
+}
+
+@keyframes sf2-dash {
+  to { stroke-dashoffset: -20; }
+}
+
+/* ── Узлы ───────────────────────────────────────────────────────────── */
+.sf2-node {
+  position: absolute;
+  z-index: 2;
+  transform: translateY(-50%);
+  background: var(--bg-3);
+  border: 1px solid var(--line-2);
+  transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sf2-node:hover {
+  border-color: var(--accent);
+}
+
+/* маленький узел-источник */
+.sf2-src {
+  left: 1.5%;
+  width: 12%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg);
+  white-space: nowrap;
+}
+
+.sf2-src-1 { top: 11%; }
+.sf2-src-2 { top: 26%; }
+.sf2-src-3 { top: 41%; }
+.sf2-src-4 { top: 56%; }
+.sf2-src-5 { top: 71%; }
+.sf2-src-6 { top: 86%; }
+
+/* крупный узел-стадия */
+.sf2-stage {
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+/* раскладка стадий: зигзаг слева направо + вилка справа */
+.sf2-node--intake        { left: 19%;   width: 14%;   top: 50%; }
+.sf2-node--qualification { left: 34.5%; width: 14%;   top: 30%; }
+.sf2-node--crm           { left: 50.5%; width: 14%;   top: 68%; }
+.sf2-node--routing       { left: 66%;   width: 14%;   top: 40%; }
+.sf2-node--followup      { left: 84%;   width: 14.5%; top: 13%; }
+.sf2-node--analytics     { left: 84%;   width: 14.5%; top: 72%; }
+
+/* хаб-узел приёма чуть акцентирован */
+.sf2-node--intake {
+  border-color: rgba(61, 110, 247, 0.45);
+  box-shadow: 0 0 18px var(--accent-soft);
+}
+
+.sf2-stage-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.sf2-stage-num {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.sf2-stage-title {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.sf2-stage-desc {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Точки-порты ────────────────────────────────────────────────────── */
+.sf2-port {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.sf2-port--in  { left: -4px; }
+.sf2-port--out { right: -4px; }
+
+/* лёгкая жизнь: пульс у избранных портов */
+.sf2-port--beat {
+  animation: sf2-beat 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes sf2-beat {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.25); }
+}
+
+/* ── Чип LIVE у Analytics ───────────────────────────────────────────── */
+.sf2-live {
+  margin-left: auto;
+  padding: 2px 6px;
+  border: 1px solid rgba(95, 212, 168, 0.35);
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: #5fd4a8;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sf2-live::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #5fd4a8;
+}
+
+/* ── Подпись-итог под канвасом ──────────────────────────────────────── */
+.sf2-result {
+  margin-top: 16px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* ── Мобильная / планшетная версия (<1024) ──────────────────────────── */
+.sf2-mobile { display: none; }
+
+@media (max-width: 1023px) {
+  .sf2-canvas { display: none; }
+  .sf2-mobile { display: block; margin-top: 8px; }
+  .sf2-result { text-align: left; }
+
+  /* сетка чипов источников 3×2 */
+  .sf2-m-sources {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .sf2-m-chip {
+    padding: 9px 10px;
+    background: var(--bg-3);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sf2-m-arrow {
+    margin: 14px 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* вертикальный рельс со стадиями */
+  .sf2-m-stages {
+    position: relative;
+    margin: 0;
+    padding: 0 0 0 22px;
+    list-style: none;
+  }
+
+  /* соединительная линия */
+  .sf2-m-stages::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--line-2);
+  }
+
+  /* бегущий по линии импульс: световой сегмент едет сверху вниз */
+  .sf2-m-stages::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background-image: linear-gradient(180deg, transparent, var(--accent), transparent);
+    background-size: 1px 64px;
+    background-repeat: no-repeat;
+    background-position: 0 -64px;
+    animation: sf2-rail 5s linear infinite;
+  }
+
+  @keyframes sf2-rail {
+    from { background-position: 0 -64px; }
+    to   { background-position: 0 calc(100% + 64px); }
+  }
+
+  .sf2-m-stage {
+    position: relative;
+    margin-bottom: 10px;
+    padding: 12px 14px;
+    background: var(--bg-3);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sf2-m-stage:last-child { margin-bottom: 0; }
+
+  /* узловая точка на линии */
+  .sf2-m-stage::before {
+    content: '';
+    position: absolute;
+    left: -20.5px;
+    top: 18px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+}
+
+@media (max-width: 480px) {
+  .sf2-m-sources { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── prefers-reduced-motion: вся жизнь выключается ──────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .sf2-pulse,
+  .sf2-port--beat,
+  .sf2-m-stages::after {
+    animation: none;
+  }
+
+  .sf2-m-stages::after { display: none; }
+}

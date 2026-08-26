@@ -6,10 +6,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
 
-const Services    = lazy(() => import('./components/Services'));
-const Portfolio   = lazy(() => import('./components/Portfolio'));
 const AboutUs     = lazy(() => import('./components/AboutUs'));
-const Clients     = lazy(() => import('./components/Clients'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const Footer      = lazy(() => import('./components/Footer'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
@@ -17,6 +14,18 @@ const FullPortfolio = lazy(() => import('./components/FullPortfolio'));
 const Consent      = lazy(() => import('./components/Consent'));
 const Blog         = lazy(() => import('./components/Blog'));
 const CookieBanner = lazy(() => import('./components/CookieBanner'));
+
+// ── Новые секции главной (AI Systems) ──
+const Problems        = lazy(() => import('./components/Problems'));
+const SystemFlow      = lazy(() => import('./components/SystemFlow'));
+const ServicesSystems = lazy(() => import('./components/ServicesSystems'));
+const Cases           = lazy(() => import('./components/Cases'));
+const Approach        = lazy(() => import('./components/Approach'));
+const Integrations    = lazy(() => import('./components/Integrations'));
+
+// ── Новые страницы ──
+const ServicePage     = lazy(() => import('./components/ServicePage'));
+const VideoProduction = lazy(() => import('./components/VideoProduction'));
 
 const SectionFallback = () => (
   <div style={{ padding: '80px 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -173,7 +182,17 @@ const getPageFromUrl = () => {
   if (path === '/privacy' || path === '/privacy-policy') return 'privacy';
   if (path === '/consent') return 'consent';
   if (path === '/blog' || path.startsWith('/blog/')) return 'blog';
+  if (path === '/video-production') return 'video';
+  if (path.startsWith('/services/')) return 'service';
   return 'main';
+};
+
+// Достаём slug услуги из /services/<slug>/ (например ai-sales-automation)
+const getServiceSlugFromUrl = () => {
+  if (typeof window === 'undefined') return null;
+  const path = stripLocale(window.location.pathname);
+  const m = path.match(/^\/services\/([^/]+)$/);
+  return m ? m[1] : null;
 };
 
 // Достаём slug статьи из /blog/<slug>/ (для /blog/ вернёт null — это список)
@@ -187,6 +206,7 @@ const getBlogSlugFromUrl = () => {
 function App() {
   const [page, setPage] = useState(getPageFromUrl);
   const [blogSlug, setBlogSlug] = useState(getBlogSlugFromUrl);
+  const [serviceSlug, setServiceSlug] = useState(getServiceSlugFromUrl);
   const [locale] = useState(getLocaleFromUrl);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showInfoNotification, setShowInfoNotification] = useState(false);
@@ -196,14 +216,41 @@ function App() {
     if (typeof document !== 'undefined') document.documentElement.lang = locale;
   }, [locale]);
 
+  // Локализованные title/description для главной + скролл к якорю (#contact)
+  // после перехода со страниц услуг и /video-production
+  useEffect(() => {
+    if (page === 'main') {
+      const en = locale === 'en';
+      document.title = en
+        ? 'AIVFX — AI Systems & Business Automation | From First Inquiry to Repeat Sales'
+        : 'AIVFX — AI-системы и автоматизация бизнеса | От заявки до повторных продаж';
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta) {
+        meta.setAttribute('content', en
+          ? 'We design and deploy AI automations for business: lead intake and qualification, AI assistants, CRM integration and process automation. No lead gets lost.'
+          : 'Проектируем и внедряем AI-автоматизации для бизнеса: приём и квалификация заявок, AI-ассистенты, интеграция с CRM и автоматизация процессов.');
+      }
+    }
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const id = window.location.hash.slice(1);
+      const t = setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 600);
+      return () => clearTimeout(t);
+    }
+  }, [page, locale]);
+
   const showPrivacyPolicy = page === 'privacy';
   const showFullPortfolio = page === 'works';
   const showConsentPage   = page === 'consent';
   const showBlogPage      = page === 'blog';
+  const showServicePage   = page === 'service';
+  const showVideoPage     = page === 'video';
 
   // Синхронизируем состояние с кнопками браузера "назад"/"вперёд"
   useEffect(() => {
-    const onPop = () => { setPage(getPageFromUrl()); setBlogSlug(getBlogSlugFromUrl()); };
+    const onPop = () => { setPage(getPageFromUrl()); setBlogSlug(getBlogSlugFromUrl()); setServiceSlug(getServiceSlugFromUrl()); };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
   }, []);
@@ -307,6 +354,14 @@ function App() {
           <Suspense fallback={<SectionFallback />}>
             <FullPortfolio onBack={hideAllPortfolio} />
           </Suspense>
+        ) : showVideoPage ? (
+          <Suspense fallback={<SectionFallback />}>
+            <VideoProduction />
+          </Suspense>
+        ) : showServicePage ? (
+          <Suspense fallback={<SectionFallback />}>
+            <ServicePage slug={serviceSlug} />
+          </Suspense>
         ) : showBlogPage ? (
           <Suspense fallback={<SectionFallback />}>
             <Blog
@@ -339,10 +394,13 @@ function App() {
             <main>
               <Hero />
               <Stats />
-              <Suspense fallback={<SectionFallback />}><Services /></Suspense>
-              <Suspense fallback={<SectionFallback />}><Portfolio /></Suspense>
+              <Suspense fallback={<SectionFallback />}><Problems /></Suspense>
+              <Suspense fallback={<SectionFallback />}><SystemFlow /></Suspense>
+              <Suspense fallback={<SectionFallback />}><ServicesSystems /></Suspense>
+              <Suspense fallback={<SectionFallback />}><Cases /></Suspense>
+              <Suspense fallback={<SectionFallback />}><Approach /></Suspense>
+              <Suspense fallback={<SectionFallback />}><Integrations /></Suspense>
               <Suspense fallback={<SectionFallback />}><AboutUs /></Suspense>
-              <Suspense fallback={<SectionFallback />}><Clients /></Suspense>
               <Suspense fallback={<SectionFallback />}><ContactForm /></Suspense>
             </main>
             <Suspense fallback={null}><Footer /></Suspense>
