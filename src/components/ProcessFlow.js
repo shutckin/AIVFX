@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocale, pick } from '../i18n';
 import { VIDEO_PROCESS } from '../data/systems-content';
+import { mediaFor, fetchLocalized } from '../lib/localizedMedia';
 
 // ── Блок «Как рождается ролик» ─────────────────────────────────────────
 //
@@ -50,6 +51,9 @@ const ProcessFlow = () => {
   // Полная версия весит мегабайты, поэтому адреса подставляем только
   // когда блок близко: незачем тянуть их на открытии страницы
   const [loading, setLoading] = useState(false);
+  // Английская версия ролика может быть ещё не залита: тогда тег
+  // сообщит об ошибке, и мы подставим русскую
+  const [lightFellBack, setLightFellBack] = useState(false);
   // Адрес скачанной полной версии и признак того, что она уже на экране
   const [sharpUrl, setSharpUrl] = useState(null);
   const [sharp, setSharp] = useState(false);
@@ -95,10 +99,9 @@ const ProcessFlow = () => {
     let url = null;
     let cancelled = false;
 
-    fetch(VIDEO_SRC)
-      .then((r) => (r.ok ? r.blob() : Promise.reject(new Error(String(r.status)))))
+    fetchLocalized(VIDEO_SRC, L)
       .then((blob) => {
-        if (cancelled) return;
+        if (cancelled || !blob) return;
         url = URL.createObjectURL(blob);
         setSharpUrl(url);
       })
@@ -111,7 +114,7 @@ const ProcessFlow = () => {
       cancelled = true;
       if (url) URL.revokeObjectURL(url);
     };
-  }, [loading]);
+  }, [loading, L]);
 
   // ── Передача перемотки полной версии ──
   useEffect(() => {
@@ -193,7 +196,15 @@ const ProcessFlow = () => {
       setReady(true);
       onScroll();
     };
-    const onError = () => setFailed(true);
+    const onError = () => {
+      const { fallback } = mediaFor(VIDEO_SRC, L);
+      // Нет английской версии — переключаемся на русскую и пробуем снова
+      if (video === lightRef.current && fallback && !lightFellBack) {
+        setLightFellBack(true);
+        return;
+      }
+      setFailed(true);
+    };
 
     if (video.readyState >= 1) onLoaded();
     else video.addEventListener('loadedmetadata', onLoaded);
@@ -210,7 +221,7 @@ const ProcessFlow = () => {
       video.removeEventListener('error', onError);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [steps.length, loading, sharp]);
+  }, [steps.length, loading, sharp, L, lightFellBack]);
 
   const outLabel = L === 'en' ? 'You get' : 'На выходе';
 
@@ -228,7 +239,14 @@ const ProcessFlow = () => {
           <video
             ref={lightRef}
             className="vpf-video vpf-video--light"
-            src={loading ? VIDEO_LIGHT_SRC : undefined}
+            src={loading
+              ? (lightFellBack
+                ? mediaFor(VIDEO_LIGHT_SRC, L).fallback || VIDEO_LIGHT_SRC
+                : mediaFor(VIDEO_LIGHT_SRC, L).primary)
+              : undefined}
+            // Постер намеренно не переводим: первый кадр почти чёрный
+            // и надписей не несёт, а лишний запрос на несуществующий
+            // файл сервер всё равно вернёт подставной страницей
             poster={POSTER_SRC}
             muted
             playsInline
