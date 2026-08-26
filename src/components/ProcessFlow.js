@@ -4,15 +4,22 @@ import { VIDEO_PROCESS } from '../data/systems-content';
 
 // ── Блок «Как рождается ролик» ─────────────────────────────────────────
 //
-// Слева липкая сцена с одним кадром, справа шаги. Кадр — не абстракция,
-// а сгенерированная раскадровка одного и того же продуктового ролика на
-// пяти стадиях готовности: мудборд → карандашный сторибоард → плоский
-// черновой рендер → грейд до/после → готовый рекламный кадр.
+// Слева липкий ролик, справа шаги. Ролик не играет сам по себе: он
+// перематывается вместе с прокруткой. Листаешь текст вниз, и производство
+// на экране идёт вперёд; листаешь вверх, и оно отматывается назад.
+// Шаг, который сейчас читают, подсвечивается из того же прогресса, поэтому
+// текст и картинка не могут разъехаться.
 //
-// Пока читаешь шаги (или водишь пальцем по сцене на телефоне), кадр
-// кросс-фейдится в следующую стадию — история буквально листается.
+// Почему перемотка, а не обычное воспроизведение: у блока пять шагов и своя
+// длина прокрутки, а у ролика своя длительность. Привязав одно к другому,
+// получаем управление кадром вместо параллельно бегущего видео.
 
-const IMAGES = [
+const VIDEO_SRC = '/process/reel.mp4';
+const POSTER_SRC = '/process/reel-poster.jpg';
+
+// Запасные кадры по одному на шаг. Нужны, если ролик не загрузился:
+// у зрителя вместо чёрной дыры остаётся понятная картинка этапа.
+const FALLBACK_SHOTS = [
   '/process/p01-moodboard.jpg',
   '/process/p02-storyboard.jpg',
   '/process/p03-rough.jpg',
@@ -20,84 +27,101 @@ const IMAGES = [
   '/process/p05-final.jpg',
 ];
 
+// Насколько быстро текущий кадр догоняет целевой. Меньше — плавнее,
+// но заметнее отставание от прокрутки.
+const CATCH_UP = 0.22;
+
+const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+
 const ProcessFlow = () => {
   const L = useLocale();
   const steps = VIDEO_PROCESS.steps;
+
   // Стартовое значение не зависит от браузера: первый рендер обязан
   // совпасть с предзарендеренной разметкой
   const [active, setActive] = useState(0);
-  const stepRefs = useRef([]);
-  const stageRef = useRef(null);
+  const [ready, setReady] = useState(false);
+  const [failed, setFailed] = useState(false);
 
-  // ── Активная стадия по прокрутке ──
+  const wrapRef = useRef(null);
+  const videoRef = useRef(null);
+  // Целевая позиция в ролике, 0..1. Пишет скролл, читает анимация.
+  const targetRef = useRef(0);
+
   useEffect(() => {
-    const nodes = stepRefs.current.filter(Boolean);
-    if (!nodes.length) return undefined;
+    const wrap = wrapRef.current;
+    const video = videoRef.current;
+    if (!wrap || !video) return undefined;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let best = null;
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          if (!best || entry.intersectionRatio > best.intersectionRatio) best = entry;
-        }
-        if (!best) return;
-        const idx = nodes.indexOf(best.target);
-        if (idx >= 0) setActive(idx);
-      },
-      { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.5, 1] }
-    );
-
-    nodes.forEach((n) => observer.observe(n));
-    return () => observer.disconnect();
-  }, []);
-
-  // ── Тонкая доводка стадии положением курсора / пальца над самой сценой ──
-  // Прокрутка задаёт «какой шаг сейчас читается», а движение над картинкой
-  // позволяет буквально провести историю вперёд-назад одним жестом —
-  // то самое ощущение «ролик листается за движением».
-  useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) return undefined;
+    const reduced = window.matchMedia
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let raf = 0;
-    let pending = null;
 
-    const apply = () => {
+    // Прогресс прокрутки блока: 0 — шаги только начались,
+    // 1 — последний шаг дочитан
+    const readProgress = () => {
+      const r = wrap.getBoundingClientRect();
+      // Блок «проезжает» мимо экрана: считаем, какая его часть уже позади
+      const travel = r.height - window.innerHeight;
+      if (travel <= 0) return 0;
+      return clamp01(-r.top / travel);
+    };
+
+    const applyStep = (p) => {
+      const idx = Math.min(steps.length - 1, Math.floor(p * steps.length));
+      setActive((prev) => (prev === idx ? prev : idx));
+    };
+
+    // Кадр за кадром подтягиваем ролик к целевой позиции. Резкое присвоение
+    // currentTime на каждый пиксель прокрутки даёт рывки, поэтому догоняем
+    // плавно и останавливаемся, когда разница перестала быть заметной.
+    const tick = () => {
       raf = 0;
-      if (pending == null) return;
-      setActive(pending);
-      pending = null;
+      const duration = video.duration;
+      if (!Number.isFinite(duration) || duration <= 0) return;
+
+      const target = targetRef.current * (duration - 0.05);
+      const diff = target - video.currentTime;
+
+      if (Math.abs(diff) < 0.015) {
+        video.currentTime = target;
+        return;
+      }
+
+      video.currentTime += diff * CATCH_UP;
+      raf = requestAnimationFrame(tick);
     };
 
-    const fromX = (clientX) => {
-      const r = stage.getBoundingClientRect();
-      if (r.width <= 0) return null;
-      const t = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
-      return Math.min(steps.length - 1, Math.floor(t * steps.length));
+    const onScroll = () => {
+      const p = readProgress();
+      targetRef.current = p;
+      applyStep(p);
+
+      if (reduced) return; // системная настройка: кадр не гоняем
+      if (!raf) raf = requestAnimationFrame(tick);
     };
 
-    const onMove = (e) => {
-      const idx = fromX(e.clientX);
-      if (idx == null) return;
-      pending = idx;
-      if (!raf) raf = requestAnimationFrame(apply);
+    const onLoaded = () => {
+      setReady(true);
+      onScroll();
     };
 
-    const onTouch = (e) => {
-      const t = e.touches[0];
-      if (!t) return;
-      const idx = fromX(t.clientX);
-      if (idx == null) return;
-      pending = idx;
-      if (!raf) raf = requestAnimationFrame(apply);
-    };
+    const onError = () => setFailed(true);
 
-    stage.addEventListener('mousemove', onMove, { passive: true });
-    stage.addEventListener('touchmove', onTouch, { passive: true });
+    if (video.readyState >= 1) onLoaded();
+    else video.addEventListener('loadedmetadata', onLoaded);
+    video.addEventListener('error', onError);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+
     return () => {
-      stage.removeEventListener('mousemove', onMove);
-      stage.removeEventListener('touchmove', onTouch);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      video.removeEventListener('loadedmetadata', onLoaded);
+      video.removeEventListener('error', onError);
       if (raf) cancelAnimationFrame(raf);
     };
   }, [steps.length]);
@@ -105,26 +129,37 @@ const ProcessFlow = () => {
   const current = steps[active] || steps[0];
 
   return (
-    <div className="vpf">
+    <div className="vpf" ref={wrapRef}>
       <p className="vpf-lead reveal">{pick(L, VIDEO_PROCESS.lead)}</p>
 
       <div className="vpf-grid">
-        {/* ── Сцена: один и тот же ролик на пяти стадиях ── */}
+        {/* ── Ролик, привязанный к прокрутке ── */}
         <div className="vpf-visual">
-          <div className="vpf-stage" ref={stageRef}>
-            {IMAGES.map((src, i) => (
+          <div className={`vpf-stage${ready ? ' vpf-stage--ready' : ''}`}>
+            <video
+              ref={videoRef}
+              className="vpf-video"
+              src={VIDEO_SRC}
+              poster={POSTER_SRC}
+              muted
+              playsInline
+              preload="auto"
+              // Ролик управляется прокруткой, поэтому не играет сам
+              // и не зациклен
+              aria-label={L === 'en'
+                ? 'How a commercial is made, from brief to final frame'
+                : 'Как рождается ролик, от брифа до финального кадра'}
+            />
+
+            {failed && steps.map((s, i) => (
               <img
-                key={src}
-                src={src}
-                alt={i === IMAGES.length - 1
-                  ? (L === 'en' ? 'Finished commercial frame' : 'Готовый рекламный кадр')
-                  : ''}
-                aria-hidden={i !== IMAGES.length - 1}
-                className={`vpf-frame${i === active ? ' vpf-frame--on' : ''}`}
-                width={1200}
-                height={900}
-                loading={i === 0 ? 'eager' : 'lazy'}
-                decoding="async"
+                key={s.num}
+                className={`vpf-shot${i === active ? ' vpf-shot--on' : ''}`}
+                src={FALLBACK_SHOTS[i] || FALLBACK_SHOTS[0]}
+                alt={pick(L, s.title)}
+                loading="lazy"
+                width="720"
+                height="960"
               />
             ))}
 
@@ -137,10 +172,6 @@ const ProcessFlow = () => {
                 <span key={s.num} className={`vpf-tick${i <= active ? ' vpf-tick--on' : ''}`} />
               ))}
             </span>
-
-            <span className="vpf-scrub-hint mono" aria-hidden="true">
-              {L === 'en' ? 'move to scrub' : 'веди курсором'}
-            </span>
           </div>
         </div>
 
@@ -149,7 +180,6 @@ const ProcessFlow = () => {
           {steps.map((s, i) => (
             <li
               key={s.num}
-              ref={(el) => { stepRefs.current[i] = el; }}
               className={`vpf-step${i === active ? ' vpf-step--on' : ''}`}
             >
               <div className="vpf-step-head">

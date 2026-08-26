@@ -1231,24 +1231,40 @@
 .vpf-stage {
   position: sticky;
   top: 108px;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
   border-radius: var(--r-lg, 16px);
   overflow: hidden;
-  cursor: ew-resize;
   box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7);
 }
 
-/* Кадры лежат друг на друге, активный проявляется кросс-фейдом */
-.vpf-frame {
+/* Ролик заполняет сцену целиком. Он не играет сам: кадр выбирает
+   прокрутка, см. ProcessFlow.js */
+.vpf-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: opacity 0.5s ease;
 }
-.vpf-frame--on { opacity: 1; }
+/* Проявляем только когда известна длительность: до этого перематывать
+   некуда и кадр может моргнуть */
+.vpf-stage--ready .vpf-video { opacity: 1; }
+
+/* Запасные кадры: появляются только если ролик не загрузился.
+   Кроссфейд между ними даёт ту же смену картинки по шагам, что и
+   перемотка ролика, просто ступеньками вместо плавного хода. */
+.vpf-shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.vpf-shot--on { opacity: 1; }
 
 .vpf-stage-label {
   position: absolute;
@@ -1283,26 +1299,6 @@
   transition: background 0.4s ease;
 }
 .vpf-tick--on { background: var(--accent); }
-
-.vpf-scrub-hint {
-  position: absolute;
-  top: clamp(14px, 2.4vw, 22px);
-  right: clamp(14px, 2.4vw, 22px);
-  padding: 6px 11px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(10, 9, 8, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-.vpf-stage:hover .vpf-scrub-hint { opacity: 1; }
 
 /* ── Шаги ── */
 .vpf-steps {
@@ -1415,16 +1411,26 @@
     position: sticky;
     top: 76px;
     z-index: 2;
-    margin-bottom: 28px;
-    padding-bottom: 14px;
-    background: linear-gradient(var(--bg) 78%, transparent);
+    margin-bottom: 20px;
+    /* Шаги проезжают под сценой. Полоса растворения нужна, чтобы текст
+       уходил под неё мягко, а не обрубался по краю картинки. */
+    padding-bottom: 24px;
+    background: linear-gradient(var(--bg) calc(100% - 24px), transparent);
   }
-  .vpf-stage { position: relative; top: auto; aspect-ratio: 4 / 3; cursor: default; }
+  .vpf-stage {
+    position: relative;
+    top: auto;
+    aspect-ratio: 3 / 4;
+    /* Вертикальный кадр во всю ширину телефона занимал почти весь экран,
+       и на текст шага места не оставалось. Ограничиваем по высоте экрана,
+       ширину считаем от неё, чтобы кадр не пришлось обрезать. */
+    max-width: calc(50vh * 3 / 4);
+    margin-inline: auto;
+  }
   .vpf-step { opacity: 0.55; min-height: 0; }
-  .vpf-scrub-hint { display: none; }
-}
+  }
 
 /* Уважение к системной настройке: перестроение без анимации */
 @media (prefers-reduced-motion: reduce) {
-  .vpf-frame { transition: opacity 0.2s ease; transition-delay: 0ms !important; }
+  .vpf-video { transition: none; }
 }
