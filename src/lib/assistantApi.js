@@ -10,6 +10,17 @@
 
 const ENDPOINT = process.env.REACT_APP_ASSISTANT_API || '';
 
+// Модели просили не использовать разметку, но изредка она всё равно
+// проскакивает. В обычном текстовом пузыре звёздочки видны как есть
+// и выглядят браком, поэтому подчищаем их на всякий случай.
+const stripMarkup = (text) => String(text)
+  .replace(/\*\*(.+?)\*\*/g, '$1')   // **жирный**
+  .replace(/(^|\s)\*(\S.*?\S)\*(?=\s|$)/g, '$1$2') // *курсив*
+  .replace(/^#{1,6}\s+/gm, '')        // ## заголовки
+  .replace(/^\s*[-*]\s+/gm, '• ')     // маркеры списка
+  .replace(/\n{3,}/g, '\n\n')
+  .trim();
+
 export const isAssistantConfigured = () => Boolean(ENDPOINT);
 
 // Дольше ждать нет смысла: посетитель решит, что чат завис
@@ -38,7 +49,7 @@ export const askAssistant = async (messages) => {
     const data = await r.json().catch(() => null);
     if (!r.ok || !data || !data.ok || !data.reply) return null;
 
-    return { reply: String(data.reply), slots: data.slots || null };
+    return { reply: stripMarkup(data.reply), slots: data.slots || null };
   } catch (e) {
     // Сеть, таймаут, неверный ответ — всё это повод молча отступить
     // на сценарий, а не показывать посетителю ошибку
