@@ -86,10 +86,11 @@ const probe = (file) => {
 const before = probe(src);
 console.log(`Исходник: ${before.width}×${before.height}, ${before.duration.toFixed(1)}с`);
 
-// Не больше 1248 по ширине: выше апскейл новых деталей не добавит,
-// только вес. Меньше — оставляем как есть.
+// Потолок 1920: на широком мониторе полноэкранный кадр показывается
+// примерно в эту ширину, и родное разрешение там видно. Выше смысла нет.
+// Если исходник меньше — оставляем как есть, растягивать нечем.
 console.log('Кодирую полную версию…');
-run(['-y', '-i', src, ...common(Math.min(1248, before.width), 23), outVideo]);
+run(['-y', '-i', src, ...common(Math.min(1920, before.width), 23), outVideo]);
 
 // Лёгкая версия нужна ровно на те секунды, пока грузится полная.
 // 560 по ширине на полном экране мылит, но это лучше пустого места.
@@ -97,7 +98,7 @@ console.log('Кодирую лёгкую версию для мгновенно�
 run(['-y', '-i', src, ...common(Math.min(560, before.width), 30), outLight]);
 
 console.log('Снимаю постер с первого кадра…');
-run(['-y', '-i', src, '-frames:v', '1', '-vf', `scale=${Math.min(1248, before.width)}:-2`, '-q:v', '4', outPoster]);
+run(['-y', '-i', src, '-frames:v', '1', '-vf', `scale=${Math.min(1920, before.width)}:-2`, '-q:v', '4', outPoster]);
 
 const after = probe(outVideo);
 const mb = (f) => (fs.statSync(f).size / 1024 / 1024).toFixed(1);

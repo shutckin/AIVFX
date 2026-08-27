@@ -172,6 +172,14 @@ const ScrollReel = ({
     };
 
     const onScroll = () => {
+      // Подстраховка к наблюдателю пересечений: если он почему-то не
+      // сработал, блок остался бы с чёрным экраном навсегда. Здесь мы
+      // всё равно узнаём, что блок близко, и включаем загрузку.
+      const r = wrap.getBoundingClientRect();
+      if (r.top < window.innerHeight * 3 && r.bottom > -window.innerHeight) {
+        setLoading(true);
+      }
+
       const p = readProgress();
       targetRef.current = p;
       applyStep(p);
