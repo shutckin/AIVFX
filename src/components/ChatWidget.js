@@ -2,13 +2,17 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocale, pick } from '../i18n';
 import { CHAT_DEMO } from '../data/systems-content';
 import { sendLead, sendLeadBeacon } from '../lib/leadApi';
+import { askAssistant, isAssistantConfigured } from '../lib/assistantApi';
 import './chat-widget.css';
 
 // ─────────────────────────────────────────────────────────────────────────
 // Живой демо-ассистент AIVFX.
 // Сайт сам показывает продукт, который студия продаёт: посетитель задаёт
 // вопросы, получает осмысленные ответы по сценарию и оставляет контакт.
-// Никаких внешних API для ответов — сценарий целиком лежит в CHAT_DEMO.
+// Отвечает настоящая модель на сервере: ключ в браузер не попадает.
+// Сценарий из CHAT_DEMO остался запасным путём — на случай, когда сервер
+// недоступен или ключ ещё не подключён. Посетитель не должен упираться
+// в поломку из-за чужой проблемы, поэтому чат в любом случае отвечает.
 // ─────────────────────────────────────────────────────────────────────────
 
 const SCROLL_TRIGGER = 500;   // после какого скролла показать лаунчер
@@ -161,6 +165,10 @@ const ChatWidget = () => {
   const logRef = useRef(null);
   const askedRef = useRef([]);
   const topicsRef = useRef([]);
+  // Диалог в том виде, в каком его ждёт модель. Держим отдельно от
+  // messages: там есть служебные записи вроде формы контакта, модели
+  // они не нужны и только путали бы её.
+  const convoRef = useRef([]);
   const summarySent = useRef(false);
   const leadDelivered = useRef(false);
   // Обёртка-объект, а не голый ref: так cleanup видит актуальный таймер
@@ -301,7 +309,10 @@ const ChatWidget = () => {
     if (summaryTimer.current.id) clearTimeout(summaryTimer.current.id);
     summaryTimer.current.id = setTimeout(() => flushSummary(false), SUMMARY_IDLE_MS);
 
-    // Сам ответ: узел либо напрямую (клик по чипу), либо через ключевые слова
+    convoRef.current = [...convoRef.current, { role: 'user', content: text }].slice(-16);
+
+    // Ответ по сценарию: узел напрямую по клику или через ключевые слова.
+    // Работает как запасной путь, когда живой ассистент недоступен.
     const reply = () => {
       setTyping(false);
       const nodeId = forcedNode || matchNode(text);
@@ -337,6 +348,29 @@ const ChatWidget = () => {
       });
       setChips(node.next || []);
     };
+
+    // Клик по подсказке ведёт в конкретный узел сценария — там ответ
+    // уже написан и утверждён, спрашивать модель незачем
+    if (!forcedNode && isAssistantConfigured()) {
+      setTyping(true);
+      askAssistant(convoRef.current).then((res) => {
+        if (!res) {
+          // Сервер молчит — отвечаем по сценарию, посетитель не заметит
+          reply();
+          return;
+        }
+
+        setTyping(false);
+        convoRef.current = [...convoRef.current, { role: 'assistant', content: res.reply }].slice(-16);
+        appendLog('bot', res.reply);
+        // Что модель поняла о посетителе — уходит владельцу в сводку
+        if (res.slots) {
+          topicsRef.current = [...topicsRef.current, `данные: ${JSON.stringify(res.slots)}`];
+        }
+        setMessages((m) => [...m, { id: nextId(), role: 'bot', text: res.reply }]);
+      });
+      return;
+    }
 
     if (prefersReducedMotion()) {
       reply();

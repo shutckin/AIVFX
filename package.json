@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "optimize-videos": "node scripts/optimize-videos.js",
-    "prebuild": "node scripts/find-hydration-splits.js"
+    "prebuild": "node scripts/find-hydration-splits.js && node scripts/build-assistant-context.mjs"
   },
   "eslintConfig": {
     "extends": [
