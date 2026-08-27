@@ -40,6 +40,9 @@ jobs:
           # класть нельзя: всё с префиксом REACT_APP_ попадает в JS-файл
           # сайта и становится публичным.
           REACT_APP_LEAD_API: ${{ secrets.REACT_APP_LEAD_API }}
+          # Адрес ассистента — тоже просто адрес, не ключ. Сам ключ модели
+          # живёт в переменных окружения серверной функции.
+          REACT_APP_ASSISTANT_API: ${{ secrets.REACT_APP_ASSISTANT_API }}
 
       - name: 🚀 Отправляем готовые файлы на сервер
         uses: easingthemes/ssh-deploy@main
