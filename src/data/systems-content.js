@@ -787,7 +787,14 @@ export const CHAT_DEMO = {
   launcher: { ru: 'Спросить ассистента', en: 'Ask the assistant' },
   title: 'AIVFX Assistant',
   status: { ru: 'отвечает мгновенно · 24/7', en: 'replies instantly · 24/7' },
-  badge: { ru: 'демо', en: 'demo' },
+  // Бейдж «демо» убран: ассистент отвечает настоящей моделью, и подпись
+  // занижала то, что студия продаёт. Вместо него строка под полем ввода —
+  // она говорит ровно то, ради чего этот виджет тут стоит.
+  pitch: {
+    ru: 'Это рабочий ассистент, а не заглушка. Такой же соберём под ваш бизнес и обучим на вашей базе знаний',
+    en: 'A working assistant, not a mock-up. We can build the same for your business, trained on your own knowledge base',
+  },
+  pitchCta: { ru: 'обсудить', en: 'discuss' },
   inputPlaceholder: { ru: 'Напишите вопрос...', en: 'Type your question...' },
   greeting: {
     ru: 'Здравствуйте! Я AI-ассистент AIVFX — такой же, каких мы ставим клиентам. Расскажу, что мы делаем, и помогу понять, подойдёт ли это вашему бизнесу.',
@@ -899,10 +906,6 @@ export const CHAT_DEMO = {
       ru: 'Не получилось отправить. Напишите, пожалуйста, в Telegram — так точно не потеряется.',
       en: 'Could not send it. Please write to us on Telegram — that way it will not get lost.',
     },
-  },
-  disclaimer: {
-    ru: 'Демо-сценарий: показывает, как ассистент работает на сайте. Живая система обучается на вашей базе знаний.',
-    en: 'Demo scenario: shows how the assistant works on a website. The live system is trained on your knowledge base.',
   },
 };
 

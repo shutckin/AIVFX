@@ -164,18 +164,6 @@
   flex: none;
 }
 
-.chat-badge {
-  flex: none;
-  padding: 3px 8px;
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-sm);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
 .chat-close {
   flex: none;
   width: 28px;
@@ -394,13 +382,38 @@
 
 /* ── Поле ввода ──────────────────────────────────────────── */
 
+/* Строка-предложение над полем ввода. Стоит именно здесь, а не в шапке:
+   посетитель смотрит сюда, когда собирается писать, и в этот момент видит,
+   что перед ним рабочий продукт, а не заглушка. */
+.chat-pitch {
+  flex: none;
+  margin: 0;
+  padding: 10px 14px;
+  border-top: 1px solid var(--line);
+  background: var(--bg-2);
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.chat-pitch-cta {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--accent);
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.chat-pitch-cta:hover { border-bottom-color: var(--accent); }
+
 .chat-composer {
   flex: none;
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 12px 10px;
-  border-top: 1px solid var(--line);
 }
 
 .chat-input {
@@ -448,17 +461,6 @@
   outline-offset: 2px;
 }
 
-/* ── Честность ───────────────────────────────────────────── */
-
-.chat-disclaimer {
-  flex: none;
-  margin: 0;
-  padding: 0 14px 12px;
-  font-size: 10px;
-  line-height: 1.45;
-  color: var(--muted);
-}
-
 /* ── Мобильные ───────────────────────────────────────────── */
 
 @media (max-width: 560px) {
@@ -493,7 +495,7 @@
   .chat-panel.is-open { transform: translateY(0); }
 
   .chat-head { padding-top: max(14px, env(safe-area-inset-top)); }
-  .chat-disclaimer { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  .chat-composer { padding-bottom: max(10px, env(safe-area-inset-bottom)); }
 }
 
 /* ── Уважение к prefers-reduced-motion ───────────────────── */

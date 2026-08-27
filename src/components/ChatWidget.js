@@ -513,7 +513,6 @@ const ChatWidget = () => {
               {pick(L, CHAT_DEMO.status)}
             </span>
           </div>
-          <span className="chat-badge">{pick(L, CHAT_DEMO.badge)}</span>
           <button
             type="button"
             className="chat-close"
@@ -573,6 +572,21 @@ const ChatWidget = () => {
           </div>
         )}
 
+        {/* Главная мысль виджета, всегда на виду: посетитель прямо сейчас
+            пользуется тем, что студия продаёт */}
+        <p className="chat-pitch">
+          {pick(L, CHAT_DEMO.pitch)}
+          {' — '}
+          <button
+            type="button"
+            className="chat-pitch-cta"
+            onClick={() => handleAsk(pick(L, CHAT_DEMO.nodes.contact.q), 'contact')}
+            tabIndex={open ? 0 : -1}
+          >
+            {pick(L, CHAT_DEMO.pitchCta)}
+          </button>
+        </p>
+
         <form className="chat-composer" onSubmit={submitDraft}>
           <input
             ref={inputRef}
@@ -602,7 +616,6 @@ const ChatWidget = () => {
           </button>
         </form>
 
-        <p className="chat-disclaimer">{pick(L, CHAT_DEMO.disclaimer)}</p>
       </div>
     </>
   );
