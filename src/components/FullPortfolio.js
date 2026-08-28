@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ALL_PROJECTS, ALL_FILTERS } from '../data/all-projects';
+import LazyVideo from './LazyVideo';
 import { useLocale } from '../i18n';
 import './fullportfolio.css';
 
@@ -14,41 +15,6 @@ const FILTER_LABELS_EN = {
   ads: 'Ads',
 };
 
-// Ленивое видео: играет только когда попадает в viewport
-const LazyVideo = ({ src, title }) => {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            el.play().catch(() => {});
-          } else {
-            el.pause();
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  return (
-    <video
-      ref={ref}
-      src={src}
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      aria-label={title}
-    />
-  );
-};
 
 const TagBadges = ({ tags }) => {
   const en = useLocale() === 'en';

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import SecHead from './SecHead';
 import ModeToggle from './ModeToggle';
 import ProcessFlow from './ProcessFlow';
+import LazyVideo from './LazyVideo';
 import ContactForm from './ContactForm';
 import { useLocale, pick, localizedHref } from '../i18n';
 import {
@@ -134,49 +135,6 @@ const VpHeader = ({ contactHref, en, locale }) => {
         </a>
       </div>
     </header>
-  );
-};
-
-// Ленивое видео: играет только когда попадает в viewport (паттерн из Portfolio).
-// При prefers-reduced-motion автоплей выключен — остаётся первый кадр.
-const LazyVideo = ({ src, title }) => {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    // Уважение к reduced motion: не автоплеим, показываем первый кадр
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mq.matches) return undefined;
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            el.play().catch(() => {});
-          } else {
-            el.pause();
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  return (
-    <video
-      ref={ref}
-      src={src}
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      aria-label={title}
-    />
   );
 };
 
