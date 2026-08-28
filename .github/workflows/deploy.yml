@@ -53,3 +53,44 @@ jobs:
           REMOTE_HOST: ${{ secrets.SERVER_IP }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
           TARGET: "/var/www/aivfx/"
+
+      # ── Просим Cloudflare забыть старые копии ───────────────────────────
+      #
+      # Сайт раздаётся через Cloudflare, и тот держит у себя копии файлов.
+      # Скрипты и стили после сборки получают новое имя, поэтому подхватятся
+      # сами. А вот всё с постоянным именем — ролики в /process/, превью
+      # портфолио, картинки блога, постеры, логотипы — Cloudflare хранит
+      # год. Заменишь ролик, не поменяв имя файла: на сервере будет свежий,
+      # а посетители ещё долго увидят старый.
+      #
+      # Поэтому после каждой выкладки сбрасываем кэш целиком. Файлов немного,
+      # заново они наберутся с первых же заходов.
+      #
+      # Ключ нужен ровно с одним правом — Zone → Cache Purge. Номер зоны
+      # секретом не является: сам по себе он ничего не открывает.
+      - name: 🧹 Сбрасываем кэш Cloudflare
+        if: success()
+        env:
+          CF_PURGE_TOKEN: ${{ secrets.CLOUDFLARE_PURGE_TOKEN }}
+          CF_ZONE_ID: ccc6c68daa05d47892171f861ee30315
+        run: |
+          if [ -z "$CF_PURGE_TOKEN" ]; then
+            echo "Ключа Cloudflare нет — кэш не сбрасываю."
+            echo "Файлы с постоянными именами обновятся у посетителей не сразу."
+            exit 0
+          fi
+
+          answer=$(curl -sS -X POST \
+            "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CF_PURGE_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}')
+
+          # Cloudflare отвечает 200 даже на отказ, поэтому смотрим на success
+          if echo "$answer" | grep -q '"success":true'; then
+            echo "Кэш Cloudflare сброшен."
+          else
+            echo "Cloudflare отказался сбрасывать кэш:"
+            echo "$answer"
+            exit 1
+          fi
