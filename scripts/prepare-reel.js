@@ -90,12 +90,15 @@ console.log(`Исходник: ${before.width}×${before.height}, ${before.durat
 // примерно в эту ширину, и родное разрешение там видно. Выше смысла нет.
 // Если исходник меньше — оставляем как есть, растягивать нечем.
 console.log('Кодирую полную версию…');
-run(['-y', '-i', src, ...common(Math.min(1920, before.width), 23), outVideo]);
+run(['-y', '-i', src, ...common(Math.min(1920, before.width), 26), outVideo]);
 
-// Лёгкая версия нужна ровно на те секунды, пока грузится полная.
-// 560 по ширине на полном экране мылит, но это лучше пустого места.
+// Лёгкая версия нужна на те секунды, пока грузится полная. Раньше здесь
+// было 560 по ширине — на полном экране это откровенное мыло, и на
+// медленном канале посетитель смотрел на него по десять секунд, считая,
+// что таково качество ролика. 720 весит вдвое больше, но выглядит как
+// картинка, а не как каша.
 console.log('Кодирую лёгкую версию для мгновенного старта…');
-run(['-y', '-i', src, ...common(Math.min(560, before.width), 30), outLight]);
+run(['-y', '-i', src, ...common(Math.min(720, before.width), 30), outLight]);
 
 console.log('Снимаю постер с первого кадра…');
 run(['-y', '-i', src, '-frames:v', '1', '-vf', `scale=${Math.min(1920, before.width)}:-2`, '-q:v', '4', outPoster]);
@@ -108,7 +111,11 @@ console.log(`Готово: ${path.basename(outVideo)} — ${after.width}×${afte
 console.log(`        ${path.basename(outLight)} — ${mb(outLight)} МБ`);
 console.log(`        ${path.basename(outPoster)} — ${mb(outPoster)} МБ`);
 console.log('');
-if (+mb(outLight) > 2) {
-  console.log('Лёгкая версия великовата: она должна долетать почти мгновенно.');
+if (+mb(outLight) > 2.5) {
+  console.log('Лёгкая версия великовата: она должна долетать за пару секунд.');
   console.log('Подними ей crf с 30 до 34 в этом скрипте.');
+}
+if (+mb(outVideo) > 8) {
+  console.log('Полная версия тяжёлая: пока она едет, посетитель смотрит лёгкую.');
+  console.log('Подними ей crf с 26 до 29.');
 }
