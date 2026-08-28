@@ -30,7 +30,7 @@ const TIMEOUT_MS = 20000;
  * Спрашивает ассистента.
  *
  * @param {Array<{role: 'user'|'assistant', content: string}>} messages диалог целиком
- * @returns {Promise<{reply: string, slots: object|null}|null>} null — отвечать по сценарию
+ * @returns {Promise<{reply: string, slots: object|null, handoff: boolean}|null>} null — отвечать по сценарию
  */
 export const askAssistant = async (messages) => {
   if (!ENDPOINT) return null;
@@ -49,7 +49,13 @@ export const askAssistant = async (messages) => {
     const data = await r.json().catch(() => null);
     if (!r.ok || !data || !data.ok || !data.reply) return null;
 
-    return { reply: stripMarkup(data.reply), slots: data.slots || null };
+    return {
+      reply: stripMarkup(data.reply),
+      slots: data.slots || null,
+      // Сервер говорит, что пора передать разговор человеку —
+      // виджет покажет форму с кнопками вместо голой ссылки
+      handoff: Boolean(data.handoff),
+    };
   } catch (e) {
     // Сеть, таймаут, неверный ответ — всё это повод молча отступить
     // на сценарий, а не показывать посетителю ошибку

@@ -367,7 +367,16 @@ const ChatWidget = () => {
         if (res.slots) {
           topicsRef.current = [...topicsRef.current, `данные: ${JSON.stringify(res.slots)}`];
         }
-        setMessages((m) => [...m, { id: nextId(), role: 'bot', text: res.reply }]);
+        setMessages((m) => {
+          const withAnswer = [...m, { id: nextId(), role: 'bot', text: res.reply }];
+          // Ассистент предложил передать разговор человеку. Ссылку он
+          // писать не может — она в пузыре чата не кликается. Вместо неё
+          // показываем форму: там и поля, и кнопка в Telegram.
+          if (res.handoff && !m.some((x) => x.role === 'lead')) {
+            return [...withAnswer, { id: nextId(), role: 'lead' }];
+          }
+          return withAnswer;
+        });
       });
       return;
     }
