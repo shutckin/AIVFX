@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useLocale, pick } from '../i18n';
+import { useLocale, pick, localizedHref } from '../i18n';
 import { CHAT_DEMO } from '../data/systems-content';
 import { sendLead, sendLeadBeacon } from '../lib/leadApi';
 import { askAssistant, isAssistantConfigured } from '../lib/assistantApi';
@@ -91,36 +91,69 @@ const formatDuration = (startedAt) => {
 };
 
 // Сводка по диалогу без контакта: что спрашивали и по каким темам отвечал бот
-const buildSummary = (log, questions, topics) => {
+// Что ассистент понял о посетителе — человеческими подписями
+const SLOT_LABELS = {
+  'ниша': 'Ниша',
+  'каналы': 'Каналы заявок',
+  'объём': 'Объём',
+  'crm': 'CRM',
+  'боль': 'Что болит',
+};
+
+const formatSlots = (slots) => {
+  const rows = Object.entries(SLOT_LABELS)
+    .map(([key, label]) => (slots[key] ? `${label}: ${slots[key]}` : null))
+    .filter(Boolean);
+  return rows.length ? rows.join('\n') : null;
+};
+
+const buildSummary = (log, questions, topics, slots) => {
   const list = questions.length
     ? questions.map((q, i) => `${i + 1}. ${q}`).join('\n')
     : '—';
-  const uniqueTopics = topics.filter((t, i) => topics.indexOf(t) === i);
   const path = typeof window !== 'undefined' ? window.location.pathname : '—';
+  const facts = formatSlots(slots || {});
+  // В темы попадает только то, что бот НЕ понял: это и есть самое
+  // ценное — видно, чего ему не хватает
+  const missed = topics
+    .filter((t, i) => topics.indexOf(t) === i)
+    .filter((t) => t.startsWith('не распознано'));
 
-  return `👀 ДИАЛОГ В ЧАТЕ (без контакта)
-🕒 ${new Date(log.startedAt).toLocaleString('ru-RU', { hour12: false })} · ${formatDuration(log.startedAt)}
-🌐 Язык: ${String(log.locale).toUpperCase()} · Страница: ${path}
-❓ Вопросы (${questions.length}):
-${list}
-🧩 Темы: ${uniqueTopics.length ? uniqueTopics.join(', ') : '—'}
-💬 Всего сообщений: ${log.messages.length}`;
+  const parts = [
+    'ДИАЛОГ В ЧАТЕ (без контакта)',
+    '',
+    `Начат: ${new Date(log.startedAt).toLocaleString('ru-RU', { hour12: false })}, длился ${formatDuration(log.startedAt)}`,
+    `Язык: ${String(log.locale).toUpperCase()}, страница: ${path}`,
+    `Сообщений всего: ${log.messages.length}`,
+  ];
+
+  if (facts) parts.push('', 'Что известно о клиенте:', facts);
+  parts.push('', `Вопросы (${questions.length}):`, list);
+  if (missed.length) parts.push('', 'Ассистент не понял:', missed.join('\n'));
+
+  return parts.join('\n');
 };
 
 // Лид: посетитель оставил имя и контакт — это отдельное событие от сводки
-const sendLeadToTelegram = async ({ name, contact, questions, locale, summarySent }) => {
+const sendLeadToTelegram = async ({ name, contact, questions, locale, summarySent, slots }) => {
   const list = questions.length
     ? questions.map((q, i) => `${i + 1}. ${q}`).join('\n')
     : '—';
 
-  const message = `💬 ЗАЯВКА ИЗ ЧАТА — AIVFX
+  const facts = formatSlots(slots || {});
 
-👤 Имя: ${name}
-📞 Контакт: ${contact}
-🌐 Язык сайта: ${String(locale).toUpperCase()}
-${summarySent ? '(summary отправлен ранее)\n' : ''}
-❓ Вопросы посетителя:
-${list}`;
+  const parts = [
+    'ЗАЯВКА ИЗ ЧАТА',
+    '',
+    `Имя: ${name}`,
+    `Контакт: ${contact}`,
+    `Язык сайта: ${String(locale).toUpperCase()}`,
+  ];
+  if (summarySent) parts.push('Сводка по этому диалогу уже приходила отдельно');
+  if (facts) parts.push('', 'Что известно о клиенте:', facts);
+  parts.push('', `Вопросы посетителя (${questions.length}):`, list);
+
+  const message = parts.join('\n');
 
   const ok = await sendChatMessage(message);
   if (!ok) throw new Error('lead api is not configured');
@@ -169,6 +202,10 @@ const ChatWidget = () => {
   // messages: там есть служебные записи вроде формы контакта, модели
   // они не нужны и только путали бы её.
   const convoRef = useRef([]);
+  // Что ассистент понял о посетителе. Копим одним набором, а не списком:
+  // раньше каждый ответ дописывал в сводку весь набор целиком, и в
+  // Telegram приходили три перекрывающихся куска подряд.
+  const slotsRef = useRef({});
   const summarySent = useRef(false);
   const leadDelivered = useRef(false);
   // Обёртка-объект, а не голый ref: так cleanup видит актуальный таймер
@@ -212,7 +249,7 @@ const ChatWidget = () => {
     log.summarySent = true;
     saveLog(log);
 
-    sendChatMessage(buildSummary(log, askedRef.current, topicsRef.current), { beacon })
+    sendChatMessage(buildSummary(log, askedRef.current, topicsRef.current, slotsRef.current), { beacon })
       .catch(() => { /* сводка — фоновая история, интерфейс ломать нечем */ });
   }, []);
 
@@ -365,7 +402,10 @@ const ChatWidget = () => {
         appendLog('bot', res.reply);
         // Что модель поняла о посетителе — уходит владельцу в сводку
         if (res.slots) {
-          topicsRef.current = [...topicsRef.current, `данные: ${JSON.stringify(res.slots)}`];
+          // Новое значение перекрывает старое, пустые не затирают
+          Object.entries(res.slots).forEach(([k, v]) => {
+            if (v && String(v).trim()) slotsRef.current[k] = String(v).trim();
+          });
         }
         setMessages((m) => {
           const withAnswer = [...m, { id: nextId(), role: 'bot', text: res.reply }];
@@ -414,6 +454,7 @@ const ChatWidget = () => {
         questions: asked,
         locale: L,
         summarySent: summarySent.current,
+        slots: slotsRef.current,
       });
       // Успех: форму сворачиваем, ассистент подтверждает в ленте
       leadDelivered.current = true;
@@ -514,7 +555,9 @@ const ChatWidget = () => {
         aria-hidden={open ? undefined : 'true'}
       >
         <header className="chat-head">
-          <div className="chat-avatar" aria-hidden="true">AI</div>
+          <div className="chat-avatar" aria-hidden="true">
+            <img src="/mascot.png" alt="" width="24" height="24" />
+          </div>
           <div className="chat-head-text">
             <span className="chat-head-title">{CHAT_DEMO.title}</span>
             <span className="chat-head-status">
@@ -581,20 +624,15 @@ const ChatWidget = () => {
           </div>
         )}
 
-        {/* Главная мысль виджета, всегда на виду: посетитель прямо сейчас
-            пользуется тем, что студия продаёт */}
-        <p className="chat-pitch">
+        {/* Одна короткая ссылка вместо рекламного абзаца: подробности
+            и призыв к действию живут на странице услуги, здесь им тесно */}
+        <a
+          className="chat-pitch"
+          href={localizedHref('/services/ai-assistants/', L)}
+          tabIndex={open ? 0 : -1}
+        >
           {pick(L, CHAT_DEMO.pitch)}
-          {' — '}
-          <button
-            type="button"
-            className="chat-pitch-cta"
-            onClick={() => handleAsk(pick(L, CHAT_DEMO.nodes.contact.q), 'contact')}
-            tabIndex={open ? 0 : -1}
-          >
-            {pick(L, CHAT_DEMO.pitchCta)}
-          </button>
-        </p>
+        </a>
 
         <form className="chat-composer" onSubmit={submitDraft}>
           <input

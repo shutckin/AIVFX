@@ -1,17 +1,15 @@
 {
   "short_name": "AIVFX",
-  "name": "AIVFX — AI Видео и VFX Студия",
-  "description": "Создаём AI-видеоконтент, рекламные ролики и VFX-эффекты. В 10× быстрее и на 70% дешевле.",
+  "name": "AIVFX — AI-системы и автоматизация бизнеса",
+  "description": "Студия AI-систем и автоматизаций: от первой заявки до повторных продаж. Второе направление — AI-видеопродакшн.",
   "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
+    { "src": "favicon.ico", "sizes": "48x48 32x32 16x16", "type": "image/x-icon" },
+    { "src": "logo192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "logo512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#D35C00",
-  "background_color": "#080808",
+  "theme_color": "#0b0b0d",
+  "background_color": "#0b0b0d",
   "orientation": "portrait-primary"
 }
