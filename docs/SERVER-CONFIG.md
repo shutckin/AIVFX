@@ -95,6 +95,35 @@ curl -sSI https://aivfx.ru/fonts/onest-500-cyrillic.woff2 | grep -i content-type
 
 ---
 
+## Кеш страниц
+
+HTML отдавался **без единого указания по кешу**. В таком случае браузер
+решает сам и обычно держит страницу часами. А имена файлов сборки меняются
+с каждым деплоем — значит посетитель со старой страницей грузит старую
+версию сайта и не видит правок.
+
+Именно на это я и напоролся 28.08.2026 при проверке: браузер показывал
+сборку двухчасовой давности, хотя на сервере лежала новая.
+
+Исправлено:
+
+```nginx
+location = /index.html { add_header Cache-Control "no-cache, must-revalidate" always; }
+location ~* \.html$   { add_header Cache-Control "no-cache, must-revalidate" always; }
+```
+
+Статика при этом сохраняет годовой кеш: в её именах есть хеш, старый файл
+никогда не подменяется новым содержимым.
+
+Проверить:
+
+```bash
+curl -sSI https://aivfx.ru/ | grep -i cache-control          # no-cache
+curl -sSI https://aivfx.ru/static/js/main.*.js | grep -i cache-control  # год
+```
+
+---
+
 ## Что на сервере уже в порядке
 
 Проверено 28.08.2026, трогать не нужно:
