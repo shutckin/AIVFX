@@ -157,7 +157,9 @@ const TechBadges = ({ tech }) => {
 const MarqueeCard = ({ project, href }) => (
   <a className="project vp2-card" href={href}>
     <div className="thumb-wrap">
-      <LazyVideo src={project.preview} title={project.title} />
+      {/* always: лента едет анимацией, событий прокрутки в ней нет,
+          и обычная ленивая загрузка оставляла бы карточки чёрными */}
+      <LazyVideo src={project.preview} title={project.title} always />
       <div className="badges"><TechBadges tech={project.tech} /></div>
       <span className="duration">{project.duration}</span>
     </div>
@@ -317,14 +319,34 @@ const VideoProduction = () => {
             {VIDEO_SHOWCASE.items.map((item, i) => (
               <article key={i} className="vp-show-card">
                 <div className="vp-show-media">
-                  <img
-                    src={item.img}
-                    alt={pick(L, item.title)}
-                    width="1000"
-                    height="750"
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  {/* У пункта про AI-генерацию видео вместо кадра стоит
+                      сам ролик — направление про движение, картинкой оно
+                      не показывается. Адрес ролика LazyVideo подставит
+                      только когда карточка подъедет к экрану, а до тех
+                      пор в кадре стоит постер: страница не тянет
+                      четыре с половиной мегабайта ради блока, до
+                      которого читатель может и не долистать. */}
+                  {item.video ? (
+                    <LazyVideo
+                      src={item.video}
+                      poster={item.img}
+                      title={pick(L, item.title)}
+                    />
+                  ) : (
+                    /* Размеры настоящие, у каждого кадра свои: браузер
+                       резервирует место заранее и вёрстка не дёргается,
+                       когда картинка догрузится. Первый кадр панорамный,
+                       последние три почти квадратные — единый размер на
+                       всех дал бы скачок. */
+                    <img
+                      src={item.img}
+                      alt={pick(L, item.title)}
+                      width={item.w}
+                      height={item.h}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
                   <span className="vp-show-tag">{pick(L, item.tag)}</span>
                 </div>
                 <div className="vp-show-body">

@@ -926,7 +926,15 @@ export const VIDEO_SHOWCASE = {
   },
   items: [
     {
-      img: '/services/s01-video.jpg',
+      // Единственный пункт витрины, где вместо кадра стоит сам ролик:
+      // формат этого направления — движение, и статичной картинкой его
+      // не показать. Постер — первый кадр ролика, он стоит в карточке,
+      // пока видео не подгрузилось (грузится оно только на подъезде,
+      // см. LazyVideo).
+      video: '/services/s01-video.mp4',
+      img: '/services/s01-video-poster.jpg',
+      w: 1920,
+      h: 1080,
       title: { ru: 'AI-генерация видео', en: 'AI video generation' },
       desc: {
         ru: 'Рекламный ролик от промпта до финального монтажа: сцены, свет и движение камеры собираются без съёмочной группы.',
@@ -936,6 +944,8 @@ export const VIDEO_SHOWCASE = {
     },
     {
       img: '/services/s02-vfx.jpg',
+      w: 1300,
+      h: 732,
       title: { ru: 'VFX и композитинг', en: 'VFX & compositing' },
       desc: {
         ru: 'Эффекты, частицы, дым, разрушения и интеграция 3D в отснятый материал — на уровне большого продакшена.',
@@ -945,6 +955,8 @@ export const VIDEO_SHOWCASE = {
     },
     {
       img: '/services/s03-hybrid.jpg',
+      w: 1300,
+      h: 726,
       title: { ru: 'Гибрид AI + съёмка', en: 'Hybrid AI + live action' },
       desc: {
         ru: 'Реальные кадры дополняем сгенерированными сценами и объектами — там, где снять дорого или невозможно.',
@@ -954,6 +966,8 @@ export const VIDEO_SHOWCASE = {
     },
     {
       img: '/services/s04-formats.jpg',
+      w: 1100,
+      h: 822,
       title: { ru: 'Адаптация форматов', en: 'Format adaptation' },
       desc: {
         ru: 'Один ролик — десять площадок: вертикаль для Reels и Shorts, квадрат для ленты, широкий формат для сайта и ТВ.',
@@ -963,6 +977,8 @@ export const VIDEO_SHOWCASE = {
     },
     {
       img: '/services/s05-product.jpg',
+      w: 1100,
+      h: 822,
       title: { ru: 'Продуктовые демо', en: 'Product films' },
       desc: {
         ru: 'Фотореалистичные ролики о товаре без студии, логистики и предметного стола — с точной фактурой материалов.',
@@ -972,6 +988,8 @@ export const VIDEO_SHOWCASE = {
     },
     {
       img: '/services/s06-avatar.jpg',
+      w: 1100,
+      h: 822,
       title: { ru: 'Виртуальные персонажи', en: 'Virtual presenters' },
       desc: {
         ru: 'Цифровые ведущие и лица бренда: говорят на любом языке, снимаются круглосуточно и не требуют дублей.',

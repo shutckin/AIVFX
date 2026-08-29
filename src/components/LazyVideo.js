@@ -88,7 +88,79 @@ const register = (item) => {
   schedule();
 };
 
-const LazyVideo = ({ src, title, poster }) => {
+// ── Ролики бегущей ленты ───────────────────────────────────────────────
+//
+// Витрина работ едет сама, анимацией CSS. Карточки въезжают в кадр без
+// единого события scroll, поэтому проверка выше их не будит: ролик
+// доезжает до зрителя чёрным. Так и было на странице.
+//
+// Грузить всю ленту разом — тоже не выход: браузер держит около шести
+// одновременных соединений с сервером, остальные встают в очередь, и
+// карточки снова остаются пустыми, только теперь все сразу.
+//
+// Поэтому здесь свой цикл: пока лента на экране, раз в кадр смотрим, кто
+// подъезжает, и грузим только их. Цикл останавливается, как только лента
+// уходит из виду, — вхолостую он не крутится.
+
+const moving = new Set();
+// Именно флаг, а не идентификатор кадра: карточек в ленте много, и они
+// регистрируются одна за другой. С идентификатором каждая видела бы ноль
+// в начале прохода и заводила свой цикл — восемнадцать циклов, плодящих
+// новые каждый кадр. Страница от этого встаёт колом, проверено.
+let movingRunning = false;
+
+const movingPass = () => {
+  let anyOnScreen = false;
+
+  moving.forEach((item) => {
+    const el = item.el;
+    if (!el || !el.isConnected) {
+      moving.delete(item);
+      return;
+    }
+
+    const r = el.getBoundingClientRect();
+    // По вертикали лента целиком либо видна, либо нет
+    const bandOnScreen = r.top < window.innerHeight && r.bottom > 0;
+    if (bandOnScreen) anyOnScreen = true;
+    if (!bandOnScreen) {
+      if (item.loaded && !el.paused) el.pause();
+      return;
+    }
+
+    // Запас в экран по горизонтали: ролик успевает подгрузиться до того,
+    // как карточка выедет из-за края
+    const nearX = r.left < window.innerWidth * 2 && r.right > -window.innerWidth;
+    if (!item.loaded && nearX) item.load();
+
+    if (!item.loaded || item.reduced) return;
+
+    const onScreen = r.left < window.innerWidth && r.right > 0;
+    if (onScreen) {
+      if (el.paused) el.play().catch(() => {});
+    } else if (!el.paused) {
+      el.pause();
+    }
+  });
+
+  if (!moving.size) {
+    movingRunning = false;
+    return;
+  }
+  // Пока лента в кадре — следим покадрово, она же едет. Ушла из виду —
+  // редкие проверки, лишь бы поймать возвращение.
+  if (anyOnScreen) requestAnimationFrame(movingPass);
+  else setTimeout(movingPass, 400);
+};
+
+const registerMoving = (item) => {
+  moving.add(item);
+  if (movingRunning) return;
+  movingRunning = true;
+  requestAnimationFrame(movingPass);
+};
+
+const LazyVideo = ({ src, title, poster, always = false }) => {
   const ref = useRef(null);
   // Пока пусто — тег ничего не грузит
   const [source, setSource] = useState(null);
@@ -96,6 +168,22 @@ const LazyVideo = ({ src, title, poster }) => {
   useEffect(() => {
     const el = ref.current;
     if (!el) return undefined;
+
+    // Ролики бегущей ленты живут по своим правилам, см. moving.js ниже
+    if (always) {
+      const item = {
+        el,
+        loaded: false,
+        reduced: Boolean(window.matchMedia
+          && window.matchMedia('(prefers-reduced-motion: reduce)').matches),
+        load() {
+          item.loaded = true;
+          setSource(src);
+        },
+      };
+      registerMoving(item);
+      return () => { moving.delete(item); };
+    }
 
     const item = {
       el,
@@ -111,7 +199,7 @@ const LazyVideo = ({ src, title, poster }) => {
 
     register(item);
     return () => { items.delete(item); };
-  }, [src]);
+  }, [src, always]);
 
   return (
     <video
@@ -127,7 +215,15 @@ const LazyVideo = ({ src, title, poster }) => {
       // моменту ролик на экране — запускаем, иначе он остался бы стоять
       onLoadedData={(e) => {
         const el = e.currentTarget;
-        if (visible(el.getBoundingClientRect())) el.play().catch(() => {});
+        const reduced = window.matchMedia
+          && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) return;
+        const r = el.getBoundingClientRect();
+        const onScreen = always
+          ? (r.left < window.innerWidth && r.right > 0
+            && r.top < window.innerHeight && r.bottom > 0)
+          : visible(r);
+        if (onScreen) el.play().catch(() => {});
       }}
     />
   );

@@ -1,18 +1,13 @@
-// Kinescope projects — filtered by AI/VFX tags, deduplicated
-// Auto-generated from Kinescope API
+// Работы для бегущей витрины на странице AI-контента.
+// Не путать с all-projects.js — там полный каталог из 38 работ для /works/.
+//
+// Состав и порядок выбраны вручную. Раньше здесь лежал весь список из 21
+// работы, лента дублировалась и в ней оказывалось 42 ролика разом: браузер
+// столько одновременных превью не тянет, часть карточек доезжала до экрана
+// чёрными. Девять работ — это 18 элементов, с таким запасом лента успевает
+// подгрузиться до того, как карточка попадёт в кадр.
 
 export const PROJECTS = [
-  {
-    id: 1,
-    kinescopeId: '07c606f9-1f2f-490f-9357-a5b1c50cdcdf',
-    title: 'AI Avatar для Willbe',
-    cat: 'Продукты',
-    tech: 'AI',
-    duration: '8:33',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/8e442173-04c8-474e-a052-05cefd3e053b/md/019da3b3-455b-761b-a4a4-6fdc5948ba74.jpg',
-    preview: '/portfolio-previews/07c606f9-1f2f-490f-9357-a5b1c50cdcdf.mp4',
-    embed: 'https://kinescope.io/embed/0XF92xe3H4eCEa4byA2m4r',
-  },
   {
     id: 2,
     kinescopeId: 'f265af3f-9df2-4b53-bccc-ce7291060780',
@@ -23,17 +18,6 @@ export const PROJECTS = [
     poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/17e56261-200a-44dc-945a-b1c74d34b2e6/md/f9977112-6b35-4c51-a113-527def930a04.jpg',
     preview: '/portfolio-previews/f265af3f-9df2-4b53-bccc-ce7291060780.mp4',
     embed: 'https://kinescope.io/embed/vW54gJ9CSyupLq8L9F9QXs',
-  },
-  {
-    id: 3,
-    kinescopeId: 'b905b223-9be5-4bec-80b4-1f33beff9fd8',
-    title: 'NL Sets',
-    cat: 'Продукты',
-    tech: 'AI',
-    duration: '1:43',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/ef547af1-3d3b-4024-8ab6-549a8946cd73/md/ba03572a-7d22-4231-8839-3b28957d3975.jpg',
-    preview: '/portfolio-previews/b905b223-9be5-4bec-80b4-1f33beff9fd8.mp4',
-    embed: 'https://kinescope.io/embed/oR9rsbz3KVozDRR5kqqb91',
   },
   {
     id: 4,
@@ -69,17 +53,6 @@ export const PROJECTS = [
     embed: 'https://kinescope.io/embed/djYgZtKb2MZPDSJ8Z3zuHu',
   },
   {
-    id: 7,
-    kinescopeId: 'fd41c5ce-85f2-4174-b403-1258f384925d',
-    title: 'AI ролик для застройщика',
-    cat: 'Архитектура',
-    tech: 'AI',
-    duration: '0:40',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/bb00fc98-a1e3-42a2-bf8d-dd93dca7902f/md/3fd724cc-f2cf-4599-a61f-16713912b8fd.jpg',
-    preview: '/portfolio-previews/fd41c5ce-85f2-4174-b403-1258f384925d.mp4',
-    embed: 'https://kinescope.io/embed/xgRcjWRENHLeczjQWRErVp',
-  },
-  {
     id: 8,
     kinescopeId: 'd20edb55-6587-4eac-9724-c263c84d20e1',
     title: 'Metaboost',
@@ -89,17 +62,6 @@ export const PROJECTS = [
     poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/4f737f96-1d45-4b23-8b63-d43c5b55da86/md/9e22bdea-1b47-44b8-b7e0-2535b3ce8f1b.jpg',
     preview: '/portfolio-previews/d20edb55-6587-4eac-9724-c263c84d20e1.mp4',
     embed: 'https://kinescope.io/embed/rWskav5fuyd2QguMyYdy4k',
-  },
-  {
-    id: 9,
-    kinescopeId: '3d8eab44-07ae-4b85-a2d2-9b249634d862',
-    title: '3D Showreel',
-    cat: 'Социальное',
-    tech: 'VFX',
-    duration: '0:37',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/e2e6ce9c-7f21-4b79-a54a-a2c821b1ddb9/md/019da3c8-7419-70bf-9c04-dd5acb61e6d8.jpg',
-    preview: '/portfolio-previews/3d8eab44-07ae-4b85-a2d2-9b249634d862.mp4',
-    embed: 'https://kinescope.io/embed/8ASY9FFLg4vLyy37hm8fzq',
   },
   {
     id: 10,
@@ -113,129 +75,37 @@ export const PROJECTS = [
     embed: 'https://kinescope.io/embed/7aGKrdefGeqZMuofczXAh7',
   },
   {
-    id: 11,
-    kinescopeId: 'e063f2c5-c589-430f-9b4c-647ad704f975',
-    title: 'AI ролик для застройщика',
-    cat: 'Архитектура',
-    tech: 'AI',
-    duration: '0:36',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/af5700ce-3b47-4d4e-8f61-747d1905a6b5/md/3aa77c7c-72e8-4e6c-9a5a-e4a31f7881d5.jpg',
-    preview: '/portfolio-previews/e063f2c5-c589-430f-9b4c-647ad704f975.mp4',
-    embed: 'https://kinescope.io/embed/tH72ac6hCacQzPPN75uoBg',
-  },
-  {
-    id: 12,
-    kinescopeId: '5281ce17-29b8-4741-bf4f-523768029520',
-    title: 'Rolex Submariner',
-    cat: 'Продукты',
+    id: 9,
+    kinescopeId: '3d8eab44-07ae-4b85-a2d2-9b249634d862',
+    title: '3D Showreel',
+    cat: 'Социальное',
     tech: 'VFX',
-    duration: '0:35',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/ece39777-d806-4bbf-a38a-81d08a7cb093/md/b84f2fe9-f90e-475f-a674-aaf6aab2a979.jpg',
-    preview: '/portfolio-previews/5281ce17-29b8-4741-bf4f-523768029520.mp4',
-    embed: 'https://kinescope.io/embed/bbVvXDBp2dUjXfTRGYRCC1',
-  },
-  {
-    id: 13,
-    kinescopeId: '949c29f8-5717-4622-8830-5b8b536ef0de',
-    title: 'AI ролик для застройщика',
-    cat: 'Архитектура',
-    tech: 'AI',
-    duration: '0:34',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/cd86bd73-e7b0-4227-b74c-83e820020974/md/019da376-2994-707f-98f2-01862f4fe9f9.jpg',
-    preview: '/portfolio-previews/949c29f8-5717-4622-8830-5b8b536ef0de.mp4',
-    embed: 'https://kinescope.io/embed/jmmKYqAdBeZyUwH6MUp2Lb',
+    duration: '0:37',
+    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/e2e6ce9c-7f21-4b79-a54a-a2c821b1ddb9/md/019da3c8-7419-70bf-9c04-dd5acb61e6d8.jpg',
+    preview: '/portfolio-previews/3d8eab44-07ae-4b85-a2d2-9b249634d862.mp4',
+    embed: 'https://kinescope.io/embed/8ASY9FFLg4vLyy37hm8fzq',
   },
   {
     id: 14,
-    kinescopeId: 'b2e6c70a-0a02-44b1-a524-c2e4c8ea9818',
-    title: 'CINQUE',
-    cat: 'Продукты',
-    tech: 'AI',
-    duration: '0:32',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/827e2574-86ff-4dbb-8c53-ec31346f5855/md/06f4dd4d-c399-4504-aae3-1955dcc7da3b.jpg',
-    preview: '/portfolio-previews/b2e6c70a-0a02-44b1-a524-c2e4c8ea9818.mp4',
-    embed: 'https://kinescope.io/embed/o6iS2hJCXHZ26AhwF6urej',
-  },
-  {
-    id: 15,
-    kinescopeId: '57a7d3f0-e918-4508-b0f1-d0cc6db601aa',
-    title: 'Imperia Herb',
-    cat: 'Продукты',
-    tech: 'AI',
-    duration: '0:28',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/6a321e74-5f64-45b3-91e8-72a7004d12ca/md/62074869-4770-4ea3-a724-d6b4fa2fb870.jpg',
-    preview: '/portfolio-previews/57a7d3f0-e918-4508-b0f1-d0cc6db601aa.mp4',
-    embed: 'https://kinescope.io/embed/bPNdLbhbtdtGWaddCAZTiu',
-  },
-  {
-    id: 16,
-    kinescopeId: 'f7a1eaf9-f45e-4a4a-9799-4daea269fb2f',
-    title: 'Санта сбился с пути',
-    cat: 'Социальное',
-    tech: 'AI',
-    duration: '0:21',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/1f4e009e-ff35-4f00-99c6-cd8a9b27f910/md/24926b75-9f67-4536-a0cf-f212ae50c5b6.jpg',
-    preview: '/portfolio-previews/f7a1eaf9-f45e-4a4a-9799-4daea269fb2f.mp4',
-    embed: 'https://kinescope.io/embed/wzyNoVkrFHy3A4d3rS6UKr',
-  },
-  {
-    id: 17,
-    kinescopeId: '900a4223-6fee-4de8-b264-520dde0b3022',
-    title: 'Sony PlayStation 5 Pro',
+    kinescopeId: '9cb24953-2745-4d7e-8206-5e0ddffded89',
+    title: 'Cinque — мебельное производство',
     cat: 'Продукты',
     tech: 'VFX',
-    duration: '0:19',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/bcd8bc1a-9a45-4fd2-986a-33c7ba7b24ff/md/d0e11129-8926-451a-8f20-e05c08231381.jpg',
-    preview: '/portfolio-previews/900a4223-6fee-4de8-b264-520dde0b3022.mp4',
-    embed: 'https://kinescope.io/embed/iMCp8ad9XfQv581EALj98u',
+    duration: '1:06',
+    preview: '/portfolio-previews/9cb24953-2745-4d7e-8206-5e0ddffded89.mp4',
+    embed: 'https://kinescope.io/embed/kmgS7dh4uRcNzFHRVuUUDp',
   },
   {
-    id: 18,
-    kinescopeId: 'e56b27ca-c48b-49a7-a843-e3ad978d8b88',
-    title: 'ED Smart — грибной крем-суп',
-    cat: 'Продукты',
-    tech: 'AI',
-    duration: '0:18',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/1763f521-1c41-4fa7-8c0b-4b04e700f9e5/md/b3ededa1-6c56-444c-a921-efe3888060b8.jpg',
-    preview: '/portfolio-previews/e56b27ca-c48b-49a7-a843-e3ad978d8b88.mp4',
-    embed: 'https://kinescope.io/embed/uk7HKYApF8z5b3ovTNWeMj',
-  },
-  {
-    id: 19,
-    kinescopeId: 'd264e898-73ae-49ad-8483-8ee76527e5f8',
-    title: 'SACRED — fashion reel',
-    cat: 'Социальное',
-    tech: 'AI',
-    duration: '0:17',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/686c1d14-a722-4610-8098-f1c9a8bc6dca/md/019da383-55ad-7c47-8ea7-68ede019b730.jpg',
-    preview: '/portfolio-previews/d264e898-73ae-49ad-8483-8ee76527e5f8.mp4',
-    embed: 'https://kinescope.io/embed/rYRXSqGrXaW9fKhSuXtCy1',
-  },
-  {
-    id: 20,
-    kinescopeId: 'c6231c93-bbac-4233-ac73-540af5fd0154',
-    title: 'Dyson Supersonic',
-    cat: 'Продукты',
+    id: 22,
+    kinescopeId: 'c32842e8-2451-4ba6-ad68-0e33bf8e32a1',
+    title: 'VIPDENT',
+    cat: 'Медицина',
     tech: 'VFX',
-    duration: '0:16',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/7682af3d-200e-4755-ad18-c03e1e7d78ed/md/cd27cb16-f70f-4bb7-8601-5c2e27a5be3e.jpg',
-    preview: '/portfolio-previews/c6231c93-bbac-4233-ac73-540af5fd0154.mp4',
-    embed: 'https://kinescope.io/embed/qt5oidr2pdY24mcTurXLjG',
-  },
-  {
-    id: 21,
-    kinescopeId: '6d520c21-f53d-45be-99d0-e48394a98f0c',
-    title: 'ED Smart — имбирный пряник',
-    cat: 'Продукты',
-    tech: 'AI',
-    duration: '0:13',
-    poster: 'https://kinescopecdn.net/93fe4340-bcc0-4481-a0ab-6cf3abd365bb/posters/793c0948-4ac6-4b9b-a9c7-b093985da059/md/51b6fb83-9321-4284-b0ff-8e586e2dbe82.jpg',
-    preview: '/portfolio-previews/6d520c21-f53d-45be-99d0-e48394a98f0c.mp4',
-    embed: 'https://kinescope.io/embed/euXRkXkdhBkvS5HSVhtiyh',
+    duration: '0:51',
+    preview: '/portfolio-previews/c32842e8-2451-4ba6-ad68-0e33bf8e32a1.mp4',
+    embed: 'https://kinescope.io/embed/q6Jxb9rfu28K9aFwM1jmrX',
   },
 ]
-
-export const CATEGORIES = ['Все', 'Автомобили', 'Продукты', 'Социальное', 'Архитектура']
 
 // ── Английская локализация портфолио ──
 // Видео (preview/embed/poster) общие для обоих языков — переводим только текст.
@@ -248,23 +118,18 @@ const CAT_EN = {
   'Продукты': 'Products',
   'Социальное': 'Social',
   'Архитектура': 'Architecture',
+  'Медицина': 'Healthcare',
 }
 
 // Английские названия проектов по id (только там, где русское — описательное).
 // Бренды (NL Sets, Rolex, CINQUE, Dyson и т.п.) остаются как есть.
 const TITLE_EN = {
-  1: 'AI Avatar for Willbe',
   2: 'The Legend of the Kraken',
   4: 'Tourism image film',
   5: 'Chevrolet × NL — to the horizon',
   6: 'Porsche 911 — forest hunt',
-  7: 'AI film for a property developer',
   10: 'AI film for a property developer',
-  11: 'AI film for a property developer',
-  13: 'AI film for a property developer',
-  16: 'Santa lost his way',
-  18: 'ED Smart — mushroom cream soup',
-  21: 'ED Smart — gingerbread',
+  14: 'Cinque — furniture manufacture',
 }
 
 // Проекты с локализованными названием и категорией.
