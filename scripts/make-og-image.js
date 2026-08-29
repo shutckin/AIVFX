@@ -144,6 +144,46 @@ const variantB = (img, opts = {}) => `
   <div class="edge"></div>
 </div>`;
 
+// ── Вариант M: маскот, только крупное ──────────────────────────────────
+// Превью в мессенджере читают мельком и часто с телефона: карточка
+// показывается шириной сантиметров в пять. Всё, что набрано мелко —
+// подпись под именем, домен внизу — там превращается в серую кашу и
+// только отнимает место у того, что действительно должно прочитаться.
+// Поэтому здесь ровно три вещи: строка направлений, имя и маскот.
+// Описание всё равно стоит рядом с карточкой отдельной строкой, которую
+// мессенджер берёт из og:description, — дублировать его внутри картинки
+// незачем.
+const variantM = (img) => `
+<style>${BASE_CSS}
+  .m { display: grid; grid-template-columns: 1.08fr 0.92fr; height: 100%; }
+  .m .left { padding: 84px 0 84px 84px; display: flex; flex-direction: column; justify-content: center; gap: 30px; }
+  /* Строка направлений держится в один ряд: перенос уводил «VFX» под
+     остальные и ломал ритм из двух ровных строк */
+  .m .meta { font-size: 26px; letter-spacing: 0.12em; white-space: nowrap; }
+  .m .logo { font-size: 178px; }
+  .m .shot { position: relative; overflow: hidden; }
+  /* Маскот крупнее рамки: он круглый, и по краям всё равно пустота */
+  .m .shot img {
+    width: 100%; height: 100%; object-fit: cover;
+    transform: scale(1.28); transform-origin: 46% 50%;
+  }
+  /* Затемнение к левому краю, чтобы имя не спорило со свечением робота */
+  .m .shot::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, #0b0b0d 0%, rgba(11,11,13,0.60) 22%, rgba(11,11,13,0) 58%);
+  }
+</style>
+<div class="wrap">
+  <div class="m">
+    <div class="left">
+      <div class="meta">AI systems &nbsp;·&nbsp; AI video &nbsp;·&nbsp; VFX</div>
+      <div class="logo">AIVFX</div>
+    </div>
+    <div class="shot"><img src="${img}" alt=""></div>
+  </div>
+  <div class="edge"></div>
+</div>`;
+
 // ── Вариант C: кадр во всю карточку ────────────────────────────────────
 // Самый «киношный»: кадр на весь размер, имя поверх. Читается издалека
 // в ленте, но целиком отдаёт карточку одному направлению — видео.
@@ -196,6 +236,7 @@ async function main() {
     { id: 'a', html: variantA(), why: 'только типографика' },
     { id: 'b', html: shot ? variantB(shot) : null, why: 'кадр справа — ночной город' },
     { id: 'c', html: shot ? variantC(shot) : null, why: 'кадр во всю карточку' },
+    { id: 'm', html: robot ? variantM(robot) : null, why: 'маскот, только имя и направления' },
     { id: 'd', html: robot ? variantB(robot) : null, why: 'маскот, подпись про видео' },
     // Маскот — символ AI-систем, а подпись про одни ролики рядом с ним
     // спорит сама с собой. Здесь строка охватывает оба направления.
