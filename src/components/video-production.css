@@ -46,6 +46,14 @@
   .vp-header { grid-template-columns: auto auto 1fr; }
   .vp-nav { display: none; }
 }
+
+/* Общий стиль с 960px прячет .header-status на всех шапках: на главной
+   язык продублирован в выпадающем меню, поэтому потерять его там нельзя.
+   У этой страницы выпадающего меню нет — возвращаем блок на место,
+   иначе сменить язык с планшета и телефона будет нечем. */
+@media (max-width: 960px) {
+  .vp-header .header-status { display: flex; }
+}
 .vp-header .header-status {
   align-items: center;
   gap: 12px;
@@ -57,14 +65,19 @@
 
 /* Мобильная шапка — той же формы, что на главной: логотип слева, тумблер
    справа, одна строка. Кнопку «Связаться» убираем: места нет, а призывов
-   к контакту на странице и без неё достаточно. */
+   к контакту на странице и без неё достаточно.
+   А вот переключатель языка остаётся: у этой страницы нет выпадающего
+   меню, как на главной, и спрятав его вместе с кнопкой мы лишили бы
+   посетителя с телефона единственного способа сменить язык. */
 @media (max-width: 720px) {
   .vp-header {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto 1fr;
     gap: 12px;
   }
   .vp-header .mode-toggle { justify-self: end; }
-  .vp-header .header-status { display: none; }
+  .vp-header .header-status { justify-self: end; }
+  .vp-header .vp-header-cta { display: none; }
+  .vp-header .lang-switch { margin-right: 0; }
   .vp-header.scrolled { background: rgba(10, 9, 8, 0.94); }
 }
 
@@ -272,19 +285,23 @@
   opacity: 0.85;
 }
 
-/* ── Видео-витрина: два встречных ряда marquee ──
+/* ── Видео-витрина: один бегущий ряд ──
    Базовые .marquee-row / .marquee-track / .project стилизованы в index.css,
    здесь — только контейнер и размеры карточек вне .portfolio. */
 .vp2-marquee {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
   padding: clamp(24px, 3vw, 36px) 0 clamp(24px, 3vw, 36px);
 }
 
 .vp2-marquee .project {
   width: 320px;
   flex-shrink: 0;
+}
+
+/* В ряду теперь все работы, а не половина, поэтому лента вдвое длиннее.
+   С прежними 60 секундами она бы летела мимо глаз вдвое быстрее —
+   держим ту же скорость движения, растянув время прохода. */
+.vp2-marquee .marquee-track {
+  animation-duration: 120s;
 }
 
 /* Карточка — ссылка на портфолио, а не модалка */
@@ -383,32 +400,58 @@
    Вместо иконок — кадры, сделанные нашим же пайплайном. Карточка это единый
    скруглённый контейнер: медиа сверху, текст снизу, ничего не выпадает
    за скругление благодаря overflow: hidden. */
+/* ── Что делаем: редакторский разворот ──
+   Шесть одинаковых карточек в сетке 3×2 читались как каталог: одинаковый
+   вес у каждого пункта, глазу не за что зацепиться. Здесь размеры разные,
+   и ряды зеркалят друг друга — широкий кадр рядом с узким, потом наоборот.
+   Рамок у карточек нет: глубина держится на самом кадре и тонкой линии
+   над подписью, как и велит дизайн-система (никаких теней). */
 .vp-show-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: clamp(20px, 2.2vw, 32px);
+  row-gap: clamp(44px, 4.5vw, 72px);
 }
+
+/* Ритм разворота. Раскладка привязана к порядку пунктов, поэтому менять
+   его в systems-content.js без оглядки на этот блок нельзя.
+   Если пунктов вдруг станет больше шести, лишние встанут по три в ряд —
+   строка span 2 ниже как раз этот запасной случай и держит. */
+.vp-show-card { grid-column: span 2; }
+.vp-show-card:nth-child(1) { grid-column: span 4; }  /* широкий  */
+.vp-show-card:nth-child(2) { grid-column: span 2; }  /* узкий    */
+.vp-show-card:nth-child(3) { grid-column: span 2; }  /* узкий    */
+.vp-show-card:nth-child(4) { grid-column: span 4; }  /* широкий  */
+.vp-show-card:nth-child(5) { grid-column: span 3; }  /* половина */
+.vp-show-card:nth-child(6) { grid-column: span 3; }  /* половина */
 
 .vp-show-card {
   display: flex;
   flex-direction: column;
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  transition: border-color 0.3s ease;
+  min-width: 0;
 }
 
-.vp-show-card:hover {
-  border-color: var(--line-2);
-}
-
-/* Обёртка кадра: держит пропорцию и обрезает зум при наведении */
+/* Обёртка кадра: держит пропорцию и обрезает зум при наведении.
+   Исходники все 4:3, поэтому широким кадрам даём 16:9 — теряются только
+   верх и низ. Вертикальных пропорций здесь нет намеренно: они срезали бы
+   сюжет по бокам, а в этих кадрах он как раз по горизонтали. */
 .vp-show-media {
   position: relative;
   overflow: hidden;
   aspect-ratio: 4 / 3;
+  border-radius: var(--r-lg);
   background: var(--bg-3);
+  border: 1px solid var(--line);
+}
+
+.vp-show-card:nth-child(1) .vp-show-media,
+.vp-show-card:nth-child(4) .vp-show-media {
+  aspect-ratio: 16 / 9;
+}
+
+.vp-show-card:nth-child(5) .vp-show-media,
+.vp-show-card:nth-child(6) .vp-show-media {
+  aspect-ratio: 3 / 2;
 }
 
 .vp-show-media img {
@@ -420,12 +463,16 @@
 }
 
 /* Единственное место на странице, где допустима анимация масштаба:
-   кадр слегка наезжает, рамка карточки при этом стоит на месте. */
+   кадр слегка наезжает, рамка при этом стоит на месте. */
 .vp-show-card:hover .vp-show-media img {
   transform: scale(1.04);
 }
 
-/* Контурный чип с типом работы — стеклянный, поверх нижнего левого угла кадра */
+.vp-show-card:hover .vp-show-media {
+  border-color: var(--line-2);
+}
+
+/* Контурный чип с типом работы — поверх нижнего левого угла кадра */
 .vp-show-tag {
   position: absolute;
   left: 12px;
@@ -444,28 +491,54 @@
   border-radius: var(--r-sm);
 }
 
+/* Подпись отделена от кадра тонкой линией — тот же приём, что у полос
+   с фактами: структура читается без единой рамки. Номер стоит в потоке
+   первой строкой, поэтому заголовок начинается ровно под ним. */
 .vp-show-body {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 22px 22px 26px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 16px;
+  row-gap: 8px;
+  align-items: baseline;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.vp-show-num {
+  font-family: var(--font-mono);
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 
 .vp-show-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(19px, 1.4vw, 21px);
+  font-size: clamp(19px, 1.4vw, 22px);
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.25;
   color: var(--fg);
 }
 
+/* Описание встаёт под заголовком, а не под номером */
 .vp-show-desc {
+  grid-column: 2;
   margin: 0;
+  max-width: 46ch;
   font-size: 14px;
   line-height: 1.6;
   color: var(--fg-2);
+}
+
+/* У широких карточек текста больше места — даём заголовку вырасти */
+.vp-show-card:nth-child(1) .vp-show-title,
+.vp-show-card:nth-child(4) .vp-show-title {
+  font-size: clamp(21px, 1.8vw, 27px);
 }
 
 /* ── Процесс: горизонтальный таймлайн ──
@@ -1016,9 +1089,22 @@
     max-width: 560px;
   }
 
-  /* Витрина «что делаем»: две колонки */
+  /* Витрина «что делаем»: разворот схлопывается в пары.
+     Асимметрия ряда на этой ширине уже не читается — широкая карточка
+     оказалась бы почти во весь экран, а узкая рядом с ней сплющилась. */
   .vp-show-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vp-show-card,
+  .vp-show-card:nth-child(n) {
+    grid-column: span 1;
+  }
+
+  /* Кадры выравниваем: разнобой пропорций держался на разной ширине,
+     а в равных колонках он читался бы как случайность */
+  .vp-show-card:nth-child(n) .vp-show-media {
+    aspect-ratio: 4 / 3;
   }
 
   /* Таймлайн переносится в три колонки, линия собирается по рядам */
@@ -1047,7 +1133,6 @@
 
   /* Карточки marquee меньше: 240×180 (аспект 4/3 из index.css) */
   .vp2-marquee {
-    gap: 16px;
     padding: 24px 0 clamp(36px, 6vw, 56px);
   }
 
@@ -1092,7 +1177,9 @@
   }
 
   .vp-show-body {
-    padding: 18px 18px 22px;
+    margin-top: 14px;
+    padding-top: 13px;
+    column-gap: 13px;
   }
 }
 
@@ -1133,9 +1220,14 @@
     justify-content: center;
   }
 
-  /* Витрина — в одну колонку */
+  /* Витрина — в одну колонку, кадры шире и ниже: на телефоне
+     вертикальная лента из шести кадров 4:3 вышла бы бесконечной */
   .vp-show-grid {
     grid-template-columns: 1fr;
+  }
+
+  .vp-show-card:nth-child(n) .vp-show-media {
+    aspect-ratio: 3 / 2;
   }
 
   /* Таймлайн разворачивается в вертикальный список: линия уходит влево,
