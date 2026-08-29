@@ -115,7 +115,7 @@ const variantA = () => `
 // ── Вариант B: кадр справа ─────────────────────────────────────────────
 // Слева имя, справа кадр под наклонной маской. Показывает, что студия
 // делает картинку, а не только пишет код.
-const variantB = (img) => `
+const variantB = (img, opts = {}) => `
 <style>${BASE_CSS}
   .b { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
   .b .left { padding: 76px 0 76px 84px; display: flex; flex-direction: column; justify-content: space-between; }
@@ -132,10 +132,10 @@ const variantB = (img) => `
 <div class="wrap">
   <div class="b">
     <div class="left">
-      <div class="meta">AI systems &nbsp;·&nbsp; AI video</div>
+      <div class="meta">${opts.meta || 'AI systems &nbsp;·&nbsp; AI video'}</div>
       <div>
         <div class="logo">AIVFX</div>
-        <div class="sub">Commercials generated, not filmed.</div>
+        <div class="sub">${opts.sub || 'Commercials generated, not filmed.'}</div>
       </div>
       <div class="domain">aivfx.ru</div>
     </div>
@@ -196,7 +196,17 @@ async function main() {
     { id: 'a', html: variantA(), why: 'только типографика' },
     { id: 'b', html: shot ? variantB(shot) : null, why: 'кадр справа — ночной город' },
     { id: 'c', html: shot ? variantC(shot) : null, why: 'кадр во всю карточку' },
-    { id: 'd', html: robot ? variantB(robot) : null, why: 'кадр справа — робот главной' },
+    { id: 'd', html: robot ? variantB(robot) : null, why: 'маскот, подпись про видео' },
+    // Маскот — символ AI-систем, а подпись про одни ролики рядом с ним
+    // спорит сама с собой. Здесь строка охватывает оба направления.
+    {
+      id: 'd2',
+      html: robot ? variantB(robot, {
+        meta: 'AI systems &nbsp;·&nbsp; AI video &nbsp;·&nbsp; VFX',
+        sub: 'Automation that answers and follows up.<br>Commercials generated, not filmed.',
+      }) : null,
+      why: 'маскот, подпись про оба направления',
+    },
     { id: 'e', html: vfx ? variantB(vfx) : null, why: 'кадр справа — вайрфрейм и рендер' },
     { id: 'f', html: suite ? variantB(suite) : null, why: 'кадр справа — монтажная' },
   ].filter((v) => v.html && (!only || v.id === only));
