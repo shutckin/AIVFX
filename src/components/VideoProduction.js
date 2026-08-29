@@ -4,6 +4,7 @@ import ModeToggle from './ModeToggle';
 import ProcessFlow from './ProcessFlow';
 import LazyVideo from './LazyVideo';
 import ContactForm from './ContactForm';
+import LangSwitch from './LangSwitch';
 import { useLocale, pick, localizedHref } from '../i18n';
 import {
   VIDEO_PAGE, VIDEO_FORMATS, VIDEO_FAQ,
@@ -130,6 +131,7 @@ const VpHeader = ({ contactHref, en, locale }) => {
         ))}
       </nav>
       <div className="header-status">
+        <LangSwitch locale={locale} />
         <a className="btn btn-primary vp-header-cta" href={contactHref}>
           {en ? 'Contact' : 'Связаться'}
         </a>
@@ -180,9 +182,11 @@ const VideoProduction = () => {
   const TESTIMONIALS_L = en ? TESTIMONIALS_EN : TESTIMONIALS;
   const CLIENTS_L = en ? CLIENTS_EN : CLIENTS;
 
+  // Витрина работ — один ряд. Раньше было два встречных, но от этого
+  // блок разрастался на пол-экрана и превращался в стену превью, где
+  // глазу не за что зацепиться. Один ряд читается как лента, а не как
+  // склад, и каждая работа получает больше внимания.
   const PROJECTS_L = localizedProjects(L);
-  const row1 = PROJECTS_L.slice(0, 10);
-  const row2 = PROJECTS_L.slice(10);
 
   // SEO: заголовок и описание страницы
   useEffect(() => {
@@ -259,20 +263,13 @@ const VideoProduction = () => {
           />
         </div>
         <div className="vp2-marquee">
-          {row1.length > 0 && (
+          {PROJECTS_L.length > 0 && (
             <div className="marquee-row">
+              {/* Список продублирован: пока первая копия уезжает влево,
+                  вторая занимает её место, и лента идёт без стыка */}
               <div className="marquee-track">
-                {[...row1, ...row1].map((p, i) => (
-                  <MarqueeCard key={`r1-${p.id}-${i}`} project={p} href={worksHref} />
-                ))}
-              </div>
-            </div>
-          )}
-          {row2.length > 0 && (
-            <div className="marquee-row">
-              <div className="marquee-track">
-                {[...row2, ...row2].map((p, i) => (
-                  <MarqueeCard key={`r2-${p.id}-${i}`} project={p} href={worksHref} />
+                {[...PROJECTS_L, ...PROJECTS_L].map((p, i) => (
+                  <MarqueeCard key={`${p.id}-${i}`} project={p} href={worksHref} />
                 ))}
               </div>
             </div>
@@ -299,9 +296,14 @@ const VideoProduction = () => {
         </div>
       </section>
 
-      {/* Что делаем — витрина реальных кадров вместо иконок.
-          Каждая карточка: кадр из нашего пайплайна + чип с типом работы,
-          под ним название формата и что именно клиент получает. */}
+      {/* Что делаем — редакторский разворот вместо ровной сетки.
+          Раньше здесь стояли шесть одинаковых карточек 3×2: одинаковый
+          кадр, одинаковая рамка, одинаковый вес у каждого пункта — блок
+          читался как каталог, где не за что зацепиться глазу.
+          Теперь размеры разные (см. vp-show-grid в css): широкий кадр
+          соседствует с узким, ряды зеркалят друг друга, а рамки карточек
+          убраны — остались кадр, крупный номер и подпись под тонкой
+          линией. Порядок пунктов задаёт ритм, поэтому он не случайный. */}
       <section className="section" id="capabilities">
         <div className="shell">
           <SecHead
@@ -326,6 +328,11 @@ const VideoProduction = () => {
                   <span className="vp-show-tag">{pick(L, item.tag)}</span>
                 </div>
                 <div className="vp-show-body">
+                  {/* Номер декоративный: порядок уже читается глазом,
+                      поэтому от экранного диктора его прячем */}
+                  <span className="vp-show-num" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
                   <h3 className="vp-show-title display">{pick(L, item.title)}</h3>
                   <p className="vp-show-desc">{pick(L, item.desc)}</p>
                 </div>

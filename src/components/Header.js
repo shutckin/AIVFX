@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNotification } from '../App';
-import { useLocale, pick, stripLocale, localizedHref } from '../i18n';
+import { useLocale, pick } from '../i18n';
 import { NAV_SYS } from '../data/systems-content';
 import ModeToggle from './ModeToggle';
+import LangSwitch from './LangSwitch';
 import './about-b2b.css';
 
 // Секции для scroll-spy (порядок = порядок на странице)
 const SPY_SECTIONS = ['hero', 'services', 'cases', 'approach', 'about', 'contact'];
-
-// Переключатель языка — реальная навигация (полная перезагрузка),
-// т.к. локаль определяется из URL при загрузке страницы.
-const LangSwitch = ({ locale }) => {
-  const logical = typeof window !== 'undefined' ? stripLocale(window.location.pathname) : '/';
-  return (
-    <div className="lang-switch" aria-label="Language">
-      <a href={localizedHref(logical, 'ru')} className={`lang-opt ${locale === 'ru' ? 'active' : ''}`}>RU</a>
-      <span className="lang-sep">/</span>
-      <a href={localizedHref(logical, 'en')} className={`lang-opt ${locale === 'en' ? 'active' : ''}`}>EN</a>
-    </div>
-  );
-};
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
