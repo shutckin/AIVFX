@@ -197,6 +197,44 @@ async function main() {
         const tw = document.querySelector('meta[name="twitter:url"]');
         if (tw) tw.setAttribute('content', canonical);
 
+        // Заголовок и описание для превью ссылки — забираем их у самой
+        // страницы, а не держим отдельным списком. К этому моменту
+        // приложение уже проставило локализованные <title> и
+        // <meta name="description">, поэтому карточка в мессенджере
+        // получается на языке страницы сама собой.
+        //
+        // Без этого на /en/ уезжало русское описание из index.html:
+        // раньше здесь подменялись только адрес и локаль, а заголовок с
+        // описанием оставались теми, что записаны в шаблоне.
+        const setMeta = (selector, attr, name, value) => {
+          if (!value) return;
+          let el = document.querySelector(selector);
+          if (!el) {
+            el = document.createElement('meta');
+            el.setAttribute(attr, name);
+            document.head.appendChild(el);
+          }
+          el.setAttribute('content', value);
+        };
+
+        // Хвост вида « | От заявки до повторных продаж» нужен поисковику,
+        // но в карточке мессенджера он только удлиняет строку
+        const pageTitle = (document.title || '').split('|')[0].trim();
+        const descEl = document.querySelector('meta[name="description"]');
+        const pageDesc = descEl ? descEl.getAttribute('content') : '';
+
+        setMeta('meta[property="og:title"]', 'property', 'og:title', pageTitle);
+        setMeta('meta[property="og:description"]', 'property', 'og:description', pageDesc);
+        setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', pageTitle);
+        setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', pageDesc);
+
+        // Подпись к картинке тоже своя на каждом языке — её читают
+        // экранные дикторы, когда карточку озвучивают
+        setMeta('meta[property="og:image:alt"]', 'property', 'og:image:alt',
+          locale === 'en'
+            ? 'AIVFX — AI systems, AI video and VFX studio'
+            : 'AIVFX — студия AI-систем, AI-видео и VFX');
+
         // hreflang: убираем старые альтернативы и проставляем заново
         document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
         if (bilingual) {
