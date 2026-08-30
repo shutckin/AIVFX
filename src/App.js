@@ -1,6 +1,7 @@
 import React, { useEffect, useState, createContext, useContext, lazy, Suspense } from 'react';
 import './index.css';
 import { LocaleContext, getLocaleFromUrl, stripLocale, localizedHref, useLocale } from './i18n';
+import { FAQ_SYS } from './data/systems-content';
 
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -320,14 +321,50 @@ function App() {
       const meta = document.querySelector('meta[name="description"]');
       if (meta) meta.setAttribute('content', description);
     }
+
+    // Разметка вопросов и ответов - только на главной, где эти вопросы
+    // действительно на странице.
+    //
+    // Раньше она лежала прямо в public/index.html и потому уезжала на все
+    // 45 страниц сайта, включая статьи блога: разметка обещала поисковику
+    // ответы, которых на странице нет. Google такое расхождение считает
+    // нарушением и снимает расширенный сниппет - причём не с одной
+    // страницы, а со всего сайта. На статьях вдобавок сталкивались две
+    // разные разметки FAQ, своя и эта.
+    //
+    // Текст берём из тех же данных, что рисуют видимый блок вопросов,
+    // поэтому разойтись им негде, и перевод получается сам собой.
+    // Очистку собираем в список: у эффекта есть и вторая обязанность -
+    // прокрутка к якорю, и ранний return из одной ветки отменил бы её
+    const cleanups = [];
+
+    if (page === 'main' && typeof document !== 'undefined') {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.setAttribute('data-home-faq', '1');
+      script.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: FAQ_SYS.map((item) => ({
+          '@type': 'Question',
+          name: en ? item.q.en : item.q.ru,
+          acceptedAnswer: { '@type': 'Answer', text: en ? item.a.en : item.a.ru },
+        })),
+      });
+      document.head.appendChild(script);
+      cleanups.push(() => script.remove());
+    }
     if (typeof window !== 'undefined' && window.location.hash) {
       const id = window.location.hash.slice(1);
       const t = setTimeout(() => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       }, 600);
-      return () => clearTimeout(t);
+      cleanups.push(() => clearTimeout(t));
     }
+
+    return () => cleanups.forEach((fn) => fn());
+    // en выводится из locale внутри эффекта, отдельной зависимостью быть не может
   }, [page, locale]);
 
   const showPrivacyPolicy = page === 'privacy';

@@ -167,6 +167,41 @@ const RelatedPosts = ({ post, onOpenPost }) => {
   );
 };
 
+// Вопросы и ответы для разметки, собранные из самой статьи.
+//
+// Отдельного поля с вопросами намеренно нет: любое второе место, где
+// живёт тот же текст, однажды разойдётся с первым, а расхождение
+// разметки и страницы поисковики считают нарушением и снимают
+// расширенный сниппет со всего сайта.
+//
+// Поэтому источник один - содержимое статьи. Берём подзаголовки третьего
+// уровня, оканчивающиеся вопросительным знаком, и абзацы под ними до
+// следующего заголовка. Так вопросы попадают в разметку ровно в том
+// виде, в каком их читает человек.
+const faqFromContent = (content = []) => {
+  const out = [];
+  for (let i = 0; i < content.length; i += 1) {
+    const b = content[i];
+    if (b.type !== 'h3' || !b.text || !b.text.trim().endsWith('?')) continue;
+    const answer = [];
+    for (let j = i + 1; j < content.length; j += 1) {
+      const next = content[j];
+      if (next.type === 'h2' || next.type === 'h3') break;
+      if (next.type === 'p') answer.push(next.text);
+      if (next.type === 'ul' || next.type === 'ol') answer.push(next.items.join(' '));
+    }
+    if (!answer.length) continue;
+    // Разметка не понимает нашу разметку жирного и ссылок - отдаём чистый текст
+    const plain = answer
+      .join(' ')
+      .replace(/\*\*/g, '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .trim();
+    out.push({ q: b.text.trim(), a: plain });
+  }
+  return out;
+};
+
 // Полоса прочитанного вверху страницы.
 //
 // В статье на пятнадцать минут человек не видит, сколько ещё осталось:
@@ -426,6 +461,24 @@ const BlogPost = ({ post, onBack, onBackToList, onOpenPost }) => {
             { '@type': 'ListItem', position: 3, name: post.title, item: url },
           ],
         },
+        // Вопросы и ответы, если они есть в статье. Поисковик показывает
+        // такую страницу развёрнутым сниппетом: строка в выдаче занимает
+        // больше места и собирает больше переходов на той же позиции.
+        //
+        // Список собирается из тех же блоков, что видит читатель, поэтому
+        // разметка не может разойтись с текстом страницы. Расхождение как
+        // раз и считается нарушением: разметка, обещающая ответ, которого
+        // на странице нет, приводит к снятию расширенного сниппета.
+        ...(faqFromContent(post.content).length
+          ? [{
+            '@type': 'FAQPage',
+            mainEntity: faqFromContent(post.content).map(({ q, a }) => ({
+              '@type': 'Question',
+              name: q,
+              acceptedAnswer: { '@type': 'Answer', text: a },
+            })),
+          }]
+          : []),
       ],
     };
     const script = document.createElement('script');
