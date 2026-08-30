@@ -198,6 +198,33 @@ const PostCard = ({ post, onOpenPost, featured }) => {
   );
 };
 
+// Строка оглавления: номер, категория, заголовок, маленькая обложка.
+//
+// Карточка с большой картинкой честно показывает одну статью и съедает
+// пол-экрана. Когда статей много, читателю важнее увидеть их список
+// целиком, а не разглядывать обложку каждой: строка занимает вчетверо
+// меньше места, а картинка остаётся - просто в роли метки, а не героя.
+const PostRow = ({ post, onOpenPost, num }) => {
+  const locale = useLocale();
+  return (
+    <a
+      href={localizedHref(`/blog/${post.slug}/`, locale)}
+      onClick={(e) => { e.preventDefault(); onOpenPost(post.slug); }}
+      className="blog-row"
+    >
+      <span className="blog-row-num" aria-hidden="true">{String(num).padStart(2, '0')}</span>
+      <span className="blog-row-body">
+        <span className="blog-row-cat">{post.category}</span>
+        <span className="blog-row-title">{post.title}</span>
+        <span className="blog-row-time">{post.readingTime}</span>
+      </span>
+      <span className="blog-row-thumb">
+        <img src={post.cover} alt="" loading="lazy" />
+      </span>
+    </a>
+  );
+};
+
 // ── Витрина блога: фильтр по категориям + сетка ─────────────────────────
 const BlogList = ({ onBack, onOpenPost }) => {
   const en = useLocale() === 'en';
@@ -216,9 +243,14 @@ const BlogList = ({ onBack, onOpenPost }) => {
     ? POSTS
     : POSTS.filter((p) => (p.category || FALLBACK) === active);
 
-  // Featured-статья (первая) — крупным блоком только в режиме «Все»
-  const featured = active === ALL ? filtered[0] : null;
-  const rest = featured ? filtered.slice(1) : filtered;
+  // Три уровня подачи. В режиме «Все» первая статья идёт крупно, две
+  // следующие - средними карточками, остальные - плотным оглавлением.
+  // При выбранной категории статей мало, крупная подача там смотрелась бы
+  // как случайно раздутая карточка, поэтому весь список идёт ровно.
+  const isAll = active === ALL;
+  const featured = isAll ? filtered[0] : null;
+  const secondary = isAll ? filtered.slice(1, 3) : [];
+  const listed = isAll ? filtered.slice(3) : filtered;
 
   return (
     <div className="blog-page min-h-screen pt-24 pb-20">
@@ -251,32 +283,63 @@ const BlogList = ({ onBack, onOpenPost }) => {
             : 'Пошаговые гайды по сервисам, честные сравнения моделей и разбор реальных кейсов — от первого промпта до готового рекламного ролика.'}
         </p>
 
-        {/* Навигация по категориям */}
-        <nav className="blog-cat-nav mb-12" aria-label={en ? 'Blog categories' : 'Категории блога'}>
-          {[ALL, ...categories].map((cat) => (
-            <button
-              key={cat}
-              className={`blog-pill ${active === cat ? 'active' : ''}`}
-              onClick={() => setActive(cat)}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Категории. Раньше это были восемь одинаковых «таблеток», которые
+            на узком экране складывались в три ряда и занимали пол-экрана
+            ещё до первой статьи. Теперь строка с прокруткой: активная
+            подчёркнута, рядом счётчик статей. */}
+        <nav className="blog-cats" aria-label={en ? 'Blog categories' : 'Категории блога'}>
+          {[ALL, ...categories].map((cat) => {
+            const count = cat === ALL
+              ? POSTS.length
+              : POSTS.filter((p) => (p.category || FALLBACK) === cat).length;
+            return (
+              <button
+                key={cat}
+                className={`blog-cat ${active === cat ? 'active' : ''}`}
+                onClick={() => setActive(cat)}
+                aria-pressed={active === cat}
+              >
+                {cat}
+                <span className="blog-cat-num">{count}</span>
+              </button>
+            );
+          })}
         </nav>
 
-        {/* Featured */}
+        {/* Ритм страницы: одна крупная статья, затем пара средних, затем
+            плотное оглавление. Ровная сетка одинаковых карточек не давала
+            глазу зацепиться и заставляла листать одинаковые прямоугольники;
+            здесь видно, что важнее, и на экран помещается втрое больше. */}
         {featured && (
-          <div className="mb-10">
+          <div className="blog-lead-wrap">
             <PostCard post={featured} onOpenPost={onOpenPost} featured />
           </div>
         )}
 
-        {/* Сетка статей */}
-        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
-          {rest.map((post) => (
-            <PostCard key={post.slug} post={post} onOpenPost={onOpenPost} />
-          ))}
-        </div>
+        {secondary.length > 0 && (
+          <div className="blog-duo">
+            {secondary.map((post) => (
+              <PostCard key={post.slug} post={post} onOpenPost={onOpenPost} />
+            ))}
+          </div>
+        )}
+
+        {listed.length > 0 && (
+          <div className="blog-index">
+            <div className="blog-index-head">
+              <span>{en ? 'All articles' : 'Все статьи'}</span>
+              <span className="blog-index-count">{listed.length}</span>
+            </div>
+            {listed.map((post, i) => (
+              <PostRow
+                key={post.slug}
+                post={post}
+                onOpenPost={onOpenPost}
+                num={secondary.length + (featured ? 1 : 0) + i + 1}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

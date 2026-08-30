@@ -2084,23 +2084,127 @@ img, video { display: block; max-width: 100%; }
   color: var(--accent);
 }
 .blog-meta { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
-.blog-cat-nav { display: flex; flex-wrap: wrap; gap: 10px; }
-.blog-pill {
+/* ── Категории ───────────────────────────────────────────────────────────
+   Строка с прокруткой вместо восьми «таблеток», которые на узком экране
+   складывались в три ряда и занимали пол-экрана ещё до первой статьи.
+   Активная подчёркнута, у каждой счётчик статей: сразу видно, где пусто. */
+.blog-cats {
+  display: flex;
+  gap: 22px;
+  margin: 0 -4px 44px;
+  padding: 0 4px 12px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  scrollbar-width: none;
+}
+.blog-cats::-webkit-scrollbar { display: none; }
+.blog-cat {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 0 0 12px;
+  margin-bottom: -13px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
   font-family: var(--font-mono);
   font-size: 12px;
-  text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 8px 16px;
-  border-radius: 999px;
-  border: 1px solid var(--line-2);
+  text-transform: uppercase;
   color: var(--muted);
-  background: transparent;
-  cursor: pointer;
-  transition: all .2s ease;
   white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
-.blog-pill:hover { color: var(--fg); border-color: var(--fg-2); }
-.blog-pill.active { background: transparent; color: var(--accent-2); border-color: var(--accent); font-weight: 600; }
+.blog-cat:hover { color: var(--fg); }
+.blog-cat.active { color: var(--fg); border-bottom-color: var(--accent); }
+.blog-cat-num { font-size: 10px; color: var(--muted); }
+.blog-cat.active .blog-cat-num { color: var(--accent-2); }
+
+.blog-lead-wrap { margin-bottom: 18px; }
+
+/* Две средние карточки под крупной: на широком экране рядом, ниже 760
+   друг под другом */
+.blog-duo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 56px;
+}
+@media (max-width: 760px) {
+  .blog-duo { grid-template-columns: 1fr; }
+}
+
+/* ── Оглавление ──────────────────────────────────────────────────────── */
+.blog-index-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.blog-index-count { color: var(--accent-2); }
+
+.blog-row {
+  display: grid;
+  grid-template-columns: auto 1fr 96px;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  transition: background 0.2s ease, padding-left 0.2s ease;
+}
+.blog-row:hover {
+  background: var(--bg-2);
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0 -10px;
+}
+.blog-row-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 22px;
+}
+.blog-row-body { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.blog-row-cat {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+.blog-row-title {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 2vw, 19px);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--fg);
+}
+.blog-row-time { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.blog-row-thumb {
+  width: 96px; height: 62px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-3);
+}
+.blog-row-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+@media (max-width: 560px) {
+  /* На телефоне миниатюра отнимает у заголовка треть строки и заставляет
+     его переноситься на три строки - выгоднее отдать место тексту */
+  .blog-row { grid-template-columns: auto 1fr; gap: 12px; }
+  .blog-row-thumb { display: none; }
+}
+
 .blog-read { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; }
 
 /* Переключатель языка RU/EN в шапке */
