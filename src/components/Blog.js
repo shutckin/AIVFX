@@ -167,6 +167,49 @@ const RelatedPosts = ({ post, onOpenPost }) => {
   );
 };
 
+// Полоса прочитанного вверху страницы.
+//
+// В статье на пятнадцать минут человек не видит, сколько ещё осталось:
+// полоса прокрутки браузера на длинной странице почти незаметна, а на
+// телефоне её нет вовсе. Тонкая линия сверху отвечает на этот вопрос
+// молча и заодно даёт понять, что материал длинный, но конечный.
+//
+// Считается на прокрутке через requestAnimationFrame: событие приходит
+// чаще, чем браузер рисует кадры, и без этого мы бы пересчитывали
+// геометрию впустую по нескольку раз на кадр.
+const ReadingProgress = () => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let scheduled = false;
+    const measure = () => {
+      scheduled = false;
+      const doc = document.documentElement;
+      const reach = doc.scrollHeight - window.innerHeight;
+      // Страница короче экрана - прогресс не имеет смысла
+      setProgress(reach > 40 ? Math.min(1, Math.max(0, window.scrollY / reach)) : 0);
+    };
+    const onScroll = () => {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  return (
+    <div className="blog-progress" aria-hidden="true">
+      <span style={{ transform: `scaleX(${progress})` }} />
+    </div>
+  );
+};
+
 // Карточка статьи (обычная или featured — крупная горизонтальная)
 const PostCard = ({ post, onOpenPost, featured }) => {
   const locale = useLocale();
@@ -253,7 +296,7 @@ const BlogList = ({ onBack, onOpenPost }) => {
   const listed = isAll ? filtered.slice(3) : filtered;
 
   return (
-    <div className="blog-page min-h-screen pt-24 pb-20">
+    <div className="blog-page blog-page--list min-h-screen pt-24 pb-20">
       <div className="blog-wrap">
         {/* Назад */}
         <button
@@ -395,8 +438,9 @@ const BlogPost = ({ post, onBack, onBackToList, onOpenPost }) => {
   }, [post, locale, en]);
 
   return (
-    <div className="blog-page min-h-screen pt-24 pb-16">
-      <div className="container mx-auto px-4 py-6 max-w-3xl">
+    <div className="blog-page blog-page--article min-h-screen pt-24 pb-16">
+      <ReadingProgress />
+      <div className="blog-wrap container mx-auto px-4 py-6 max-w-3xl">
         <div className="mb-6 flex items-center gap-4 text-sm">
           <button onClick={onBackToList} className="flex items-center text-white/80 hover:text-white transition-colors">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

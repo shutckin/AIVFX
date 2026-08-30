@@ -276,7 +276,10 @@ img, video { display: block; max-width: 100%; }
 .mobile-menu {
   position: fixed;
   inset: 0;
-  background: rgba(8, 7, 6, 0.98);
+  /* Плотный фон, а не полупрозрачный: сквозь прежние 98% просвечивала
+     фоновая сетка страницы, и меню выглядело так, будто открылось
+     поверх той же решётки, а не отдельным слоем */
+  background: var(--bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   z-index: 1200;
@@ -1968,13 +1971,73 @@ img, video { display: block; max-width: 100%; }
 /* ─────────────────────────────────────────────────────────────────────────
    Блог — в стиле сайта (тёмный нуар + янтарный акцент + техническая сетка)
    ───────────────────────────────────────────────────────────────────────── */
+/* ── Фон блога ───────────────────────────────────────────────────────────
+   Сетка здесь была нарисована в лоб: ровная решётка во всю страницу, без
+   маски и без приглушения. На главной тот же приём выглядит спокойно
+   именно потому, что сетка там растворяется к краям маской и притушена
+   до половины - см. .hs-bg в hero-systems.css. Ровная решётка на полотне
+   текста бьёт по глазам и спорит с буквами.
+
+   Поэтому фон разделён на два режима. На витрине сетка остаётся, но
+   ведёт себя как на главной: гаснет к низу и подсвечена сверху. На
+   странице статьи её нет вовсе - там человек читает, и любая
+   регулярная графика под строками мешает. Вместо неё мягкое свечение,
+   которое держит ту же атмосферу, но не лезет в текст. */
 .blog-page {
+  position: relative;
   background-color: var(--bg);
+  isolation: isolate;
+}
+/* Слой фона отдельным элементом: так его можно гасить и маскировать,
+   не трогая содержимое */
+.blog-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Витрина: сетка как на главной - приглушённая и растворяющаяся книзу */
+.blog-page--list::before {
   background-image:
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: 56px 56px;
   background-position: center top;
+  opacity: 0.4;
+  mask-image: linear-gradient(180deg, black 0%, black 22%, transparent 62%);
+  -webkit-mask-image: linear-gradient(180deg, black 0%, black 22%, transparent 62%);
+}
+/* Свечение над заголовком - тот же приём, что в шапке главной */
+.blog-page--list::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 620px;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(680px 420px at 78% 0%, var(--accent-glow) 0%, transparent 68%),
+    radial-gradient(520px 380px at 6% 12%, var(--accent-soft) 0%, transparent 72%);
+  opacity: 0.5;
+}
+
+/* Статья: сетки нет совсем, только мягкий свет сверху за обложкой */
+.blog-page--article::before {
+  background:
+    radial-gradient(900px 520px at 50% -8%, var(--accent-soft) 0%, transparent 70%);
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Появление страницы статьи: короткое всплытие содержимого. Одно
+     движение на загрузку читается как аккуратность, а не как анимация */
+  .blog-page--article .blog-wrap { animation: blogRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+}
+@keyframes blogRise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
 }
 .blog-wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
 .blog-kicker {
@@ -1984,6 +2047,56 @@ img, video { display: block; max-width: 100%; }
   text-transform: uppercase;
   color: var(--accent);
 }
+/* Полоса прочитанного. Тонкая настолько, чтобы не спорить с шапкой, но
+   заметная на движении: масштабируем по оси X, а не меняем ширину -
+   первое браузер делает на композиторе, второе заставляет пересчитывать
+   раскладку на каждый кадр прокрутки. */
+.blog-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 1100;
+  background: transparent;
+  pointer-events: none;
+}
+.blog-progress span {
+  display: block;
+  height: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* Статья без «коробки»: рамка и заливка карточки уместны в списке, где
+   она отделяет одну статью от другой, но на самой странице статьи
+   обводить единственный материал не от чего - получается блок внутри
+   пустоты вместо страницы. Обложку при этом отпускаем шире колонки:
+   так она читается как разворот, а не как картинка в рамке. */
+.blog-page--article .card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.blog-page--article .card > figure {
+  margin-left: calc(var(--gutter) * -1);
+  margin-right: calc(var(--gutter) * -1);
+}
+.blog-page--article .card > figure .aspect-video {
+  border-radius: var(--r-lg);
+  /* Низ обложки растворяется в фоне страницы, чтобы не было жёсткого
+     стыка картинки и текста */
+  mask-image: linear-gradient(180deg, black 72%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, black 72%, transparent 100%);
+}
+.blog-page--article .card > div { padding-left: 0; padding-right: 0; }
+@media (min-width: 768px) {
+  .blog-page--article .card > figure {
+    margin-left: -56px;
+    margin-right: -56px;
+  }
+}
+
 /* Ссылка внутри текста статьи. Подчёркивание приглушённое и утолщается
    при наведении: в длинном тексте яркая линия под каждой ссылкой рябит и
    мешает читать, а совсем без неё ссылка неотличима от обычного слова. */
