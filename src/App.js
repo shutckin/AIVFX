@@ -282,20 +282,43 @@ function App() {
     if (typeof document !== 'undefined') document.documentElement.lang = locale;
   }, [locale]);
 
-  // Локализованные title/description для главной + скролл к якорю (#contact)
+  // Локализованные title/description + скролл к якорю (#contact)
   // после перехода со страниц услуг и /video-production
+  //
+  // Правовые страницы раньше не ставили ничего своего и донашивали
+  // заголовок с описанием главной. Для поиска это дубли: Яндекс
+  // отдельно жаловался на них в диагностике, а Google при дублях сам
+  // выбирает, какую из страниц показывать, — и выбирает не всегда ту.
   useEffect(() => {
-    if (page === 'main') {
-      const en = locale === 'en';
-      document.title = en
-        ? 'AIVFX — AI Systems & Business Automation | From First Inquiry to Repeat Sales'
-        : 'AIVFX — AI-системы и автоматизация бизнеса | От заявки до повторных продаж';
+    const en = locale === 'en';
+
+    const META = {
+      main: {
+        ru: ['AIVFX — AI-системы и автоматизация бизнеса | От заявки до повторных продаж',
+          'Проектируем и внедряем AI-автоматизации для бизнеса: приём и квалификация заявок, AI-ассистенты, интеграция с CRM и автоматизация процессов.'],
+        en: ['AIVFX — AI Systems & Business Automation | From First Inquiry to Repeat Sales',
+          'We design and deploy AI automations for business: lead intake and qualification, AI assistants, CRM integration and process automation. No lead gets lost.'],
+      },
+      privacy: {
+        ru: ['Политика конфиденциальности — AIVFX',
+          'Как AIVFX собирает, использует и хранит персональные данные посетителей сайта: состав данных, цели обработки, сроки хранения и права пользователя.'],
+        en: ['Privacy Policy — AIVFX',
+          'How AIVFX collects, uses and stores personal data of site visitors: what data is processed, for what purposes, how long it is kept and what rights you have.'],
+      },
+      consent: {
+        ru: ['Согласие на обработку персональных данных — AIVFX',
+          'Текст согласия на обработку персональных данных, которое даёт посетитель при отправке заявки через формы на сайте AIVFX.'],
+        en: ['Consent to Personal Data Processing — AIVFX',
+          'The consent to personal data processing given by a visitor when submitting a request through the forms on the AIVFX website.'],
+      },
+    };
+
+    const entry = META[page];
+    if (entry) {
+      const [title, description] = entry[en ? 'en' : 'ru'];
+      document.title = title;
       const meta = document.querySelector('meta[name="description"]');
-      if (meta) {
-        meta.setAttribute('content', en
-          ? 'We design and deploy AI automations for business: lead intake and qualification, AI assistants, CRM integration and process automation. No lead gets lost.'
-          : 'Проектируем и внедряем AI-автоматизации для бизнеса: приём и квалификация заявок, AI-ассистенты, интеграция с CRM и автоматизация процессов.');
-      }
+      if (meta) meta.setAttribute('content', description);
     }
     if (typeof window !== 'undefined' && window.location.hash) {
       const id = window.location.hash.slice(1);
