@@ -65,22 +65,40 @@ const main = async () => {
     urlList: urls,
   });
 
-  try {
-    const res = await fetch('https://api.indexnow.org/indexnow', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json; charset=utf-8' },
-      body,
-    });
-    // 200 — принято, 202 — принято и поставлено в очередь на проверку ключа
-    if (res.status === 200 || res.status === 202) {
-      console.log(`  IndexNow: отправлено ${urls.length} адресов, ответ ${res.status}.`);
-    } else {
-      const text = await res.text().catch(() => '');
-      console.log(`  IndexNow отказал: ${res.status} ${text.slice(0, 200)}`);
+  // Шлём каждому поисковику отдельно, а не через общий шлюз
+  // api.indexnow.org. Тот проксирует запрос в Bing, и когда Bing
+  // отказывает, отказ выглядит так, будто протокол не работает вовсе.
+  // Проверено 30.08.2026: Яндекс принял те же адреса с тем же ключом
+  // (202, success), Bing ответил 403 UserForbiddedToAccessSite - сайт
+  // ему пока незнаком. Яндекс для этого сайта и есть главный адресат,
+  // терять его из-за чужого отказа нельзя.
+  const ENDPOINTS = [
+    ['Яндекс', 'https://yandex.com/indexnow'],
+    ['Bing', 'https://www.bing.com/indexnow'],
+  ];
+
+  let accepted = 0;
+  for (const [name, endpoint] of ENDPOINTS) {
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json; charset=utf-8' },
+        body,
+      });
+      // 200 — принято, 202 — принято и поставлено в очередь на проверку ключа
+      if (res.status === 200 || res.status === 202) {
+        accepted += 1;
+        console.log(`  ${name}: принял ${urls.length} адресов (${res.status}).`);
+      } else {
+        const text = await res.text().catch(() => '');
+        console.log(`  ${name}: отказал ${res.status} ${text.replace(/\s+/g, ' ').slice(0, 120)}`);
+      }
+    } catch (e) {
+      console.log(`  ${name}: недоступен (${e.message})`);
     }
-  } catch (e) {
-    console.log(`  IndexNow недоступен: ${e.message}`);
   }
+
+  if (!accepted) console.log('  Ни один поисковик не принял уведомление.');
 };
 
 main();
