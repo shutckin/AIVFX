@@ -3,7 +3,16 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://aivfx.ru/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/</loc>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/" />
@@ -12,7 +21,16 @@
   </url>
   <url>
     <loc>https://aivfx.ru/services/ai-sales-automation/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-sales-automation/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/ai-sales-automation/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/ai-sales-automation/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/services/ai-sales-automation/</loc>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-sales-automation/" />
@@ -21,7 +39,16 @@
   </url>
   <url>
     <loc>https://aivfx.ru/services/ai-assistants/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-assistants/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/ai-assistants/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/ai-assistants/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/services/ai-assistants/</loc>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-assistants/" />
@@ -30,7 +57,16 @@
   </url>
   <url>
     <loc>https://aivfx.ru/services/business-process-automation/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/business-process-automation/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/business-process-automation/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/business-process-automation/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/services/business-process-automation/</loc>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/business-process-automation/" />
@@ -39,25 +75,52 @@
   </url>
   <url>
     <loc>https://aivfx.ru/video-production/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/video-production/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/video-production/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/video-production/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/video-production/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/video-production/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/video-production/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/video-production/" />
   </url>
   <url>
     <loc>https://aivfx.ru/works/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/works/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/works/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/works/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/works/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/works/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/works/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/works/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/</loc>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/" />
@@ -66,293 +129,236 @@
   </url>
   <url>
     <loc>https://aivfx.ru/blog/kak-sozdat-ai-avatar-heygen/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sozdat-ai-avatar-heygen/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sozdat-ai-avatar-heygen/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sozdat-ai-avatar-heygen/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/kak-sozdat-ai-avatar-heygen/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sozdat-ai-avatar-heygen/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sozdat-ai-avatar-heygen/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sozdat-ai-avatar-heygen/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/kak-sdelat-ai-video/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sdelat-ai-video/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sdelat-ai-video/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sdelat-ai-video/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/kak-sdelat-ai-video/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sdelat-ai-video/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sdelat-ai-video/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sdelat-ai-video/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/sravnenie-neyrosetey-dlya-video/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/sravnenie-neyrosetey-dlya-video/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/sravnenie-neyrosetey-dlya-video/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/sravnenie-neyrosetey-dlya-video/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/sravnenie-neyrosetey-dlya-video/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/sravnenie-neyrosetey-dlya-video/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/sravnenie-neyrosetey-dlya-video/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/sravnenie-neyrosetey-dlya-video/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/skolko-stoit-ai-video/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/skolko-stoit-ai-video/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/skolko-stoit-ai-video/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/skolko-stoit-ai-video/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/skolko-stoit-ai-video/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/skolko-stoit-ai-video/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/skolko-stoit-ai-video/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/skolko-stoit-ai-video/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/kling-gayd/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kling-gayd/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kling-gayd/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kling-gayd/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/kling-gayd/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kling-gayd/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kling-gayd/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kling-gayd/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/runway-gayd/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/runway-gayd/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/runway-gayd/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/runway-gayd/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/runway-gayd/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/runway-gayd/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/runway-gayd/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/runway-gayd/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/veo-gayd/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/veo-gayd/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/veo-gayd/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/veo-gayd/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/veo-gayd/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/veo-gayd/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/veo-gayd/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/veo-gayd/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/kak-sdelat-reklamnyy-rolik-ai/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sdelat-reklamnyy-rolik-ai/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sdelat-reklamnyy-rolik-ai/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sdelat-reklamnyy-rolik-ai/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/kak-sdelat-reklamnyy-rolik-ai/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sdelat-reklamnyy-rolik-ai/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sdelat-reklamnyy-rolik-ai/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sdelat-reklamnyy-rolik-ai/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/ai-video-dlya-biznesa-start/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/ai-video-dlya-biznesa-start/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/ai-video-dlya-biznesa-start/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/ai-video-dlya-biznesa-start/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/ai-video-dlya-biznesa-start/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/ai-video-dlya-biznesa-start/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/ai-video-dlya-biznesa-start/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/ai-video-dlya-biznesa-start/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/gollivud-ai-v-kino/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/gollivud-ai-v-kino/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/gollivud-ai-v-kino/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/gollivud-ai-v-kino/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/gollivud-ai-v-kino/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/gollivud-ai-v-kino/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/gollivud-ai-v-kino/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/gollivud-ai-v-kino/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/midjourney-gayd/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/midjourney-gayd/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/midjourney-gayd/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/midjourney-gayd/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/midjourney-gayd/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/midjourney-gayd/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/midjourney-gayd/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/midjourney-gayd/" />
   </url>
   <url>
     <loc>https://aivfx.ru/blog/top-neyrosetey-video/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/top-neyrosetey-video/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/top-neyrosetey-video/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/top-neyrosetey-video/" />
   </url>
   <url>
-    <loc>https://aivfx.ru/en/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/services/ai-sales-automation/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-sales-automation/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/ai-sales-automation/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/ai-sales-automation/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/services/ai-assistants/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-assistants/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/ai-assistants/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/ai-assistants/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/services/business-process-automation/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/business-process-automation/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/business-process-automation/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/business-process-automation/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/video-production/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/video-production/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/video-production/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/video-production/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/works/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/works/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/works/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/works/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/kak-sozdat-ai-avatar-heygen/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sozdat-ai-avatar-heygen/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sozdat-ai-avatar-heygen/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sozdat-ai-avatar-heygen/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/kak-sdelat-ai-video/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sdelat-ai-video/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sdelat-ai-video/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sdelat-ai-video/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/sravnenie-neyrosetey-dlya-video/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/sravnenie-neyrosetey-dlya-video/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/sravnenie-neyrosetey-dlya-video/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/sravnenie-neyrosetey-dlya-video/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/skolko-stoit-ai-video/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/skolko-stoit-ai-video/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/skolko-stoit-ai-video/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/skolko-stoit-ai-video/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/kling-gayd/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kling-gayd/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kling-gayd/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kling-gayd/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/runway-gayd/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/runway-gayd/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/runway-gayd/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/runway-gayd/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/veo-gayd/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/veo-gayd/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/veo-gayd/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/veo-gayd/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/kak-sdelat-reklamnyy-rolik-ai/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sdelat-reklamnyy-rolik-ai/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sdelat-reklamnyy-rolik-ai/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sdelat-reklamnyy-rolik-ai/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/ai-video-dlya-biznesa-start/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/ai-video-dlya-biznesa-start/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/ai-video-dlya-biznesa-start/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/ai-video-dlya-biznesa-start/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/gollivud-ai-v-kino/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/gollivud-ai-v-kino/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/gollivud-ai-v-kino/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/gollivud-ai-v-kino/" />
-  </url>
-  <url>
-    <loc>https://aivfx.ru/en/blog/midjourney-gayd/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/midjourney-gayd/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/midjourney-gayd/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/midjourney-gayd/" />
-  </url>
-  <url>
     <loc>https://aivfx.ru/en/blog/top-neyrosetey-video/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/top-neyrosetey-video/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/top-neyrosetey-video/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/top-neyrosetey-video/" />
   </url>
   <url>
     <loc>https://aivfx.ru/privacy/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://aivfx.ru/consent/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-08-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://aivfx.ru/blog/skolko-stoit-ai-assistent/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

@@ -5,12 +5,33 @@ import { useLocale, localizedHref } from '../i18n';
 
 const SITE = 'https://aivfx.ru';
 
-// Простой парсер **жирного** текста внутри абзаца
-const renderRich = (text) => {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+// Разметка внутри абзаца: **жирный** и ссылки вида [текст](/адрес/).
+//
+// Ссылки прямо в тексте важнее блока «читайте также» в конце: читатель
+// переходит по ним в тот момент, когда у него возник вопрос, а поисковик
+// по ним понимает, какие статьи связаны между собой и о чём каждая из них.
+// Внутренние адреса прогоняются через localizedHref, поэтому в английской
+// версии статьи тот же '/blog/foo/' сам ведёт на '/en/blog/foo/'.
+const renderRich = (text, locale) => {
+  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return <strong key={i} className="text-white">{part.slice(2, -2)}</strong>;
+    }
+    const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (link) {
+      const [, label, href] = link;
+      const isInternal = href.startsWith('/');
+      return (
+        <a
+          key={i}
+          href={isInternal ? localizedHref(href, locale) : href}
+          className="blog-inline-link"
+          {...(isInternal ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+        >
+          {label}
+        </a>
+      );
     }
     return <React.Fragment key={i}>{part}</React.Fragment>;
   });
@@ -44,30 +65,31 @@ const CtaBlock = ({ onBack }) => {
 
 // Рендер одного блока контента
 const Block = ({ block, onBack }) => {
-  const en = useLocale() === 'en';
+  const locale = useLocale();
+  const en = locale === 'en';
   switch (block.type) {
     case 'h2':
       return <h2 className="text-2xl lg:text-3xl font-bold text-white mt-10 mb-4">{block.text}</h2>;
     case 'h3':
       return <h3 className="text-xl font-bold text-white mt-6 mb-3">{block.text}</h3>;
     case 'p':
-      return <p className="mb-4">{renderRich(block.text)}</p>;
+      return <p className="mb-4">{renderRich(block.text, locale)}</p>;
     case 'ul':
       return (
         <ul className="list-disc pl-6 space-y-2 mb-4">
-          {block.items.map((it, i) => <li key={i}>{renderRich(it)}</li>)}
+          {block.items.map((it, i) => <li key={i}>{renderRich(it, locale)}</li>)}
         </ul>
       );
     case 'ol':
       return (
         <ol className="list-decimal pl-6 space-y-2 mb-4">
-          {block.items.map((it, i) => <li key={i}>{renderRich(it)}</li>)}
+          {block.items.map((it, i) => <li key={i}>{renderRich(it, locale)}</li>)}
         </ol>
       );
     case 'quote':
       return (
         <blockquote className="my-8 pl-6 border-l-4 text-white/90 italic text-lg" style={{ borderColor: 'var(--accent)' }}>
-          {renderRich(block.text)}
+          {renderRich(block.text, locale)}
         </blockquote>
       );
     case 'image':
@@ -99,6 +121,50 @@ const Block = ({ block, onBack }) => {
     default:
       return null;
   }
+};
+
+// ── «Читайте также» ────────────────────────────────────────────────────
+//
+// Связи заданы в самой статье полем related, а не выводятся автоматически
+// по совпадению категории: соседство по рубрике почти никогда не значит,
+// что вторая статья отвечает на вопрос, возникший после первой.
+//
+// Несуществующий slug молча отбрасывается, а не роняет страницу и не
+// рисует битую ссылку: список статей меняется, и опечатка в related не
+// должна стоить читателю перехода в никуда. Если после отбора не осталось
+// ни одной статьи, блока просто нет.
+const RelatedPosts = ({ post, onOpenPost }) => {
+  const locale = useLocale();
+  const en = locale === 'en';
+  const POSTS = en ? BLOG_POSTS_EN : BLOG_POSTS;
+
+  const related = (post.related || [])
+    .filter((slug) => slug !== post.slug)
+    .map((slug) => POSTS.find((p) => p.slug === slug))
+    .filter(Boolean)
+    .slice(0, 3);
+
+  if (!related.length) return null;
+
+  return (
+    <aside className="blog-related">
+      <h2 className="blog-related-title">{en ? 'Read next' : 'Читайте дальше'}</h2>
+      <div className="blog-related-list">
+        {related.map((p) => (
+          <a
+            key={p.slug}
+            href={localizedHref(`/blog/${p.slug}/`, locale)}
+            onClick={(e) => { e.preventDefault(); onOpenPost(p.slug); }}
+            className="blog-related-item"
+          >
+            <span className="blog-related-cat">{p.category}</span>
+            <span className="blog-related-name">{p.title}</span>
+            <span className="blog-related-time">{p.readingTime}</span>
+          </a>
+        ))}
+      </div>
+    </aside>
+  );
 };
 
 // Карточка статьи (обычная или featured — крупная горизонтальная)
@@ -217,7 +283,7 @@ const BlogList = ({ onBack, onOpenPost }) => {
 };
 
 // ── Страница статьи ─────────────────────────────────────────────────────
-const BlogPost = ({ post, onBack, onBackToList }) => {
+const BlogPost = ({ post, onBack, onBackToList, onOpenPost }) => {
   const locale = useLocale();
   const en = locale === 'en';
   // Внедряем Article + BreadcrumbList JSON-LD в <head>.
@@ -296,6 +362,7 @@ const BlogPost = ({ post, onBack, onBackToList }) => {
             <div className="text-white/80 space-y-1 leading-relaxed text-base lg:text-lg">
               {post.content.map((block, i) => <Block key={i} block={block} onBack={onBack} />)}
             </div>
+            <RelatedPosts post={post} onOpenPost={onOpenPost} />
           </div>
         </article>
       </div>
@@ -344,7 +411,7 @@ const Blog = ({ slug, onBack, onOpenPost, onBackToList }) => {
   }, [post, en]);
 
   if (slug && post) {
-    return <BlogPost post={post} onBack={onBack} onBackToList={onBackToList} />;
+    return <BlogPost post={post} onBack={onBack} onBackToList={onBackToList} onOpenPost={onOpenPost} />;
   }
   return <BlogList onBack={onBack} onOpenPost={onOpenPost} />;
 };

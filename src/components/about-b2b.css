@@ -34,8 +34,6 @@
 @media (max-width: 960px) {
   .header { grid-template-columns: auto 1fr auto; }
   .header .mode-toggle { justify-self: end; }
-  /* В бургер-меню тумблер уже не нужен — он всегда на виду в шапке */
-  .ab-mobile-toggle { display: none; }
   /* На тёмном фоне без backdrop-filter шапка должна оставаться читаемой */
   .header.scrolled { background: rgba(10, 9, 8, 0.94); }
 }
@@ -52,13 +50,6 @@
   .header .mode-opt::before { width: 5px; height: 5px; }
 }
 
-/* Тумблер в мобильном меню — сверху, до пунктов навигации */
-.ab-mobile-toggle { margin-bottom: 8px; }
-
-.ab-mobile-cta {
-  margin-top: 12px;
-  align-self: flex-start;
-}
 
 /* ══════════════════════════════════════════════════════════════════════
    AboutUs — секция «О нас».

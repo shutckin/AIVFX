@@ -263,21 +263,130 @@ img, video { display: block; max-width: 100%; }
   transition: transform 0.3s, opacity 0.3s;
 }
 
+/* ── Мобильное меню ────────────────────────────────────────────────────
+   Три пояса: шапка с кнопкой закрытия, список во всю высоту, подвал с
+   действием и языком. Раньше всё было одним центрированным столбиком:
+   пункты висели по центру экрана, кнопка «Связаться» уезжала влево из-за
+   align-self: flex-start, а закрывать приходилось бургером шапки, который
+   обрезался о край экрана.
+
+   Отступы считаются от безопасной области: на телефонах с вырезом и
+   полосой жеста фиксированные значения либо режут кнопку сверху, либо
+   прячут её под полосой снизу. */
 .mobile-menu {
   position: fixed;
   inset: 0;
-  background: rgba(8, 7, 6, 0.96);
+  background: rgba(8, 7, 6, 0.98);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  z-index: 999;
+  z-index: 1200;
   display: none;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
+  padding:
+    calc(env(safe-area-inset-top, 0px) + 14px)
+    calc(env(safe-area-inset-right, 0px) + 20px)
+    calc(env(safe-area-inset-bottom, 0px) + 22px)
+    calc(env(safe-area-inset-left, 0px) + 20px);
 }
 .mobile-menu.open { display: flex; }
-.mobile-menu .nav-link { font-size: 24px; color: var(--fg); padding: 12px 24px; }
+
+.mm-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+}
+.mm-logo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+}
+/* Крестик рисуем двумя линиями, а не символом: шрифтовый «×» в разных
+   системах имеет разную ширину и уезжает из центра кнопки */
+.mm-close {
+  position: relative;
+  width: 44px; height: 44px;
+  flex: 0 0 auto;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.mm-close span {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 17px; height: 1.5px;
+  background: var(--fg);
+  border-radius: 2px;
+}
+.mm-close span:nth-child(1) { transform: translate(-50%, -50%) rotate(45deg); }
+.mm-close span:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
+
+/* Список занимает всё между шапкой и подвалом и прокручивается сам,
+   если пунктов станет больше, чем помещается */
+.mm-nav {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  overflow-y: auto;
+  padding: 24px 0;
+}
+.mm-link {
+  display: block;
+  width: 100%;
+  padding: 15px 2px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: clamp(26px, 8vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--fg);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.mm-link:last-child { border-bottom: none; }
+.mm-link:active { color: var(--accent-2); }
+/* Страницы отличаются от якорей стрелкой: якорь прокручивает текущую
+   страницу, ссылка уводит на другую, и это видно до нажатия */
+.mm-link--page { position: relative; }
+.mm-link--page::after {
+  content: "↗";
+  position: absolute;
+  right: 4px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.5em;
+  color: var(--muted);
+}
+
+.mm-foot {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.mm-cta {
+  width: 100%;
+  justify-content: center;
+  padding: 15px 20px;
+  font-size: 15px;
+}
+.mm-lang { display: flex; justify-content: center; }
+/* Языки в меню крупнее, чем в шапке: там это служебная деталь, здесь
+   полноценный пункт, в который надо попасть пальцем */
+.mm-lang .lang-opt {
+  font-size: 15px;
+  padding: 10px 14px;
+  min-width: 44px;
+  text-align: center;
+}
 
 @media (max-width: 960px) {
   .header { grid-template-columns: auto 1fr auto; gap: 16px; }
@@ -1875,6 +1984,76 @@ img, video { display: block; max-width: 100%; }
   text-transform: uppercase;
   color: var(--accent);
 }
+/* Ссылка внутри текста статьи. Подчёркивание приглушённое и утолщается
+   при наведении: в длинном тексте яркая линия под каждой ссылкой рябит и
+   мешает читать, а совсем без неё ссылка неотличима от обычного слова. */
+.blog-inline-link {
+  color: var(--accent-2);
+  text-decoration: underline;
+  text-decoration-color: rgba(106, 148, 255, 0.35);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+.blog-inline-link:hover {
+  color: #fff;
+  text-decoration-color: var(--accent-2);
+}
+
+/* ── «Читайте дальше» в конце статьи ─────────────────────────────────── */
+.blog-related {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.blog-related-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.blog-related-list { display: flex; flex-direction: column; }
+.blog-related-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 16px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  transition: padding-left 0.2s ease;
+}
+.blog-related-item:last-child { border-bottom: none; }
+.blog-related-item:hover { padding-left: 6px; }
+.blog-related-cat {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+.blog-related-name {
+  font-family: var(--font-display);
+  font-size: clamp(17px, 2.2vw, 20px);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--fg);
+}
+.blog-related-time {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  /* На узком экране время чтения уводит заголовок в две строки ради
+     самой малополезной детали - убираем его */
+  .blog-related-time { display: none; }
+  .blog-related-item { grid-template-columns: 1fr; }
+}
+
 .blog-card {
   display: block;
   border: 1px solid var(--line);
@@ -1930,7 +2109,6 @@ img, video { display: block; max-width: 100%; }
 .lang-opt:hover { color: var(--fg); }
 .lang-opt.active { color: var(--accent); font-weight: 600; }
 .lang-sep { color: var(--muted-2); }
-.mobile-lang { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
 
 /* Юридические страницы — фирменный фон вместо старого градиента */
 .legal-page { background: var(--bg); }

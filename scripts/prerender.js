@@ -21,50 +21,18 @@ const fs = require('fs');
 const express = require('express');
 const puppeteer = require('puppeteer');
 
-const SITE_ORIGIN = 'https://aivfx.ru';
-// Канонический URL = origin + маршрут (заканчивается слэшем для не-корневых)
-function canonicalFor(route) {
-  if (route === '/') return `${SITE_ORIGIN}/`;
-  return `${SITE_ORIGIN}${route}/`;
-}
+const {
+  BILINGUAL,
+  RU_ONLY,
+  enRoute,
+  canonicalFor,
+} = require('./site-routes');
 
-// Slug'и статей блога. ВАЖНО: держать в синхроне с src/data/blog-posts.js
-const BLOG_SLUGS = [
-  'kak-sozdat-ai-avatar-heygen',
-  'kak-sdelat-ai-video',
-  'sravnenie-neyrosetey-dlya-video',
-  'skolko-stoit-ai-video',
-  'kling-gayd',
-  'runway-gayd',
-  'veo-gayd',
-  'kak-sdelat-reklamnyy-rolik-ai',
-  'ai-video-dlya-biznesa-start',
-  'gollivud-ai-v-kino',
-  'midjourney-gayd',
-  'top-neyrosetey-video',
-];
-
-// Slug'и страниц услуг. Держать в синхроне с src/data/systems-content.js
-const SERVICE_SLUGS = [
-  'ai-sales-automation',
-  'ai-assistants',
-  'business-process-automation',
-];
-
-// Логические пути, у которых есть и RU, и EN-версия
-const BILINGUAL = [
-  '/',
-  ...SERVICE_SLUGS.map((s) => `/services/${s}`),
-  '/video-production',
-  '/works',
-  '/blog',
-  ...BLOG_SLUGS.map((s) => `/blog/${s}`),
-];
-// Юридические страницы — только на русском (своя юрисдикция)
-const RU_ONLY = ['/privacy', '/consent'];
-
-// Логический путь → EN-маршрут ('/' → '/en', '/blog' → '/en/blog')
-const enRoute = (logical) => (logical === '/' ? '/en' : `/en${logical}`);
+// Списки страниц живут в одном месте — scripts/site-routes.js, который
+// читает их прямо из файлов данных. Раньше здесь лежала своя копия
+// с пометкой «держать в синхроне»: при выходе статьи её приходилось
+// дописывать и сюда, и в карту сайта, и достаточно было забыть про
+// одно место, чтобы страница осталась без предрендера или вне карты.
 
 // Полный список задач рендера: для двуязычных — RU + EN, для юридических — только RU
 const TASKS = [];
