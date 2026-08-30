@@ -217,7 +217,138 @@ export const SERVICES_SYS = {
 
 // ── Страницы услуг (/services/<slug>) ──────────────────────────────────
 export const SERVICE_PAGES = {
+  // ── Отраслевые страницы ──────────────────────────────────────────────
+  //
+  // Общие страницы услуг отвечают на вопрос «что вы делаете». Эти - на
+  // вопрос «а с такими, как мы, вы работали». Человек, который ищет
+  // «AI-ассистент для клиники», а не «автоматизация заявок», уже понял,
+  // что ему нужно, и выбирает исполнителя: конкуренция по таким запросам
+  // низкая, а готовность обсуждать работу высокая.
+  //
+  // Отличаются они не оформлением, а содержанием: боли, лог системы и
+  // возможности переписаны под конкретную отрасль. Копия общей страницы
+  // с заменённым словом «клиника» не работает - и для читателя, и для
+  // поиска это одна и та же страница.
+  'ai-dlya-klinik': {
+    alsoSee: ['ai-sales-automation', 'ai-assistants'],
+    readMore: ['pochemu-teryayutsya-zayavki', 'skolko-stoit-ai-assistent', 'chat-bot-ili-ai-assistent'],
+    kicker: { ru: 'РЕШЕНИЕ / ДЛЯ КЛИНИК И МЕДЦЕНТРОВ', en: 'SOLUTION / FOR CLINICS' },
+    title: { ru: 'AI-ассистент для клиники: запись и вопросы пациентов без потерь', en: 'AI assistant for clinics: bookings and patient questions without losses' },
+    sub: {
+      ru: 'Система отвечает пациенту в мессенджере и на сайте круглосуточно, записывает на приём, отвечает на вопросы о подготовке и стоимости, а всё, что касается диагнозов и симптомов, немедленно передаёт администратору.',
+      en: 'The system answers patients on the website and in messengers around the clock, books appointments, explains preparation and prices — and hands anything about symptoms or diagnoses straight to a human.',
+    },
+    pains: {
+      title: { ru: 'Знакомо?', en: 'Sound familiar?' },
+      items: [
+        { ru: 'Пациент звонит вечером, слышит автоответчик и записывается в соседнюю клинику', en: 'A patient calls in the evening, hears voicemail and books at the clinic next door' },
+        { ru: 'Администратор весь день отвечает на одни и те же вопросы про подготовку к УЗИ', en: 'The desk spends all day answering the same questions about preparing for a scan' },
+        { ru: 'Записи переносят и отменяют в мессенджере, а в расписании этого нет', en: 'Reschedules happen in chat and never reach the calendar' },
+        { ru: 'Пациенты не приходят на приём, и никто не напомнил заранее', en: 'Patients miss appointments because nobody reminded them' },
+      ],
+    },
+    proof: [
+      { ru: 'Сообщение · WhatsApp, 22:14', en: 'Message · WhatsApp, 22:14' },
+      { ru: 'Вопрос про подготовку к приёму - ответ из базы клиники', en: 'Question about preparation — answered from the clinic knowledge base' },
+      { ru: 'Свободные окна на четверг предложены', en: 'Available Thursday slots offered' },
+      { ru: 'Запись создана в медицинской системе', en: 'Appointment created in the practice system' },
+      { ru: 'Упоминание симптома - диалог передан администратору', en: 'Symptom mentioned — conversation handed to the desk' },
+      { ru: 'Напоминание за сутки отправлено', en: 'Reminder sent 24 h before' },
+    ],
+    features: {
+      title: { ru: 'Что делает система в клинике', en: 'What the system does in a clinic' },
+      items: [
+        { t: { ru: 'Запись без администратора', en: 'Booking without the desk' }, d: { ru: 'Показывает свободные окна нужного специалиста и создаёт запись в вашей медицинской системе, а не в отдельной табличке.', en: 'Shows free slots for the right specialist and creates the appointment in your practice system, not a side spreadsheet.' } },
+        { t: { ru: 'Ответы на организационные вопросы', en: 'Organisational answers' }, d: { ru: 'Подготовка к процедурам, документы, адрес, парковка, стоимость приёма - по вашим материалам, без выдумок.', en: 'Preparation, documents, address, parking, prices — strictly from your own materials, nothing invented.' } },
+        { t: { ru: 'Жёсткая граница по медицине', en: 'A hard medical boundary' }, d: { ru: 'Ни диагнозов, ни советов по лечению, ни трактовки анализов. Любой такой вопрос уходит человеку немедленно и с пометкой срочности.', en: 'No diagnoses, no treatment advice, no reading of test results. Any such question goes to a human immediately, flagged as urgent.' } },
+        { t: { ru: 'Напоминания и переносы', en: 'Reminders and reschedules' }, d: { ru: 'Напоминает за сутки и за два часа, принимает перенос и отмену прямо в переписке - расписание обновляется само.', en: 'Reminds a day and two hours ahead, accepts reschedules and cancellations in chat — the calendar updates itself.' } },
+        { t: { ru: 'Возврат тех, кто не дошёл', en: 'Win-back for no-shows' }, d: { ru: 'Пациент, который записался и не пришёл, получает аккуратное сообщение, а не теряется навсегда.', en: 'A patient who booked and never came gets a gentle follow-up instead of disappearing.' } },
+        { t: { ru: 'Персональные данные под контролем', en: 'Personal data under control' }, d: { ru: 'Согласие на обработку, хранение в вашем контуре, доступ по минимуму и удаление переписок по расписанию.', en: 'Explicit consent, storage inside your perimeter, least-privilege access and scheduled deletion of conversations.' } },
+      ],
+    },
+  },
+  'ai-dlya-avtoservisa': {
+    alsoSee: ['ai-sales-automation', 'business-process-automation'],
+    readMore: ['pochemu-teryayutsya-zayavki', 'ai-kvalifikaciya-lidov', 'ai-assistent-i-crm'],
+    kicker: { ru: 'РЕШЕНИЕ / ДЛЯ АВТОСЕРВИСОВ', en: 'SOLUTION / FOR AUTO SERVICE' },
+    title: { ru: 'AI-ассистент для автосервиса: запись, расчёт и загрузка постов', en: 'AI assistant for auto service: bookings, estimates and bay load' },
+    sub: {
+      ru: 'Система принимает обращения из мессенджеров и с сайта, выясняет марку, пробег и симптом, называет вилку по типовым работам, записывает на свободное время и не даёт мастеру-приёмщику отвлекаться на переписку.',
+      en: 'The system takes inquiries from messengers and the website, gets the make, mileage and symptom, gives a price range for standard jobs, books a free slot and keeps the service advisor off the chat.',
+    },
+    pains: {
+      title: { ru: 'Знакомо?', en: 'Sound familiar?' },
+      items: [
+        { ru: 'Клиент пишет в выходной, а отвечают ему в понедельник', en: 'A customer writes on Saturday and hears back on Monday' },
+        { ru: 'Мастер-приёмщик отвечает в мессенджере вместо работы с машиной', en: 'The service advisor answers chats instead of working with cars' },
+        { ru: 'Половина вопросов - «сколько будет стоить замена колодок»', en: 'Half the questions are «how much for new brake pads»' },
+        { ru: 'Записи путаются, посты то простаивают, то перегружены', en: 'Bookings get muddled: bays sit idle, then overflow' },
+      ],
+    },
+    proof: [
+      { ru: 'Сообщение · Telegram, суббота 19:40', en: 'Message · Telegram, Saturday 19:40' },
+      { ru: 'Марка, год и пробег уточнены', en: 'Make, year and mileage clarified' },
+      { ru: 'Симптом описан: стук спереди справа', en: 'Symptom captured: knock, front right' },
+      { ru: 'Вилка по диагностике названа', en: 'Diagnostics price range given' },
+      { ru: 'Запись на понедельник, 10:00, пост №2', en: 'Booked Monday 10:00, bay 2' },
+      { ru: 'Карточка создана в CRM с историей переписки', en: 'CRM record created with full chat history' },
+    ],
+    features: {
+      title: { ru: 'Что делает система в автосервисе', en: 'What the system does in a workshop' },
+      items: [
+        { t: { ru: 'Сбор данных об автомобиле', en: 'Vehicle details upfront' }, d: { ru: 'Марка, модель, год, пробег и описание проблемы выясняются до записи - мастер видит картину заранее.', en: 'Make, model, year, mileage and the described fault are gathered before the booking, so the advisor sees the picture in advance.' } },
+        { t: { ru: 'Вилка по типовым работам', en: 'Ranges for standard jobs' }, d: { ru: 'Называет диапазон по вашему прайсу и честно говорит, что точная сумма - после диагностики. Никаких выдуманных цен.', en: 'Quotes a range from your own price list and says plainly that the exact figure follows diagnostics. No invented numbers.' } },
+        { t: { ru: 'Запись с учётом загрузки постов', en: 'Booking against real bay load' }, d: { ru: 'Предлагает время, когда пост реально свободен, а не первое попавшееся окно в календаре.', en: 'Offers times when a bay is genuinely free, not the first empty slot in a calendar.' } },
+        { t: { ru: 'Напоминание и подтверждение', en: 'Reminders and confirmation' }, d: { ru: 'Напоминает накануне и просит подтвердить - меньше пустых постов из-за неявок.', en: 'Reminds the day before and asks to confirm — fewer idle bays from no-shows.' } },
+        { t: { ru: 'Возврат на регламент', en: 'Service-interval win-back' }, d: { ru: 'Через нужный срок или пробег напоминает про ТО тем, кто уже был у вас.', en: 'Reminds returning customers about scheduled maintenance at the right time or mileage.' } },
+        { t: { ru: 'Всё в одной карточке', en: 'One record per customer' }, d: { ru: 'Переписка, автомобиль, работы и история визитов лежат вместе, а не в чужом телефоне.', en: 'Chat, vehicle, jobs and visit history live together instead of on someone\'s personal phone.' } },
+      ],
+    },
+  },
+  'ai-dlya-nedvizhimosti': {
+    alsoSee: ['ai-sales-automation', 'ai-assistants'],
+    readMore: ['ai-kvalifikaciya-lidov', 'pochemu-teryayutsya-zayavki', 'skolko-stoit-ai-assistent'],
+    kicker: { ru: 'РЕШЕНИЕ / ДЛЯ АГЕНТСТВ НЕДВИЖИМОСТИ', en: 'SOLUTION / FOR REAL ESTATE' },
+    title: { ru: 'AI-ассистент для агентства недвижимости: разбор заявок и запись на показ', en: 'AI assistant for real estate: lead triage and viewing bookings' },
+    sub: {
+      ru: 'Система отвечает на обращения с площадок и из рекламы за секунды, выясняет бюджет, район и сроки, отсеивает нецелевые запросы и передаёт риелтору только тех, с кем есть о чём говорить.',
+      en: 'The system replies to portal and ad inquiries within seconds, works out budget, area and timing, filters out mismatches and passes the agent only the people worth a conversation.',
+    },
+    pains: {
+      title: { ru: 'Знакомо?', en: 'Sound familiar?' },
+      items: [
+        { ru: 'Заявки с площадок приходят пачками, риелтор физически не успевает обзвонить', en: 'Portal leads arrive in bursts and no agent can call them all in time' },
+        { ru: 'Кто ответил первым, тот и работает с клиентом - остальные опоздали', en: 'Whoever replies first gets the client; everyone else is late' },
+        { ru: 'Половина обращений - не тот бюджет или не тот район', en: 'Half the inquiries are the wrong budget or the wrong district' },
+        { ru: 'Показы срываются, потому что никто не подтвердил встречу', en: 'Viewings fall through because nobody confirmed the meeting' },
+      ],
+    },
+    proof: [
+      { ru: 'Заявка · площадка объявлений, 23:05', en: 'Lead · listings portal, 23:05' },
+      { ru: 'Ответ отправлен через 40 секунд', en: 'Replied in 40 seconds' },
+      { ru: 'Бюджет и район уточнены', en: 'Budget and district clarified' },
+      { ru: 'Ипотека: нужна, одобрения пока нет', en: 'Mortgage: needed, not yet approved' },
+      { ru: 'Лид помечен: горячий, показ на выходных', en: 'Lead tagged: hot, viewing this weekend' },
+      { ru: 'Риелтор получил карточку с историей', en: 'Agent received the record with full history' },
+    ],
+    features: {
+      title: { ru: 'Что делает система в агентстве', en: 'What the system does in an agency' },
+      items: [
+        { t: { ru: 'Ответ быстрее конкурентов', en: 'Faster than the competition' }, d: { ru: 'Отвечает за секунды в любое время - в недвижимости первый ответивший чаще всего и работает с клиентом.', en: 'Replies within seconds at any hour — in property the first responder usually keeps the client.' } },
+        { t: { ru: 'Разбор по бюджету и району', en: 'Budget and area triage' }, d: { ru: 'Выясняет вилку, район, сроки и способ оплаты, не превращая разговор в анкету.', en: 'Works out the range, area, timing and payment method without turning the chat into a form.' } },
+        { t: { ru: 'Подбор из вашей базы', en: 'Matching from your own base' }, d: { ru: 'Предлагает подходящие объекты из вашей выгрузки, а не абстрактные «варианты есть».', en: 'Suggests matching listings from your feed instead of a vague «we have options».' } },
+        { t: { ru: 'Запись на показ и подтверждение', en: 'Viewings and confirmations' }, d: { ru: 'Согласует время, ставит встречу в календарь риелтора и напоминает обеим сторонам.', en: 'Agrees the time, puts it in the agent calendar and reminds both sides.' } },
+        { t: { ru: 'Долгие сделки не теряются', en: 'Long deals stay alive' }, d: { ru: 'Тем, кто «вернётся через полгода», приходят редкие уместные касания вместо еженедельного «ну что, надумали».', en: 'People who «will come back in six months» get rare, relevant touches instead of weekly nagging.' } },
+        { t: { ru: 'Честность в цифрах', en: 'Honest numbers' }, d: { ru: 'Никаких обещаний по одобрению ипотеки и доходности - только факты из ваших материалов.', en: 'No promises about mortgage approval or returns — only facts from your own materials.' } },
+      ],
+    },
+  },
+
   'ai-sales-automation': {
+    alsoSee: ['ai-dlya-klinik', 'ai-dlya-avtoservisa', 'ai-dlya-nedvizhimosti'],
+    // Статьи блога по теме услуги. Список ручной: подбор по совпадению
+    // слов дал бы соседство, а не пользу читателю.
+    readMore: ['pochemu-teryayutsya-zayavki', 'ai-kvalifikaciya-lidov', 'skolko-stoit-ai-assistent'],
     kicker: { ru: 'УСЛУГА / AI ДЛЯ ЗАЯВОК И ПРОДАЖ', en: 'SERVICE / AI FOR LEADS & SALES' },
     title: { ru: 'Ни одна заявка больше не теряется', en: 'No lead ever gets lost again' },
     sub: {
@@ -255,6 +386,10 @@ export const SERVICE_PAGES = {
     },
   },
   'ai-assistants': {
+    alsoSee: ['ai-dlya-klinik', 'ai-dlya-nedvizhimosti', 'ai-dlya-avtoservisa'],
+    // Статьи блога по теме услуги. Список ручной: подбор по совпадению
+    // слов дал бы соседство, а не пользу читателю.
+    readMore: ['chat-bot-ili-ai-assistent', 'skolko-stoit-ai-assistent', 'ai-assistent-i-crm'],
     kicker: { ru: 'УСЛУГА / AI-АССИСТЕНТЫ', en: 'SERVICE / AI ASSISTANTS' },
     title: { ru: 'Ассистент, который знает ваш бизнес', en: 'An assistant that knows your business' },
     sub: {
@@ -290,6 +425,10 @@ export const SERVICE_PAGES = {
     },
   },
   'business-process-automation': {
+    alsoSee: ['ai-dlya-avtoservisa', 'ai-dlya-klinik', 'ai-dlya-nedvizhimosti'],
+    // Статьи блога по теме услуги. Список ручной: подбор по совпадению
+    // слов дал бы соседство, а не пользу читателю.
+    readMore: ['ai-assistent-i-crm', 'ai-kvalifikaciya-lidov', 'pochemu-teryayutsya-zayavki'],
     kicker: { ru: 'УСЛУГА / АВТОМАТИЗАЦИЯ ПРОЦЕССОВ', en: 'SERVICE / PROCESS AUTOMATION' },
     title: { ru: 'Рутина исчезает из расписания команды', en: 'Routine work disappears from your team’s day' },
     sub: {

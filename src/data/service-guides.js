@@ -12,6 +12,177 @@
 
 export const SERVICE_GUIDES = {
   // ═══════════════════════════════════════════════════════════════════════
+  // Отраслевые страницы. Гайд здесь не пересказ общей услуги другими
+  // словами, а разбор того, что в этой отрасли устроено иначе: границы
+  // ответственности, свои сроки, свои требования к данным.
+  'ai-dlya-klinik': {
+    readTime: { ru: '7 минут чтения', en: '7 min read' },
+    lead: {
+      ru: 'Что автоматизация в клинике может делать, а чего не должна делать никогда, как это устроено технически и что придётся решить до запуска.',
+      en: 'What automation in a clinic can do, what it must never do, how it works technically and what has to be settled before launch.',
+    },
+    sections: [
+      {
+        id: 'granica',
+        h: { ru: 'Где проходит граница', en: 'Where the boundary lies' },
+        blocks: [
+          { type: 'p', text: {
+            ru: 'Главный вопрос в медицине не «что умеет система», а «чего она не делает». Ассистент отвечает на организационные вопросы: когда приём, сколько стоит, как подготовиться, где парковка, какие документы взять. Всё, что касается симптомов, диагнозов и трактовки анализов, он не обсуждает вообще.',
+            en: 'In healthcare the key question is not what the system can do but what it never does. The assistant handles organisational questions: appointment times, prices, preparation, parking, documents. Anything touching symptoms, diagnoses or test results it does not discuss at all.' } },
+          { type: 'p', text: {
+            ru: 'Это ограничение задаётся не просьбой к модели, а устройством системы: у неё физически нет доступа к медицинским данным, а на упоминание симптома срабатывает передача администратору с пометкой срочности.',
+            en: 'That limit is not a polite request to the model but a property of the system: it has no access to medical data, and a mention of a symptom triggers an immediate handover flagged as urgent.' } },
+          { type: 'note', text: {
+            ru: 'Проверяйте это на демонстрации: напишите ассистенту про боль или симптом. Если он начал что-то советовать, дальше можно не смотреть.',
+            en: 'Test this during the demo: mention pain or a symptom. If the assistant starts giving advice, you can stop right there.' } },
+        ],
+      },
+      {
+        id: 'zapis',
+        h: { ru: 'Как устроена запись', en: 'How booking works' },
+        blocks: [
+          { type: 'p', text: {
+            ru: 'Ценность даёт не сам разговор, а запись, которая появляется в вашей медицинской системе. Ассистент видит расписание специалистов, предлагает реально свободные окна и создаёт приём там, где его увидит регистратура.',
+            en: 'The value is not the conversation but the appointment that lands in your practice system. The assistant sees specialist schedules, offers genuinely free slots and creates the booking where the front desk will see it.' } },
+          { type: 'steps', items: [
+            { ru: 'Пациент пишет в мессенджер или на сайт в любое время', en: 'The patient writes in a messenger or on the site at any hour' },
+            { ru: 'Ассистент уточняет специалиста, повод визита и удобные дни', en: 'The assistant clarifies the specialist, the reason and convenient days' },
+            { ru: 'Показывает свободные окна и фиксирует выбранное', en: 'Shows free slots and locks in the chosen one' },
+            { ru: 'Создаёт приём в медицинской системе и подтверждает пациенту', en: 'Creates the appointment in the practice system and confirms to the patient' },
+            { ru: 'Напоминает за сутки и за два часа, принимает перенос', en: 'Reminds a day and two hours ahead, accepts reschedules' },
+          ] },
+        ],
+      },
+      {
+        id: 'dannye',
+        h: { ru: 'Персональные данные', en: 'Personal data' },
+        blocks: [
+          { type: 'p', text: {
+            ru: 'Переписка с пациентом - персональные данные, причём чувствительные. До запуска нужно решить три вещи: где физически лежат диалоги, кто из сотрудников имеет к ним доступ и через какой срок они удаляются. Ответ «у подрядчика на серверах, доступ у всех, храним вечно» не годится.',
+            en: 'Patient conversations are personal data, and sensitive at that. Three things must be settled before launch: where the conversations physically live, which staff can access them and after what period they are deleted. «On the vendor servers, everyone has access, kept forever» is not an acceptable answer.' } },
+          { type: 'list', items: [
+            { ru: 'Согласие на обработку берётся явно, а не мелким шрифтом', en: 'Consent is taken explicitly, not in fine print' },
+            { ru: 'Данные граждан России хранятся на серверах в России', en: 'Data of Russian citizens is stored on servers in Russia' },
+            { ru: 'Доступ у тех, кому он нужен по работе, и это настроено, а не подразумевается', en: 'Access is limited to those who need it, and this is configured rather than assumed' },
+            { ru: 'Переписки удаляются по расписанию, а не копятся годами', en: 'Conversations are deleted on schedule instead of piling up for years' },
+          ] },
+        ],
+      },
+    ],
+    faq: [
+      { q: { ru: 'Пациенты не испугаются, что с ними говорит программа?', en: 'Will patients be put off by talking to software?' },
+        a: { ru: 'Пугает не программа, а отсутствие ответа. Ассистент честно представляется и отвечает по организационным вопросам за секунды - это заметно лучше, чем автоответчик в девять вечера. Разговоры о здоровье всё равно ведёт человек.', en: 'What puts people off is silence, not software. The assistant introduces itself honestly and answers organisational questions within seconds, which beats voicemail at nine in the evening. Conversations about health are still handled by a human.' } },
+      { q: { ru: 'Он сможет работать с нашей медицинской системой?', en: 'Will it work with our practice management system?' },
+        a: { ru: 'Вопрос в том, умеет ли ваша система принимать данные снаружи. Если умеет - запись создаётся прямо в ней. Если нет, остаётся запасной путь: уведомление регистратуре, а внесение вручную. Это хуже, но работает.', en: 'It depends on whether your system can accept data from outside. If it can, appointments are created directly in it. If not, the fallback is a notification to the front desk and manual entry — worse, but workable.' } },
+      { q: { ru: 'Что будет, если пациент напишет про острую боль?', en: 'What happens if a patient reports acute pain?' },
+        a: { ru: 'Диалог немедленно передаётся человеку с пометкой срочности, и ассистент больше в него не вмешивается. Это не настройка вежливости, а обязательное правило системы.', en: 'The conversation is handed to a human immediately, flagged as urgent, and the assistant stops taking part in it. This is a mandatory rule of the system, not a politeness setting.' } },
+      { q: { ru: 'Сколько занимает запуск в клинике?', en: 'How long does a clinic launch take?' },
+        a: { ru: 'Обычно от трёх недель до полутора месяцев. Больше всего времени уходит не на технику, а на сбор ответов на организационные вопросы: подготовка к процедурам, цены, условия. Эту часть делает клиника.', en: 'Usually from three weeks to six weeks. Most of the time goes not into technology but into collecting answers to organisational questions: preparation, prices, conditions. That part is on the clinic.' } },
+    ],
+  },
+  'ai-dlya-avtoservisa': {
+    readTime: { ru: '6 минут чтения', en: '6 min read' },
+    lead: {
+      ru: 'Как автоматизация закрывает вечерние и выходные обращения, что она может говорить про цены и как связать запись с реальной загрузкой постов.',
+      en: 'How automation covers evening and weekend inquiries, what it may say about prices and how to tie bookings to real bay availability.',
+    },
+    sections: [
+      {
+        id: 'ceny',
+        h: { ru: 'Что можно говорить про цены', en: 'What it may say about prices' },
+        blocks: [
+          { type: 'p', text: {
+            ru: 'Половина обращений в автосервис начинается с вопроса о стоимости, и это самое опасное место. Ассистент должен называть вилку по вашему прайсу для типовых работ и честно говорить, что точная сумма известна после диагностики. Выдуманная цифра, которую клиент запомнил, дороже потерянной заявки.',
+            en: 'Half of all workshop inquiries start with a price question, and that is the riskiest ground. The assistant should quote a range from your own price list for standard jobs and say plainly that the exact figure follows diagnostics. An invented number the customer remembers costs more than a lost lead.' } },
+          { type: 'note', text: {
+            ru: 'Спросите подрядчика, как технически запрещено называть цены вне прайса. «Мы попросили модель так не делать» - не запрет.',
+            en: 'Ask the vendor how quoting outside the price list is technically prevented. «We asked the model not to» is not a prevention.' } },
+        ],
+      },
+      {
+        id: 'zagruzka',
+        h: { ru: 'Запись с учётом постов', en: 'Booking against bay load' },
+        blocks: [
+          { type: 'p', text: {
+            ru: 'Запись, которая не учитывает загрузку, создаёт больше проблем, чем решает: клиент приезжает, а пост занят. Поэтому ассистент должен видеть не абстрактный календарь, а реальную занятость постов и длительность работ.',
+            en: 'A booking that ignores bay load creates more problems than it solves: the customer arrives and the bay is busy. So the assistant must see real bay occupancy and job durations, not an abstract calendar.' } },
+          { type: 'list', items: [
+            { ru: 'Диагностика и замена масла занимают разное время - слот считается по типу работ', en: 'Diagnostics and an oil change take different times — the slot is sized by job type' },
+            { ru: 'Подтверждение накануне снижает число неявок', en: 'Confirmation the day before cuts no-shows' },
+            { ru: 'Отмена в переписке освобождает пост автоматически', en: 'A cancellation in chat frees the bay automatically' },
+          ] },
+        ],
+      },
+      {
+        id: 'vozvrat',
+        h: { ru: 'Возврат на регламент', en: 'Service-interval win-back' },
+        blocks: [
+          { type: 'p', text: {
+            ru: 'Самая недооценённая часть. У вас уже есть история визитов: марка, пробег, что делали и когда. Через нужный срок ассистент напоминает про плановое обслуживание тем, кто уже был, - это дешевле любой рекламы, потому что человек вас знает.',
+            en: 'The most underrated part. You already have visit history: make, mileage, what was done and when. After the right interval the assistant reminds returning customers about scheduled maintenance — cheaper than any advertising, because they already know you.' } },
+        ],
+      },
+    ],
+    faq: [
+      { q: { ru: 'А если клиент опишет проблему неправильно?', en: 'What if the customer describes the fault incorrectly?' },
+        a: { ru: 'Так и будет, это нормально. Задача ассистента не поставить диагноз, а собрать факты: марку, год, пробег и что именно происходит. Диагноз остаётся за мастером, и ассистент это прямо проговаривает.', en: 'That will happen and it is normal. The assistant is not there to diagnose but to gather facts: make, year, mileage and what exactly is happening. Diagnosis stays with the mechanic, and the assistant says so explicitly.' } },
+      { q: { ru: 'Нужна ли CRM или хватит мессенджера?', en: 'Do we need a CRM or is a messenger enough?' },
+        a: { ru: 'На старте хватит мессенджера и таблицы, если поток небольшой. Но переписка в личном телефоне мастера уходит вместе с мастером, а история визитов - это то, на чём держится возврат клиентов.', en: 'A messenger and a spreadsheet are enough at the start if the flow is small. But chats on a mechanic personal phone leave with the mechanic, and visit history is exactly what repeat business rests on.' } },
+      { q: { ru: 'Сколько заявок реально теряется по вечерам?', en: 'How many leads are actually lost in the evenings?' },
+        a: { ru: 'Посчитайте сами: возьмите обращения за месяц и разделите на пришедшие в рабочее время и вне его. У большинства сервисов вне рабочего времени приходит от четверти до трети потока.', en: 'Measure it yourself: take a month of inquiries and split them into working hours and outside them. For most workshops a quarter to a third arrives outside working hours.' } },
+    ],
+  },
+  'ai-dlya-nedvizhimosti': {
+    readTime: { ru: '6 минут чтения', en: '6 min read' },
+    lead: {
+      ru: 'Почему в недвижимости выигрывает скорость ответа, как разбирать поток заявок с площадок и что делать с теми, кто купит не сейчас.',
+      en: 'Why response speed wins in property, how to triage portal leads and what to do with people who will buy later, not now.',
+    },
+    sections: [
+      {
+        id: 'skorost',
+        h: { ru: 'Почему решает скорость', en: 'Why speed decides' },
+        blocks: [
+          { type: 'p', text: {
+            ru: 'Человек, выбирающий квартиру, пишет не в одно агентство, а в несколько подряд. Дальше работает простое правило: разговор достаётся тому, кто ответил первым, а не тому, у кого лучше база. При потоке заявок с площадок обеспечить это людьми невозможно физически.',
+            en: 'Someone choosing a flat writes to several agencies at once. From there a simple rule applies: the conversation goes to whoever replied first, not to whoever has the better portfolio. With portal-scale volumes, people cannot deliver that.' } },
+        ],
+      },
+      {
+        id: 'razbor',
+        h: { ru: 'Разбор заявок без анкеты', en: 'Triage without a questionnaire' },
+        blocks: [
+          { type: 'p', text: {
+            ru: 'Нужно выяснить бюджет, район, сроки и способ оплаты - но не подряд и не в лоб. Правильный порядок: сначала ответить на вопрос человека, потом уточнить одно. Иначе разговор превращается в анкету, и его закрывают.',
+            en: 'You need budget, area, timing and payment method — but not one after another and not head-on. The right order is: answer the person first, then clarify one thing. Otherwise the chat turns into a form and gets closed.' } },
+          { type: 'list', items: [
+            { ru: 'Бюджет спрашивается после того, как названа вилка по району', en: 'Budget is asked after a price range for the area has been given' },
+            { ru: 'Ипотека - отдельный вопрос: нужна ли и есть ли одобрение', en: 'Mortgage is a separate question: needed at all, and already approved or not' },
+            { ru: 'Сроки объясняют остальное: «до сентября» и «присматриваюсь» - разные клиенты', en: 'Timing explains the rest: «by September» and «just looking» are different clients' },
+          ] },
+        ],
+      },
+      {
+        id: 'dolgie',
+        h: { ru: 'Те, кто купит не сейчас', en: 'The ones who will buy later' },
+        blocks: [
+          { type: 'p', text: {
+            ru: 'В недвижимости срок принятия решения измеряется месяцами. Человек, который сегодня «просто смотрит», через полгода выйдет на сделку - и придёт к тому, о ком помнит. Автоматизация полезна здесь не скоростью, а тем, что такие контакты не теряются и получают редкие уместные касания вместо еженедельных звонков.',
+            en: 'In property the decision cycle runs for months. Someone «just looking» today may transact in six months — and will go to whoever they remember. Automation helps here not through speed but by keeping such contacts alive with rare, relevant touches instead of weekly calls.' } },
+        ],
+      },
+    ],
+    faq: [
+      { q: { ru: 'Ассистент будет отвечать вместо риелтора?', en: 'Will the assistant replace the agent?' },
+        a: { ru: 'Только на первом касании: ответить сразу, выяснить параметры и записать на показ. Дальше работает человек - в сделках такого размера решение принимают в разговоре с человеком.', en: 'Only on first contact: reply instantly, establish the parameters and book a viewing. After that a human takes over — deals of this size are decided in conversation with a person.' } },
+      { q: { ru: 'Можно ли подключить нашу выгрузку объектов?', en: 'Can it use our listings feed?' },
+        a: { ru: 'Да, и без неё смысл теряется наполовину: ассистент должен предлагать конкретные объекты, а не отвечать «варианты есть». Подходит любая регулярная выгрузка, которую вы уже отдаёте на площадки.', en: 'Yes, and without it half the point is lost: the assistant should offer specific listings, not reply «we have options». Any regular feed you already send to the portals will do.' } },
+      { q: { ru: 'Что с обращениями не по нашему профилю?', en: 'What about inquiries outside our profile?' },
+        a: { ru: 'Они отсеиваются в разговоре, но не выбрасываются: контакт и причина сохраняются. Через квартал видно, какая причина встречается чаще всего, и это говорит о вашем предложении больше, чем любая аналитика.', en: 'They are filtered out in conversation but not discarded: the contact and the reason are kept. After a quarter you can see which reason comes up most, and that tells you more about your offer than any analytics.' } },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
   'ai-sales-automation': {
     readTime: { ru: '9 минут чтения', en: '9 min read' },
     lead: {

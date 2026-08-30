@@ -20,6 +20,60 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/" />
   </url>
   <url>
+    <loc>https://aivfx.ru/services/ai-dlya-klinik/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-dlya-klinik/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/ai-dlya-klinik/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/ai-dlya-klinik/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/services/ai-dlya-klinik/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-dlya-klinik/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/ai-dlya-klinik/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/ai-dlya-klinik/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/services/ai-dlya-avtoservisa/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-dlya-avtoservisa/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/ai-dlya-avtoservisa/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/ai-dlya-avtoservisa/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/services/ai-dlya-avtoservisa/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-dlya-avtoservisa/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/ai-dlya-avtoservisa/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/ai-dlya-avtoservisa/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/services/ai-dlya-nedvizhimosti/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-dlya-nedvizhimosti/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/ai-dlya-nedvizhimosti/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/ai-dlya-nedvizhimosti/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/services/ai-dlya-nedvizhimosti/</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/services/ai-dlya-nedvizhimosti/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/services/ai-dlya-nedvizhimosti/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/services/ai-dlya-nedvizhimosti/" />
+  </url>
+  <url>
     <loc>https://aivfx.ru/services/ai-sales-automation/</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>

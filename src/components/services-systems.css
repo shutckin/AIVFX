@@ -644,3 +644,92 @@
   }
   .sg-body { max-width: none; }
 }
+
+/* ── «Почитать по теме» на странице услуги ─────────────────────────────
+   Ссылки в блог со страницы, у которой вес выше: до этого блог был
+   связан только сам с собой и с подвалом, и поисковику неоткуда было
+   понять, что статьи - часть этого же сайта, а не приложение к нему. */
+.sp-readmore {
+  margin: clamp(56px, 7vw, 96px) 0 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.sp-readmore-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+.sp-readmore-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-2);
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.sp-readmore-item:hover {
+  border-color: var(--line-2);
+  transform: translateY(-2px);
+}
+.sp-readmore-cat {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+.sp-readmore-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--fg);
+}
+.sp-readmore-time {
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+@media (max-width: 860px) {
+  /* Три колонки на планшете дают карточку уже двухсот пикселей, в
+     которой заголовок ломается на пять строк */
+  .sp-readmore-list { grid-template-columns: 1fr; }
+  .sp-readmore-item { flex-direction: row; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .sp-readmore-title { flex: 1 1 100%; }
+}
+
+/* ── «Смежные решения» ────────────────────────────────────────────────
+   Связывает общие страницы услуг с отраслевыми в обе стороны. Оформлено
+   строкой ссылок, а не карточками: это навигация, и конкурировать за
+   внимание с блоком статей ниже ей незачем. */
+.sp-alsosee {
+  margin: clamp(48px, 6vw, 80px) 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.sp-alsosee-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.sp-alsosee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--fg-2);
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.sp-alsosee-item:hover { color: var(--fg); border-color: var(--fg-2); }
+.sp-alsosee-arrow { color: var(--accent-2); }

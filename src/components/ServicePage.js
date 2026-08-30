@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { SERVICE_PAGES, SERVICE_CTA } from '../data/systems-content';
 import { SERVICE_GUIDES, GUIDE_UI } from '../data/service-guides';
+import { BLOG_POSTS } from '../data/blog-posts';
+import { BLOG_POSTS_EN } from '../data/blog-posts-en';
 import { useLocale, pick, localizedHref } from '../i18n';
 import './services-systems.css';
 
@@ -33,6 +35,25 @@ const ServicePage = ({ slug }) => {
   const L = useLocale();
   const page = SERVICE_PAGES[slug];
   const guide = SERVICE_GUIDES[slug];
+
+  // Статьи блога по теме услуги. Берём из той же локали, что и страница:
+  // отправлять англоязычного читателя в русскую статью значит терять его.
+  // Не найденный slug молча отбрасывается - список статей меняется, и
+  // опечатка не должна стоить читателю перехода в никуда.
+  const posts = L === 'en' ? BLOG_POSTS_EN : BLOG_POSTS;
+  const readMore = (page?.readMore || [])
+    .map((s) => posts.find((p) => p.slug === s))
+    .filter(Boolean)
+    .slice(0, 3);
+
+  // Соседние страницы: с общей услуги ведём в отраслевые, с отраслевой -
+  // обратно в общую. Без этих ссылок отраслевые страницы существовали бы
+  // только в карте сайта: ни посетитель, ни обход по ссылкам на них не
+  // попадают, а страница без входящих ссылок для поиска почти невидима.
+  const alsoSee = (page?.alsoSee || [])
+    .map((s) => (SERVICE_PAGES[s] ? { slug: s, page: SERVICE_PAGES[s] } : null))
+    .filter(Boolean)
+    .slice(0, 3);
 
   // SEO: title, meta description и JSON-LD (Service + BreadcrumbList)
   useEffect(() => {
@@ -229,6 +250,54 @@ const ServicePage = ({ slug }) => {
               )}
             </article>
           </div>
+        )}
+
+        {alsoSee.length > 0 && (
+          <section className="sp-alsosee" aria-labelledby={`sp-alsosee-${slug}`}>
+            <h2 id={`sp-alsosee-${slug}`} className="sp-block-title mono">
+              {L === 'en' ? 'Related solutions' : 'Смежные решения'}
+            </h2>
+            <div className="sp-alsosee-list">
+              {alsoSee.map((item) => (
+                <a
+                  key={item.slug}
+                  className="sp-alsosee-item"
+                  href={localizedHref(`/services/${item.slug}/`, L)}
+                >
+                  {pick(L, item.page.title)}
+                  <span className="sp-alsosee-arrow" aria-hidden="true">→</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Материалы блога по теме услуги.
+            Читателю, дочитавшему страницу услуги, естественно продолжить
+            разбором в блоге - а статьи получают ссылку со страницы, у
+            которой вес выше, чем у них самих. До этого блог был связан
+            только сам с собой и с подвалом.
+            Ненайденный slug молча отбрасывается: список статей меняется,
+            и опечатка не должна стоить читателю перехода в никуда. */}
+        {readMore.length > 0 && (
+          <section className="sp-readmore" aria-labelledby={`sp-readmore-${slug}`}>
+            <h2 id={`sp-readmore-${slug}`} className="sp-block-title mono">
+              {L === 'en' ? 'Read on the topic' : 'Почитать по теме'}
+            </h2>
+            <div className="sp-readmore-list">
+              {readMore.map((post) => (
+                <a
+                  key={post.slug}
+                  className="sp-readmore-item"
+                  href={localizedHref(`/blog/${post.slug}/`, L)}
+                >
+                  <span className="sp-readmore-cat">{post.category}</span>
+                  <span className="sp-readmore-title">{post.title}</span>
+                  <span className="sp-readmore-time">{post.readingTime}</span>
+                </a>
+              ))}
+            </div>
+          </section>
         )}
 
         {/* CTA */}
