@@ -1,10 +1,25 @@
 #!/usr/bin/env node
+/**
+ * УСТАРЕЛО. Скрипт остался от прежней схемы показа портфолио: он брал
+ * исходники .mov из public/fixed и складывал сжатые копии в
+ * public/optimized. Обе папки лежали внутри public, то есть исходники и
+ * их дубли уезжали на сервер при каждой выкладке - около 60 МБ, на
+ * которые в коде не было ни одной ссылки.
+ *
+ * Сейчас работы показываются из public/portfolio-previews (см.
+ * src/data/projects.js), исходники перенесены в media-src/fixed-source,
+ * а папка public/optimized удалена как воспроизводимая.
+ *
+ * Скрипт оставлен на случай, если понадобится пересжать исходники, но
+ * пути в нём указывают на прежние места и требуют правки перед запуском.
+ */
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const PUBLIC_DIR = path.join(__dirname, '../public');
-const OPTIMIZED_DIR = path.join(PUBLIC_DIR, 'optimized');
+// Исходники теперь вне public — иначе они деплоятся на сервер
+const PUBLIC_DIR = path.join(__dirname, '..', 'media-src', 'fixed-source');
+const OPTIMIZED_DIR = path.join(__dirname, '..', 'media-src', 'fixed-optimized');
 
 // Создаем папку для оптимизированных видео
 if (!fs.existsSync(OPTIMIZED_DIR)) {
