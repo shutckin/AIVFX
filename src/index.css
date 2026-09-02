@@ -2326,6 +2326,27 @@ img, video { display: block; max-width: 100%; }
 .lang-opt:hover { color: var(--fg); }
 .lang-opt.active { color: var(--accent); font-weight: 600; }
 .lang-sep { color: var(--muted-2); }
+/* Язык, на котором страницы нет: показываем, но не даём нажать - иначе
+   кнопка то появляется, то исчезает при переходах и выглядит поломкой.
+   Зачёркивание важнее приглушения: просто бледный текст читается как
+   «неактивный сейчас», и человек жмёт, а ничего не происходит. */
+.lang-opt--off {
+  color: var(--muted-2);
+  cursor: not-allowed;
+  opacity: 0.45;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+/* Верхняя строка внутренних страниц: «назад» слева, язык справа.
+   Раньше переключатель жил только в шапке главной, поэтому во всех
+   разделах его не было вовсе. */
+.page-topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.page-topbar > .lang-switch { margin-left: auto; margin-right: 0; }
 
 /* Юридические страницы — фирменный фон вместо старого градиента */
 .legal-page { background: var(--bg); }

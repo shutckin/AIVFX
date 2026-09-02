@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Страница не найдена — AIVFX</title>
+<meta name="robots" content="noindex, follow">
+<!--
+  Честная страница 404. Отдаётся nginx'ом (error_page 404 /404.html)
+  вместо главной с кодом 200: для поиска «мягкие 404» - признак мусорного
+  сайта. Статичная и без скриптов намеренно: она должна открываться, даже
+  если сломалась сборка. Стиль повторяет сайт: тёмный фон, крупный шрифт.
+-->
+<style>
+  :root { --bg:#0b0b0d; --fg:#f4f4f5; --fg2:#a1a1aa; --accent:#5b7cff; --line:#26262b; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--fg);
+         font-family: Onest, Inter, -apple-system, "Segoe UI", Roboto, sans-serif; padding:24px; }
+  main { max-width:640px; }
+  .k { font-size:12px; letter-spacing:.18em; color:var(--accent); text-transform:uppercase; margin:0 0 18px; }
+  h1 { font-size:clamp(2rem,5vw,3.4rem); line-height:1.05; margin:0 0 16px; font-weight:600; }
+  p { color:var(--fg2); font-size:1.05rem; line-height:1.6; margin:0 0 28px; }
+  nav { display:flex; flex-wrap:wrap; gap:10px; }
+  a { color:var(--fg); text-decoration:none; padding:12px 18px; border:1px solid var(--line); border-radius:999px; font-size:15px; }
+  a:hover { border-color:var(--accent); }
+  a.p { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+</style>
+</head>
+<body>
+<main>
+  <p class="k">Ошибка 404</p>
+  <h1>Такой страницы нет</h1>
+  <p>Адрес устарел или в нём опечатка. Всё, что есть на сайте, ниже.</p>
+  <nav>
+    <a class="p" href="/">На главную</a>
+    <a href="/video-production/">AI-видеопродакшн</a>
+    <a href="/services/ai-assistants/">AI-ассистенты</a>
+    <a href="/services/obuchenie-ai-video/">Обучение</a>
+    <a href="/blog/">Блог</a>
+  </nav>
+</main>
+</body>
+</html>

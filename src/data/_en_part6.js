@@ -6,7 +6,7 @@ const PART_6 = [
     category: 'Models & comparisons',
     title: 'Seedance 2.5: a Guide to the ByteDance Model and What Changed Since 2.0',
     description:
-      'A breakdown of Seedance 2.5: thirty-second clips and long video up to three minutes, fifty reference images, spot editing of a finished scene, sound and 4K. How it differs from 2.0 and where the model still struggles.',
+      'A breakdown of Seedance 2.5: thirty-second clips and long video up to three minutes, fifty reference images, spot editing of a finished scene, sound and 4K.',
     keywords:
       'seedance 2.5, seedance guide, seedance 2.0 differences, bytedance video model, how to use seedance, seedance long video',
     cover: '/blog-images/cover-seedance.jpg',
@@ -91,7 +91,7 @@ const PART_6 = [
     category: 'Roundups & comparisons',
     title: 'Higgsfield, Flowith, Syntx: Why AI Aggregators Exist and Which to Pick',
     description:
-      'A breakdown of three platforms giving access to dozens of AI models on one subscription: how they differ, who each suits, and when paying the models directly works out better.',
+      'Three platforms with dozens of AI models on one subscription: how they differ, who each suits, and when paying the models directly works out better.',
     keywords:
       'ai aggregators, higgsfield, flowith, syntx ai, access to ai models one subscription, video generation platforms, multi-model ai platform',
     cover: '/blog-images/cover-agregatory.jpg',
@@ -177,7 +177,7 @@ const PART_6 = [
     category: 'Models & comparisons',
     title: 'Nano Banana Pro and Seedream 5 Pro: Which Image Model Wins in 2026',
     description:
-      'A comparison of the two strongest image generators of 2026: Nano Banana Pro from Google and Seedream 5 Pro from ByteDance. Text in frame, area editing, layers, languages and price per image.',
+      'A comparison of the two strongest image generators of 2026: Nano Banana Pro from Google and Seedream 5 Pro from ByteDance.',
     keywords:
       'nano banana pro, seedream 5 pro, best ai image model, image generator 2026, nano banana vs seedream, ai model that writes text',
     cover: '/blog-images/cover-nano-seedream.jpg',

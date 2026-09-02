@@ -105,6 +105,10 @@
 
 .sp-topnav {
   margin-bottom: clamp(32px, 5vh, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .sp-back {

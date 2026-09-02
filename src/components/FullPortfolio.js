@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ALL_PROJECTS, ALL_FILTERS } from '../data/all-projects';
 import LazyVideo from './LazyVideo';
 import { useLocale } from '../i18n';
+import LangSwitch from './LangSwitch';
 import './fullportfolio.css';
 
 // Англоязычные подписи фильтров (ключ = f.key из ALL_FILTERS)
@@ -151,7 +152,11 @@ const FullPortfolio = ({ onBack }) => {
 
   // Заголовок вкладки и описание страницы для поисковиков
   useEffect(() => {
-    document.title = en ? 'Portfolio — AIVFX' : 'Портфолио — AIVFX';
+    // Одно слово «Портфолио» поиску ничего не говорит: это страница про
+    // AI-видео, рекламу и VFX, и заголовок должен это нести
+    document.title = en
+      ? 'AI Video, Ads & VFX Portfolio — AIVFX Studio Work'
+      : 'Портфолио AIVFX: AI-видео, рекламные ролики, VFX и съёмка';
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement('meta');
@@ -161,8 +166,8 @@ const FullPortfolio = ({ onBack }) => {
     meta.setAttribute(
       'content',
       en
-        ? 'Full catalog of AIVFX works: AI-generated video, VFX, shooting, Reels and ad campaigns.'
-        : 'Полный каталог работ AIVFX: AI-видео, VFX, съёмка, Reels и рекламные кампании.'
+        ? 'AIVFX portfolio: AI-generated video, ad spots, Reels, product videos, VFX and live shoots for brands. Real client work with process breakdowns, not stock demos.'
+        : 'Портфолио AIVFX: AI-видео, рекламные ролики, Reels, продуктовые видео, VFX и съёмка для брендов. Реальные клиентские работы с разбором процесса, а не стоковые демо.'
     );
   }, [en]);
 
@@ -177,6 +182,7 @@ const FullPortfolio = ({ onBack }) => {
             <span>{en ? 'Back to home' : 'Назад на главную'}</span>
           </button>
           <span className="fp3-wordmark">AIVFX</span>
+          <LangSwitch locale={en ? 'en' : 'ru'} />
         </div>
       </div>
 

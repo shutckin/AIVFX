@@ -50,3 +50,16 @@ export const pick = (locale, obj) => {
   if (!obj) return '';
   return (locale === 'en' && obj.en != null) ? obj.en : obj.ru;
 };
+
+// Страницы, которые существуют только по-русски.
+//
+// Обучение и консультации идут голосом и на русском языке; юридические
+// документы написаны под российское право. Английских версий у них нет
+// намеренно (см. RU_ONLY в scripts/site-routes.js). Переключатель языка
+// показывает EN, но не даёт на них перейти: ссылка вела бы на страницу,
+// которой не существует.
+export const isRuOnly = (logicalPath) => (
+  /^\/services\/obuchenie-/.test(logicalPath)
+  || logicalPath === '/privacy'
+  || logicalPath === '/consent'
+);

@@ -3,7 +3,8 @@ import { SERVICE_PAGES, SERVICE_CTA } from '../data/systems-content';
 import { SERVICE_GUIDES, GUIDE_UI } from '../data/service-guides';
 import { BLOG_POSTS } from '../data/blog-posts';
 import { BLOG_POSTS_EN } from '../data/blog-posts-en';
-import { useLocale, pick, localizedHref } from '../i18n';
+import { useLocale, pick, localizedHref, isRuOnly } from '../i18n';
+import LangSwitch from './LangSwitch';
 import './services-systems.css';
 
 const SITE = 'https://aivfx.ru';
@@ -44,22 +45,29 @@ const ServicePage = ({ slug }) => {
   const readMore = (page?.readMore || [])
     .map((s) => posts.find((p) => p.slug === s))
     .filter(Boolean)
-    .slice(0, 3);
+    .slice(0, 6);
 
   // Соседние страницы: с общей услуги ведём в отраслевые, с отраслевой -
   // обратно в общую. Без этих ссылок отраслевые страницы существовали бы
   // только в карте сайта: ни посетитель, ни обход по ссылкам на них не
   // попадают, а страница без входящих ссылок для поиска почти невидима.
+  //
+  // На английской версии русскоязычные-только страницы (обучение) из
+  // списка убираем: ссылка вела бы на страницу, которой на английском
+  // нет, и посетителя перебрасывало бы на русскую.
   const alsoSee = (page?.alsoSee || [])
+    .filter((s) => L !== 'en' || !isRuOnly(`/services/${s}`))
     .map((s) => (SERVICE_PAGES[s] ? { slug: s, page: SERVICE_PAGES[s] } : null))
     .filter(Boolean)
-    .slice(0, 3);
+    .slice(0, 4);
 
   // SEO: title, meta description и JSON-LD (Service + BreadcrumbList)
   useEffect(() => {
     if (!page) return undefined;
 
-    document.title = `${pick(L, page.title)} — AIVFX`;
+    // seoTitle - когда маркетинговый заголовок («Ни одна заявка больше не
+    // теряется») хорош на странице, но ничего не говорит поиску
+    document.title = `${pick(L, page.seoTitle || page.title)} — AIVFX`;
 
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
@@ -141,6 +149,7 @@ const ServicePage = ({ slug }) => {
           <a className="sp-back mono" href={localizedHref('/', L)}>
             {L === 'en' ? '← Back to home' : '← На главную'}
           </a>
+          <LangSwitch locale={L} />
         </nav>
 
         {/* Hero страницы */}
@@ -302,10 +311,10 @@ const ServicePage = ({ slug }) => {
 
         {/* CTA */}
         <section className="sp-cta">
-          <h2 className="sp-cta-title">{pick(L, SERVICE_CTA.title)}</h2>
-          <p className="sp-cta-sub">{pick(L, SERVICE_CTA.sub)}</p>
+          <h2 className="sp-cta-title">{pick(L, page.cta?.title || SERVICE_CTA.title)}</h2>
+          <p className="sp-cta-sub">{pick(L, page.cta?.sub || SERVICE_CTA.sub)}</p>
           <a className="btn btn-primary" href={`${localizedHref('/', L)}#contact`}>
-            {pick(L, SERVICE_CTA.btn)}<span className="btn-arrow">↗</span>
+            {pick(L, page.cta?.btn || SERVICE_CTA.btn)}<span className="btn-arrow">↗</span>
           </a>
         </section>
       </div>

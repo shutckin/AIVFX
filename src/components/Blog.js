@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BLOG_POSTS, getPostBySlug } from '../data/blog-posts';
 import { BLOG_POSTS_EN, getPostBySlugEn } from '../data/blog-posts-en';
+import LangSwitch from './LangSwitch';
 import { useLocale, localizedHref } from '../i18n';
 
 const SITE = 'https://aivfx.ru';
@@ -297,7 +298,7 @@ const PostRow = ({ post, onOpenPost, num }) => {
         <span className="blog-row-time">{post.readingTime}</span>
       </span>
       <span className="blog-row-thumb">
-        <img src={post.cover} alt="" loading="lazy" />
+        <img src={post.cover} alt={post.title} loading="lazy" />
       </span>
     </a>
   );
@@ -333,17 +334,20 @@ const BlogList = ({ onBack, onOpenPost }) => {
   return (
     <div className="blog-page blog-page--list min-h-screen pt-24 pb-20">
       <div className="blog-wrap">
-        {/* Назад */}
-        <button
-          onClick={onBack}
-          className="flex items-center text-white/55 hover:text-white transition-colors mb-10"
-          style={{ fontFamily: 'var(--font-mono)', fontSize: 13 }}
-        >
-          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          {en ? 'Back to home' : 'На главную'}
-        </button>
+        {/* Назад + переключатель языка */}
+        <div className="page-topbar mb-10">
+          <button
+            onClick={onBack}
+            className="flex items-center text-white/55 hover:text-white transition-colors"
+            style={{ fontFamily: 'var(--font-mono)', fontSize: 13 }}
+          >
+            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            {en ? 'Back to home' : 'На главную'}
+          </button>
+          <LangSwitch locale={en ? 'en' : 'ru'} />
+        </div>
 
         {/* Заголовок */}
         <div className="blog-kicker mb-4">{en ? 'AIVFX · JOURNAL' : 'AIVFX · ЖУРНАЛ'}</div>
@@ -494,7 +498,7 @@ const BlogPost = ({ post, onBack, onBackToList, onOpenPost }) => {
     <div className="blog-page blog-page--article min-h-screen pt-24 pb-16">
       <ReadingProgress />
       <div className="blog-wrap container mx-auto px-4 py-6 max-w-3xl">
-        <div className="mb-6 flex items-center gap-4 text-sm">
+        <div className="mb-6 flex items-center gap-4 text-sm page-topbar">
           <button onClick={onBackToList} className="flex items-center text-white/80 hover:text-white transition-colors">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -503,12 +507,15 @@ const BlogPost = ({ post, onBack, onBackToList, onOpenPost }) => {
           </button>
           <span className="text-white/30">·</span>
           <button onClick={onBack} className="text-white/60 hover:text-white transition-colors">{en ? 'Back to home' : 'На главную'}</button>
+          <LangSwitch locale={en ? 'en' : 'ru'} />
         </div>
 
         <article className="card">
           <figure className="m-0">
             <div className="aspect-video overflow-hidden bg-black/30 rounded-t-lg">
-              <img src={post.cover} alt={post.title} width="768" height="432" className="w-full h-full object-cover" />
+              {/* Обложка - самый крупный элемент первого экрана статьи (LCP):
+                  грузим её первой, до скриптов и шрифтов */}
+              <img src={post.cover} alt={post.title} width="768" height="432" fetchPriority="high" decoding="async" className="w-full h-full object-cover" />
             </div>
             {post.coverSource && (
               <figcaption className="text-white/40 text-xs px-6 pt-2">

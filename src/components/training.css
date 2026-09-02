@@ -1,0 +1,219 @@
+/* ── Секция «Обучение» на главной ───────────────────────────────────────
+ *
+ * Держится той же системы, что и карточки услуг (.ss-card), но с двумя
+ * отличиями, которые говорят читателю: это другой разговор, не четвёртая
+ * система.
+ *   • две колонки вместо трёх - карточки шире и спокойнее;
+ *   • акцентная линия сверху вместо свечения при наведении.
+ */
+
+.tr-lead {
+  max-width: 60ch;
+  margin: 28px 0 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+.tr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 56px;
+}
+
+.tr-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 36px 30px 30px;
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: border-color 0.35s ease, transform 0.35s ease;
+}
+
+/* Тонкая линия сверху: появляется при наведении и тянется во всю
+   карточку. Компоновочно ничего не двигает - только transform. */
+.tr-card::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.tr-card:hover,
+.tr-card:focus-visible {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.tr-card:hover::after,
+.tr-card:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.tr-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 1.1rem + 1vw, 1.9rem);
+  line-height: 1.12;
+  color: var(--fg);
+  margin: 0;
+}
+
+.tr-desc {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--fg-2);
+  margin: 0;
+}
+
+.tr-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 22px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--fg-2);
+  transition: color 0.3s ease;
+}
+
+.tr-more-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.tr-card:hover .tr-more,
+.tr-card:focus-visible .tr-more {
+  color: var(--accent);
+}
+
+.tr-card:hover .tr-more-arrow,
+.tr-card:focus-visible .tr-more-arrow {
+  transform: translate(3px, -3px);
+}
+
+@media (max-width: 768px) {
+  .tr-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .tr-lead {
+    font-size: 1rem;
+    margin-top: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tr-card,
+  .tr-card::after,
+  .tr-more-arrow {
+    transition: none;
+  }
+}
+
+/* ── Врезка «хотите делать сами» на странице AI-видеопродакшна ─────────
+ *
+ * Одна широкая ссылка, а не карточка в сетке: на этой странице она
+ * единственная в своём роде, и сетка из одного элемента выглядела бы
+ * ошибкой вёрстки.
+ */
+.vp-training {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'kicker more'
+    'title  more'
+    'desc   more';
+  align-items: center;
+  gap: 6px 32px;
+  padding: 40px 36px;
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.35s ease, transform 0.35s ease;
+}
+
+.vp-training:hover,
+.vp-training:focus-visible {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.vp-training-kicker {
+  grid-area: kicker;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.vp-training-title {
+  grid-area: title;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 1rem + 1.2vw, 2rem);
+  line-height: 1.15;
+  color: var(--fg);
+}
+
+.vp-training-desc {
+  grid-area: desc;
+  max-width: 52ch;
+  margin-top: 6px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--fg-2);
+}
+
+.vp-training-more {
+  grid-area: more;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--fg-2);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.vp-training-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.vp-training:hover .vp-training-more,
+.vp-training:focus-visible .vp-training-more { color: var(--accent); }
+
+.vp-training:hover .vp-training-arrow,
+.vp-training:focus-visible .vp-training-arrow { transform: translate(3px, -3px); }
+
+@media (max-width: 700px) {
+  .vp-training {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'kicker' 'title' 'desc' 'more';
+    gap: 8px;
+    padding: 32px 24px;
+  }
+  .vp-training-more { margin-top: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-training,
+  .vp-training-arrow { transition: none; }
+}

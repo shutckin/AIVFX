@@ -18,6 +18,14 @@ const currentPage = () => {
   return window.location.pathname + window.location.search;
 };
 
+// Откуда посетитель пришёл на сайт: поисковик, соцсеть, прямой заход.
+// Без этого в заявке видно только «Страница: /», и непонятно, что из
+// продвижения вообще приводит людей. Реферер запоминаем при первой
+// загрузке: к моменту отправки формы document.referrer уже пустой,
+// если человек походил по сайту.
+const FIRST_REFERRER = typeof document !== 'undefined' ? document.referrer : '';
+const LANDING_PAGE = typeof window !== 'undefined' ? window.location.pathname + window.location.search : '';
+
 /**
  * Отправляет заявку. Бросает исключение при любой неудаче — вызывающий код
  * обязан показать посетителю прямые контакты, а не ложный успех.
@@ -36,6 +44,8 @@ export const sendLead = async (payload, kind = 'systems', meta = {}) => {
       ...payload,
       kind,
       page: currentPage(),
+      referrer: FIRST_REFERRER,
+      landing: LANDING_PAGE,
       // Скрытое поле-ловушка: человек его не видит, автозаполнялка ботов — да
       website: meta.honeypot || '',
       // Сколько посетитель провёл на форме: мгновенная отправка = бот

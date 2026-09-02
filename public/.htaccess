@@ -19,7 +19,14 @@
   RewriteCond %{HTTP_HOST} ^www\.aivfx\.ru$ [NC]
   RewriteRule ^(.*)$ https://aivfx.ru/$1 [L,R=308]
 
-  # 1.3 SPA fallback: всё, что не файл и не папка → index.html
+  # 1.3 Обучение существует только по-русски: занятия ведутся голосом на
+  # русском языке, английской версии этих страниц нет намеренно.
+  # Английский адрес уводим на русский сервером, а не скриптом: иначе
+  # SPA-fallback ниже отдаёт на него код 200, и поисковик считает
+  # страницу существующей.
+  RewriteRule ^en/services/(obuchenie-[^/]+)/?$ /services/$1/ [L,R=301]
+
+  # 1.4 SPA fallback: всё, что не файл и не папка → index.html
   # Нужно для /works, /privacy, /consent — чтобы при прямом заходе
   # отдавался index.html (или его prerendered версия от react-snap)
   RewriteCond %{REQUEST_FILENAME} !-f

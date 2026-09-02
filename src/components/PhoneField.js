@@ -88,6 +88,30 @@ const PhoneField = ({ value, onChange, onValidityChange, locale, label, id = 'ph
     if (onValidityChange) onValidityChange(isValid);
   }, [isValid, onValidityChange]);
 
+  // Полный международный номер для отправки.
+  //
+  // В поле человек видит номер в национальном формате («995 797-57-62»),
+  // а код страны живёт рядом в выпадающем списке. Раньше наверх уходило
+  // только содержимое поля - и в заявку приезжал номер без кода страны,
+  // по которому непонятно, куда звонить. Теперь вместе с видимым текстом
+  // отдаём и собранный номер с «+»: Telegram делает такой кликабельным.
+  const toFull = (display, code) => {
+    const raw = String(display || '').trim();
+    if (!raw) return '';
+    if (lib) {
+      const parsed = lib.parsePhoneNumberFromString(raw, code);
+      // Компактная международная форма без пробелов и дефисов: только
+      // такую Telegram превращает в ссылку «позвонить»
+      if (parsed) return parsed.number;
+    }
+    // Библиотека ещё не подгрузилась: хотя бы приклеиваем код страны
+    const d = PHONE_COUNTRY_BY_CODE[code]?.d || '';
+    const digits = raw.replace(/[^\d+]/g, '');
+    return digits.startsWith('+') || !d ? digits : `+${d}${digits}`;
+  };
+
+  const emit = (display, code) => onChange(display, toFull(display, code));
+
   const handleInput = (raw) => {
     // Разрешаем только то, что бывает в номере
     let next = raw.replace(/[^\d+\s()\-.]/g, '');
@@ -98,14 +122,14 @@ const PhoneField = ({ value, onChange, onValidityChange, locale, label, id = 'ph
         const parsed = lib.parsePhoneNumberFromString(next);
         if (parsed && parsed.country && parsed.country !== country) {
           setCountry(parsed.country);
-          onChange(new lib.AsYouType(parsed.country).input(next));
+          emit(new lib.AsYouType(parsed.country).input(next), parsed.country);
           return;
         }
       }
       next = new lib.AsYouType(country).input(next);
     }
 
-    onChange(next);
+    emit(next, country);
   };
 
   const handleCountry = (code) => {
@@ -113,7 +137,7 @@ const PhoneField = ({ value, onChange, onValidityChange, locale, label, id = 'ph
     // Переформатируем уже введённое под новую страну
     const digits = String(value || '').replace(/^\+\d+/, '').trim();
     if (lib && digits) {
-      onChange(new lib.AsYouType(code).input(digits));
+      emit(new lib.AsYouType(code).input(digits), code);
     }
     if (inputRef.current) inputRef.current.focus();
   };

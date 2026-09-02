@@ -1,10 +1,11 @@
 import React from 'react';
+import LangSwitch from './LangSwitch';
 
 const PrivacyPolicy = ({ onBack }) => {
   return (
     <div className="min-h-screen legal-page pt-20">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <div className="mb-6">
+        <div className="mb-6 page-topbar">
           <button
             onClick={onBack}
             className="flex items-center text-white/80 hover:text-white transition-colors"
@@ -14,6 +15,7 @@ const PrivacyPolicy = ({ onBack }) => {
             </svg>
             Назад на главную
           </button>
+          <LangSwitch locale="ru" />
         </div>
         
         <div className="card">

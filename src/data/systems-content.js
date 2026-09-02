@@ -9,6 +9,9 @@
 // ── Навигация ──────────────────────────────────────────────────────────
 export const NAV_SYS = [
   { id: 'services', label: { ru: 'Услуги', en: 'Services' } },
+  // Обучение есть только в русском меню: секции и страниц на английском
+  // нет намеренно, занятия ведутся по-русски
+  { id: 'training', label: { ru: 'Обучение' }, ruOnly: true },
   { id: 'cases', label: { ru: 'Кейсы', en: 'Cases' } },
   { id: 'approach', label: { ru: 'Подход', en: 'Approach' } },
   { id: 'about', label: { ru: 'О нас', en: 'About' } },
@@ -217,6 +220,107 @@ export const SERVICES_SYS = {
 
 // ── Страницы услуг (/services/<slug>) ──────────────────────────────────
 export const SERVICE_PAGES = {
+  // ── Обучение и консультации ──────────────────────────────────────────
+  //
+  // Третье направление, мост между двумя первыми. Человеку, которому
+  // внедрение системы за сотни тысяч сейчас не нужно или не по бюджету,
+  // продать нечего - он уходит. Обучение закрывает этот разрыв: тот же
+  // опыт, но в формате, который начинается на следующей неделе.
+  //
+  // Профиль намеренно узкий. Не «ИИ для всех», а две темы, где за словами
+  // стоит собственная ежедневная работа: производство видео и прикладное
+  // применение моделей в бизнесе без интеграций. Курс по нейросетям для
+  // бухгалтеров мы вести не можем и не беремся.
+  //
+  // Страницы русские, английских версий нет намеренно: занятия идут
+  // голосом и по-русски (см. RU_ONLY_SERVICES в scripts/site-routes.js).
+  'obuchenie-ai-video': {
+    cta: {
+      title: { ru: 'Разберём вашу задачу?' },
+      sub: { ru: 'Напишите, какой ролик нужен и что уже пробовали. Отвечу, реально ли это сделать самому и сколько на это уйдёт времени.' },
+      btn: { ru: 'Написать' },
+    },
+    alsoSee: ['obuchenie-ii-dlya-biznesa', 'ai-assistants'],
+    readMore: ['kling-gayd', 'runway-gayd', 'veo-gayd', 'kak-sozdat-ai-avatar-heygen', 'seedance-gayd', 'agregatory-ai-servisov'],
+    kicker: { ru: 'ОБУЧЕНИЕ / AI-ВИДЕО', en: 'TRAINING / AI VIDEO' },
+    title: { ru: 'Обучение AI-видео: как делать ролики, которые не стыдно показать клиенту', en: 'AI video training' },
+    sub: {
+      ru: 'Разбираем весь путь на ваших задачах: от постановки кадра и опорных изображений до сборки и правок.',
+      en: 'Hands-on training in AI video production.',
+    },
+    pains: {
+      title: { ru: 'Знакомо?', en: 'Sound familiar?' },
+      items: [
+        { ru: 'Генерации получаются, но выглядят как генерации - показать клиенту нельзя', en: 'Generations work but look generated' },
+        { ru: 'Герой меняет лицо и одежду от кадра к кадру', en: 'The character changes between shots' },
+        { ru: 'Промпты пишутся наугад: непонятно, что именно повлияло на результат', en: 'Prompts are guesswork' },
+        { ru: 'Кредиты уходят на десятки дублей, а в работу идёт один', en: 'Credits vanish into rejected takes' },
+      ],
+    },
+    proof: [
+      { ru: 'Разбор вашей задачи и референсов', en: 'Reviewing your task and references' },
+      { ru: 'Сборка опорных кадров под персонажа', en: 'Building reference frames' },
+      { ru: 'Промпт: свет, оптика, движение камеры', en: 'Prompt: light, lens, camera move' },
+      { ru: 'Первая генерация и разбор ошибок', en: 'First generation and review' },
+      { ru: 'Правки без перегенерации всей сцены', en: 'Fixes without full regeneration' },
+      { ru: 'Сборка и вывод под площадку', en: 'Assembly and export' },
+    ],
+    features: {
+      title: { ru: 'Что разбираем', en: 'What we cover' },
+      items: [
+        { t: { ru: 'Как устроен кадр', en: 'How a shot works' }, d: { ru: 'Почему одна генерация выглядит киношно, а другая нет: оптика, свет, движение камеры. Это не про модели, это про съёмку - и переносится на любой инструмент.', en: 'Why one generation looks cinematic and another does not: optics, light, camera movement.' } },
+        { t: { ru: 'Консистентность персонажа', en: 'Character consistency' }, d: { ru: 'Как собрать опорные кадры так, чтобы герой оставался собой от сцены к сцене. Главная причина, по которой ролики разваливаются.', en: 'How to assemble references so a character stays itself across scenes.' } },
+        { t: { ru: 'Промпт как техзадание', en: 'The prompt as a brief' }, d: { ru: 'Разбираем структуру: что в кадре, как снято, чего быть не должно. И почему менять надо одну вещь за раз.', en: 'Prompt structure: what is in frame, how it is shot, what must not appear.' } },
+        { t: { ru: 'Выбор инструмента под задачу', en: 'Choosing the tool' }, d: { ru: 'Где сильнее Veo, где Kling, где Seedance, а где дешевле снять на телефон. Честно, включая случаи, когда AI не нужен.', en: 'Where each model wins - and when AI is not the answer.' } },
+        { t: { ru: 'Сборка и звук', en: 'Assembly and sound' }, d: { ru: 'Что делать с генерациями дальше: монтаж, ритм, звук, титры. Модель выдаёт сцену, а ролик собирает человек.', en: 'What happens after generation: editing, rhythm, sound, titles.' } },
+        { t: { ru: 'Экономика производства', en: 'Production economics' }, d: { ru: 'Сколько дублей уходит в брак, как считать бюджет ролика и на чём реально экономить, а на чём нельзя.', en: 'Reject rates, budgeting and where saving actually works.' } },
+      ],
+    },
+  },
+  'obuchenie-ii-dlya-biznesa': {
+    cta: {
+      title: { ru: 'С чего начать именно вам?' },
+      sub: { ru: 'Опишите, на что уходит время команды. Скажу, что из этого закрывается готовыми инструментами, а что требует внедрения.' },
+      btn: { ru: 'Написать' },
+    },
+    alsoSee: ['obuchenie-ai-video', 'ai-assistants'],
+    readMore: ['chat-bot-ili-ai-assistent', 'skolko-stoit-ai-assistent', 'agregatory-ai-servisov'],
+    kicker: { ru: 'ОБУЧЕНИЕ / ИИ В РАБОТЕ', en: 'TRAINING / AI AT WORK' },
+    title: { ru: 'ИИ в работе компании: что можно получить без внедрения систем', en: 'AI at work without a full deployment' },
+    sub: {
+      ru: 'Практический разбор для команды: какие задачи закрываются готовыми инструментами уже завтра, без интеграций, разработки и бюджета в сотни тысяч.',
+      en: 'A practical session for teams on what AI closes without integrations.',
+    },
+    pains: {
+      title: { ru: 'Знакомо?', en: 'Sound familiar?' },
+      items: [
+        { ru: 'Все говорят про ИИ, но непонятно, с чего начать именно вам', en: 'Everyone talks about AI, nobody says where to start' },
+        { ru: 'Сотрудники пробуют инструменты вразнобой, результат непредсказуем', en: 'Staff use tools at random with unpredictable results' },
+        { ru: 'Бюджета на полноценное внедрение сейчас нет', en: 'No budget for a full deployment right now' },
+        { ru: 'Есть опасение, что ИИ придумает лишнего и это увидит клиент', en: 'Fear that AI will invent something a customer will see' },
+      ],
+    },
+    proof: [
+      { ru: 'Смотрим, на что реально уходит время команды', en: 'Where the team time actually goes' },
+      { ru: 'Отбираем задачи, где ИИ даёт эффект сразу', en: 'Selecting tasks with immediate effect' },
+      { ru: 'Собираем рабочие сценарии на готовых инструментах', en: 'Building workflows on off-the-shelf tools' },
+      { ru: 'Проверяем на настоящих материалах компании', en: 'Testing on the company own materials' },
+      { ru: 'Отмечаем, где нужен человек и почему', en: 'Marking where a human is required' },
+      { ru: 'Договариваемся о правилах: что не отдаём ИИ', en: 'Agreeing what never goes to AI' },
+    ],
+    features: {
+      title: { ru: 'Что разбираем', en: 'What we cover' },
+      items: [
+        { t: { ru: 'Что закрывается без разработки', en: 'What needs no development' }, d: { ru: 'Подготовка текстов, разбор документов, черновики ответов, картинки для соцсетей, расшифровки встреч.', en: 'Drafting, document review, images, meeting transcripts - subscription-level tools.' } },
+        { t: { ru: 'Где проходит граница', en: 'Where the boundary is' }, d: { ru: 'Честно про то, что без интеграций не решается: работа с вашей базой, автоматический приём заявок, действия в CRM.', en: 'What genuinely requires integrations - so you know when deployment is premature.' } },
+        { t: { ru: 'Правила безопасности', en: 'Safety rules' }, d: { ru: 'Какие данные нельзя загружать в чужие сервисы, как формулировать запросы, чтобы не утекли персональные данные клиентов, и что записать во внутренний регламент.', en: 'What data must never go into external services, and what to put in your internal policy.' } },
+        { t: { ru: 'Как проверять результат', en: 'Checking the output' }, d: { ru: 'Главный навык: замечать, когда модель уверенно выдумывает. Разбираем на реальных примерах, где это ловится, а где проходит незамеченным.', en: 'Spotting confident invention - the single most important skill.' } },
+        { t: { ru: 'Инструменты под ваши задачи', en: 'Tools for your tasks' }, d: { ru: 'Без списка из пятидесяти сервисов. Берём ваши задачи и подбираем два-три инструмента, которыми команда будет пользоваться на самом деле.', en: 'Not a list of fifty services: two or three tools your team will actually use.' } },
+        { t: { ru: 'Что делать дальше', en: 'What comes next' }, d: { ru: 'Короткий план на месяц: с чего начать, как измерить эффект и по каким признакам понять, что пора автоматизировать всерьёз.', en: 'A one-month plan with measurable checkpoints.' } },
+      ],
+    },
+  },
+
   // ── Отраслевые страницы ──────────────────────────────────────────────
   //
   // Общие страницы услуг отвечают на вопрос «что вы делаете». Эти - на
@@ -235,8 +339,8 @@ export const SERVICE_PAGES = {
     kicker: { ru: 'РЕШЕНИЕ / ДЛЯ КЛИНИК И МЕДЦЕНТРОВ', en: 'SOLUTION / FOR CLINICS' },
     title: { ru: 'AI-ассистент для клиники: запись и вопросы пациентов без потерь', en: 'AI assistant for clinics: bookings and patient questions without losses' },
     sub: {
-      ru: 'Система отвечает пациенту в мессенджере и на сайте круглосуточно, записывает на приём, отвечает на вопросы о подготовке и стоимости, а всё, что касается диагнозов и симптомов, немедленно передаёт администратору.',
-      en: 'The system answers patients on the website and in messengers around the clock, books appointments, explains preparation and prices — and hands anything about symptoms or diagnoses straight to a human.',
+      ru: 'AI-ассистент для клиники: отвечает пациентам круглосуточно, записывает на приём, объясняет подготовку и цены, а всё медицинское передаёт человеку.',
+      en: 'AI assistant for clinics: answers patients around the clock, books appointments, explains preparation and prices, and hands anything medical to a human.',
     },
     pains: {
       title: { ru: 'Знакомо?', en: 'Sound familiar?' },
@@ -273,8 +377,8 @@ export const SERVICE_PAGES = {
     kicker: { ru: 'РЕШЕНИЕ / ДЛЯ АВТОСЕРВИСОВ', en: 'SOLUTION / FOR AUTO SERVICE' },
     title: { ru: 'AI-ассистент для автосервиса: запись, расчёт и загрузка постов', en: 'AI assistant for auto service: bookings, estimates and bay load' },
     sub: {
-      ru: 'Система принимает обращения из мессенджеров и с сайта, выясняет марку, пробег и симптом, называет вилку по типовым работам, записывает на свободное время и не даёт мастеру-приёмщику отвлекаться на переписку.',
-      en: 'The system takes inquiries from messengers and the website, gets the make, mileage and symptom, gives a price range for standard jobs, books a free slot and keeps the service advisor off the chat.',
+      ru: 'AI-ассистент для автосервиса: принимает обращения из мессенджеров и с сайта, выясняет марку, пробег и симптом, называет вилку цены и записывает.',
+      en: 'AI assistant for auto service: takes inquiries from messengers and the website, gets make, mileage and symptom, quotes a range, books a slot.',
     },
     pains: {
       title: { ru: 'Знакомо?', en: 'Sound familiar?' },
@@ -311,8 +415,8 @@ export const SERVICE_PAGES = {
     kicker: { ru: 'РЕШЕНИЕ / ДЛЯ АГЕНТСТВ НЕДВИЖИМОСТИ', en: 'SOLUTION / FOR REAL ESTATE' },
     title: { ru: 'AI-ассистент для агентства недвижимости: разбор заявок и запись на показ', en: 'AI assistant for real estate: lead triage and viewing bookings' },
     sub: {
-      ru: 'Система отвечает на обращения с площадок и из рекламы за секунды, выясняет бюджет, район и сроки, отсеивает нецелевые запросы и передаёт риелтору только тех, с кем есть о чём говорить.',
-      en: 'The system replies to portal and ad inquiries within seconds, works out budget, area and timing, filters out mismatches and passes the agent only the people worth a conversation.',
+      ru: 'AI-ассистент для недвижимости: отвечает на обращения с площадок за секунды, выясняет бюджет, район и сроки и передаёт риелтору только целевых.',
+      en: 'AI assistant for real estate: replies to portal and ad inquiries in seconds, works out budget, area and timing, and passes the agent only real buyers.',
     },
     pains: {
       title: { ru: 'Знакомо?', en: 'Sound familiar?' },
@@ -345,15 +449,16 @@ export const SERVICE_PAGES = {
   },
 
   'ai-sales-automation': {
-    alsoSee: ['ai-dlya-klinik', 'ai-dlya-avtoservisa', 'ai-dlya-nedvizhimosti'],
+    alsoSee: ['ai-dlya-klinik', 'ai-dlya-avtoservisa', 'ai-dlya-nedvizhimosti', 'obuchenie-ii-dlya-biznesa'],
     // Статьи блога по теме услуги. Список ручной: подбор по совпадению
     // слов дал бы соседство, а не пользу читателю.
     readMore: ['pochemu-teryayutsya-zayavki', 'ai-kvalifikaciya-lidov', 'skolko-stoit-ai-assistent'],
     kicker: { ru: 'УСЛУГА / AI ДЛЯ ЗАЯВОК И ПРОДАЖ', en: 'SERVICE / AI FOR LEADS & SALES' },
     title: { ru: 'Ни одна заявка больше не теряется', en: 'No lead ever gets lost again' },
+    seoTitle: { ru: 'AI для заявок и продаж: приём, квалификация, CRM, follow-up', en: 'AI for Leads & Sales: Intake, Qualification, CRM, Follow-up' },
     sub: {
-      ru: 'Система принимает входящие обращения из всех каналов, понимает контекст, квалифицирует клиента, отвечает на базовые вопросы, собирает данные и передаёт человека менеджеру в нужный момент.',
-      en: 'The system captures inbound inquiries from every channel, understands context, qualifies the customer, answers basic questions, collects data and hands the person to a manager at the right moment.',
+      ru: 'AI для заявок и продаж: принимает обращения из всех каналов, квалифицирует клиента, отвечает на базовые вопросы и передаёт менеджеру в нужный момент.',
+      en: 'AI for leads and sales: captures inquiries from every channel, qualifies the customer, answers basic questions and hands them to a manager at the right moment.',
     },
     pains: {
       title: { ru: 'Когда это нужно', en: 'When you need this' },
@@ -386,15 +491,15 @@ export const SERVICE_PAGES = {
     },
   },
   'ai-assistants': {
-    alsoSee: ['ai-dlya-klinik', 'ai-dlya-nedvizhimosti', 'ai-dlya-avtoservisa'],
+    alsoSee: ['ai-dlya-klinik', 'ai-dlya-nedvizhimosti', 'ai-dlya-avtoservisa', 'obuchenie-ii-dlya-biznesa'],
     // Статьи блога по теме услуги. Список ручной: подбор по совпадению
     // слов дал бы соседство, а не пользу читателю.
     readMore: ['chat-bot-ili-ai-assistent', 'skolko-stoit-ai-assistent', 'ai-assistent-i-crm'],
     kicker: { ru: 'УСЛУГА / AI-АССИСТЕНТЫ', en: 'SERVICE / AI ASSISTANTS' },
     title: { ru: 'Ассистент, который знает ваш бизнес', en: 'An assistant that knows your business' },
     sub: {
-      ru: 'AI-ассистенты для клиентов и сотрудников: консультант на сайте, ассистент в WhatsApp и Telegram, внутренний помощник с доступом к базе знаний компании. Чат — лишь один из интерфейсов большой системы.',
-      en: 'AI assistants for customers and employees: a website consultant, WhatsApp and Telegram assistants, an internal helper connected to the company knowledge base. Chat is just one interface of a larger system.',
+      ru: 'AI-ассистенты для клиентов и сотрудников: консультант на сайте, ассистент в WhatsApp и Telegram, внутренний помощник с доступом к базе знаний компании.',
+      en: 'AI assistants for customers and employees: a website consultant, WhatsApp and Telegram assistants, an internal helper connected to the company knowledge base.',
     },
     pains: {
       title: { ru: 'Когда это нужно', en: 'When you need this' },
@@ -425,15 +530,15 @@ export const SERVICE_PAGES = {
     },
   },
   'business-process-automation': {
-    alsoSee: ['ai-dlya-avtoservisa', 'ai-dlya-klinik', 'ai-dlya-nedvizhimosti'],
+    alsoSee: ['ai-dlya-avtoservisa', 'ai-dlya-klinik', 'ai-dlya-nedvizhimosti', 'obuchenie-ii-dlya-biznesa'],
     // Статьи блога по теме услуги. Список ручной: подбор по совпадению
     // слов дал бы соседство, а не пользу читателю.
     readMore: ['ai-assistent-i-crm', 'ai-kvalifikaciya-lidov', 'pochemu-teryayutsya-zayavki'],
     kicker: { ru: 'УСЛУГА / АВТОМАТИЗАЦИЯ ПРОЦЕССОВ', en: 'SERVICE / PROCESS AUTOMATION' },
     title: { ru: 'Рутина исчезает из расписания команды', en: 'Routine work disappears from your team’s day' },
     sub: {
-      ru: 'Автоматизируем рутинные операции: CRM, документы, отчёты, распределение заявок, напоминания, согласования, уведомления и синхронизацию данных между сервисами. Главная ценность — не сам AI, а часы ручной работы, которые он убирает.',
-      en: 'We automate routine operations: CRM upkeep, documents, reports, lead distribution, reminders, approvals, notifications and data sync between tools. The value is not the AI itself — it is the hours of manual work it removes.',
+      ru: 'Автоматизируем рутинные операции: CRM, документы, отчёты, распределение заявок, напоминания, согласования, уведомления и синхронизацию данных между сервисами.',
+      en: 'We automate routine operations: CRM upkeep, documents, reports, lead distribution, reminders, approvals, notifications and data sync between tools.',
     },
     pains: {
       title: { ru: 'Когда это нужно', en: 'When you need this' },
@@ -473,6 +578,47 @@ export const SERVICE_CTA = {
     en: 'Tell us how you handle inquiries today — we will propose a system architecture and an estimate.',
   },
   btn: { ru: 'Обсудить задачу', en: 'Discuss your case' },
+};
+
+// ── Обучение (третье направление, только на русском) ───────────────────
+//
+// Секция нужна ровно затем, чтобы направление вообще существовало для
+// посетителя. Сначала страницы обучения были связаны только подвалом и
+// перекрёстными ссылками внизу страниц услуг - человек листал главную и
+// не видел их вовсе.
+//
+// Блок намеренно короче секции услуг: это не четвёртая «система», а
+// другой способ работать с нами, для тех, кому внедрение сейчас
+// избыточно.
+export const TRAINING_SYS = {
+  head: {
+    num: { ru: 'ОБУЧЕНИЕ' },
+    title: { ru: 'Не всем нужна' },
+    titleIt: { ru: 'готовая система' },
+  },
+  // Вводный абзац секции. Не side/sideTitle: боковой столбец SecHead
+  // игнорирует по всему сайту, а фраза несёт суть направления и должна
+  // быть видна.
+  lead: {
+    ru: 'Если внедрение сейчас избыточно или не по бюджету, есть второй путь: разобраться и делать самому. Занятия веду лично, на ваших задачах.',
+  },
+  items: [
+    {
+      slug: 'obuchenie-ai-video',
+      title: { ru: 'Обучение AI-видео' },
+      desc: {
+        ru: 'Как делать ролики, которые не стыдно показать клиенту: кадр, консистентность героя, промпт, сборка. Разбираем на вашей задаче, а не на учебных примерах.',
+      },
+    },
+    {
+      slug: 'obuchenie-ii-dlya-biznesa',
+      title: { ru: 'ИИ в работе компании' },
+      desc: {
+        ru: 'Что нейросети закрывают уже завтра, без интеграций и разработки. И где проходит граница, за которой без внедрения не обойтись.',
+      },
+    },
+  ],
+  more: { ru: 'Подробнее' },
 };
 
 // ── Кейсы (демо-сценарии — честно помечены) ────────────────────────────
@@ -793,6 +939,12 @@ export const FOOTER_SYS = {
     { slug: 'business-process-automation', label: { ru: 'Автоматизация процессов', en: 'Process automation' } },
   ],
   videoLink: { ru: 'AI-видеопродакшн', en: 'AI video production' },
+  // Обучение показываем только в русском футере: услуга русскоязычная,
+  // и в английской версии ссылка вела бы в никуда
+  training: [
+    { slug: 'obuchenie-ai-video', label: { ru: 'Обучение AI-видео' } },
+    { slug: 'obuchenie-ii-dlya-biznesa', label: { ru: 'ИИ в работе компании' } },
+  ],
 };
 
 // ── Страница /video-production (второе направление) ────────────────────
@@ -801,7 +953,7 @@ export const VIDEO_PAGE = {
   title: { ru: 'AI-видео и VFX', en: 'AI video & VFX' },
   titleIt: { ru: 'для брендов', en: 'for brands' },
   sub: {
-    ru: 'Второе направление AIVFX: рекламные ролики, продуктовые видео и вирусный контент с помощью генеративного AI и классического VFX. Голливудский уровень за дни, а не недели.',
+    ru: 'Второе направление AIVFX: рекламные ролики, продуктовые видео и вирусный контент с помощью генеративного AI и классического VFX.',
     en: 'AIVFX’s second direction: commercials, product videos and viral content built with generative AI and classic VFX. Hollywood-grade quality in days, not weeks.',
   },
   portfolioCta: { ru: 'Смотреть портфолио', en: 'View portfolio' },

@@ -21,9 +21,15 @@ const ContactForm = ({ videoContext = false }) => {
   const { showSuccess, showPrivacy, showConsent } = useNotification();
   // В видео-контексте секция берёт свои тексты (заголовок, лейбл и плейсхолдер брифа)
   const CONTENT = videoContext ? VIDEO_CONTACT : CONTACT_SYS;
-  const [form, setForm] = useState({
-    name: '', email: '', phone: '', company: '', message: '', budget: ''
-  });
+  // phone - то, что видно в поле; phoneFull - полный номер с кодом
+  // страны, он и уходит в заявку
+  const EMPTY_FORM = {
+    name: '', email: '', phone: '', phoneFull: '', company: '', message: '', budget: '', contact: ''
+  };
+  // Каналы связи. Значения одинаковые на обоих языках - они уходят в
+  // заявку как есть и по ним же фильтруется таблица в Notion.
+  const CONTACT_OPTIONS = ['Telegram', 'WhatsApp', 'Email'];
+  const [form, setForm] = useState(EMPTY_FORM);
   const [phoneValid, setPhoneValid] = useState(true);
   const [emailTouched, setEmailTouched] = useState(false);
   const [sending, setSending] = useState(false);
@@ -40,23 +46,26 @@ const ContactForm = ({ videoContext = false }) => {
 
   const handle = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
-  const canSubmit = agreed && phoneValid && !sending;
+  // Выбрал мессенджер - нужен номер, иначе писать некуда
+  const needPhone = (form.contact === 'Telegram' || form.contact === 'WhatsApp') && !form.phone.trim();
+  const canSubmit = agreed && phoneValid && !needPhone && !sending;
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!agreed || !phoneValid) return;
+    if (!agreed || !phoneValid || needPhone) return;
     if (!emailOk) { setEmailTouched(true); return; }
 
     setSendError(false); // новая попытка — сбрасываем прошлую ошибку
     setSending(true);
     try {
+      const { phoneFull, ...fields } = form;
       await sendLead(
-        { ...form, email: normalizeEmail(form.email) },
+        { ...fields, email: normalizeEmail(form.email), phone: phoneFull || form.phone },
         videoContext ? 'video' : 'systems',
         { startedAt: startedAt.current, honeypot }
       );
       // Успех: очищаем форму и показываем модалку
-      setForm({ name: '', email: '', phone: '', company: '', message: '', budget: '' });
+      setForm(EMPTY_FORM);
       setAgreed(false);
       setEmailTouched(false);
       startedAt.current = Date.now();
@@ -125,13 +134,33 @@ const ContactForm = ({ videoContext = false }) => {
                 locale={L}
                 label={en ? 'PHONE' : 'ТЕЛЕФОН'}
                 value={form.phone}
-                onChange={(v) => handle('phone', v)}
+                onChange={(v, full) => setForm((f) => ({ ...f, phone: v, phoneFull: full }))}
                 onValidityChange={setPhoneValid}
               />
               <div className="field">
                 <label htmlFor="company">{en ? 'COMPANY' : 'КОМПАНИЯ'}</label>
                 <input id="company" value={form.company} onChange={(e) => handle('company', e.target.value)} placeholder={en ? 'Company name' : 'Название компании'} />
               </div>
+            </div>
+
+            <div className="field">
+              <label>{en ? 'PREFERRED CONTACT' : 'КАК УДОБНЕЕ СВЯЗАТЬСЯ'}</label>
+              <div className="budget-options" role="group" aria-label={en ? 'Preferred contact channel' : 'Канал связи'}>
+                {CONTACT_OPTIONS.map((c) => (
+                  <button
+                    type="button"
+                    key={c}
+                    className={`budget-chip ${form.contact === c ? 'active' : ''}`}
+                    aria-pressed={form.contact === c}
+                    onClick={() => handle('contact', form.contact === c ? '' : c)}
+                  >{c}</button>
+                ))}
+              </div>
+              {needPhone && (
+                <span className="field-error">
+                  {en ? `Add a phone number so we can reach you on ${form.contact}` : `Укажите номер, чтобы написать вам в ${form.contact}`}
+                </span>
+              )}
             </div>
 
             {!videoContext && (

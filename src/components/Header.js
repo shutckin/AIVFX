@@ -7,7 +7,7 @@ import LangSwitch from './LangSwitch';
 import './about-b2b.css';
 
 // Секции для scroll-spy (порядок = порядок на странице)
-const SPY_SECTIONS = ['hero', 'services', 'cases', 'approach', 'about', 'contact'];
+const SPY_SECTIONS = ['hero', 'services', 'training', 'cases', 'approach', 'about', 'contact'];
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -70,7 +70,7 @@ const Header = () => {
         </div>
         <ModeToggle mode="systems" />
         <nav className="nav-loose" aria-label="Main navigation">
-          {NAV_SYS.map((item) => (
+          {NAV_SYS.filter((item) => !(item.ruOnly && en)).map((item) => (
             <button
               key={item.id}
               className={`nav-link ${activeSec === item.id ? 'active' : ''}`}
@@ -136,7 +136,7 @@ const Header = () => {
         </div>
 
         <nav className="mm-nav" aria-label={en ? 'Mobile navigation' : 'Мобильная навигация'}>
-          {NAV_SYS.map((item) => (
+          {NAV_SYS.filter((item) => !(item.ruOnly && en)).map((item) => (
             <button key={item.id} type="button" className="mm-link" onClick={() => handleNav(item.id)}>
               {pick(locale, item.label)}
             </button>

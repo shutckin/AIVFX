@@ -26,7 +26,9 @@ const Footer = () => {
             <h5>{en ? 'NAVIGATION' : 'НАВИГАЦИЯ'}</h5>
             <ul>
               <li><button type="button" onClick={() => scrollToSection('hero')}>{en ? 'Home' : 'Главная'}</button></li>
-              {NAV_SYS.map((item) => (
+              {/* Русскоязычные пункты на английской версии скрываем:
+                  секции, на которую они ведут, там нет */}
+              {NAV_SYS.filter((item) => !(item.ruOnly && en)).map((item) => (
                 <li key={item.id}>
                   <button type="button" onClick={() => scrollToSection(item.id)}>{pick(locale, item.label)}</button>
                 </li>
@@ -49,6 +51,13 @@ const Footer = () => {
               <li>
                 <a href={localizedHref('/video-production/', locale)}>{pick(locale, FOOTER_SYS.videoLink)}</a>
               </li>
+              {/* Обучение только в русском подвале: занятия ведутся
+                  по-русски, английских версий этих страниц нет. */}
+              {!en && FOOTER_SYS.training.map((s) => (
+                <li key={s.slug}>
+                  <a href={`/services/${s.slug}/`}>{pick(locale, s.label)}</a>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="footer-col">

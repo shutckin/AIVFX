@@ -4,7 +4,7 @@ const PART_3 = [
     slug: 'veo-gayd',
     category: 'Models & Comparisons',
     title: 'Google Veo 3.1: A Guide to Video With Sound (2026)',
-    description: 'A complete guide to Google Veo 3.1 in 2026: photorealism, synchronized sound and speech out of the box, 4K, access via Gemini and Flow, pricing, and a comparison with Kling and Runway.',
+    description: 'Google Veo 3.1 guide for 2026: photorealism, synchronized sound and speech, 4K, access via Gemini and Flow, pricing and a comparison with Kling and Runway.',
     keywords: 'google veo 3.1, veo guide, ai video generation, ai video with sound, veo pricing, veo vs kling, veo vs runway, veo native audio, 4k ai video, how to use veo',
     cover: '/blog-images/veo-gayd.jpg',
     coverSource: 'Screenshot of Google DeepMind — Veo (deepmind.google)',

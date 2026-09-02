@@ -73,21 +73,30 @@ const EN_BLOG_SLUGS = (() => {
 
 const translated = (slug) => EN_BLOG_SLUGS.has(slug);
 
+// Страницы услуг, которые существуют только по-русски.
+//
+// Обучение и консультации проводятся голосом и только на русском, поэтому
+// английская версия такой страницы обещала бы услугу, которую человек не
+// сможет получить. Лучше не иметь страницы, чем привести на неё
+// англоязычного читателя и отказать ему в переписке.
+const RU_ONLY_SERVICES = SERVICE_SLUGS.filter((s) => s.startsWith('obuchenie-'));
+
 // Логические пути, у которых есть и RU, и EN-версия
 const BILINGUAL = [
   '/',
-  ...SERVICE_SLUGS.map((s) => `/services/${s}`),
+  ...SERVICE_SLUGS.filter((s) => !RU_ONLY_SERVICES.includes(s)).map((s) => `/services/${s}`),
   '/video-production',
   '/works',
   '/blog',
   ...BLOG_SLUGS.filter(translated).map((s) => `/blog/${s}`),
 ];
 
-// Только на русском: юридические страницы (своя юрисдикция) и статьи,
-// которые ещё не переведены
+// Только на русском: юридические страницы (своя юрисдикция), обучение
+// (см. выше) и статьи, которые ещё не переведены
 const RU_ONLY = [
   '/privacy',
   '/consent',
+  ...RU_ONLY_SERVICES.map((s) => `/services/${s}`),
   ...BLOG_SLUGS.filter((s) => !translated(s)).map((s) => `/blog/${s}`),
 ];
 

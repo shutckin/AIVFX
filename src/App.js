@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createContext, useContext, lazy, Suspense } from 'react';
 import './index.css';
-import { LocaleContext, getLocaleFromUrl, stripLocale, localizedHref, useLocale } from './i18n';
+import { LocaleContext, getLocaleFromUrl, stripLocale, localizedHref, isRuOnly, useLocale } from './i18n';
 import { FAQ_SYS } from './data/systems-content';
 
 import Header from './components/Header';
@@ -23,6 +23,7 @@ const loadProblems        = () => import('./components/Problems');
 const loadSystemFlow      = () => import('./components/SystemFlow');
 const loadServicesSystems = () => import('./components/ServicesSystems');
 const loadCases           = () => import('./components/Cases');
+const loadTraining        = () => import('./components/Training');
 const loadApproach        = () => import('./components/Approach');
 const loadFaqSection      = () => import('./components/FaqSection');
 const loadIntegrations    = () => import('./components/Integrations');
@@ -49,6 +50,7 @@ const Problems        = lazy(loadProblems);
 const SystemFlow      = lazy(loadSystemFlow);
 const ServicesSystems = lazy(loadServicesSystems);
 const Cases           = lazy(loadCases);
+const Training        = lazy(loadTraining);
 const Approach        = lazy(loadApproach);
 const FaqSection      = lazy(loadFaqSection);
 const Integrations    = lazy(loadIntegrations);
@@ -217,6 +219,18 @@ const getPageFromUrl = () => {
   return 'main';
 };
 
+// Английский адрес русскоязычной-только страницы: уводим на русскую
+// версию, вместо того чтобы показывать англоязычному читателю страницу
+// об услуге, которую он не сможет получить. Ссылок на такие адреса нет
+// нигде, но прямые переходы и старые закладки возможны.
+const redirectRuOnlyFromEn = () => {
+  if (typeof window === 'undefined') return;
+  const { search, hash } = window.location;
+  const logical = stripLocale(window.location.pathname);
+  if (getLocaleFromUrl() !== 'en' || !isRuOnly(logical)) return;
+  window.location.replace(localizedHref(logical, 'ru') + search + hash);
+};
+
 // Достаём slug услуги из /services/<slug>/ (например ai-sales-automation)
 const getServiceSlugFromUrl = () => {
   if (typeof window === 'undefined') return null;
@@ -249,7 +263,8 @@ export const preloadRouteChunks = () => {
   if (page === 'main') {
     chunks.push(
       loadProblems(), loadSystemFlow(), loadCTABreak(), loadServicesSystems(),
-      loadCases(), loadApproach(), loadIntegrations(), loadAboutUs(), loadFaqSection(),
+      loadTraining(), loadCases(), loadApproach(), loadIntegrations(), loadAboutUs(),
+      loadFaqSection(),
       loadContactForm()
     );
   } else if (page === 'service') {
@@ -282,6 +297,9 @@ function App() {
   useEffect(() => {
     if (typeof document !== 'undefined') document.documentElement.lang = locale;
   }, [locale]);
+
+  // Английский адрес русскоязычной-только страницы уводим на русскую версию
+  useEffect(redirectRuOnlyFromEn, []);
 
   // Локализованные title/description + скролл к якорю (#contact)
   // после перехода со страниц услуг и /video-production
@@ -539,6 +557,9 @@ function App() {
               <Suspense fallback={<SectionFallback />}><SystemFlow /></Suspense>
               <Suspense fallback={null}><CTABreak /></Suspense>
               <Suspense fallback={<SectionFallback />}><ServicesSystems /></Suspense>
+              {/* Обучение идёт сразу за услугами: человек только что прочитал,
+                  что мы строим системы, и здесь узнаёт про второй путь. */}
+              <Suspense fallback={null}><Training /></Suspense>
               <Suspense fallback={<SectionFallback />}><Cases /></Suspense>
               <Suspense fallback={null}><CTABreak variant="light" /></Suspense>
               <Suspense fallback={<SectionFallback />}><Approach /></Suspense>

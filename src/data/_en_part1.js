@@ -6,7 +6,7 @@ const PART_1 = [
     category: 'Avatars',
     title: 'How to Create an AI Avatar (Digital Twin) in HeyGen: Complete Step-by-Step Guide 2026',
     description:
-      'A step-by-step guide on how to create your own AI avatar in HeyGen: from recording a video to a ready-made digital twin that speaks 175 languages. Pricing, limits, tips, and real-world examples.',
+      'A step-by-step guide on how to create your own AI avatar in HeyGen: from recording a video to a ready-made digital twin that speaks 175 languages.',
     keywords:
       'how to create ai avatar, heygen avatar, digital twin, ai avatar, talking avatar, heygen tutorial, create avatar ai, digital twin video',
     cover: '/blog-images/cover-heygen.jpg',
@@ -113,7 +113,7 @@ const PART_1 = [
     category: 'Guides',
     title: 'How to Make an AI Video: A Step-by-Step Guide for Business in 2026',
     description:
-      'We break down step by step how to create an AI video from scratch: from idea and script to a finished clip. Which neural networks to use, how long it takes, and where it really pays off for business.',
+      'We break down step by step how to create an AI video from scratch: from idea and script to a finished clip.',
     keywords:
       'how to make ai video, creating video with neural network, ai video for business, neural network for video, ai video generation, ai video production',
     cover: '/blog-images/cover-aivideo.jpg',
@@ -176,7 +176,7 @@ const PART_1 = [
     category: 'Models & Comparisons',
     title: 'Runway, Kling, Veo, Sora: A Comparison of Video-Generation Neural Networks in 2026',
     description:
-      'An honest comparison of the top neural networks for video: Runway, Kling, Google Veo, Sora, Seedance. The strengths and weaknesses of each, pricing, and which to choose for which tasks.',
+      'An honest comparison of the top neural networks for video: Runway, Kling, Google Veo, Sora, Seedance.',
     keywords:
       'comparison of neural networks for video, runway vs kling, best neural network for video, google veo, sora neural network, kling ai, seedance, neural network video generation',
     cover: '/blog-images/cover-sravnenie.jpg',

@@ -16,6 +16,7 @@ import {
 } from '../data/content-en';
 import { localizedProjects } from '../data/projects';
 import './video-production.css';
+import './training.css'; // врезка «хотите делать сами»
 
 // Страница второго направления — AI-контент (/video-production/).
 // v3: hero + marquee + полоса фактов + услуги + сравнение + форматы работы
@@ -192,7 +193,9 @@ const VideoProduction = () => {
 
   // SEO: заголовок и описание страницы
   useEffect(() => {
-    document.title = en ? 'AI Content — AIVFX' : 'AI-контент — AIVFX';
+    document.title = en
+      ? 'AI Video Production for Business: Ads, Reels, Product Video — AIVFX'
+      : 'AI-видеопродакшн для бизнеса: реклама, Reels, продуктовые ролики — AIVFX';
     let meta = document.head.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement('meta');
@@ -538,6 +541,27 @@ const VideoProduction = () => {
           </div>
         </div>
       </section>
+
+      {/* Обучение: тем, кто пришёл за видео, но хочет делать сам.
+          Только на русском - занятия ведутся по-русски, английской
+          версии страницы нет намеренно. */}
+      {!en && (
+        <section className="section">
+          <div className="shell">
+            <a className="vp-training" href="/services/obuchenie-ai-video/">
+              <span className="vp-training-kicker mono">ОБУЧЕНИЕ</span>
+              <span className="vp-training-title">Хотите делать такие ролики сами?</span>
+              <span className="vp-training-desc">
+                Разбираем весь путь на вашей задаче: кадр, консистентность героя,
+                промпт, сборка. Веду лично.
+              </span>
+              <span className="vp-training-more mono">
+                Подробнее<span className="vp-training-arrow">↗</span>
+              </span>
+            </a>
+          </div>
+        </section>
+      )}
 
       {/* FAQ: аккордеон из VIDEO_FAQ (классы .faq-item из index.css) */}
       <section className="section">

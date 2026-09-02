@@ -4,7 +4,7 @@ const PART_4 = [
     slug: 'gollivud-ai-v-kino',
     category: 'AI in Film & Industry',
     title: 'How Hollywood Uses AI in Film: Real Cases of 2026',
-    description: 'De-aging in "The Irishman", a young Luke Skywalker, digital doubles, dubbing, and LED walls. Real examples of how studios apply AI in film — and why these technologies are now within reach for businesses.',
+    description: 'De-aging in "The Irishman", a young Luke Skywalker, digital doubles, dubbing and LED walls: how studios use AI in film and why business can too.',
     keywords: 'ai in film, hollywood neural networks, deepfake in film, actor de-aging, digital doubles, virtual production, neural networks in video production, ai vfx, how hollywood uses ai, de-aging actors',
     cover: '/blog-images/cover-gollivud.jpg',
     date: '2026-05-29',

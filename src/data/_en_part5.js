@@ -10,7 +10,7 @@ const PART_5 = [
     category: 'Business & money',
     title: 'How Much an AI Assistant for Handling Inquiries Costs: an Honest 2026 Breakdown',
     description:
-      'What makes up the price of an AI assistant: development, the language model, integrations and support. Real ranges from 30 thousand roubles to several million, the hidden costs and a payback formula.',
+      'What makes up the price of an AI assistant: development, the language model, integrations and support.',
     keywords:
       'ai assistant cost, price of ai implementation, chatbot cost for business, ai assistant for leads price, cost of automating inquiries, ai payback for business',
     cover: '/blog-images/cover-assistent-cena.jpg',
@@ -291,7 +291,7 @@ const PART_5 = [
     category: 'Business & money',
     title: 'Chatbot or AI Assistant: What Actually Separates Them',
     description:
-      'The difference between a scripted chatbot and an assistant running on a language model: what each can do, where each breaks, what they cost, and how to choose without overpaying or buying an empty shell.',
+      'Chatbot or AI assistant: what each can do, where each breaks, what they cost, and how to choose for your task without overpaying or buying an empty shell.',
     keywords:
       'chatbot or ai assistant, difference between chatbot and ai, scripted bot, language model assistant, which bot to choose for business, website chatbot',
     cover: '/blog-images/cover-bot-ili-assistent.jpg',
@@ -405,7 +405,7 @@ const PART_5 = [
     category: 'Business & money',
     title: 'AI Lead Qualification: Separating Warm from Cold Without a Manager',
     description:
-      'How automatic qualification works: which questions to ask, how not to turn it into an interrogation, why scoring often misleads, and what to do with the leads marked cold.',
+      'How AI lead qualification works: which questions to ask, how not to turn it into an interrogation, why scoring misleads, and what to do with cold leads.',
     keywords:
       'lead qualification, ai lead qualification, lead scoring, how to identify hot leads, automatic inquiry handling, sales funnel automation',
     cover: '/blog-images/cover-kvalifikaciya.jpg',
@@ -547,7 +547,7 @@ const PART_5 = [
     category: 'Business & money',
     title: 'AI Assistant and CRM: What Works in the Pairing and What Breaks',
     description:
-      'How to connect an assistant to a CRM so inquiries do not vanish: what belongs in the record, what happens when the integration fails, why duplicates are inevitable, and how to avoid turning the system into a dump.',
+      'How to connect an AI assistant to a CRM so inquiries do not vanish: what belongs in the record, what to do when the integration fails, and how to avoid a dump.',
     keywords:
       'ai assistant and crm, chatbot crm integration, automatic deal creation, inquiries into crm automatically, crm integration with ai',
     cover: '/blog-images/cover-crm-integraciya.jpg',
