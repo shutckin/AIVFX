@@ -11,7 +11,7 @@ const PART_7 = [
     keywords:
       'animate photo ai, animate photo free, ai photo to video, bring photo to life ai, kling animate photo, animate old photo ai',
     cover: '/blog-images/cover-ozhivit-foto.jpg',
-    coverSource: 'AIVFX typographic cover',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
     readingTime: '9 min',
@@ -63,6 +63,7 @@ const PART_7 = [
         'Wait twenty to thirty seconds. If the face drifted, do not rewrite everything: reduce the movement and try again.',
         'Save the clip. It is 4 seconds at 480p: fine for stories, not for a TV screen.',
       ] },
+      { type: 'image', src: '/blog-images/ozhivit-foto-scanner.jpg', alt: 'An old photograph being placed on a flatbed scanner', caption: 'Scan and clean an old photo first, animate it last: otherwise the model animates the scratches too', source: 'AIVFX AI generation (Seedream 5 Pro)' },
       { type: 'h2', text: 'Old and black-and-white photos: a different order' },
       { type: 'p', text: 'With old photos the mistake is almost always the same: animating them as they are. The model gets a blurred, scratched face and completes it as it sees fit, producing a similar but different person. The right order: restore first, then animate. Scan or reshoot under even light, run through face restoration aiming for sharp eyes and a clear outline, skip colourisation (it adds another layer of errors), and animate with minimal movement. For a family archive a smile and a blink are enough, and they move people more than "stood up and walked away".' },
       { type: 'h2', text: 'Frequently asked questions' },
@@ -90,7 +91,7 @@ const PART_7 = [
     keywords:
       'sora 2, sora 2 russia, sora 2 access, sora subscription price, sora 2 alternatives, openai sora how to use',
     cover: '/blog-images/cover-sora-2.jpg',
-    coverSource: 'AIVFX typographic cover',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
     readingTime: '8 min',
@@ -112,6 +113,7 @@ const PART_7 = [
         '**A ChatGPT subscription.** There is no separate "Sora subscription". The minimum is ChatGPT Plus at about 20 dollars a month: Sora access with a limited number of generations at base resolution. Full access without generation limits and in 1080p is ChatGPT Pro at about 200 dollars a month.',
       ] },
       { type: 'p', text: 'So the minimum ticket is a twenty-dollar subscription plus the cost of a VPN and a virtual card. For one clip for a birthday that is pointless; for regular work it is a calculation, covered below.' },
+      { type: 'image', src: '/blog-images/sora-2-comparison-notebook.jpg', alt: 'Notebook with a comparison grid and a laptop with a video frame', caption: 'Before paying for Sora 2, compare it with Kling and Seedance on your own task: often there is no difference', source: 'AIVFX AI generation (Seedream 5 Pro)' },
       { type: 'h2', text: 'What Sora 2 can do and where it tops out' },
       { type: 'p', text: 'Clips from 5 to 20 seconds, 16:9, 9:16 and 1:1, generation from text and from an image, synchronous sound with speech. Its strength is understanding complex scenes with several actions and believable physics. Its weakness is a strict filter: the model refuses much that is not a violation, and recognisable people are only allowed with their consent through a separate cameo feature. Prompts are best written in English: Russian works but details get lost, and Russian text in frame comes out with errors.' },
       { type: 'h2', text: 'When you do not need Sora' },
@@ -152,7 +154,7 @@ const PART_7 = [
     keywords:
       'seedance free, seedance 2.5 free, download seedance, seedance official site, seedance how to use, seedance model',
     cover: '/blog-images/cover-seedance-besplatno.jpg',
-    coverSource: 'AIVFX typographic cover',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
     readingTime: '8 min',
@@ -182,6 +184,7 @@ const PART_7 = [
       ] },
       { type: 'h2', text: 'What it costs once free runs out' },
       { type: 'p', text: 'Three paths with different prices. An aggregator for roubles: pay per generation, usually from a few dozen roubles for a short clip, no subscription; for a dozen clips a month the cheapest and simplest. Dreamina directly at 20 dollars a month if you already have a foreign account and card: the lowest price per generation at volume. Higgsfield or Runway: dearer, but one subscription holds a dozen other models besides Seedance, which for regular work often matters more than price. How to choose is in the [aggregator breakdown](/blog/agregatory-ai-servisov/). And the arithmetic for any model: count attempts, not clips. More than half of generations go to the bin, three quarters for a beginner. A budget for "ten clips" is a budget for thirty to forty generations.' },
+      { type: 'image', src: '/blog-images/seedance-prompt-desk.jpg', alt: 'Hands typing a prompt on a laptop, a clapperboard and coffee beside it', caption: 'A Seedance prompt is written like a shooting plan: what is in the frame, how the camera moves, how many seconds', source: 'AIVFX AI generation (Seedream 5 Pro)' },
       { type: 'h2', text: 'Step by step: first generation through an aggregator' },
       { type: 'ol', items: [
         'Sign up with a Russian aggregator that has Seedance 2.5 and collect the starter tokens. Check that the model list says 2.5, not 2.0 or "lite"; some default to the cheap version.',
@@ -224,7 +227,7 @@ const PART_7 = [
     keywords:
       'kling free, kling ai free credits, kling subscription, kling russia, kling how to use, kling ai pay',
     cover: '/blog-images/cover-kling-rossiya.jpg',
-    coverSource: 'AIVFX typographic cover',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
     readingTime: '9 min',
@@ -247,6 +250,7 @@ const PART_7 = [
       { type: 'h2', text: 'Subscription: price and how to pay' },
       { type: 'p', text: 'Kling plans start at about 7 dollars a month and differ by credits, queue priority and access to the higher modes. Subscription credits expire at month end, while separately bought top-up packs do not, so do not buy an expensive plan "in reserve": a minimal subscription plus top-ups for the task is cheaper. Paying from Russia directly is impossible. Two working paths: a foreign or virtual card with a foreign billing link, paying Kling’s price without markup; or an intermediary or aggregator for roubles, dearer per generation but without a card, VPN or account risk. All payment methods for all models are in a [separate article](/blog/kak-oplatit-neyroset-iz-rossii/).' },
       { type: 'quote', text: 'A simple rule: up to a couple of dozen clips a month, an aggregator for roubles. More, your own subscription and card, where the per-generation saving starts paying for the hassle.' },
+      { type: 'image', src: '/blog-images/kling-phone-shoot.jpg', alt: 'Filming a still life on a phone, the same frame already moving on a laptop', caption: 'Kling on a phone: you shoot an ordinary frame and the model turns it into motion. The laptop is only needed for long clips', source: 'AIVFX AI generation (Seedream 5 Pro)' },
       { type: 'h2', text: 'Step by step: from sign-up to the first clip' },
       { type: 'ol', items: [
         'Sign up. From a foreign address, on klingai.com via a Google account or email; from a Russian one, in an aggregator. Do not enter a Russian phone number on the Kling site; it is not needed there.',
@@ -307,7 +311,7 @@ const PART_7 = [
     keywords:
       'nano banana pro, nano banana, nano banana free, nano banana 2, nano banana prompts, gemini nano banana, nano banana russia',
     cover: '/blog-images/cover-nano-banana-pro.jpg',
-    coverSource: 'AIVFX typographic cover',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
     readingTime: '10 min',
@@ -331,6 +335,7 @@ const PART_7 = [
         '**VPN plus a Google account created from a foreign address plus a foreign card.** Gives real subscription limits and the lowest price per image at volume. Downsides: the account may be blocked for jumps between addresses, and all of it needs maintaining.',
         '**Russian aggregators.** Work through the official Google API, no VPN, rouble payment. Dearer per generation than inside a subscription, but none of the first path’s problems. For dozens of images a month a sensible choice; how to compare them is in the [aggregator breakdown](/blog/agregatory-ai-servisov/).',
       ] },
+      { type: 'image', src: '/blog-images/nano-banana-product-setup.jpg', alt: 'Home product shoot: a ceramic bottle, a softbox and a tablet with three variants', caption: 'Nano Banana Pro is strongest in product shots: one reference and three variants under different light in a minute', source: 'AIVFX AI generation (Seedream 5 Pro)' },
       { type: 'h2', text: 'What the model does best' },
       { type: 'ul', items: [
         '**Text in frame.** Signs, packaging, Russian captions: Pro renders them legibly, without "hieroglyphs". Neither Midjourney nor most competitors do it as reliably.',
@@ -391,7 +396,7 @@ const PART_7 = [
     keywords:
       'pay for ai from russia, pay kling from russia, pay higgsfield from russia, pay heygen, midjourney russia payment, sora russia payment',
     cover: '/blog-images/cover-oplata-iz-rossii.jpg',
-    coverSource: 'AIVFX typographic cover',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
     readingTime: '8 min',
@@ -400,6 +405,7 @@ const PART_7 = [
       'Almost every strong AI model is foreign, and almost none accepts Russian cards. Three ways to pay, an honest comparison by price and risk, and a service-by-service pass: where what works as of September 2026.',
     content: [
       { type: 'p', text: 'The situation is the same for almost every foreign AI service: the site opens (or opens through a VPN), and at the payment step a Russian card is declined. There are three ways around it, and each has a price, not only in roubles. Below is the overall picture and a breakdown by service. We sell none of these methods and give no links to intermediaries: they change every couple of months; the principles do not.' },
+      { type: 'image', src: '/blog-images/oplata-desk.jpg', alt: 'Desk with a calculator, roubles, bank cards and a phone', caption: 'Before paying an intermediary, do the maths: commission, exchange rate and generation limits often eat the whole saving', source: 'AIVFX AI generation (Seedream 5 Pro)' },
       { type: 'h2', text: 'Three methods' },
       { type: 'h3', text: '1. A foreign or virtual card' },
       { type: 'p', text: 'A card from a bank in another country, or a virtual card with a foreign billing link. You pay the service price without markup and get a full account with all limits. Downsides: the card must be obtained and topped up with a fee; some services also need a foreign address at sign-up; jumping between Russian and foreign addresses can get the account blocked together with the paid subscription. For those who work with AI daily and are ready to set everything up once.' },

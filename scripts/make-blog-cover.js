@@ -26,22 +26,6 @@ const H = 720;
 
 // Что рисуем: файл, надстрочная строка и сама тема
 const COVERS = [
-  { file: 'cover-kling-rossiya.jpg', kicker: 'МОДЕЛЬ · KUAISHOU', title: 'Kling\nиз России', sub: 'Бесплатно · на русском · оплата' },
-  { file: 'cover-oplata-iz-rossii.jpg', kicker: 'ГАЙД · ОПЛАТА', title: 'Как оплатить\nнейросеть из России', sub: 'Kling · HeyGen · Higgsfield · Sora · Google' },
-  { file: 'cover-seedance-besplatno.jpg', kicker: 'МОДЕЛЬ · BYTEDANCE', title: 'Seedance 2.5\nбесплатно', sub: 'Где попробовать · лимиты · цена' },
-  { file: 'cover-nano-banana-pro.jpg', kicker: 'МОДЕЛЬ · GOOGLE', title: 'Nano Banana Pro', sub: 'Гайд · доступ из России · промпты' },
-  {
-    file: 'cover-sora-2.jpg',
-    kicker: 'МОДЕЛЬ · OPENAI',
-    title: 'Sora 2\nв России',
-    sub: 'Доступ · цена · чем заменить',
-  },
-  {
-    file: 'cover-ozhivit-foto.jpg',
-    kicker: 'ГАЙД · ОЖИВИТЬ ФОТО',
-    title: 'Оживить фото\nнейросетью',
-    sub: '9 сервисов · бесплатно · без VPN',
-  },
   {
     file: 'cover-seedance.jpg',
     kicker: 'МОДЕЛЬ · BYTEDANCE',
