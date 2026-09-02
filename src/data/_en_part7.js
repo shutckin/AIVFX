@@ -3,6 +3,110 @@
 // оплата нейросетей из России. Русские оригиналы - в blog-posts.js.
 const PART_7 = [
   {
+    slug: 'minimax-h3-hailuo-gayd',
+    category: 'Models & comparisons',
+    title: 'MiniMax H3 (Hailuo 3.0): Access, Free Tier, Pricing and Running It Locally',
+    description:
+      'MiniMax H3 and Hailuo are one model under two names. 2K with sound in a single pass: what is free, what it costs, how to reach it from Russia and how to run it yourself.',
+    keywords:
+      'minimax h3, hailuo ai, hailuo 3.0, minimax video model, hailuo free, minimax h3 comfyui, minimax h3 download, hailuo ai pricing',
+    cover: '/blog-images/cover-minimax-h3.jpg',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
+    date: '2026-09-02',
+    dateModified: '2026-09-02',
+    readingTime: '9 min',
+    related: ['seedance-besplatno', 'kling-v-rossii-besplatno', 'sravnenie-neyrosetey-dlya-video'],
+    excerpt:
+      'MiniMax H3 launched on 31 July 2026 and within a month drew more searches in the Russian-speaking web than half its competitors: 2K, sound generated together with the picture, and open weights you can actually download. Here is what the model really does, what is free, what it costs and who should run it at home.',
+    content: [
+      { type: 'p', text: 'If you searched for "minimax", "hailuo" or "minimax h3" and wondered why they lead to different places, here is the short answer. MiniMax is a Chinese company. H3 is its video model, released on 31 July 2026. Hailuo is the app and site through which the model is served, and Hailuo 3.0 (sometimes written Hailuo 03) is the same thing as MiniMax H3. One model, two names, both alive in search at once.' },
+      { type: 'p', text: 'The model matters: it replaced Hailuo 2.3 and does something almost nobody was doing at scale before it - it generates video and audio in a single pass instead of assembling them separately.' },
+
+      { type: 'h2', text: 'What H3 can do' },
+      { type: 'ul', items: [
+        '**Native 2K at 24fps.** Not an upscale from a smaller render, but generation straight to 2K.',
+        '**Sound in the same pass.** Speech, ambience and effects are born with the picture, so lips and audio match without separate syncing. Earlier Hailuo models produced silent video that needed sound bolted on afterwards.',
+        '**Clips from 5 to 15 seconds.** That is the ceiling for one generation; longer scenes are assembled in the edit.',
+        '**Omni references.** A single generation accepts up to nine images, three videos and three audio files as guides for character, style, motion and voice. On controllability that is one of the best options on the market right now.',
+        '**Open weights.** On 3 August 2026 MiniMax published the base model on Hugging Face and ModelScope under its own licence. You can download it and run it yourself.',
+      ] },
+      { type: 'p', text: 'One network understands text, images, video and audio together, which is where the word "omni" in the descriptions comes from. In practice it means the model holds scene logic better: if the reference shows a person in a red jacket, they are still wearing it ten seconds later.' },
+
+      { type: 'h2', text: 'Access from Russia' },
+      { type: 'p', text: 'The good news: the Hailuo site opens from Russia, sign-up works, and you can generate. Unlike services closed to us such as OpenAI, there is no regional block here. There is exactly one barrier and it appears at the checkout.' },
+      { type: 'p', text: 'The MiniMax payment system does not accept Russian bank cards: the transaction is declined before authorisation. There are three ways around it - a foreign card, a virtual card in a suitable jurisdiction, or a Russian AI aggregator selling generations for roubles. The payment routes are broken down in a [separate article](/blog/kak-oplatit-neyroset-iz-rossii/).' },
+      { type: 'p', text: 'The interface is English only. The model does understand Russian prompts but loses detail; write in English, it noticeably improves first-try hit rate.' },
+
+      { type: 'h2', text: 'What is free' },
+      { type: 'p', text: 'Sign-up gives a starter pack of credits, around fifty, with no card required. That is enough for a few short clips to decide whether this model is for you. There are no daily free credits the way Kling has them: the pack is one-off.' },
+      { type: 'p', text: 'An important limit people discover from the inside: every free route tops out at 768p. The 2K the model is praised for costs money. There are several free doors - the Hailuo web tier, a trial in the app, the open weights, and signup credits on third-party hosts - but the resolution ceiling is the same on all of them.' },
+      { type: 'quote', text: 'The practical takeaway: free H3 is good for checking motion and sound. For finished material it is 768p, which will not hold up on a big screen.' },
+
+      { type: 'image', src: '/blog-images/minimax-local-run.jpg', alt: 'A desktop tower with its side panel off and a monitor showing a node graph', caption: 'Open weights mean H3 can run on your own machine: no subscription, no limits and no cross-border payment problem', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+      { type: 'h2', text: 'Running it locally: the one thing rivals cannot match' },
+      { type: 'p', text: 'Kling, Seedance and Veo cannot be downloaded - they are closed services. H3 can be, and for Russia that changes the maths: running locally removes both the payment problem and the usage limits.' },
+      { type: 'p', text: 'The model is large, around thirty-three billion parameters, and in its original form needs a serious graphics card. The community released lighter builds almost immediately - quantised versions in int8, GGUF and other formats that run on more modest hardware at some cost in quality. People usually drive it through ComfyUI, where ready-made workflows for H3 already exist, including a faster turbo variant.' },
+      { type: 'p', text: 'Who it suits: anyone with a gaming or workstation GPU and the patience to set it up. Who it does not: if you need a result today without an evening of configuration, buy cloud access.' },
+
+      { type: 'h2', text: 'What it costs' },
+      { type: 'p', text: 'Hailuo has two payment models and they should not be confused.' },
+      { type: 'h3', text: 'Subscription' },
+      { type: 'p', text: 'Four tiers: roughly 10, 35, 80 and 200 dollars a month at the promotional prices of summer 2026. Paying annually takes off almost half. The tiers differ in credit allowance, queue speed and access to the top resolution. For someone making a few clips a month the first or second tier is the sensible choice.' },
+      { type: 'h3', text: 'Pay per second through the API' },
+      { type: 'p', text: 'H3 is billed by the length of the finished clip: around 8 cents per second at 768p and 13 cents per second at 2K. A ten-second clip therefore costs about a dollar at high resolution. Reference inputs can add to the bill separately. H3 is not in the bulk discount packages; it is pure pay as you go.' },
+      { type: 'p', text: 'Budget honestly: more than half of all generations go in the bin. If you need ten finished clips, plan for thirty.' },
+
+      { type: 'h2', text: 'How to write a prompt for H3' },
+      { type: 'p', text: 'The big difference from the previous generation of video models is that sound has to be described as deliberately as the picture. The model will generate what you ask to hear, and if you ask for nothing it invents something.' },
+      { type: 'ol', items: [
+        '**The frame.** Who is in it, what they are doing, where they are. One action per generation, not three in a row.',
+        '**The camera.** Locked off, light handheld drift, a dolly, a push in. Without this the model picks the movement itself, often the wrong one.',
+        '**Light and style.** Time of day, light source, the character of the image. Ask for film grain here if you do not want sterile digital.',
+        '**Sound.** On its own line: whether there is a line of dialogue and what it is, what the environment sounds like, whether music is wanted. If you do not want music, say so, otherwise it appears.',
+        '**References.** A frame of the character for appearance, a video clip for the quality of motion, audio for the voice. Do not dump nine images at once: two or three precise ones work better.',
+      ] },
+      { type: 'p', text: 'One more habit that saves money: build the key frame in an image model first, get it right, and only then pass it to H3 as a reference. Redoing an image costs pennies; regenerating video costs a dollar.' },
+
+      { type: 'h2', text: 'H3, Seedance or Kling: what for which job' },
+      { type: 'ul', items: [
+        '**You need sound and an exact character in a short clip** - H3. This is its strength and nothing replaces it.',
+        '**You need a long scene** - [Seedance 2.5](/blog/seedance-besplatno/): thirty seconds natively and up to three minutes in long mode against fifteen seconds for H3.',
+        '**You need motion physics and free practice** - [Kling 3.0](/blog/kling-v-rossii-besplatno/): water, fabric and hands come out more convincing, plus the daily free credits H3 does not have.',
+        '**You need full control and no cross-border payment** - H3 locally. The only one of the four you can download.',
+      ] },
+      { type: 'p', text: 'The full comparison of all the models is in our [video model overview](/blog/sravnenie-neyrosetey-dlya-video/).' },
+
+      { type: 'h2', text: 'Step by step: your first generation' },
+      { type: 'ol', items: [
+        'Open the Hailuo site and sign up by email. No VPN needed, a Russian address is not a problem.',
+        'Collect the starter credits. Check in your profile how many there are and when they expire.',
+        'Prepare a key frame: your own photo or an image generated in advance. One reference is enough for a first try.',
+        'Write the prompt using the structure above, including the sound. In English.',
+        'Set the length to 5 seconds rather than 15: on a test a short clip is cheaper and shows faster whether the engine understood you.',
+        'Watch the result with headphones on. Half of H3 problems are audible, not visible.',
+        'Change one thing per iteration. Change three and you will not know which one worked.',
+      ] },
+
+      { type: 'h2', text: 'Frequently asked questions' },
+      { type: 'h3', text: 'Are MiniMax and Hailuo the same thing?' },
+      { type: 'p', text: 'MiniMax is the company and the model name (H3); Hailuo is the service and app that serve it to users. Hailuo 3.0 and MiniMax H3 are the same model.' },
+      { type: 'h3', text: 'Does Hailuo work from Russia?' },
+      { type: 'p', text: 'The site opens, and sign-up and generation work without a VPN. Only payment with Russian cards fails: you need a foreign card, a virtual one, or an aggregator charging in roubles.' },
+      { type: 'h3', text: 'Can MiniMax H3 be downloaded?' },
+      { type: 'p', text: 'Yes, and that is rare among strong video models. The base weights have been open since August 2026, community quantisations exist, and there are ready ComfyUI workflows. A powerful GPU is required.' },
+      { type: 'h3', text: 'Is there a Russian version of Hailuo?' },
+      { type: 'p', text: 'There is no Russian interface. The model will understand a Russian prompt but less well: details get lost and on-screen text comes out with errors. Write in English and add Russian text in the edit.' },
+      { type: 'h3', text: 'How many free generations does Hailuo give?' },
+      { type: 'p', text: 'A starter pack of about fifty credits at sign-up, with no daily top-up. Every free route is capped at 768p.' },
+      { type: 'h3', text: 'Which is better: H3 or Seedance 2.5?' },
+      { type: 'p', text: 'H3 when you need sound in one pass and an exact match to a character reference. Seedance when you need length: thirty seconds natively against fifteen. For product imagery the difference is small and the price in your service decides.' },
+
+      { type: 'h2', text: 'How we use H3 in the studio' },
+      { type: 'p', text: 'In [our work](/works/) H3 covers scenes where someone speaks or where a specific sound matters: footsteps, a door, street noise. Long moves go to Seedance, complex motion to Kling, and static key frames are prepared in image models. The viewer never sees that a clip was assembled from different models as long as light and character match, and that is where most of the work goes. We break this down at [AI video training](/services/obuchenie-ai-video/): on your own task, which scene goes to which model and how not to pay for something a cheaper model would do.' },
+      { type: 'cta' },
+    ],
+  },
+  {
     slug: 'kak-ozhivit-foto-neyrosetyu',
     category: 'Guides',
     title: 'How to Animate a Photo with AI: 9 Ways, Including Free Ones and No VPN',
@@ -95,7 +199,7 @@ const PART_7 = [
     date: '2026-09-02',
     dateModified: '2026-09-02',
     readingTime: '7 min',
-    related: ['seedance-besplatno', 'kling-v-rossii-besplatno', 'sravnenie-neyrosetey-dlya-video'],
+    related: ['minimax-h3-hailuo-gayd', 'seedance-besplatno', 'kling-v-rossii-besplatno'],
     excerpt:
       'Sora is still the most searched video model in the Russian-speaking web, over a hundred thousand queries a month. Yet the service no longer exists: OpenAI took the site and app offline on 26 April 2026 and switches off the API on 24 September. Here is what happened, what became of your clips, and which models cover the same jobs today.',
     content: [
@@ -129,7 +233,7 @@ const PART_7 = [
       { type: 'h3', text: 'Kling 3.0: motion physics and a free start' },
       { type: 'p', text: 'The best physics available today: water, fabric, hands, objects touching. Free credits are issued daily, which makes it the most convenient place to learn. The site opens from Russia with limitations, payment goes through intermediaries. Details in [Kling from Russia](/blog/kling-v-rossii-besplatno/).' },
       { type: 'h3', text: 'MiniMax H3 (Hailuo 3.0): 2K with sound in one pass' },
-      { type: 'p', text: 'The newest player. The model launched on 31 July 2026: one network understands text, images, video and audio and returns a 5 to 15 second clip in native 2K with synchronous stereo sound. A generation can take up to nine images, three videos and three audio clips as references for character, style, motion and voice. Two days after release MiniMax published the base weights openly, so the model is quickly appearing in third-party services and aggregators. In picture and sound quality it is the closest thing to what Sora promised, at a noticeably lower price.' },
+      { type: 'p', text: 'The newest player. The model launched on 31 July 2026: one network understands text, images, video and audio and returns a 5 to 15 second clip in native 2K with synchronous stereo sound. A generation can take up to nine images, three videos and three audio clips as references for character, style, motion and voice. Two days after release MiniMax published the base weights openly, so the model is quickly appearing in third-party services and aggregators. In picture and sound quality it is the closest thing to what Sora promised, at a noticeably lower price. Full breakdown in our [MiniMax H3 guide](/blog/minimax-h3-hailuo-gayd/).' },
       { type: 'h3', text: 'Veo 3.1: when you need speech' },
       { type: 'p', text: 'Google’s model remains the best for synchronous speech and lip-sync, but from Russia it has the same regional problems Sora had: a foreign address, a foreign card or an aggregator. [Veo guide](/blog/veo-gayd/).' },
 
@@ -173,7 +277,7 @@ const PART_7 = [
     date: '2026-09-02',
     dateModified: '2026-09-02',
     readingTime: '8 min',
-    related: ['seedance-gayd', 'agregatory-ai-servisov', 'sora-2-v-rossii'],
+    related: ['minimax-h3-hailuo-gayd', 'seedance-gayd', 'sora-2-v-rossii'],
     excerpt:
       'Four thousand people a month search "seedance free" and nearly three thousand "download seedance". Honestly: where free generations really exist, where no official partner offers them, and what to do when you need more than a couple of clips.',
     content: [
@@ -415,7 +519,7 @@ const PART_7 = [
     date: '2026-09-02',
     dateModified: '2026-09-02',
     readingTime: '8 min',
-    related: ['agregatory-ai-servisov', 'kling-v-rossii-besplatno', 'sora-2-v-rossii'],
+    related: ['minimax-h3-hailuo-gayd', 'kling-v-rossii-besplatno', 'sora-2-v-rossii'],
     excerpt:
       'Almost every strong AI model is foreign, and almost none accepts Russian cards. Three ways to pay, an honest comparison by price and risk, and a service-by-service pass: where what works as of September 2026.',
     content: [
