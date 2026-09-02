@@ -240,7 +240,7 @@ const PART_6 = [
 
       { type: 'h2', text: 'In short' },
       { type: 'p', text: 'Nano Banana Pro is stronger where you need a finished photorealistic frame first time. Seedream 5 Pro wins where the image will be reworked: area editing, layers, many references, languages and price.' },
-      { type: 'p', text: 'A practical rule: if the job ends when the image is delivered, take the first. If approval and revisions begin after generation, the second will save you far more time than the difference in the quality of the first frame.' },
+      { type: 'p', text: 'A practical rule: if the job ends when the image is delivered, take the first. If approval and revisions begin after generation, the second will save you far more time than the difference in the quality of the first frame. If you would rather not pay yet, [free AI tools for photos](/blog/neyroset-dlya-foto-besplatno/) are covered separately.' },
 
       { type: 'cta' },
     ],

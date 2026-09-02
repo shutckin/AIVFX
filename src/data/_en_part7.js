@@ -3,6 +3,463 @@
 // оплата нейросетей из России. Русские оригиналы - в blog-posts.js.
 const PART_7 = [
   {
+    slug: 'neyroset-dlya-foto-besplatno',
+    category: 'Images & art',
+    title: 'Free AI for photos: what actually works from Russia without a VPN',
+    description:
+      'Free AI photo tools that open from Russia with no VPN or card: Shedevrum, Kandinsky, Krea, Playground, background removal, upscaling. Limits, September 2026.',
+    keywords:
+      'free ai for photos, free ai image generator, free ai photo editor, ai image generator no vpn, shedevrum, kandinsky, free background removal, free ai upscaler',
+    cover: '/blog-images/cover-foto-besplatno.jpg',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
+    date: '2026-09-02',
+    dateModified: '2026-09-02',
+    readingTime: '9 min',
+    related: ['nano-banana-pro-gayd', 'nano-banana-vs-seedream', 'kak-ozhivit-foto-neyrosetyu'],
+    excerpt:
+      'Two very different jobs hide behind the phrase «free AI for photos»: drawing an image from scratch, and fixing a photo you already have. Here is what opens from Russia without a VPN or a foreign card, how much you actually get for free, and exactly where the free tier runs out.',
+    content: [
+      { type: 'p', text: '«Free AI for photos» is one of the most searched phrases on the Russian internet, and almost every time it hides two completely different jobs. One person wants an image drawn from scratch out of a text description. Another wants the background cut off a product shot, an old photo sharpened, or a stray cable erased from a desk. Those are different tools, and the word «free» means something different in each case.' },
+      { type: 'p', text: 'Here is the picture as of September 2026: what opens from Russia directly, where you need a workaround, and where the free tier hits its ceiling.' },
+
+      { type: 'h2', text: 'First, decide which job you have' },
+      { type: 'p', text: 'Split the task in two. **Generation** is when there is no source image and you describe the picture in words: «a ceramic mug on a wooden table by the window». **Editing** is when the photo already exists and needs changing: background out, sharpness up, an object swapped, skin retouched.' },
+      { type: 'p', text: 'The confusion comes from the fact that many services do both, just unevenly. Kandinsky draws well from scratch and edits other people’s photos poorly, while a dedicated background remover draws nothing at all but cuts objects out more cleanly than any generator. Pick for the job, not for the famous name.' },
+
+      { type: 'h2', text: 'What «free» actually means' },
+      { type: 'p', text: 'Four traps that make a free service stop being free right around the time you get used to it.' },
+      { type: 'ul', items: [
+        '**The limit and how it is counted.** Daily, weekly, or rolling. Rolling is the annoying one: Playground gives ten generations per three-hour window, so you cannot push out forty images in one sitting.',
+        '**The commercial licence.** Krea and Playground both restrict the free tier to personal use. An image for a client, a marketplace listing, or an ad formally needs a paid plan, even if you already downloaded it.',
+        '**The quality ceiling.** remove.bg hands out free results at 612 by 612 pixels. Fine for a preview, useless for a product card or print, and the full-size download costs credits.',
+        '**Sign-up and payment.** A card is not always required, but a foreign account often is. If a service will not take a Russian card at all, «free» hits a wall at the first upgrade. We have a [separate guide on paying for AI tools](/blog/kak-oplatit-neyroset-iz-rossii/).',
+      ] },
+
+      { type: 'h2', text: 'Russian services: open immediately, no card' },
+      { type: 'p', text: 'The dullest and most reliable part of the list. No VPN, no foreign account, no card on file. Quality sits below the top international models, but it covers most everyday and content work.' },
+
+      { type: 'h3', text: 'Shedevrum by Yandex' },
+      { type: 'p', text: 'An image, short-video and text generator built on the YandexART model. It works in Russian, so there is no need to translate prompts. The generation itself lives mostly in the mobile app, the website offers less, and the daily caps, if they exist at all, are soft enough that people rarely report hitting them.' },
+      { type: 'p', text: 'Upside: free, no card, more than twenty styles. Downside: fine detail and complex scenes are clearly weaker than Nano Banana or Seedream, and if you plan to sell the output, read the terms once yourself. Rights to generated work are spelled out as a separate clause and reviews interpret it differently.' },
+
+      { type: 'h3', text: 'Kandinsky by Sber' },
+      { type: 'p', text: 'The other Russian generator, reachable through the Fusion Brain site, the Sberbank Online app and GigaChat. It understands Russian natively and needs neither a VPN nor a foreign card. The free allowance is generous: the figure usually quoted is around a hundred generations a day per user, though Sber adjusts it periodically and there is a queue at peak hours.' },
+      { type: 'p', text: 'The current line is Kandinsky 5: an HD image model plus a model for roughly five-second clips. Kandinsky holds composition and artistic styles noticeably better than Shedevrum, but it is just as bad at text inside the frame. Signs and Russian lettering break reliably.' },
+
+      { type: 'h3', text: 'Kandinsky inside GigaChat' },
+      { type: 'p', text: 'You can ask for an image right in the chat: «draw a cat on a windowsill». GigaChat passes the request to Kandinsky and returns the result, and all you need is a SberID. One real limitation: the chat only outputs 1024 by 1024 squares, and the free daily allowance is noticeably smaller than on Fusion Brain itself. Handy for a couple of images in passing, awkward for actual work.' },
+
+      { type: 'image', src: '/blog-images/foto-besplatno-desk.jpg', alt: 'A hand holding a printed photograph up to the window light, a laptop behind it showing a cleaned-up version', caption: 'Fixing an existing photo and generating a picture from scratch are different jobs, and the free tools for them are different too', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+
+      { type: 'h2', text: 'International tools: free exists, with conditions' },
+
+      { type: 'h3', text: 'Gemini and Nano Banana by Google' },
+      { type: 'p', text: 'Currently the best balance of quality and convenience for photo work: the model follows instructions like «make the mug blue, leave everything else alone» precisely, and it is the only mainstream option that reliably writes readable Russian text inside an image. The Gemini app gives the fast version free, at roughly twenty generations a day. Pro is not available on the free tier.' },
+      { type: 'p', text: 'One big problem: opened directly from Russia, Gemini answers «not available in your country», and Google does not accept Russian cards. Two ways around it, a VPN with a foreign account or a Russian reseller running on the official API and billing in roubles. Model and prompt detail sits in our [Nano Banana Pro guide](/blog/nano-banana-pro-gayd/), the head-to-head is in [Nano Banana vs Seedream](/blog/nano-banana-vs-seedream/), and how to pick a reseller is in our [overview of AI aggregators](/blog/agregatory-ai-servisov/).' },
+
+      { type: 'h3', text: 'Krea' },
+      { type: 'p', text: 'A workbench that puts dozens of image, video and upscaling models behind one interface. Free tier: 100 compute units a day, no card at sign-up. A hundred units is enough to iterate on a still image, nowhere near enough for video or heavy upscaling. The catch that matters: the free licence is not commercial.' },
+
+      { type: 'h3', text: 'Playground' },
+      { type: 'p', text: 'An infinite-canvas editor, useful when you are assembling a banner or a cover rather than making one picture. Free: ten generations per three-hour window and ten downloads a day, no card needed. Across a busy day that adds up to forty or fifty images, but only in batches. Like Krea, the free tier is personal use only.' },
+
+      { type: 'h3', text: 'Ideogram' },
+      { type: 'p', text: 'Known for handling text inside images better than average, which is why people reach for it on posters and logos. There is a free tier, but it is small and runs on «slow» credits that queue behind paying users. Ideogram changes the exact credit count more often than reviews get rewritten, so check the pricing page rather than an article. Russian lettering still comes out mangled.' },
+
+      { type: 'h3', text: 'Midjourney: there is no free tier' },
+      { type: 'p', text: 'Midjourney shut its free trial down back in April 2023 and never brought it back. The cheapest plan is around ten dollars a month and there is no legitimate cheaper route. The one official exception is roughly twenty free generations for new users in the niji mobile app, which is a separate anime-focused product. Everything else advertising «Midjourney for free» is either a shared account or a reseller.' },
+
+      { type: 'h2', text: 'Editing photos: a completely different shelf' },
+      { type: 'p', text: 'If you already have the source image, you barely need generators. You need narrow tools, and those are the ones most likely to be free.' },
+
+      { type: 'h3', text: 'Removing backgrounds' },
+      { type: 'p', text: 'The classic remove.bg works, but the free output is a 612 by 612 preview and the full-size file costs credits. The good news is that background cutout technology went open years ago, and dozens of free services do it just as well. Photoroom and Canva both open from Russia, the only friction is payment. Practical advice: run one typical image of yours through three services and keep whichever handles hair and semi-transparent edges best. That is where the difference actually shows.' },
+
+      { type: 'h3', text: 'Increasing resolution' },
+      { type: 'p', text: 'The best free option here is not an online one at all. **Upscayl** is an open-source app for Windows, macOS and Linux that runs locally on your GPU: no internet, no sign-up, no limits, no watermark. It upscales up to 16 times and ships several Real-ESRGAN-based models tuned for photos, illustration and anime, with batch processing for a whole folder.' },
+      { type: 'p', text: 'The only requirement is a reasonably capable graphics card. In exchange, your files never leave your machine, which matters on its own if you are handling someone else’s photos. There are plenty of online upscalers too, but almost all cap you at three to five images a day.' },
+
+      { type: 'h3', text: 'Swapping objects and retouching' },
+      { type: 'p', text: 'Free options are thin here. Precise instruction-based editing («remove the cable, leave everything else») is exactly what the Google models are good at, and those do not open from Russia directly. Russian generators handle it more bluntly: they will repaint a chunk of the frame in the general spirit of the original rather than patch it cleanly. For a one-off job, paying a reseller a few dozen roubles per generation beats spending half a day fighting a free tool.' },
+      { type: 'p', text: 'And one job people routinely file under editing: turning a still photo into a short video. That is different models and different money, covered in [our separate guide](/blog/kak-ozhivit-foto-neyrosetyu/).' },
+
+      { type: 'h2', text: 'Free forever: your own machine' },
+      { type: 'p', text: 'If you are willing to spend one evening on setup, Stable Diffusion running locally removes the limit question entirely: no queues, no external content filters, no ambiguity about rights. Hardware demands have dropped, and a card around the RTX 3060 level covers basic work. The honest downsides: installation takes that evening, out-of-the-box quality sits below the top cloud models, and anything the cloud does with one button you assemble by hand here. A good path if you need images regularly and in volume. A bad one if you need three a month.' },
+
+      { type: 'h2', text: 'The short answer, by task' },
+      { type: 'ul', items: [
+        '**An image from a Russian prompt, fast, no setup** - Shedevrum or Kandinsky. They open immediately and need no card.',
+        '**Readable text inside the image** - Google models only, via VPN or a reseller. Russian generators cannot do this yet.',
+        '**Background removal** - any of the free removers, tested on your own image with hair or glass in it.',
+        '**Upscaling** - Upscayl, locally. Free, unlimited, and nothing gets uploaded anywhere.',
+        '**Lots of images every month** - Stable Diffusion on your own machine, or a paid plan. Free limits die on day one at that volume.',
+      ] },
+      { type: 'quote', text: 'A free tier limits the number of attempts far more than it limits quality. And a good image almost never arrives on the first try. It arrives on the fifth.' },
+
+      { type: 'h2', text: 'Frequently asked questions' },
+
+      { type: 'h3', text: 'What is the best free AI for photos with no VPN?' },
+      { type: 'p', text: 'For generating from scratch in Russian, Kandinsky by Sber: a generous allowance, native Russian, nothing to configure. Shedevrum is simpler but weaker on complex scenes. For editing an existing photo the comparison is meaningless, because narrow tools beat generators there.' },
+
+      { type: 'h3', text: 'Can I use free generations commercially?' },
+      { type: 'p', text: 'It depends on the service, and it is worth checking before rather than after. Krea and Playground restrict the free tier to personal use outright. Russian services put rights to the output in a separate clause of their terms, and reviews read that clause differently, so go to the source. For paid client work, a paid plan is primarily a legal purchase rather than a technical one.' },
+
+      { type: 'h3', text: 'Do I need a card to sign up?' },
+      { type: 'p', text: 'Not for Shedevrum, Kandinsky, Krea, Playground or Upscayl. A card only comes up when you upgrade, and that is exactly where a Russian one usually fails.' },
+
+      { type: 'h3', text: 'Why does a free image look so obviously AI-generated?' },
+      { type: 'p', text: 'That is not about the free tier, it is about defaults: models drift toward blown-out gloss, everything in focus, plastic-looking skin. The fix is in the prompt. Add a line describing the optics and film stock at the end: lens type, shallow depth of field, fine grain, lifted blacks, no sharpening, no HDR. That single line changes the result more than switching services would.' },
+
+      { type: 'h3', text: 'The free limit ran out mid-task. Now what?' },
+      { type: 'p', text: 'Three options in ascending cost. Move to another free service and finish there, if the style allows it. Pay a reseller per generation, in roubles, without a subscription. Or buy a monthly plan if you need images regularly, which starts paying off somewhere around a few hundred images a month.' },
+
+      { type: 'h3', text: 'Is it worth learning this properly?' },
+      { type: 'p', text: 'If you need images and video for work rather than as a one-off, yes. The difference in results comes far less from which service you pick than from how the request is phrased and how the process is set up. We run [training on AI video and graphics](/services/obuchenie-ai-video/) covering exactly that: prompts, access from Russia, and assembling the finished material.' },
+
+      { type: 'cta' },
+    ],
+  },
+  {
+    slug: 'promty-dlya-neyrosetey',
+    category: 'Guides',
+    title: 'AI Prompts That Work the First Time: A Practical Guide',
+    description: 'Prompt structure for images and for video, how to use negatives properly, the one-variable rule, and three complete prompts broken down.',
+    keywords: 'ai prompts, how to write prompts, midjourney prompts, minimax h3 prompts, video prompt guide, negative prompt, nano banana pro prompt, kling prompt, seedance prompt, image to video prompt',
+    cover: '/blog-images/cover-promty.jpg',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
+    date: '2026-09-02',
+    dateModified: '2026-09-02',
+    readingTime: '9 min',
+    related: ['minimax-h3-hailuo-gayd', 'nano-banana-pro-gayd', 'kak-sdelat-ai-video'],
+    excerpt: 'What a working prompt is actually made of, why a video prompt is a different animal from an image prompt, and how most failed generations break on the same two or three mistakes. Includes three full prompts with an explanation of why each one works.',
+    content: [
+      { type: 'p', text: 'A prompt is a text brief for a model. And almost every time a generation comes out nothing like the picture in your head, the model is not the problem. The brief was vague.' },
+      { type: 'p', text: 'Below is a working method: how to build an image prompt, how to rewrite it for video, what to do with negatives, and how to avoid burning your whole generation budget in one evening.' },
+
+      { type: 'h2', text: 'Why it fails on the first try' },
+      { type: 'p', text: 'Three reasons come up over and over.' },
+      { type: 'ul', items: [
+        '**The model cannot tell what matters.** Give it twenty equally weighted details and it will pick the lead itself. Probably not the one you wanted.',
+        '**The prompt contradicts itself.** «Soft diffused light» and «hard contrasty shadows» in the same line is an argument the model settles at random.',
+        '**Everything changes at once.** You dislike the shot, so you adjust light, angle and wardrobe in one go. It gets worse. Which change did it? No idea.',
+      ] },
+      { type: 'quote', text: 'A prompt is not a spell or a pile of tags. It is a short brief read by someone who cannot ask you a follow-up question.' },
+
+      { type: 'h2', text: 'How an image prompt is built' },
+      { type: 'p', text: 'Order matters: most models give more weight to what comes first. This sequence works.' },
+      { type: 'ol', items: [
+        '**Subject.** Who or what is in frame, as one clear noun with a couple of qualifiers.',
+        '**Action or pose.** What they are doing right now. One action, not three.',
+        '**Environment.** Where it happens and at what time of day.',
+        '**Light.** One source and its character: soft window light from the left, hard backlight, warm tungsten.',
+        '**Optics and framing.** Shot size, focal length, depth of field.',
+        '**Style and mood.** Palette, texture, emotion.',
+        '**Technical parameters.** Aspect ratio and other flags, always last.',
+      ] },
+      { type: 'p', text: 'Recent models such as Google\'s Nano Banana Pro read plain human sentences and do not need tag spam like «8k, masterpiece, trending on artstation». Write in full sentences, the way you would brief a photographer. We covered that model in detail in the [Nano Banana Pro guide](/blog/nano-banana-pro-gayd/).' },
+      { type: 'p', text: 'Midjourney works on similar logic: describe the scene, then append parameters at the end of the line for aspect ratio, stylization strength and exclusions. The exact flag syntax shifts between versions, so check the official docs rather than a year-old blog post.' },
+
+      { type: 'h3', text: 'Example 1: a shot from scratch' },
+      { type: 'p', text: 'Close-up portrait of a middle-aged barista in a small city coffee shop, holding a warm ceramic cup with both hands, soft window light from the left, shallow depth of field, warm amber and charcoal palette, 50mm lens, subtle film grain, calm and slightly tired expression.' },
+      { type: 'p', text: 'Why it works: one subject, one action, one light source, one palette, one lens. Mood sits at the end, not the front. Nothing in the line contradicts anything else. There is simply no room left for the model to improvise.' },
+
+      { type: 'h3', text: 'Example 2: editing an existing image' },
+      { type: 'p', text: 'Replace the plain grey background with a softly blurred workshop interior at dusk. Keep the person, their pose, clothing, facial features and the direction of light exactly as they are. Match the new background colour temperature to the existing warm key light.' },
+      { type: 'p', text: 'Why it works: it contains the part people forget, the preservation clause. «Change the background» gives the model permission to redo everything. «Change the background, keep the face, pose, clothing and light direction unchanged» narrows the job to a single operation. When editing, stick to one change per pass.' },
+
+      { type: 'image', src: '/blog-images/promty-workspace.jpg', alt: 'A workstation showing several variants of the same shot side by side', caption: 'The same prompt with one parameter moving at a time produces a readable series of variants instead of a random pile of images', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+
+      { type: 'h2', text: 'A video prompt follows different logic' },
+      { type: 'p', text: 'The classic beginner mistake is taking a good image prompt and handing it to a video model. It will not work, because a video model is not asking what is in the frame. It is asking what changes.' },
+      { type: 'p', text: 'This matters most in image-to-video, where you hand the model a finished still. Appearance, lighting and composition are already locked by the picture. Repeat them in text and you create a second set of instructions that argues with the first, and the character drifts. In image-to-video, describe motion only: what the subject does, what the camera does, and what stays still.' },
+      { type: 'p', text: 'Kling recommends its own five-part structure: subject, subject motion, scene, camera language, and lighting with atmosphere. ByteDance describes a similar six-step formula for Seedance: subject, action, environment, camera, style, constraints, aiming at roughly 60 to 100 words. MiniMax H3 generates picture and sound in a single pass, which adds an audio layer to the prompt: lines in quotes, action sounds, ambience and music. We break that model down in the [MiniMax H3 guide](/blog/minimax-h3-hailuo-gayd/), and compare the models against each other in our [video model comparison](/blog/sravnenie-neyrosetey-dlya-video/).' },
+
+      { type: 'h3', text: 'Example 3: animating a finished still' },
+      { type: 'p', text: 'Slow push-in on the barista. She lifts the cup, takes one sip, then lowers it. Steam drifts upward. The background stays soft and static. Handheld micro-drift, no cuts.' },
+      { type: 'p', text: 'Why it works: one camera move instead of four, one meaningful action with a beginning and an end, and an explicit statement of what must stay still. Not a word about appearance or lighting, because the source image already carries both.' },
+      { type: 'p', text: 'If the model handles sound, add the audio layer as its own line: «quiet cafe ambience, one ceramic clink, no dialogue, no music». Name the sounds you want, or the mix is left to chance.' },
+
+      { type: 'h2', text: 'What to do with negatives' },
+      { type: 'p', text: 'A negative prompt lists what must not appear. Some services give it a dedicated field, others take it as a flag inside the line. It works best on artefacts, not on meaning.' },
+      { type: 'ul', items: [
+        'Good at removing: blur, distortion, extra fingers and limbs, watermarks, stray text, jitter.',
+        'Bad at removing: things you never asked for. Writing «no cars» when there were no cars in the prompt only puts the word «cars» in front of the model.',
+        'Not a styling tool. A negative will not make an image prettier, it only trims defects.',
+      ] },
+      { type: 'p', text: 'The base set for video tends to be the same every time: blur, distortion, warped fingers, extra limbs, text, watermark. Save it once and paste it into every generation.' },
+
+      { type: 'h2', text: 'The one-variable rule' },
+      { type: 'p', text: 'This is the most underrated habit in the whole workflow. Change **one thing per pass**. Light. Or angle. Or palette. Never all three.' },
+      { type: 'p', text: 'The reason is simple: generation has a random component. Change three parameters, get a better result, and you still do not know which one helped, so you cannot repeat it. Move one at a time and five iterations leave you with five known-good settings you can apply to any shot afterwards.' },
+      { type: 'p', text: 'Practical tip: keep prompts in a text file rather than in the service input box. You keep the edit history and can roll back to a version that worked.' },
+
+      { type: 'h2', text: 'How to stop wasting money on generations' },
+      { type: 'p', text: 'Video generation costs far more than an image and takes longer to render. That dictates the order of work.' },
+      { type: 'ol', items: [
+        'First get the **still frame** right in an image model: composition, subject, light, palette.',
+        'Only then feed that frame into a video model in image-to-video mode.',
+        'In the video prompt, describe motion and camera only.',
+        'If the motion misses, fix the motion. You never have to revisit the image.',
+      ] },
+      { type: 'p', text: 'This way you need far fewer expensive attempts, and results are steadier because the video model is not reinventing the character on every run. The full pipeline is in [how to make an AI video](/blog/kak-sdelat-ai-video/), and free quotas are available in [Kling](/blog/kling-v-rossii-besplatno/), among others.' },
+
+      { type: 'h2', text: 'Common mistakes' },
+      { type: 'ul', items: [
+        '**Tag lists instead of description.** Current models read connected prose better than a garland of commas.',
+        '**Junk boosters.** «8k, ultra detailed, masterpiece, award winning» add almost nothing and steal the model\'s attention.',
+        '**Two conflicting requirements.** Soft light and hard shadows, wide shot and tight portrait, locked-off camera and an orbit.',
+        '**Three camera moves in one short clip.** A push-in, an orbit and a pan inside five seconds is guaranteed mush.',
+        '**Describing appearance in image-to-video.** It duplicates what the frame already holds and causes face drift.',
+        '**Ten edits in one sentence.** Especially painful in image editing, where you cannot tell which edit broke the result.',
+        '**No preservation clause.** Without «keep the face and pose unchanged», the model assumes it may redo everything.',
+        '**Length for its own sake.** A 300-word prompt usually performs worse than a dense 60 to 100.',
+      ] },
+
+      { type: 'h2', text: 'Short checklist' },
+      { type: 'ol', items: [
+        'One subject, one action, one light source.',
+        'Most important first, technical parameters last.',
+        'For video, describe what changes, not what is there.',
+        'Keep negatives to artefacts only.',
+        'One edit per iteration.',
+        'Still frame first, motion second.',
+      ] },
+      { type: 'p', text: 'If you would rather learn this systematically than in fragments, we run [AI video training](/services/obuchenie-ai-video/) built around your own projects.' },
+
+      { type: 'h2', text: 'Frequently asked questions' },
+
+      { type: 'h3', text: 'What language should I write prompts in?' },
+      { type: 'p', text: 'Large models understand many languages, but they were trained mostly on English descriptions, so English tends to give more predictable results, especially for optics and lighting terms. A practical approach is to think in your own language and translate the final prompt, double-checking the technical vocabulary.' },
+
+      { type: 'h3', text: 'How long should a prompt be?' },
+      { type: 'p', text: 'For video, roughly 60 to 100 words is a good target. Images allow a little more room, but the principle holds: a dense paragraph beats a wall of text. Every extra requirement dilutes the weight of the rest.' },
+
+      { type: 'h3', text: 'Do I always need a negative prompt?' },
+      { type: 'p', text: 'No. It earns its place where a model repeatedly produces the same defect: warped fingers, jitter, watermarks. With no specific problem to solve, a long negative will not improve the shot and can get in the way.' },
+
+      { type: 'h3', text: 'Why does the same prompt give different results?' },
+      { type: 'p', text: 'Generation has a random component, so two runs of identical text produce different frames. That is exactly why you change one parameter at a time: otherwise you cannot separate «got lucky» from «the prompt got better».' },
+
+      { type: 'h3', text: 'Can I reuse a prompt across different models?' },
+      { type: 'p', text: 'The meaningful part travels fine: subject, action, light, camera. Technical flags and service-specific syntax do not, and have to be rewritten. An image prompt does not transfer to a video model at all, since the two are answering different questions.' },
+
+      { type: 'h3', text: 'Where do I start when the output looks nothing like the idea?' },
+      { type: 'p', text: 'Cut the prompt down to three lines: who, what they are doing, what the light is. Get an acceptable base, then add details one at a time. Repairing an overloaded prompt is almost always slower than rebuilding it from a short core. You can practise for free in [Seedance](/blog/seedance-besplatno/), among other options.' },
+
+      { type: 'cta' },
+    ],
+  },
+  {
+    slug: 'neyroseti-na-russkom',
+    category: 'Guides',
+    title: 'AI Tools in Russian: UI Language vs Prompt Language vs Cyrillic in the Frame',
+    description: 'A Russian UI, a model that reads Russian prompts, and Cyrillic text inside the image are three different things. Tool-by-tool breakdown plus a fix for captions.',
+    keywords: 'ai tools in russian, russian ui ai generator, cyrillic text in ai images, midjourney russian prompts, russian language ai video, kandinsky, yandexart, nano banana pro cyrillic',
+    cover: '/blog-images/cover-na-russkom.jpg',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
+    date: '2026-09-02',
+    dateModified: '2026-09-02',
+    readingTime: '8 min',
+    related: ['minimax-h3-hailuo-gayd', 'kling-v-rossii-besplatno', 'kak-oplatit-neyroset-iz-rossii'],
+    excerpt: 'If you produce content for a Russian-speaking audience, "does it work in Russian" is really three separate questions. Here is which tools have a Russian UI, which models actually parse Russian prompts, and why Cyrillic signage belongs in your editor rather than in the generator.',
+    content: [
+      { type: 'p', text: 'If you make visuals for a Russian-speaking market, sooner or later you ask whether a given tool "works in Russian". That question hides three completely different problems, and mixing them up is why people end up with the wrong tool.' },
+      { type: 'p', text: 'One person wants menus and buttons in their own language. Another wants to type the prompt in Russian instead of translating it first. A third needs the shop sign in the shot to actually read «Кофейня» rather than a row of letter-shaped scribbles. Different problems, different answers.' },
+
+      { type: 'h2', text: 'Three things people call by one name' },
+
+      { type: 'h3', text: '1. The interface language' },
+      { type: 'p', text: 'Menus, buttons, tooltips, docs. This only affects how fast you find your way around. **It has zero effect on output quality.** A ten-button English UI takes an evening to learn, and translating those buttons would not change a single pixel of the result.' },
+
+      { type: 'h3', text: '2. How well the model parses a Russian prompt' },
+      { type: 'p', text: 'This one matters. Most large models understand some Russian, but unevenly. A plain scene like "a man in a leather jacket walks down a night street" lands fine anywhere. Craft vocabulary is where it breaks: lens choice, quality of light, camera movement. Those concepts are densely represented in English training captions and thinly in Russian ones.' },
+      { type: 'p', text: 'The practical move is a hybrid prompt. Describe subject and mood in whatever language you think in, then write the technical half in English. That beats a fully Russian prompt on every foreign model.' },
+
+      { type: 'h3', text: '3. Cyrillic text inside the image or video' },
+      { type: 'p', text: 'This is a separate problem entirely, and it does not follow from the first two. The service can be fully Russian, your prompt can be Russian, and the poster headline still comes out mangled. More on why below.' },
+
+      { type: 'h2', text: 'Tools that genuinely have a Russian interface' },
+      { type: 'p', text: 'A real Russian UI mostly means a Russian product. There are not many, but they work and they need no VPN inside Russia.' },
+      { type: 'ul', items: [
+        '**Shedevrum by Yandex** (shedevrum.ai), running on the YandexART model. Web plus iOS and Android apps, fully Russian UI, free tier. The paid Shedevrum Pro plan ships inside the Yandex Plus subscription and adds prompts up to 1500 characters, six variants per generation and 4K upscaling.',
+        '**Alice AI** (alice.yandex.ru). Image generation lives inside the chat: a "draw a picture" button or just the word "draw". You can ask for four variants at once, set the aspect ratio and edit an uploaded photo. History syncs between phone and desktop. Free, no VPN needed.',
+        '**GigaChat by Sber.** Russian UI with image generation powered by the built-in Kandinsky model. One notable limit: images come out square only, 1024 by 1024. Reachable through the web app, the Sberbank Online app, a VKontakte bot and the Salute app.',
+        '**Kandinsky on its own.** Beyond GigaChat you can reach the model through the Fusion Brain site and an open API. Free, with request limits and peak-hour queues.',
+        '**Russian aggregators.** They resell access to foreign models behind a Russian UI and take domestic cards. More on that class of service in our [AI aggregator overview](/blog/agregatory-ai-servisov/).',
+      ] },
+
+      { type: 'h2', text: 'Tools that do not' },
+      { type: 'p', text: 'Every frontier model runs in English. That is not a blocker, it just means you configure things once yourself.' },
+      { type: 'ul', items: [
+        '**Midjourney.** No localized version, the workflow lives in Discord. Russian prompts are parsed partially and the results are noticeably less predictable than in English. Payment is a separate hurdle: Russian cards fail in Stripe and PayPal, so you need a workaround ([paying from Russia](/blog/kak-oplatit-neyroset-iz-rossii/)).',
+        '**Kling.** English menus, no localized build. It does read Russian prompts and will generate from them, but English phrasing is more stable. Access and limits are covered in our [Kling from Russia guide](/blog/kling-v-rossii-besplatno/).',
+        '**Hailuo (MiniMax).** English interface. We found no confirmation of a Russian build, so assume English. Hands-on notes live in the [MiniMax Hailuo guide](/blog/minimax-h3-hailuo-gayd/).',
+        '**Seedance by ByteDance.** Parses Russian prompts without a separate translation step, but reads cinematography terms more precisely in English. There is no direct access from Russia through either the consumer site or the official API, so people go through intermediaries.',
+        '**Nano Banana.** English UI, but the most interesting option of the group when it comes to text in frame. See the [Nano Banana Pro guide](/blog/nano-banana-pro-gayd/).',
+      ] },
+
+      { type: 'image', src: '/blog-images/na-russkom-titry.jpg', alt: 'An editing timeline with an empty lower-third bar over a frame', caption: 'The reliable route to Russian text on screen: generate the frame without any lettering and add the caption in the edit', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+
+      { type: 'h2', text: 'Cyrillic in the frame: why it breaks and what to do' },
+
+      { type: 'h3', text: 'Why Cyrillic is harder for these models' },
+      { type: 'p', text: 'It is a data problem, not a conspiracy. Latin characters appeared in training sets tens of times more often than Cyrillic ones, and cleanly labelled examples of Russian signage were scarce. So the model does not typeset letters, it paints shapes that resemble letters.' },
+      { type: 'p', text: 'Length is the second factor. Each glyph is placed independently and error compounds across the string. A five-letter word survives far more often than a thirty-character phrase. The rule follows directly: the shorter the caption, the better your odds.' },
+
+      { type: 'h3', text: 'Which models handle it best' },
+      { type: 'ul', items: [
+        '**Nano Banana Pro** is currently the most dependable non-Russian option for Cyrillic. Text stays readable, especially on short banners, posters and covers. Quality drops on calligraphic and heavily decorative typefaces.',
+        '**Alice AI.** In May 2026 Yandex shipped an updated Alice AI ART model and stated it produces correct Russian on-image text three times more often. The same announcement gave usable tips: wrap the caption in quotation marks, set complex words in capitals, split long phrases into short ones.',
+        '**Shedevrum.** YandexART can place text into an image and handles Russian cultural context well, with no prompt translation required.',
+      ] },
+      { type: 'p', text: 'Video is a harder case. A caption in a moving shot has to stay identical across every frame, which is substantially tougher than a still, and there is no reliable way to get clean Cyrillic straight out of a video model today.' },
+
+      { type: 'h3', text: 'The practical answer: put the lettering in post' },
+      { type: 'p', text: 'The honest advice is boring, and it saves hours. If the caption matters, do not ask the model for letters.' },
+      { type: 'ol', items: [
+        'Generate a clean plate. State it in the prompt: blank sign, no text, empty label.',
+        'If the model keeps writing anyway, push it into the negative prompt or add "no lettering, no logos" at the end of the description.',
+        'Add the caption on top in your editor or graphics app. DaVinci Resolve, After Effects, Photoshop, Figma, whatever you already use.',
+        'Pick a font with a real Cyrillic set, then match perspective and lighting so the type sits on the surface instead of floating above it.',
+        'Only let the model write where a mistake does not matter: soft background, far plane, decorative signage out of focus.',
+      ] },
+      { type: 'quote', text: 'The model owns the picture, the edit owns the letters. Stop asking one tool to do both and the Cyrillic problem simply goes away.' },
+
+      { type: 'h2', text: 'Picking by task' },
+      { type: 'ul', items: [
+        '**Fast, in Russian, no cards or VPN** - Shedevrum, Alice AI, GigaChat. Zero setup cost.',
+        '**A poster or cover with a Russian headline** - Nano Banana Pro or Alice AI, short caption, in quotation marks.',
+        '**Maximum image or video quality** - a frontier model with an English prompt, reached through an aggregator or intermediary.',
+        '**A video with Russian titles** - any video model for the footage, titles in the edit. Never the other way round.',
+      ] },
+      { type: 'p', text: 'If you would rather learn this as a system than assemble it from scattered guides, we run [AI video training](/services/obuchenie-ai-video/) covering prompting, model selection and assembling a finished piece.' },
+
+      { type: 'h2', text: 'Frequently asked questions' },
+
+      { type: 'h3', text: 'Do English prompts really produce better images?' },
+      { type: 'p', text: 'On foreign models, yes, particularly for the technical half of the description. Subject and mood travel fine in Russian; light, optics and camera movement are safer in English. Russian models such as YandexART and Kandinsky need no translation at all, they were built for the language.' },
+
+      { type: 'h3', text: 'Is there a Russian version of Midjourney?' },
+      { type: 'p', text: 'No official one. The workflow runs in Discord in English. Russian prompts are partially understood but less stable. Anything marketed as "Midjourney in Russian" is a third-party aggregator that translates your request and forwards it to the same model.' },
+
+      { type: 'h3', text: 'Which free tools work in Russian without a VPN?' },
+      { type: 'p', text: 'Shedevrum, Alice AI and GigaChat all offer free generation with a Russian interface and no VPN. Kandinsky is free through Fusion Brain, with request limits and queues at peak hours.' },
+
+      { type: 'h3', text: 'Why does the model output gibberish instead of Russian letters?' },
+      { type: 'p', text: 'Because it is not typesetting text, it is drawing letter-like shapes. Cyrillic was heavily underrepresented next to Latin in training data, so the shapes come out approximate, and error accumulates the longer the phrase gets.' },
+
+      { type: 'h3', text: 'Can I ask the model to fix a broken caption?' },
+      { type: 'p', text: 'Sometimes. Cut the caption to a single word, wrap it in quotation marks, set it in capitals and reroll a few times. It is still a lottery. When the text has to be exact - a brand name, a price, contact details - pull it out of the frame and add it in post.' },
+
+      { type: 'h3', text: 'Does a Russian interface affect output quality?' },
+      { type: 'p', text: 'No. UI language and prompt language are unrelated. An aggregator with a Russian front end calls exactly the same model as the original site, and translating buttons changes nothing about the picture.' },
+
+      { type: 'h3', text: 'What about Cyrillic in AI video specifically?' },
+      { type: 'p', text: 'Treat it as unavailable. Keeping a caption stable across every frame is much harder than rendering it once in a still, so plan on generating clean footage and adding titles during the edit.' },
+
+      { type: 'cta' },
+    ],
+  },
+  {
+    slug: 'midjourney-besplatno-iz-rossii',
+    category: 'Images & art',
+    title: 'Midjourney free and from Russia: is there a free plan, how to pay and what to use instead',
+    description:
+      'Does Midjourney have a free plan in 2026, why you cannot download it, whether it opens from Russia, what it costs and which free alternatives are worth it.',
+    keywords:
+      'midjourney free, midjourney free plan, download midjourney, midjourney in russian, midjourney subscription price, midjourney official site, midjourney from russia, midjourney cost, midjourney alternatives',
+    cover: '/blog-images/cover-midjourney-dostup.jpg',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
+    date: '2026-09-02',
+    dateModified: '2026-09-02',
+    readingTime: '8 min',
+    related: ['midjourney-gayd', 'nano-banana-pro-gayd', 'kak-oplatit-neyroset-iz-rossii'],
+    excerpt:
+      'Thousands of people every month search for a free Midjourney and for a way to download it. Both searches have a short, unwelcome answer. Here it is without the sugar coating: there is no free plan, there is nothing to download, and a Russian card will not go through.',
+    content: [
+      { type: 'p', text: 'This article is not about writing prompts and pressing buttons: how to actually use the tool is covered in a [separate guide](/blog/midjourney-gayd/). This one is about money and access. Three questions people ask search engines most often: what it costs, whether you can use it free, and whether it works from Russia. Status as of September 2026.' },
+
+      { type: 'h2', text: 'There is no free plan. None at all' },
+      { type: 'p', text: 'Let us start with the important part, because an entire industry of misinformation is built on top of it. **Midjourney has no free plan and no trial period.** To generate even a single image you need a subscription, starting at 10 dollars a month.' },
+      { type: 'p', text: 'It was not always this way. Until the spring of 2023 new users got roughly two dozen free generations to try things out. At the end of March 2023 the company switched that off: founder David Holz blamed extraordinary demand and throwaway accounts. That was the same period when fake images of Trump being arrested and the Pope in a puffer jacket went viral. The trial was briefly restored later, but it did not last, and it has not worked since.' },
+      { type: 'p', text: 'That is where the widely repeated figure of 25 free generations comes from. It was true three years ago. Today it is stale text that gets copied from one traffic-hungry article to the next.' },
+      { type: 'quote', text: 'If a site promises you Midjourney for free, it has either recycled a 2023 article, or it is reselling someone else\'s account, or it is not Midjourney at all.' },
+
+      { type: 'h2', text: 'Downloading Midjourney: there is nothing to download' },
+      { type: 'p', text: 'People search for a Midjourney download hundreds of times a month, and there is no correct answer to that request. Midjourney is a cloud service. Generation happens on the company\'s servers, and you work through a browser or through a bot in a messenger. There is no official application for Windows or macOS, and there never was one.' },
+      { type: 'p', text: 'This is where it gets ugly. Demand exists, the product does not, so scammers moved in. The loudest case: a fake Midjourney page on social media gathered over a million followers advertising a non-existent desktop version. The supposed installer was an infostealer that pulled passwords and card details out of the browser. The scheme is still running, only the branding changes.' },
+      { type: 'ul', items: [
+        '**Any exe or dmg named Midjourney is malware.** There is no other option, because no genuine file exists.',
+        '**Cracked versions, free premium builds, activators** are the same thing wearing a different hat.',
+        '**Lookalike sites with similar addresses** exist to harvest card details: you enter the card, the money leaves, no subscription appears.',
+        '**There is exactly one official site: midjourney.com.** Everything else is resale at best and theft at worst.',
+      ] },
+
+      { type: 'h2', text: 'Does the service open from Russia' },
+      { type: 'p', text: 'Midjourney is not blocked from the Russian side. Restrictions come from the other direction: the service is unfriendly to Russian addresses, and users report the web version failing to load or accounts getting limited. From what people describe, signing up and logging in is more reliable from a foreign address.' },
+      { type: 'p', text: 'Discord is a separate complication. Historically Midjourney lived there: you typed a command to a bot in a chat and the bot sent images back. Discord is blocked in Russia, so that route is closed for many people. The good news is that Midjourney now has a full web version on the official site, and Discord is no longer required for generation. The bad news is that this barely changes anything, because the real obstacle is not the interface but the payment.' },
+
+
+      { type: 'h2', text: 'What the subscription costs' },
+      { type: 'p', text: 'There are four plans, and they differ mainly in how much fast generation time you get per month. Monthly billing:' },
+      { type: 'ul', items: [
+        '**Basic, 10 dollars a month.** About 3.3 hours of fast generation. Roughly two hundred images if you count crudely, since one image eats about a minute.',
+        '**Standard, 30 dollars.** Around 15 hours of fast generation plus unlimited slow mode. The working choice for anyone generating regularly.',
+        '**Pro, 60 dollars.** About 30 hours plus stealth mode, where your images stay out of the public feed.',
+        '**Mega, 120 dollars.** About 60 hours, for people generating at volume.',
+      ] },
+      { type: 'p', text: 'Annual billing takes roughly a fifth off each plan. The detail people learn too late: **the cheapest plan has no unlimited slow mode.** Run out of hours and generation stops until next month or until you buy more. So if you intend to work rather than experiment, look at Standard from the start, where unlimited slow mode covers everything that is not urgent.' },
+      { type: 'p', text: 'One more thing: time is spent on every attempt, failures included. A bad frame costs exactly as much as a good one.' },
+
+      { type: 'h2', text: 'Payment: a Russian card will not go through' },
+      { type: 'p', text: 'You cannot pay Midjourney directly with a card from a Russian bank. The charge is declined, and a VPN does not help: you can change the network, but not the bank that issued the card. There are three workarounds, and they are the same for every foreign AI service.' },
+      { type: 'ol', items: [
+        'A foreign or virtual card issued abroad. The lowest final cost per image, since you pay exactly the list price. In exchange you deal with issuing and topping up the card, plus a VPN to log in.',
+        'An intermediary who buys the subscription on your behalf for rubles. The markup is usually noticeable, but there is no card and no setup. The risk is handing account access to a third party.',
+        'A Russian AI aggregator: Midjourney inside someone else\'s interface, ruble payments, no VPN. More expensive per image, but you are in with one click. How to pick such services and what to check is covered in our [aggregator breakdown](/blog/agregatory-ai-servisov/).',
+      ] },
+      { type: 'p', text: 'A detailed comparison of all three routes, with prices and the traps specific to each service, is in our [separate article on paying for AI services from Russia](/blog/kak-oplatit-neyroset-iz-rossii/).' },
+
+      { type: 'h2', text: 'There is no Russian interface' },
+      { type: 'p', text: 'People often search for Midjourney in Russian, and the answer has two halves. The interface exists in English only. Anything presented as a Russian Midjourney is either your browser auto-translating the page or a Russian aggregator that wrapped the service in its own shell.' },
+      { type: 'p', text: 'Prompts are the more interesting half. The model does understand Russian text and will return an image. But it was trained largely on English descriptions, so the specialised vocabulary of light, optics and style lands far more precisely in English: cinematic lighting, shallow depth of field, golden hour give predictable results, while their Russian equivalents are a lottery. A simple working habit: think in your own language, write in English, and pick the camera and lighting terms by hand instead of trusting a translator.' },
+
+      { type: 'image', src: '/blog-images/midjourney-dostup-card.jpg', alt: 'Two monitors side by side showing similar generated images', caption: 'Before going to the trouble of getting Midjourney access, compare the result with models you can already reach: the gap is often smaller than expected', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+
+      { type: 'h2', text: 'What to use instead if you do not want to pay' },
+      { type: 'p', text: 'Good news: over the three years Midjourney has been paid-only, the quality gap has narrowed a lot. Free tools today produce images that only a paid service could deliver a year ago. Worth trying:' },
+      { type: 'ul', items: [
+        '**Nano Banana Pro from Google.** The best free starting point right now: very strong at editing existing frames and at rendering text inside an image, which is precisely where Midjourney has always been weak. We have a [full guide](/blog/nano-banana-pro-gayd/) and a [comparison with Seedream](/blog/nano-banana-vs-seedream/).',
+        '**Russian models** such as Kandinsky and Shedevrum. They open without a VPN, genuinely understand Russian and cost nothing. They do not match Midjourney artistically, but they are enough for social media and illustration.',
+        '**Leonardo** gives a daily free allowance, plenty of style control and a plain web interface with no messenger involved.',
+        '**Ideogram** is the first choice whenever the image needs readable text: logos, covers, posters.',
+        '**Image generators built into chat assistants.** You get a quick look-and-see image right inside the conversation, no separate signup.',
+      ] },
+      { type: 'p', text: 'An honest caveat: nothing free replaces Midjourney entirely. Its strength is not technical precision but taste, and frames come out beautiful even from a short, careless prompt. Free models more often demand that you explain exactly what you want. If the task is make it beautiful, I do not know how, Midjourney still wins. If the task is change the background on this photo or build a poster with this headline, the free options are already better.' },
+
+      { type: 'h2', text: 'So what should you actually do' },
+      { type: 'p', text: 'By situation. Just curious and unwilling to spend: use the free models, starting with Nano Banana Pro. Need a handful of images for one specific project: an aggregator paid in rubles works out cheaper, since you pay per image and skip the card setup. Generating regularly and in volume: your own Standard subscription plus a foreign card, which is the lowest cost per image. Want a program to download and run offline: that option does not exist at any price.' },
+
+      { type: 'h2', text: 'Frequently asked questions' },
+      { type: 'h3', text: 'Can you use Midjourney for free?' },
+      { type: 'p', text: 'No. The service has had no free plan and no trial since the spring of 2023. The minimum subscription is 10 dollars a month. Anything promising free Midjourney is either outdated information, a shared account, or a scam.' },
+      { type: 'h3', text: 'How do you download Midjourney to a computer?' },
+      { type: 'p', text: 'You do not: the program does not exist and the service runs only in the cloud through a browser. Any file with that name is malware. Over a million people already fell for that scheme through one fake social media page.' },
+      { type: 'h3', text: 'Is there a Russian language version of Midjourney?' },
+      { type: 'p', text: 'There is no Russian interface, only English. The model understands Russian prompts, but results from English descriptions are noticeably more accurate, especially with terms for light, optics and style. A Russian Midjourney found in search is usually an aggregator with its own shell.' },
+      { type: 'h3', text: 'How much does a Midjourney subscription cost?' },
+      { type: 'p', text: 'Four plans: 10, 30, 60 and 120 dollars a month, roughly 20 percent cheaper on annual billing. They differ in the amount of fast generation time, and unlimited slow mode starts from the second plan.' },
+      { type: 'h3', text: 'Does Midjourney work from Russia?' },
+      { type: 'p', text: 'The site opens, but the service restricts Russian addresses and a foreign one is usually needed for stable work. Discord, where Midjourney used to live, is blocked in Russia, though a web version now exists. The real barrier is not access but payment: Russian cards are not accepted.' },
+      { type: 'h3', text: 'What is the official Midjourney website?' },
+      { type: 'p', text: 'The only official address is midjourney.com. That is where the web version lives and where the subscription is bought. Sites with similar names, country prefixes or promises of free access have nothing to do with the real service.' },
+
+      { type: 'h2', text: 'If you want results rather than loopholes' },
+      { type: 'p', text: 'Most of the time people spend hunting for free Midjourney is wasted: there is no free door, and the workarounds cost either money or nerves. What saves far more is a different kind of understanding, namely which task belongs to which model, where Midjourney is genuinely irreplaceable and where a free tool does the job faster and better. That is what we work through in our [AI video and graphics training](/services/obuchenie-ai-video/) on your own material, and finished studio work is in the [portfolio](/works/).' },
+      { type: 'cta' },
+    ],
+  },
+  {
     slug: 'minimax-h3-hailuo-gayd',
     category: 'Models & comparisons',
     title: 'MiniMax H3 (Hailuo 3.0): Access, Free Tier, Pricing and Running It Locally',
@@ -578,7 +1035,7 @@ const PART_7 = [
       { type: 'h3', text: 'Can I avoid paying at all?' },
       { type: 'p', text: 'For trials, yes: Kling’s daily credits, Gemini’s free limits, Alice AI and Kandinsky. A list of free options with limits is in [how to animate a photo with AI](/blog/kak-ozhivit-foto-neyrosetyu/).' },
       { type: 'h2', text: 'So you do not pay for waste' },
-      { type: 'p', text: 'However you pay, more than half of generations go to the bin, three quarters for a beginner. The biggest saving is not in the payment method but in landing on the first or second attempt. That is what [AI video training](/services/obuchenie-ai-video/) is about: on your task, how to build the prompt, and which scene goes to which model, so credits turn into results.' },
+      { type: 'p', text: 'However you pay, more than half of generations go to the bin, three quarters for a beginner. The biggest saving is not in the payment method but in landing on the first or second attempt. That is what [AI video training](/services/obuchenie-ai-video/) is about: on your task, how to build the prompt, and which scene goes to which model, so credits turn into results. Which services have a Russian interface and need no cross-border payment at all is covered in [AI tools in Russian](/blog/neyroseti-na-russkom/).' },
       { type: 'cta' },
     ],
   },

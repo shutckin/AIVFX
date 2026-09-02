@@ -164,7 +164,7 @@ const PART_1 = [
       { type: 'p', text: 'This is 5–10 times faster than traditional production, where just scheduling a shoot day can take two weeks.' },
 
       { type: 'h2', text: 'Where AI video really pays off for business' },
-      { type: 'p', text: 'AI video is not a replacement for everything but a tool for specific tasks: product clips, ads for social media, visualizing what is expensive or impossible to shoot (space, historical scenes, fantasy locations), quick A/B tests of different creatives. If you need a lot of content, regularly and fast — this is your format.' },
+      { type: 'p', text: 'AI video is not a replacement for everything but a tool for specific tasks: product clips, ads for social media, visualizing what is expensive or impossible to shoot (space, historical scenes, fantasy locations), quick A/B tests of different creatives. If you need a lot of content, regularly and fast — this is your format. How a prompt is assembled part by part is covered in a [separate guide](/blog/promty-dlya-neyrosetey/).' },
 
       { type: 'cta' },
     ],
