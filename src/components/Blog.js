@@ -4,6 +4,16 @@ import { BLOG_POSTS_EN, getPostBySlugEn } from '../data/blog-posts-en';
 import LangSwitch from './LangSwitch';
 import { useLocale, localizedHref } from '../i18n';
 
+// Дата статьи в человеческом виде для подписи под заголовком
+const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const fmtDate = (iso, en) => {
+  const [y, m, d] = String(iso || '').split('-').map(Number);
+  if (!y || !m || !d) return iso || '';
+  return en ? `${d} ${MONTHS_EN[m - 1]} ${y}` : `${d} ${MONTHS_RU[m - 1]} ${y}`;
+};
+
+
 const SITE = 'https://aivfx.ru';
 
 // Разметка внутри абзаца: **жирный** и ссылки вида [текст](/адрес/).
@@ -448,7 +458,15 @@ const BlogPost = ({ post, onBack, onBackToList, onOpenPost }) => {
           image: `${SITE}${post.cover}`,
           datePublished: post.date,
           dateModified: post.dateModified,
-          author: { '@type': 'Organization', name: 'AIVFX', url: SITE },
+          // Автор - человек, а не организация: ИИ-поиск и Google выше ценят
+          // подписанный материал с понятной экспертизой (E-E-A-T)
+          author: {
+            '@type': 'Person',
+            name: en ? 'Artem Shutkin' : 'Артем Шуткин',
+            jobTitle: en ? 'Director, AI video producer' : 'Режиссёр, продюсер AI-видео',
+            url: `${SITE}/#about`,
+            sameAs: ['https://t.me/aivfx'],
+          },
           publisher: {
             '@type': 'Organization',
             name: 'AIVFX',
@@ -524,7 +542,21 @@ const BlogPost = ({ post, onBack, onBackToList, onOpenPost }) => {
             )}
           </figure>
           <div className="p-6 lg:p-10">
-            <div className="text-white/50 text-sm mb-3">{post.readingTime} {en ? 'read' : 'чтения'}</div>
+            {/* Подпись автора и даты. Без видимого автора и даты обновления
+                ИИ-поисковики и Google считают материал анонимным и не цитируют:
+                разметка Article есть, но человек и дата должны быть и на
+                странице, а не только в JSON-LD. */}
+            <div className="text-white/50 text-sm mb-3 blog-byline">
+              <span>{en ? 'Artem Shutkin, director' : 'Артем Шуткин, режиссёр'}</span>
+              <span aria-hidden="true"> · </span>
+              <time dateTime={post.dateModified || post.date}>
+                {(post.dateModified && post.dateModified !== post.date)
+                  ? `${en ? 'Updated' : 'Обновлено'} ${fmtDate(post.dateModified, en)}`
+                  : `${en ? 'Published' : 'Опубликовано'} ${fmtDate(post.date, en)}`}
+              </time>
+              <span aria-hidden="true"> · </span>
+              <span>{post.readingTime} {en ? 'read' : 'чтения'}</span>
+            </div>
             <h1 className="text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">{post.title}</h1>
             <div className="text-white/80 space-y-1 leading-relaxed text-base lg:text-lg">
               {post.content.map((block, i) => <Block key={i} block={block} onBack={onBack} />)}

@@ -496,39 +496,42 @@ function App() {
     <NotificationContext.Provider value={ctx}>
       <div className="app">
         <div className="grain" aria-hidden="true" />
+        {/* Каждая страница обёрнута в <main>: это ориентир для читалок,
+            поисковых и ИИ-агентов, которые ищут основной контент по
+            семантике, а не по классам. Раньше <main> был только у главной. */}
         {showPrivacyPolicy ? (
           <Suspense fallback={<SectionFallback />}>
-            <PrivacyPolicy onBack={hidePrivacy} />
+            <main><PrivacyPolicy onBack={hidePrivacy} /></main>
           </Suspense>
         ) : showConsentPage ? (
           <Suspense fallback={<SectionFallback />}>
-            <Consent onBack={hideConsent} />
+            <main><Consent onBack={hideConsent} /></main>
           </Suspense>
         ) : showFullPortfolio ? (
           <Suspense fallback={<SectionFallback />}>
-            <FullPortfolio onBack={hideAllPortfolio} />
+            <main><FullPortfolio onBack={hideAllPortfolio} /></main>
           </Suspense>
         ) : showVideoPage ? (
           <Suspense fallback={<SectionFallback />}>
             {/* vp-theme: янтарная палитра направления «AI-контент» — вместе с футером */}
             <div className="vp-theme">
-              <VideoProduction />
+              <main><VideoProduction /></main>
               <Footer />
             </div>
           </Suspense>
         ) : showServicePage ? (
           <Suspense fallback={<SectionFallback />}>
-            <ServicePage slug={serviceSlug} />
+            <main><ServicePage slug={serviceSlug} /></main>
             <Footer />
           </Suspense>
         ) : showBlogPage ? (
           <Suspense fallback={<SectionFallback />}>
-            <Blog
+            <main><Blog
               slug={blogSlug}
               onBack={hideBlog}
               onOpenPost={openBlogPost}
               onBackToList={backToBlogList}
-            />
+            /></main>
           </Suspense>
         ) : (
           <>
