@@ -106,7 +106,7 @@ const PART_6 = [
       { type: 'p', text: 'Hence the rise of aggregator platforms: one subscription, many models inside. But that word covers very different things. Let us take three and explain how they actually differ, rather than how they are marketed.' },
 
       { type: 'h2', text: 'Higgsfield: a video aggregator with a cinematic layer' },
-      { type: 'p', text: 'It gathers around fifteen video models under one subscription: Veo, Kling, Sora, Seedance and others. But the real difference is not the list - it is the proprietary layer built on top of other people models: camera movement presets, character consistency tools, ready-made cinematic techniques.' },
+      { type: 'p', text: 'It gathers around fifteen video models under one subscription: Veo, Kling, Seedance, MiniMax and others. But the real difference is not the list - it is the proprietary layer built on top of other people models: camera movement presets, character consistency tools, ready-made cinematic techniques.' },
       { type: 'p', text: 'So it is not a shop window for other companies models but a working tool for people making video. By early 2026 the platform reported fifteen million users and a valuation above a billion - notable figures for a product a couple of years old.' },
       { type: 'ul', items: [
         '**Who it suits:** people producing clips rather than experimenting. Ads, music videos, short formats.',

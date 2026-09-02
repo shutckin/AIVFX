@@ -174,17 +174,17 @@ const PART_1 = [
   {
     slug: 'sravnenie-neyrosetey-dlya-video',
     category: 'Models & Comparisons',
-    title: 'Runway, Kling, Veo, Sora: A Comparison of Video-Generation Neural Networks in 2026',
+    title: 'Runway, Kling, Veo, Seedance, MiniMax: A Comparison of Video-Generation Neural Networks in 2026',
     description:
-      'An honest comparison of the top neural networks for video: Runway, Kling, Google Veo, Sora, Seedance.',
+      'An honest comparison of the top neural networks for video: Runway, Kling, Google Veo, Seedance, MiniMax H3.',
     keywords:
-      'comparison of neural networks for video, runway vs kling, best neural network for video, google veo, sora neural network, kling ai, seedance, neural network video generation',
+      'comparison of neural networks for video, runway vs kling, best neural network for video, google veo, minimax hailuo, kling ai, seedance, neural network video generation',
     cover: '/blog-images/cover-sravnenie.jpg',
     date: '2026-05-20',
-    dateModified: '2026-05-29',
+    dateModified: '2026-09-02',
     readingTime: '11 min',
     excerpt:
-      'Which neural network for video is best in 2026? We break down Runway, Kling, Veo, Sora, and Seedance by real criteria — without ads or hype.',
+      'Which neural network for video is best in 2026? We break down Runway, Kling, Veo, Seedance, and MiniMax H3 by real criteria — without ads or hype.',
     content: [
       { type: 'p', text: 'Every week there is a headline: "a new neural network will kill all the competition." In practice the market works differently: top models do not push each other out but occupy different niches. At AIVFX we work with all the major models every day, and in this article we share an honest comparison — without promoting any single one and without hype.' },
 
@@ -212,9 +212,11 @@ const PART_1 = [
       { type: 'p', text: 'Veo from Google is one of the leaders in photorealism, and most importantly it generates synchronized sound and speech right alongside the video. This saves an enormous voiceover stage. The downside is availability and price: the model is premium.' },
       { type: 'p', text: '**When to choose it:** clips with talking people where you need lip-sync and sound "out of the box," and maximum realism.' },
 
-      { type: 'h2', text: 'Sora — long, coherent scenes' },
-      { type: 'p', text: 'Sora (OpenAI) is strong at generating longer and narratively coherent scenes with a good understanding of world physics. It is good when you need not just a beautiful 5-second insert but a scene with development. Controllability and availability are its weak points at the moment.' },
-      { type: 'p', text: '**When to choose it:** narrative scenes, complex spaces, conceptual clips.' },
+      { type: 'h2', text: 'MiniMax H3 (Hailuo 3.0) — 2K and sound in one pass' },
+      { type: 'p', text: 'The newest model on the list: released on 31 July 2026, with open weights two days later. One network understands text, images, video and audio and returns a 5 to 15 second clip in native 2K with synchronous stereo sound. Up to nine images, three videos and three audio clips can be passed as references for character, style, motion and voice, which makes it one of the most controllable options right now. Weak points: the 15-second ceiling and the fact that aggregators are still adding it.' },
+      { type: 'p', text: '**When to choose it:** short clips with an exact character reference, scenes with sound where character consistency matters.' },
+      { type: 'h2', text: 'Sora — shut down' },
+      { type: 'p', text: 'Earlier versions of this comparison listed Sora as the model for long coherent scenes. In spring 2026 OpenAI shut it down: the site and app went offline on 26 April, the API ends on 24 September. Long scenes are now a job for Seedance in long mode. [What happened to Sora and what replaces it](/blog/sora-2-v-rossii/).' },
 
       { type: 'h2', text: 'Seedance — dynamics and speed' },
       { type: 'p', text: 'Seedance (ByteDance) handles dynamic scenes, movement, and fast action well, while generating relatively quickly. It is convenient for a large volume of content for social media.' },
@@ -225,7 +227,8 @@ const PART_1 = [
         'Realistic product with people → Kling',
         'Atmospheric image advertising → Runway',
         'Talking person with sound → Google Veo',
-        'A long narrative scene → Sora',
+        'A long narrative scene → Seedance 2.5 in long mode',
+        'A short 2K clip with sound and a character reference → MiniMax H3',
         'A flow of dynamic content → Seedance',
       ]},
 
