@@ -7,11 +7,11 @@ import './hero-systems.css';
 /* ── Параллакс телефона по курсору ──────────────────────────────────────
    Базовый наклон (телефон «в перспективе» в покое) задан в CSS,
    курсор добавляет к нему доворот в пределах ±MAX. */
-const BASE_RY = -8;   // deg — базовый разворот по вертикальной оси
-const BASE_RX = 3;    // deg — базовый наклон по горизонтальной оси
-const MAX_RY = 9;     // deg — максимальный доворот курсором влево/вправо
-const MAX_RX = 6;     // deg — максимальный доворот курсором вверх/вниз
-const SHADOW_PX = 14; // px — насколько тень уезжает против наклона
+const BASE_RY = -8;   // deg - базовый разворот по вертикальной оси
+const BASE_RX = 3;    // deg - базовый наклон по горизонтальной оси
+const MAX_RY = 9;     // deg - максимальный доворот курсором влево/вправо
+const MAX_RX = 6;     // deg - максимальный доворот курсором вверх/вниз
+const SHADOW_PX = 14; // px - насколько тень уезжает против наклона
 // Ход светового пятна по грани корпуса, в процентах от подложки градиента.
 // Подложка втрое больше рамки, поэтому такой размах даёт полный проход
 // светового блика от одного ребра до другого.
@@ -50,7 +50,7 @@ const useTiltAllowed = () => {
   return allowed;
 };
 
-/* Слушаем mousemove на секции hero (а не на window — чтобы не считать зря),
+/* Слушаем mousemove на секции hero (а не на window - чтобы не считать зря),
    складываем координаты в переменные и один раз за кадр (rAF) лерпим
    текущие углы к целевым. Пишем результат в CSS-переменные --ry/--rx/--sx. */
 const usePointerTilt = (sectionRef, stageRef, allowed) => {
@@ -103,8 +103,8 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
           targetRy = nx * MAX_RY;
           targetRx = -ny * MAX_RX;
 
-          // Насколько курсор близко к самому телефону: 0 — прямо на нём,
-          // 1 — в дальнем углу секции
+          // Насколько курсор близко к самому телефону: 0 - прямо на нём,
+          // 1 - в дальнем углу секции
           const p = stage.getBoundingClientRect();
           const dist = Math.hypot(
             pointerX - (p.left + p.width / 2),
@@ -161,7 +161,7 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
       section.removeEventListener('mousemove', onMove);
       section.removeEventListener('mouseleave', onLeave);
       if (raf) cancelAnimationFrame(raf);
-      // Возвращаем управление CSS — базовый наклон снова из стилей
+      // Возвращаем управление CSS - базовый наклон снова из стилей
       stage.style.removeProperty('--ry');
       stage.style.removeProperty('--rx');
       stage.style.removeProperty('--sx');
@@ -174,8 +174,8 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
 
 /* ── Лента сервисов, привязанная к скроллу ──────────────────────────────
    Раньше лента ехала бесконечной CSS-анимацией и в покое читалась как
-   мигающая гирлянда. Теперь сдвиг считается из scrollY: листаешь — лента
-   едет, остановился — замерла. Позиция берётся по модулю половины ширины
+   мигающая гирлянда. Теперь сдвиг считается из scrollY: листаешь - лента
+   едет, остановился - замерла. Позиция берётся по модулю половины ширины
    трека (содержимое продублировано), поэтому стык не виден.  */
 const TICKER_SPEED = 0.42; // px сдвига ленты на 1px скролла страницы
 
@@ -192,7 +192,7 @@ const useScrollTicker = (trackRef) => {
     let raf = 0;
 
     const measure = () => {
-      // Внутри трека контент лежит дважды — половина и есть длина петли
+      // Внутри трека контент лежит дважды - половина и есть длина петли
       half = track.scrollWidth / 2;
     };
 
@@ -226,7 +226,7 @@ const useScrollTicker = (trackRef) => {
   }, [trackRef]);
 };
 
-// Телефон с самопечатающимся чат-диалогом — главное продающее демо продукта
+// Телефон с самопечатающимся чат-диалогом - главное продающее демо продукта
 const HeroPhoneDemo = ({ sectionRef }) => {
   const L = useLocale();
   const stageRef = useRef(null);
@@ -285,7 +285,7 @@ const HeroPhoneDemo = ({ sectionRef }) => {
             </div>
           </div>
 
-          {/* Плавающие «доказательства» — живут глубже экрана, при повороте расходятся */}
+          {/* Плавающие «доказательства» - живут глубже экрана, при повороте расходятся */}
           <span className="hp-badge hp-badge-crm">
             <span className="hp-badge-in mono">
               <i className="hp-badge-dot hp-dot-ok" />
@@ -347,7 +347,7 @@ const Hero = () => {
               </button>
             </div>
 
-            {/* Один крючок под CTA — обещание ответа за 24 часа */}
+            {/* Один крючок под CTA - обещание ответа за 24 часа */}
             <p className="hs-offer">{pick(L, HERO_SYS.offer)}</p>
           </div>
 

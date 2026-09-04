@@ -29,7 +29,7 @@ const ICONS = {
   ),
 };
 
-// tone: 'light' — на светлой карточке контактов, 'dark' — в футере
+// tone: 'light' - на светлой карточке контактов, 'dark' - в футере
 const SocialLinks = ({ tone = 'light' }) => {
   const links = SOCIALS.filter((item) => item.url);
   if (!links.length) return null;

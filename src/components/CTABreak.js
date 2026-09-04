@@ -5,7 +5,7 @@ import { useNotification } from '../App';
 import './cta-break.css';
 
 // Компактная конверсионная врезка между секциями главной.
-// variant='default' — графитовая полоса; variant='light' — светлая карточка-кульминация.
+// variant='default' - графитовая полоса; variant='light' - светлая карточка-кульминация.
 const CTABreak = ({ variant = 'default' }) => {
   const L = useLocale();
   const { scrollToSection } = useNotification();

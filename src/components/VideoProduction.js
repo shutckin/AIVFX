@@ -18,16 +18,16 @@ import { localizedProjects } from '../data/projects';
 import './video-production.css';
 import './training.css'; // врезка «хотите делать сами»
 
-// Страница второго направления — AI-контент (/video-production/).
+// Страница второго направления - AI-контент (/video-production/).
 // v3: hero + marquee + полоса фактов + услуги + сравнение + форматы работы
 // (без цен) + отзывы + FAQ + форма. Цены со страницы убраны полностью.
 // v4: своя янтарная палитра (скоуп .vp-page), робот-визуал в hero,
 // топбар без «шага назад».
-// v5: вместо иконок-карточек услуг — витрина реальных кадров (VIDEO_SHOWCASE),
+// v5: вместо иконок-карточек услуг - витрина реальных кадров (VIDEO_SHOWCASE),
 // плюс два новых блока: таймлайн процесса и список того, что клиент получает.
 
 // ── Hero-визуал: робот ──
-// Это то самое видео из старого hero (коммит 2d2b20a): /fixed/aivid.mp4 —
+// Это то самое видео из старого hero (коммит 2d2b20a): /fixed/aivid.mp4 -
 // 3D-голова красного робота, светящаяся на чёрном. Раньше оно лежало фоном
 // во всю ширину, теперь это художественный объект в правой колонке: круглая
 // маска с мягко растворяющимся краем, тёплое свечение под ним и тонкое кольцо.
@@ -36,7 +36,7 @@ import './training.css'; // врезка «хотите делать сами»
 // requestAnimationFrame, лерп 0.08, диапазон ±6deg. Не вешается вовсе при
 // prefers-reduced-motion и на тач-устройствах (нет hover / точного курсора).
 
-// Сцена робота — точь-в-точь как в первой версии сайта: SVG-кольца, halo,
+// Сцена робота - точь-в-точь как в первой версии сайта: SVG-кольца, halo,
 // сканирующая линия и HUD-подписи поверх фонового видео с 3D-роботом.
 const RobotStage = () => {
   const ref = useRef(null);
@@ -73,8 +73,8 @@ const RobotStage = () => {
     </div>
   );
 };
-// Шапка страницы — та же, что на главной: логотип прижат к левому краю
-// экрана, тумблер направлений сразу за ним, CTA — к правому краю. Раньше
+// Шапка страницы - та же, что на главной: логотип прижат к левому краю
+// экрана, тумблер направлений сразу за ним, CTA - к правому краю. Раньше
 // шапка жила внутри .shell и «висела» посреди экрана, не попадая в углы.
 // Разделы страницы для навигации и подсветки активного пункта
 const VP_NAV = [
@@ -185,7 +185,7 @@ const VideoProduction = () => {
   const TESTIMONIALS_L = en ? TESTIMONIALS_EN : TESTIMONIALS;
   const CLIENTS_L = en ? CLIENTS_EN : CLIENTS;
 
-  // Витрина работ — один ряд. Раньше было два встречных, но от этого
+  // Витрина работ - один ряд. Раньше было два встречных, но от этого
   // блок разрастался на пол-экрана и превращался в стену превью, где
   // глазу не за что зацепиться. Один ряд читается как лента, а не как
   // склад, и каждая работа получает больше внимания.
@@ -194,8 +194,8 @@ const VideoProduction = () => {
   // SEO: заголовок и описание страницы
   useEffect(() => {
     document.title = en
-      ? 'AI Video Production for Business: Ads, Reels, Product Video — AIVFX'
-      : 'AI-видеопродакшн для бизнеса: реклама, Reels, продуктовые ролики — AIVFX';
+      ? 'AI Video Production for Business: Ads, Reels, Product Video - AIVFX'
+      : 'AI-видеопродакшн для бизнеса: реклама, Reels, продуктовые ролики - AIVFX';
     let meta = document.head.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement('meta');
@@ -211,11 +211,11 @@ const VideoProduction = () => {
   return (
     <div className="vp-page">
       {/* Шапка вынесена из .shell: логотип и CTA стоят в углах экрана,
-          ровно как на главной. Ссылки «← AIVFX» здесь нет намеренно —
+          ровно как на главной. Ссылки «← AIVFX» здесь нет намеренно -
           со страницы уходим переключением направления, а не шагом назад. */}
       <VpHeader contactHref={contactHref} en={en} locale={L} />
 
-      {/* Первый экран — во всю ширину и высоту окна: видео с 3D-роботом,
+      {/* Первый экран - во всю ширину и высоту окна: видео с 3D-роботом,
           градиентный overlay, кольца-HUD и текст поверх */}
       <header className="hero vp-hero-full" id="hero">
         <video
@@ -301,13 +301,13 @@ const VideoProduction = () => {
         </div>
       </section>
 
-      {/* Что делаем — редакторский разворот вместо ровной сетки.
+      {/* Что делаем - редакторский разворот вместо ровной сетки.
           Раньше здесь стояли шесть одинаковых карточек 3×2: одинаковый
-          кадр, одинаковая рамка, одинаковый вес у каждого пункта — блок
+          кадр, одинаковая рамка, одинаковый вес у каждого пункта - блок
           читался как каталог, где не за что зацепиться глазу.
           Теперь размеры разные (см. vp-show-grid в css): широкий кадр
           соседствует с узким, ряды зеркалят друг друга, а рамки карточек
-          убраны — остались кадр, крупный номер и подпись под тонкой
+          убраны - остались кадр, крупный номер и подпись под тонкой
           линией. Порядок пунктов задаёт ритм, поэтому он не случайный. */}
       <section className="section" id="capabilities">
         <div className="shell">
@@ -323,7 +323,7 @@ const VideoProduction = () => {
               <article key={i} className="vp-show-card">
                 <div className="vp-show-media">
                   {/* У пункта про AI-генерацию видео вместо кадра стоит
-                      сам ролик — направление про движение, картинкой оно
+                      сам ролик - направление про движение, картинкой оно
                       не показывается. Адрес ролика LazyVideo подставит
                       только когда карточка подъедет к экрану, а до тех
                       пор в кадре стоит постер: страница не тянет
@@ -339,7 +339,7 @@ const VideoProduction = () => {
                     /* Размеры настоящие, у каждого кадра свои: браузер
                        резервирует место заранее и вёрстка не дёргается,
                        когда картинка догрузится. Первый кадр панорамный,
-                       последние три почти квадратные — единый размер на
+                       последние три почти квадратные - единый размер на
                        всех дал бы скачок. */
                     <img
                       src={item.img}
@@ -368,7 +368,7 @@ const VideoProduction = () => {
       </section>
 
       {/* Процесс: пять шагов поверх полноэкранного ролика.
-          Заголовок остаётся в колонке, а сам блок вынесен из .shell —
+          Заголовок остаётся в колонке, а сам блок вынесен из .shell -
           сцена должна доставать до краёв экрана, иначе это снова окно. */}
       <section className="section vp-band vp-band--flow" id="process">
         <div className="shell">
@@ -400,7 +400,7 @@ const VideoProduction = () => {
               <h4 className="vp3-compare-head">{en ? 'Traditional' : 'Традиционно'}</h4>
               <div className="vp3-compare-anchors">
                 <div className="vp3-anchor">
-                  <span className="v">2–6</span>
+                  <span className="v">2-6</span>
                   <span className="l">{en ? 'weeks per project' : 'недель на проект'}</span>
                 </div>
                 <div className="vp3-anchor">
@@ -421,7 +421,7 @@ const VideoProduction = () => {
               <h4 className="vp3-compare-head">AIVFX</h4>
               <div className="vp3-compare-anchors">
                 <div className="vp3-anchor">
-                  <span className="v">1–5</span>
+                  <span className="v">1-5</span>
                   <span className="l">{en ? 'days per project' : 'дней на проект'}</span>
                 </div>
                 <div className="vp3-anchor">
@@ -442,7 +442,7 @@ const VideoProduction = () => {
         </div>
       </section>
 
-      {/* Что получаете на выходе — лёгкий список с разделителями,
+      {/* Что получаете на выходе - лёгкий список с разделителями,
           без карточек-коробок: это перечень, а не витрина. */}
       <section className="section vp-band">
         <div className="shell">
@@ -467,7 +467,7 @@ const VideoProduction = () => {
         </div>
       </section>
 
-      {/* Форматы работы — без цен, смета под задачу */}
+      {/* Форматы работы - без цен, смета под задачу */}
       <section className="section" id="formats">
         <div className="shell">
           <SecHead
@@ -503,7 +503,7 @@ const VideoProduction = () => {
         </div>
       </section>
 
-      {/* Отзывы и клиенты: тёмные карточки, выделенная — с акцентным ребром */}
+      {/* Отзывы и клиенты: тёмные карточки, выделенная - с акцентным ребром */}
       <section className="section vp-band">
         <div className="shell">
           <SecHead
@@ -511,8 +511,8 @@ const VideoProduction = () => {
             title={en ? 'Brands that' : 'Нам доверяют'}
             titleIt={en ? 'trust us' : 'свои бренды'}
             side={en
-              ? 'From German automotive giants to Gulf developers — we work with those who need speed without compromise.'
-              : 'От немецких автоконцернов до арабских девелоперов — мы работаем с теми, кому важна скорость без компромиссов.'}
+              ? 'From German automotive giants to Gulf developers - we work with those who need speed without compromise.'
+              : 'От немецких автоконцернов до арабских девелоперов - мы работаем с теми, кому важна скорость без компромиссов.'}
             sideTitle="TRUST"
           />
           <div className="vp3-testi-grid reveal">
@@ -602,7 +602,7 @@ const VideoProduction = () => {
         </div>
       </div>
 
-      {/* Форма заявки — свой контакт в контексте видео */}
+      {/* Форма заявки - свой контакт в контексте видео */}
       <ContactForm videoContext />
     </div>
   );

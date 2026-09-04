@@ -28,13 +28,13 @@ const {
   canonicalFor,
 } = require('./site-routes');
 
-// Списки страниц живут в одном месте — scripts/site-routes.js, который
+// Списки страниц живут в одном месте - scripts/site-routes.js, который
 // читает их прямо из файлов данных. Раньше здесь лежала своя копия
 // с пометкой «держать в синхроне»: при выходе статьи её приходилось
 // дописывать и сюда, и в карту сайта, и достаточно было забыть про
 // одно место, чтобы страница осталась без предрендера или вне карты.
 
-// Полный список задач рендера: для двуязычных — RU + EN, для юридических — только RU
+// Полный список задач рендера: для двуязычных - RU + EN, для юридических - только RU
 const TASKS = [];
 for (const logical of BILINGUAL) {
   const ruUrl = canonicalFor(logical);
@@ -61,7 +61,7 @@ if (!fileExists(BUILD_DIR)) {
 }
 
 async function main() {
-  // Оригинальный (пустой) shell — отдаём его на все SPA-fallback запросы,
+  // Оригинальный (пустой) shell - отдаём его на все SPA-fallback запросы,
   // чтобы React всегда стартовал с чистого #root и рендерил нужную локаль
   // без рассинхронизации с уже перезаписанными RU-страницами.
   const ORIGINAL_INDEX = fs.readFileSync(path.join(BUILD_DIR, 'index.html'), 'utf8');
@@ -118,9 +118,9 @@ async function main() {
         // 1. Классы появления по скроллу
         document.querySelectorAll('.reveal.in').forEach((el) => el.classList.remove('in'));
         // 2. Cookie-баннер: React отдаёт его пустым и показывает только после
-        //    проверки localStorage — в снимке его быть не должно
+        //    проверки localStorage - в снимке его быть не должно
         document.querySelectorAll('.cookie-banner').forEach((el) => el.remove());
-        // 3. Чат-лаунчер всплывает по таймеру/скроллу — снимаем видимость
+        // 3. Чат-лаунчер всплывает по таймеру/скроллу - снимаем видимость
         document.querySelectorAll('.chat-launcher.is-visible')
           .forEach((el) => el.classList.remove('is-visible'));
       });
@@ -165,7 +165,7 @@ async function main() {
         const tw = document.querySelector('meta[name="twitter:url"]');
         if (tw) tw.setAttribute('content', canonical);
 
-        // Заголовок и описание для превью ссылки — забираем их у самой
+        // Заголовок и описание для превью ссылки - забираем их у самой
         // страницы, а не держим отдельным списком. К этому моменту
         // приложение уже проставило локализованные <title> и
         // <meta name="description">, поэтому карточка в мессенджере
@@ -196,12 +196,12 @@ async function main() {
         setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', pageTitle);
         setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', pageDesc);
 
-        // Подпись к картинке тоже своя на каждом языке — её читают
+        // Подпись к картинке тоже своя на каждом языке - её читают
         // экранные дикторы, когда карточку озвучивают
         setMeta('meta[property="og:image:alt"]', 'property', 'og:image:alt',
           locale === 'en'
-            ? 'AIVFX — AI systems, AI video and VFX studio'
-            : 'AIVFX — студия AI-систем, AI-видео и VFX');
+            ? 'AIVFX - AI systems, AI video and VFX studio'
+            : 'AIVFX - студия AI-систем, AI-видео и VFX');
 
         // hreflang: убираем старые альтернативы и проставляем заново
         document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());

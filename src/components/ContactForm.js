@@ -55,7 +55,7 @@ const ContactForm = ({ videoContext = false }) => {
     if (!agreed || !phoneValid || needPhone) return;
     if (!emailOk) { setEmailTouched(true); return; }
 
-    setSendError(false); // новая попытка — сбрасываем прошлую ошибку
+    setSendError(false); // новая попытка - сбрасываем прошлую ошибку
     setSending(true);
     try {
       const { phoneFull, ...fields } = form;
@@ -213,7 +213,7 @@ const ContactForm = ({ videoContext = false }) => {
             </label>
 
             {/* Поле-ловушка: спрятано от людей и от скринридеров,
-                но видно автозаполнялкам ботов. Если оно заполнено —
+                но видно автозаполнялкам ботов. Если оно заполнено -
                 сервер молча отбрасывает заявку. */}
             <div className="hp-trap" aria-hidden="true">
               <label htmlFor="website">Website</label>
@@ -262,8 +262,8 @@ const ContactForm = ({ videoContext = false }) => {
               <h3>{en ? 'Need it' : 'Срочная'}<br /><span className="contact-aside-accent">{en ? 'urgently?' : 'консультация?'}</span></h3>
               <p className="contact-aside-note">
                 {en
-                  ? 'Message us on Telegram — we reply within an hour.'
-                  : 'Напишите в Telegram — отвечаем в течение часа.'}
+                  ? 'Message us on Telegram - we reply within an hour.'
+                  : 'Напишите в Telegram - отвечаем в течение часа.'}
               </p>
               <a
                 href="https://t.me/aivfx"
@@ -289,8 +289,8 @@ const ContactForm = ({ videoContext = false }) => {
             <div className="contact-block">
               <span className="lab">{en ? 'WORKING HOURS' : 'ВРЕМЯ РАБОТЫ'}</span>
               <div className="hours">
-                <div className="hours-row"><span>{en ? 'MON — FRI' : 'ПН — ПТ'}</span><span>09:00 — 18:00</span></div>
-                <div className="hours-row"><span>{en ? 'SAT' : 'СБ'}</span><span>10:00 — 16:00</span></div>
+                <div className="hours-row"><span>{en ? 'MON - FRI' : 'ПН - ПТ'}</span><span>09:00 - 18:00</span></div>
+                <div className="hours-row"><span>{en ? 'SAT' : 'СБ'}</span><span>10:00 - 16:00</span></div>
                 <div className="hours-row"><span>{en ? 'SUN' : 'ВС'}</span><span className="hours-closed">{en ? 'CLOSED' : 'ВЫХОДНОЙ'}</span></div>
               </div>
             </div>

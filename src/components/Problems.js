@@ -4,8 +4,8 @@ import { useLocale, pick } from '../i18n';
 import { PROBLEMS_SYS } from '../data/systems-content';
 import './problems-bento.css';
 
-// ── Секция «Проблема» — bento-сетка с мини-интерфейсами ─────────────────
-// Каждая плитка — не абстрактный скелетон, а живой фрагмент интерфейса:
+// ── Секция «Проблема» - bento-сетка с мини-интерфейсами ─────────────────
+// Каждая плитка - не абстрактный скелетон, а живой фрагмент интерфейса:
 // реальная реплика в чате, реальная строка задачи, реальные данные в Excel.
 // Пустота остаётся только там, где она и есть смысл: колонка CRM, куда
 // данные не доехали. Тип мини-UI берётся из item.ui в PROBLEMS_SYS.
@@ -19,7 +19,7 @@ const Checks = () => (
 );
 
 // Общая рамка мини-интерфейса: «экран внутри карточки».
-// tone: 'live' — источник жив (кобальт), 'alert' — сломанное звено (алый).
+// tone: 'live' - источник жив (кобальт), 'alert' - сломанное звено (алый).
 const UiFrame = ({ label, tone, className, children }) => (
   <div className="pbx-ui" aria-hidden="true">
     <span className={`pbx-head pbx-head-${tone}`}>
@@ -30,7 +30,7 @@ const UiFrame = ({ label, tone, className, children }) => (
   </div>
 );
 
-// chat — ночная заявка ждёт утра
+// chat - ночная заявка ждёт утра
 const UiChat = ({ L, time }) => (
   <UiFrame label="WhatsApp" tone="live" className="pbx-chat">
     <div className="pbx-chat-bubble">
@@ -49,7 +49,7 @@ const UiChat = ({ L, time }) => (
   </UiFrame>
 );
 
-// task — просроченный follow-up в трекере
+// task - просроченный follow-up в трекере
 const UiTask = ({ L }) => (
   <UiFrame label={L === 'en' ? 'CRM · Tasks' : 'CRM · Задачи'} tone="alert" className="pbx-task">
     <div className="pbx-task-row pbx-task-row-done">
@@ -58,23 +58,23 @@ const UiTask = ({ L }) => (
           <path d="M1 3.6L3.2 5.8 8 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </span>
-      <span className="pbx-task-label">{L === 'en' ? 'Send invoice — Acme' : 'Счёт — ООО «Вектор»'}</span>
+      <span className="pbx-task-label">{L === 'en' ? 'Send invoice - Acme' : 'Счёт - ООО «Вектор»'}</span>
       <span className="pbx-task-date">{L === 'en' ? 'Mon' : 'ПН'}</span>
     </div>
     <div className="pbx-task-row pbx-task-row-main">
       <span className="pbx-task-check" />
-      <span className="pbx-task-label">{L === 'en' ? 'Follow-up — John, quote' : 'Follow-up — Иван, КП'}</span>
+      <span className="pbx-task-label">{L === 'en' ? 'Follow-up - John, quote' : 'Follow-up - Иван, КП'}</span>
       <span className="pbx-task-badge">OVERDUE · 3 DAYS</span>
     </div>
     <div className="pbx-task-row pbx-task-row-next">
       <span className="pbx-task-check" />
-      <span className="pbx-task-label">{L === 'en' ? 'Call back — Northwind' : 'Перезвонить — Мосстрой'}</span>
+      <span className="pbx-task-label">{L === 'en' ? 'Call back - Northwind' : 'Перезвонить - Мосстрой'}</span>
       <span className="pbx-task-date">{L === 'en' ? 'Fri' : 'ПТ'}</span>
     </div>
   </UiFrame>
 );
 
-// pipe — разрыв между WhatsApp и CRM
+// pipe - разрыв между WhatsApp и CRM
 const UiPipe = ({ L }) => (
   <UiFrame label={L === 'en' ? 'Integration' : 'Интеграция'} tone="alert" className="pbx-pipe">
     <span className="pbx-pipe-node">
@@ -97,7 +97,7 @@ const UiPipe = ({ L }) => (
   </UiFrame>
 );
 
-// copy — ручной перенос Excel → CRM. Слева реальные данные, справа пусто.
+// copy - ручной перенос Excel → CRM. Слева реальные данные, справа пусто.
 const UiCopy = ({ L, time }) => (
   <UiFrame label="Excel → CRM" tone="live" className="pbx-copy">
     <div className="pbx-copy-win">
@@ -122,7 +122,7 @@ const UiCopy = ({ L, time }) => (
   </UiFrame>
 );
 
-// churn — выручка держится, затем обрыв: клиент ушёл и не вернулся
+// churn - выручка держится, затем обрыв: клиент ушёл и не вернулся
 const UiChurn = ({ L }) => (
   <UiFrame label={L === 'en' ? 'Revenue' : 'Выручка'} tone="alert" className="pbx-churn">
     <span className="pbx-churn-plot">
@@ -159,7 +159,7 @@ const UiChurn = ({ L }) => (
           strokeLinejoin="round"
         />
       </svg>
-      {/* Точка обрыва — HTML, чтобы ореол не искажался растяжением SVG */}
+      {/* Точка обрыва - HTML, чтобы ореол не искажался растяжением SVG */}
       <span className="pbx-churn-dot" />
     </span>
     <span className="pbx-churn-label">LTV → 0</span>

@@ -1,7 +1,296 @@
-// EN-переводы блога, часть 7 — статьи под живой спрос (сентябрь 2026):
+// EN-переводы блога, часть 7 - статьи под живой спрос (сентябрь 2026):
 // оживление фото, Sora 2, Seedance бесплатно, Kling из России, Nano Banana Pro,
 // оплата нейросетей из России. Русские оригиналы - в blog-posts.js.
 const PART_7 = [
+  {
+    slug: 'neyroset-dlya-video-besplatno',
+    category: 'Guides',
+    title: 'Free AI Video Generators in 2026: What Actually Works From Russia',
+    description:
+      'Which AI video tools are genuinely free in September 2026: credit limits, watermarks, resolution caps, access from Russia without a VPN or a card.',
+    keywords:
+      'free ai video generator, ai video free, free video neural network, ai video from text free, free ai video no watermark, kling free credits, hailuo free, runway free plan',
+    cover: '/blog-images/cover-video-besplatno.jpg',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
+    date: '2026-09-04',
+    dateModified: '2026-09-04',
+    readingTime: '9 min',
+    related: ['kling-v-rossii-besplatno', 'seedance-besplatno', 'minimax-h3-hailuo-gayd'],
+    excerpt:
+      'Plenty of AI video tools call themselves free, but ’free’ means something different in each one: daily credits in some, a single one-time pack in others. Here is the per-service breakdown of limits, watermarks, resolution and access from Russia, plus how to squeeze the most out of what you get.',
+    content: [
+      { type: 'p', text: 'Most answers to ’free AI video generator’ are a list of fifteen product names with not a single number in them. This one goes the other way: only the free routes, and for each of them how much you get, whether the limit resets, whether there is a watermark, what resolution you are capped at and whether it opens from Russia. The full tool list lives [in a separate article](/blog/top-neyrosetey-video/), and the quality comparison between the big models is [here](/blog/sravnenie-neyrosetey-dlya-video/). Everything below reflects September 2026.' },
+      { type: 'p', text: 'The key distinction first: free tiers come in two shapes, and the gap between them matters more than the gap between the models themselves. **Daily credits** give you very little, but they arrive every day, so you can keep learning for months. **A one-time pack** lands once per account: spend it and the free ride is permanently over. If you are looking for something to practise on, only the first kind counts.' },
+
+      { type: 'h2', text: 'Daily credits: the only tier you can actually learn on' },
+      { type: 'h3', text: 'Kling' },
+      { type: 'p', text: 'Grants 66 credits every 24 hours. That is roughly one short clip in the basic mode, occasionally two. Credits do not accumulate: whatever you leave unspent expires at midnight service time. Free clips carry a watermark, sit in the shared queue and come out at base resolution; at peak hours the wait stretches into tens of minutes. The site is unreliable from Russian addresses and Russian cards are declined. Sign-up, language and payment details are covered in [our Kling from Russia guide](/blog/kling-v-rossii-besplatno/).' },
+      { type: 'p', text: 'With all those caveats, it is still the best free training ground available. One clip a day turns into thirty attempts a month, and thirty attempts is enough to learn what the model handles well and what it turns into mush.' },
+      { type: 'h3', text: 'PixVerse' },
+      { type: 'p', text: 'The other service with a daily top-up: new accounts get a starter bonus, and after that credits refresh every day. By most counts that covers around two short clips a day. Free output carries a watermark and comes out at reduced resolution. The model is weaker than Kling on movement physics, but it makes up for it with speed and a library of ready-made effects, which is often enough for short vertical clips.' },
+      { type: 'quote', text: 'Spend daily credits every single day, even when you have nothing to make. It is the one resource on this list you cannot bank, but you can convert into skill.' },
+
+      { type: 'h2', text: 'One-time packs: enough to try, not enough to work' },
+      { type: 'h3', text: 'Runway' },
+      { type: 'p', text: 'Hands out 125 credits once at sign-up. Not per month, once: there is no refresh, and free accounts cannot buy more credits either. In video terms that is roughly twenty-five seconds of generation on the fast model, and then free Runway is over for you permanently. Everything carries a watermark and the model choice is trimmed. Runway is a strong product, but as a free option it is one evening of trying things.' },
+      { type: 'h3', text: 'Hailuo (MiniMax H3)' },
+      { type: 'p', text: 'Sign-up comes with a starter credit pack, no card required, and the site opens from Russia without a VPN, which is rare. There is no daily top-up like Kling has: the pack is one-off. The real ceiling shows up once you are inside - every free route caps out at 768p, while the native 2K the model is praised for is paid only. The full breakdown, including running the open weights on your own machine, is in [our MiniMax H3 guide](/blog/minimax-h3-hailuo-gayd/).' },
+      { type: 'h3', text: 'Luma and Pika' },
+      { type: 'p', text: 'Luma Dream Machine gives around thirty generations a month: the allowance does reset, but you get the slow queue, 720p, a watermark and no commercial rights. Pika grants roughly eighty credits a month, which converts into very few clips, its free tier does not include watermark-free downloads, and the resolution sits well below the paid tiers. Both are hit and miss from Russian addresses.' },
+
+      { type: 'h2', text: 'Seedance and Veo: the hardest ones to get for free' },
+      { type: 'p', text: 'These are the two strongest models on the market, and neither gives much away. Seedance 2.5 has no real free tier at any official partner: all you get are starter tokens when registering with third-party services, usually good for two to four short generations. Which parts of the ’Seedance for free’ story are true and which are traps is unpacked [separately](/blog/seedance-besplatno/).' },
+      { type: 'p', text: 'Veo is similar. The Gemini app does not hand the model out for free; the open route is Google Flow with a small daily allowance. It does not open from Russia without a VPN, it needs a Google account, and labelling applies either way: beyond the visible mark on the free tier, Google embeds an invisible SynthID tag in its clips regardless of plan. Fine for testing, not for delivery.' },
+
+      { type: 'image', src: '/blog-images/video-besplatno-ochered.jpg', alt: 'Phone screen in a dark room showing a video generation progress bar', caption: 'The real currency of free tiers is not credits but your time: the free queue can run for tens of minutes, and it charges you that on every attempt', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+
+      { type: 'h2', text: 'Russian services: no VPN, no card, no English needed' },
+      { type: 'p', text: 'Yandex Shedevrum makes short clips from a text prompt and runs free from a phone: no VPN, no card, Russian interface. Yandex does not publish exact limits, and they shift with load, but basic use is free. Sber’s Kandinsky, via Fusion Brain, also does short clips and also opens directly; its licence is non-commercial and free access has been tightened considerably in terms of generation counts.' },
+      { type: 'p', text: 'On motion quality both trail Kling and Seedance noticeably, and that is worth stating plainly. What they have that nobody above does is zero friction. Open it, type in your own language, get a clip. If the goal is simply to find out what text-to-video feels like, this is the easiest place to start.' },
+
+      { type: 'h2', text: 'What ’free’ actually means' },
+      { type: 'p', text: 'Every free tier is built the same way: enough for you to fall in love with the result, not enough for you to rely on it. Here is what the gap is made of.' },
+      { type: 'ul', items: [
+        '**Watermark.** Present almost everywhere except the Russian services and a few exceptions. You cannot honestly edit it out: it sits on top of moving footage, not in the corner of a still. A watermarked clip is not something you hand a client.',
+        '**Queue.** Paid accounts go first. On a free plan at peak hours a single generation takes tens of minutes, and that time is spent on the failures too.',
+        '**Resolution ceiling.** Free routes almost always stop at 720p or below. Tolerable for a vertical clip in a feed, not for a big screen or for cutting alongside real footage.',
+        '**Commercial licence.** The most overlooked item. Some free tiers explicitly forbid commercial use: you may show the clip to friends, but not put it in an ad or sell it to a client. Check this before you make something, not after.',
+        '**Expiring credits.** Daily ones do not roll over, monthly ones burn at the end of the cycle. ’I will save up for three weeks and do something big’ does not work anywhere.',
+        '**Failures cost the same.** Credits are deducted per attempt, successful or not. And even for an experienced operator, one or two clips out of ten are keepers.',
+      ] },
+
+      { type: 'h2', text: 'How to squeeze the most out of free limits' },
+      { type: 'p', text: 'With a fixed budget of attempts, the only way to get a usable result is to spend them carefully. The sequence that saves the most tries:' },
+      { type: 'ol', items: [
+        'Generate from an image, not from text. A reference frame removes half the failures: the model already knows the character, the light and the composition, so all it has to invent is the motion. You can make that frame in any free image model.',
+        'One action per generation. ’She turns her head and smiles’ works; ’she stands up, walks to the window, opens it and turns around’ falls apart. Build complex scenes from several short pieces in an editor.',
+        'Keep the camera static unless camera movement is part of the idea. Push-ins and orbits are the single biggest source of failed clips across every model.',
+        'Write prompts in English. Most models understand other languages but lose detail, and on a free tier the first attempt is expensive.',
+        'Test at the shortest length in the basic mode. Prove the idea in five seconds, then repeat only the prompt that worked at a longer length or in the higher mode.',
+        'Spread the work across several services. Kling and PixVerse top up daily, the Russian tools are free all the time. Three accounts means several generations a day rather than one.',
+        'Keep a list of prompts that worked. Within a month it saves more credits than any subscription, because you stop paying to repeat mistakes you already made.',
+        'Do sound separately. Nearly every free route hands you a silent clip, and music and effects in an ordinary video editor cost zero credits.',
+      ] },
+
+      { type: 'h2', text: 'What free will never get you' },
+      { type: 'p', text: 'An honest list of the walls every free tier runs into, no matter how well you optimise. A clip longer than fifteen seconds in one piece. Resolution above 720p or 768p. Material without a watermark that you can hand to a client. A character who stays consistent across several scenes. And speed: when you need twenty variants in an evening, the queue eats the evening.' },
+      { type: 'p', text: 'If your task hits any of those, the question is no longer which other free service to try, but how to pay. Ways to pay for a foreign AI service from Russia are covered [in a separate article](/blog/kak-oplatit-neyroset-iz-rossii/): up to a couple of dozen clips a month a rouble-billing reseller is usually cheaper, beyond that your own subscription wins.' },
+
+      { type: 'h2', text: 'Frequently asked questions' },
+      { type: 'h3', text: 'Is there a completely free AI video generator?' },
+      { type: 'p', text: 'Not with decent quality. The closest are the Russian tools, Shedevrum and Kandinsky: no card, no VPN, native language, but noticeably weaker motion. Among the international ones, Kling stays usable for free the longest thanks to its 66 daily credits.' },
+      { type: 'h3', text: 'Is there a free AI video generator without a watermark?' },
+      { type: 'p', text: 'On international services the mark is almost always there and only a subscription removes it. Russian services usually skip the watermark, but they come with their own limits: a non-commercial licence and very short clips.' },
+      { type: 'h3', text: 'Can I make an AI video for free without signing up?' },
+      { type: 'p', text: 'Almost nowhere. Registration exists so the free allowance can be tied to an account, otherwise the service cannot tell you apart from the next visitor. Sites promising video generation with no sign-up usually either show someone else’s samples or ask for your details one step later.' },
+      { type: 'h3', text: 'Do I need a bank card for the free tier?' },
+      { type: 'p', text: 'None of the services listed ask for a card at sign-up; an email or a Google account is enough. The card only comes up at the subscription step, and that is exactly where a Russian one gets declined.' },
+      { type: 'h3', text: 'How many videos a day can I realistically make for free?' },
+      { type: 'p', text: 'On a single service with daily credits, one or two short generations. Add accounts on two or three platforms plus the Russian tools and you get roughly three to five attempts a day. Not all of them will be keepers.' },
+      { type: 'h3', text: 'Can I use free clips in advertising?' },
+      { type: 'p', text: 'Check the terms of the specific service. Some free tiers forbid commercial use outright; on the rest you are left with a watermark that rules out an ad anyway. For commercial material the free route does not work.' },
+      { type: 'h3', text: 'Are free models worse than paid ones, or are they the same models?' },
+      { type: 'p', text: 'Usually the same models running in a trimmed mode: lower resolution, shorter clips, no access to the higher generation modes or to tools like scene extension. The model itself is the same, the delivery is restricted.' },
+
+      { type: 'h2', text: 'When you need a result, not an experiment' },
+      { type: 'p', text: 'Free limits answer the question ’what is this thing, anyway’ very well. But what stands between ’that looks nice’ and ’that is what the client asked for’ is not a subscription, it is understanding framing, light and which model suits which scene. That is what we work through in [our AI video training](/services/obuchenie-ai-video/) on your own project, and the studio’s finished work is in the [portfolio](/works/).' },
+      { type: 'cta' },
+    ],
+  },
+  {
+    slug: 'veo-v-rossii',
+    category: 'Models & comparisons',
+    title: 'Google Veo from Russia: access, subscription and what to use instead',
+    description: 'Does Google Veo work from Russia in 2026, which Google AI plans unlock it, what they cost, is there a free tier and which models replace it.',
+    keywords: 'veo 3, google veo, veo access russia, veo subscription, google ai pro, google ai ultra, google flow, veo free, veo alternative, ai video with sound',
+    cover: '/blog-images/cover-veo-dostup.jpg',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
+    date: '2026-09-04',
+    dateModified: '2026-09-04',
+    readingTime: '8 min',
+    related: ['veo-gayd', 'minimax-h3-hailuo-gayd', 'kak-oplatit-neyroset-iz-rossii'],
+    excerpt: 'Veo is usually recommended as the best model for video with synced sound and speech, but from Russia you still have to reach it. Here is which Google products serve the model, what exactly breaks at signup and at payment, what the plans cost, and when another model is simply the saner choice.',
+    content: [
+      { type: 'p', text: 'People write the same thing about Veo every time: it makes video with sound in one pass, speech lands on the lips, the result looks expensive. All true. But between «looks expensive» and «I pressed a button and got a clip» there is a whole wall for users in Russia: region, account, card, subscription. This article is not about prompting. For prompts and model capabilities we have a separate piece: [the Veo guide](/blog/veo-gayd/). This one is only about access and money.' },
+      { type: 'p', text: 'The main point up front, so nobody has to dig for it. **Russia is not on the list of supported countries.** So the real question is not «is it possible», it is «how much hassle are you willing to eat for synced sound» and «would another model that opens without any of this be good enough».' },
+
+      { type: 'h2', text: 'Where Veo actually lives: four different doors' },
+      { type: 'p', text: 'The first confusion for newcomers is that Veo is not a website. It is a model Google serves through several different products, and they behave differently: different interface, different limits, different billing. As of September 2026 the current version is **Veo 3.1**. It shipped in late 2025 and grew through 2026: 4K and native vertical 9:16 for Shorts and Reels were added.' },
+      { type: 'ul', items: [
+        '**The Gemini app** (web and mobile). The simplest door: type a prompt, get a short clip. No timeline, no scene assembly. Good for finding out whether you need this at all.',
+        '**Flow** (flow.google). Google’s dedicated video tool: scenes, reference «ingredients», building an episode from several generations, shot control. It runs on credits granted by your plan. If Veo is for work rather than play, this is your door.',
+        '**Gemini API and Google AI Studio.** For people calling the model from code or wiring it into a pipeline. You pay per generation, not per month.',
+        '**Vertex AI.** The Google Cloud enterprise track: same Veo, but with cloud billing, quotas and a contract. This is what you use when generation is embedded in a company product.',
+      ] },
+      { type: 'p', text: 'There are side doors too: Veo was pulled into YouTube Shorts, YouTube Create and Google Vids. But that is a feature inside someone else’s editor rather than real access to the model, and the regional limits there are exactly the same.' },
+
+      { type: 'h2', text: 'What exactly breaks when you access it from Russia' },
+      { type: 'p', text: 'Three things break, and it matters which one, because each is fixed differently.' },
+      { type: 'h3', text: '1. Region at the door' },
+      { type: 'p', text: 'Google resolves your country from the IP address and from your account data. From a Russian address you hit a «not available in your country» message. That covers the Gemini app, Flow, and AI Studio with the API. The reason is not technical: US companies restrict access to cloud AI services under sanctions and export rules, and Google wound down its commercial presence in Russia back in 2022.' },
+      { type: 'h3', text: '2. Account and subscription' },
+      { type: 'p', text: 'Even on a foreign IP, the subscription is tied to the country on your Google account. If the profile says Russia, the paid plans simply will not appear. Google does not let you flip account country instantly or repeatedly either.' },
+      { type: 'h3', text: '3. Payment' },
+      { type: 'p', text: 'The hardest link. Google does not accept Russian bank cards. And paying does not override geography: you cannot buy your way into an unsupported region, the money leaves and the access does not arrive. How people get past payment walls in general is covered separately: [paying for AI services from Russia](/blog/kak-oplatit-neyroset-iz-rossii/).' },
+      { type: 'quote', text: 'The practical takeaway: all three links have to be fixed at once. Fix only the IP and you hit the card. Fix the card but forget the account country and the plan never shows up.' },
+
+      { type: 'h2', text: 'What it costs: Google AI plans as of September 2026' },
+      { type: 'p', text: 'Google’s plan lineup was reshuffled in 2026: a cheap entry tier appeared, and the top tier got cheaper. Based on Google’s own subscription pages and industry coverage as of September 2026, the picture looks like this.' },
+      { type: 'ul', items: [
+        '**Free tier.** Gemini works, but full Veo 3.1 video generation is not part of it.',
+        '**Google AI Plus.** Around 7.99 dollars a month. A cheap way in: you can generate video, but on a lighter version of the model and with a small pool of Flow credits (roughly 200 a month).',
+        '**Google AI Pro.** Around 19.99 dollars a month, often with a first-year discount for new subscribers. Roughly 1,000 Flow credits a month. This is the working minimum if you use Veo regularly.',
+        '**Google AI Ultra.** It used to cost about 249.99 dollars. In 2026 Google split it into two levels and cut the price to roughly 99.99 and 199.99 dollars a month. An order of magnitude more credits (tens of thousands), higher resolution, and first access to new features.',
+      ] },
+      { type: 'p', text: 'Inside Flow you do not spend «generations», you spend credits, and the same button costs different amounts depending on mode. According to review sites, a fast render runs about two dozen credits, top quality around a hundred. Google adjusts the rates, so budget against your own counter rather than somebody else’s table. **One caveat:** the prices above are in dollars and exclude the fees your payment route adds, which from Russia can easily pile tens of percent on top.' },
+      { type: 'p', text: 'The API is its own story. Through the Gemini API and Vertex AI you pay per second of generated video rather than per month, and the rate depends on model version, resolution and whether audio is included. The order of magnitude is such that an eight-second clip at top quality costs real money, while the light version costs pennies. Look up the exact figure in the current Google Cloud price list: it changes more often than articles get written.' },
+
+      { type: 'h2', text: 'Is there free access' },
+      { type: 'p', text: 'Formally yes, practically almost none. The free Flow tier gives a handful of credits and, per the service’s own description, runs on the older Veo 2 rather than 3.1. That is enough to look at the interface and make a couple of test generations. You will not assemble anything resembling a usable clip on it: switch on quality and audio and the credits are gone in a few clicks.' },
+      { type: 'p', text: 'So if what you are searching for is «Veo free from Russia», the honest answer is that this door does not exist. What does exist is «try another vendor’s model for free»: for example [Kling from Russia](/blog/kling-v-rossii-besplatno/), which hands out free daily credits.' },
+
+      { type: 'image', src: '/blog-images/veo-dostup-timeline.jpg', alt: 'Close-up of a laptop screen: a video track and an audio track lined up under each other on the timeline', caption: 'This is what the access hassle is for: in Veo the picture and the sound are born in a single pass and already line up, instead of being matched by hand afterwards', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+
+      { type: 'h2', text: 'What you are putting up with it for: sound and speech' },
+      { type: 'p', text: 'If Veo just drew a pretty picture, climbing three walls for it would make no sense: plenty of models draw pretty pictures now. The model has exactly one strong side, and it is a serious one: **synced audio produced in the same pass as the video**. Character lines, lip sync, footsteps, room tone, a music bed. It all arrives with the frame.' },
+      { type: 'p', text: 'Why that matters in practice. In the usual pipeline the video is generated in one place, the voice is recorded in another, and then a human sits down and nudges one against the other. On a single short clip that is half an hour. On a batch of twenty it is a job of its own. Veo removes that step.' },
+      { type: 'p', text: 'Which gives a simple rule for when the hassle pays off:' },
+      { type: 'ol', items: [
+        'Somebody speaks on camera and the speech has to look real. This is the main case.',
+        'You need a dense sound environment: street, cafe, rain, a crowd. Building that from libraries is slow and tends to sound canned.',
+        'There are many clips and they are similar. The saved conform time adds up.',
+        'The client is picky about lip sync and has already rejected takes from other models.',
+      ] },
+      { type: 'p', text: 'If none of that describes you and all you need is a good-looking silent shot under a voice-over, you are picking Veo for its reputation rather than for the job. That is exactly when it is worth looking at the neighbours.' },
+
+      { type: 'h2', text: 'What to use instead, if the hassle is not worth it' },
+      { type: 'p', text: 'The good news: Google no longer holds a monopoly on sound.' },
+      { type: 'h3', text: 'MiniMax H3, if sound is the point' },
+      { type: 'p', text: 'This Chinese model also generates video together with audio in a single pass, speech included. Signup is simpler and the payment routes are more realistic from Russia. It is the closest replacement in terms of the actual job, not just «another video model»: [the MiniMax H3 guide](/blog/minimax-h3-hailuo-gayd/).' },
+      { type: 'h3', text: 'Kling and Seedance, if sound is optional' },
+      { type: 'p', text: 'Both are easier to reach and to pay for, and both give solid image quality and believable motion. You add the audio separately: voice, music, effects. Yes, that is an extra step, but it is a predictable one and it goes fast, especially on a small batch.' },
+      { type: 'h3', text: 'How to choose' },
+      { type: 'p', text: 'Do not ask which model is better. Add up the cost of access plus the cost of finishing. Veo takes your time at the door and gives it back at the conform stage. Kling or Seedance take your time at the conform stage and cost nothing at the door. A task-by-task comparison is laid out separately: [comparing AI video models](/blog/sravnenie-neyrosetey-dlya-video/).' },
+      { type: 'p', text: 'And a sober note about any of these routes: generation is only half the work. Take selection, editing, rhythm and sound come next, and that is where a clip either becomes watchable or does not. If you would rather learn that systematically than piece it together from fragments, we run [AI video training](/services/obuchenie-ai-video/).' },
+
+      { type: 'h2', text: 'Frequently asked questions' },
+      { type: 'h3', text: 'Does Google Veo work in Russia in 2026?' },
+      { type: 'p', text: 'Officially no. Russia is not on the supported country list for the Gemini app, for Flow, or for the API. A user on a Russian IP gets a message saying the service is unavailable in their country.' },
+      { type: 'h3', text: 'Can you pay for a Google AI plan with a Russian card?' },
+      { type: 'p', text: 'No. Google does not accept cards issued by Russian banks. And even a successful payment does not lift the regional restriction: access is decided by account country and address, not by the fact that money moved.' },
+      { type: 'h3', text: 'Which subscription do you need to generate video with Veo?' },
+      { type: 'p', text: 'The cheapest paid door with video generation is Google AI Plus at roughly 8 dollars a month, but it runs a lighter model version with few credits. The working option is Google AI Pro at roughly 20 dollars with about a thousand Flow credits. Ultra gives the maximum and early access to new features, and after the 2026 price cut it starts at roughly 100 dollars.' },
+      { type: 'h3', text: 'Does Veo have free generations?' },
+      { type: 'p', text: 'A free Flow tier exists, but it hands out a handful of credits and an older model version. Enough for a taste, not for work. Full Veo 3.1 lives only in the paid plans.' },
+      { type: 'h3', text: 'What is Veo genuinely better at than Kling and Seedance?' },
+      { type: 'p', text: 'One thing: audio and speech generated in the same pass as the video, with the lips matching. On raw image quality the gap between top models in 2026 is small and swings from scene to scene. If nobody speaks on camera, Veo’s advantage almost disappears for you.' },
+      { type: 'h3', text: 'What replaces Veo if you need sound but cannot get access?' },
+      { type: 'p', text: 'MiniMax H3: it also produces sound and speech in one pass, and getting in from Russia is noticeably easier. If audio is not mandatory, take Kling or Seedance and add the voice as a separate step.' },
+      { type: 'h3', text: 'Is Veo in Gemini different from Veo in Flow?' },
+      { type: 'p', text: 'Same model, different wrapper. In the Gemini app you get a short clip from a text prompt with almost no control. Flow is built for work: scenes, reference frames, episode assembly, shot control. For production only Flow makes sense.' },
+      { type: 'cta' },
+    ],
+  },
+  {
+    slug: 'runway-v-rossii',
+    category: 'Models & comparisons',
+    title: 'Runway from Russia: access, payment, free plan and what to use instead',
+    description:
+      'Does Runway open from Russia in 2026, what the 125-credit free plan gives you, how much the paid tiers cost, whether cards work and what to use instead.',
+    keywords:
+      'runway ai, runway gen, runway ml, runway download, runway reviews, runway video, runway in russia, runway free, runway price, runway payment',
+    cover: '/blog-images/cover-runway-dostup.jpg',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
+    date: '2026-09-04',
+    dateModified: '2026-09-04',
+    readingTime: '8 min',
+    related: ['runway-gayd', 'kling-v-rossii-besplatno', 'kak-oplatit-neyroset-iz-rossii'],
+    excerpt:
+      'Runway is still one of the most visible video generators, but the road to it from Russia is not a straight one. Here is what actually opens, how many credits you get for free, what the plans really cost, and why searching for a Runway download is a dead end.',
+    content: [
+      { type: 'p', text: 'First, let’s clear up the confusion: this is about Runway ML, the American AI video generation service. Not treadmills, not fuel additives, not the fashion TV show. If you need the interface and how to write prompts, that lives in a separate piece: [how to use it is covered in the Runway guide](/blog/runway-gayd/). This article is only about access and money. Status as of September 2026.' },
+
+      { type: 'h2', text: 'Does Runway open from Russia' },
+      { type: 'p', text: 'The runway.com site itself usually opens from Russian addresses, and signing up with an email or a Google account goes through. So the barrier is not at the door. It is at the checkout: the payment gateway does not accept cards issued in Russia. That is why the typical story goes like this - someone creates an account, burns the starter credits, and then hits a wall at payment.' },
+      { type: 'p', text: 'One more thing worth knowing up front: the service pays attention to the user’s region, and a Russian region combined with repeated payment attempts looks suspicious to it. Nobody guarantees the account will live forever. If Runway is a working tool for you rather than an experiment, it makes sense from day one to register with an email you will not lose access to, and not to keep the only copy of your projects inside it.' },
+      { type: 'p', text: '**The practical takeaway:** you can almost certainly get in and try it. You cannot build a video production routine on it without a foreign card or an intermediary.' },
+
+      { type: 'h2', text: 'The free plan: 125 credits and that’s it' },
+      { type: 'p', text: 'Runway does have a free plan, but it works differently from most competitors. A new account gets 125 credits **once**. They do not refresh daily or monthly: spend them, and the free plan is over for you. This is not a month-long trial, it is literally a handful of button presses.' },
+      { type: 'p', text: 'How many seconds of video that buys depends on the model. The top Gen-4.5 costs 12 credits per second of finished footage, so 125 credits is roughly ten seconds. Faster, cheaper modes like Gen-4 Turbo burn about half that, which gets you around twenty five seconds from the same pool. Two or three five-second attempts, and you are done.' },
+      { type: 'p', text: 'What else the free plan includes, and what matters before your first generation:' },
+      { type: 'ul', items: [
+        '**Watermark.** It is there on the free plan and only comes off with a subscription. The free tier is simply unusable for client work.',
+        '**Resolution.** Export is capped, and the higher formats plus 4K upscaling start on the paid plans.',
+        '**Trimmed model list.** A free account gets a selection of generative models, not the full catalogue.',
+        '**5 GB of storage.** Fine for experiments, not for a project archive.',
+        '**Credits are charged for every attempt.** A failed generation costs exactly what a good one costs. With 125 credits total, that stings.',
+      ] },
+      { type: 'quote', text: 'Runway’s free plan is not «work for free», it is «see what it looks like». Plan those 125 credits in advance: write the prompt out beforehand instead of discovering the wording by trial and error.' },
+
+      { type: 'h2', text: 'What the paid plans cost' },
+      { type: 'p', text: 'There are three paid tiers plus an enterprise one. Prices are per user per month, and paying annually is noticeably cheaper than paying month to month.' },
+      { type: 'ul', items: [
+        '**Standard** - 12 dollars a month billed annually, around 15 billed monthly. 625 credits a month. Removes the watermark, unlocks the whole model catalogue and 4K upscaling.',
+        '**Pro** - 28 dollars billed annually, around 35 monthly. 2,250 credits, 500 GB of storage, custom voices for lip sync and text to speech.',
+        '**Max** - 76 dollars billed annually, around 95 monthly. 9,500 credits, one month of credit rollover, early access to new models, studio-grade formats and HDR generations.',
+        '**Enterprise** - custom pricing: single sign-on, analytics, workspace configuration, priority support.',
+      ] },
+      { type: 'p', text: 'To translate that into something tangible: 625 credits on Standard is roughly 52 seconds of finished video on the top Gen-4.5 model, or about 104 seconds on the faster Gen-4 Turbo. Less than two minutes of material a month for 12 dollars. And those are seconds of **successful** generations - rejects eat credits just like keepers do, and in generative video there are always more rejects than you would like.' },
+      { type: 'p', text: 'Hence a simple rule of thumb: if you make one or two videos a month, Standard will run out on your first working evening. The realistic minimum for regular practice is Pro. Runway used to have an unlimited plan; for new buyers it has been replaced by Max with a fixed 9,500 credits.' },
+
+      { type: 'h2', text: 'Do Russian cards work' },
+      { type: 'p', text: 'No. Payments run through a foreign gateway, and cards with a Russian BIN are declined automatically regardless of the payment network. Mir is even further out of the question: outside a handful of countries it simply does not work. The error message is usually vague, something like «payment declined», and it looks like a service glitch when it is actually a filter doing its job.' },
+      { type: 'p', text: 'There are three working ways around it, each with its own price:' },
+      { type: 'ol', items: [
+        'A foreign card, either your own or issued in another country. You pay exactly Runway’s price with no markup, but you have to maintain the card and keep money on it.',
+        'A virtual card with a foreign BIN from an issuing service. Faster to set up, but it charges fees for issuing and topping up, and some of these cards get rejected by the gateway too.',
+        'An intermediary or a Russian AI aggregator that either pays on your behalf or gives you access to the models for roubles. More expensive per generation, but no card and no risk to your account.',
+      ] },
+      { type: 'p', text: 'Payment methods, fees and pitfalls are covered in detail in [the guide to paying for AI services from Russia](/blog/kak-oplatit-neyroset-iz-rossii/), and how to pick a reseller is in [the breakdown of AI aggregators](/blog/agregatory-ai-servisov/). The general rule is the same as for other models: up to a couple of dozen clips a month an aggregator in roubles wins, beyond that your own subscription starts to pay off.' },
+
+      { type: 'image', src: '/blog-images/runway-dostup-panel.jpg', alt: 'Close-up of a colour grading control panel with a trackball and knobs under warm lighting in a dark studio', caption: 'Generation only gives you raw material. Colour, rhythm and editing are still done by hand, and at that stage the difference between Runway and any other generator almost disappears', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+
+      { type: 'h2', text: 'What is behind the «download Runway» search' },
+      { type: 'p', text: 'Nothing. Runway is a cloud service: all generation happens on the company’s servers, and there is no desktop application. There is nothing to download, and any site offering «Runway for Windows» or an installer has no connection to the service. That is a classic bait for installing unrelated software.' },
+      { type: 'p', text: 'The one thing you genuinely can install is the official iPhone app. It is in the App Store, needs a recent iOS version, and works with the same models and the same account. Tablets are not supported, and for serious work the app still loses to the browser. Note that the app may be missing from the Russian App Store region, so installing it needs an account from another region. So «download» runs into exactly the same wall as payment does.' },
+
+      { type: 'h2', text: 'What to use instead if you don’t want the hassle' },
+      { type: 'p', text: 'Runway is strong at stylised cinematic motion and at bringing a still image to life, but it has not been the only option for a while. From Russia, life is easier with models whose free tier refills instead of being a one-off.' },
+      { type: 'ul', items: [
+        '**Kling** - daily free credits instead of a single grant, which makes it the cheapest place to learn. Access and payment details are in [the article on Kling from Russia](/blog/kling-v-rossii-besplatno/).',
+        '**Russian aggregators** - the same Western models, Runway included, in a Russian interface with rouble payment. Pricier per generation, but no VPN and no cards.',
+        '**Models from Chinese developers** - usually more generous with free limits and more relaxed about the user’s region.',
+      ] },
+      { type: 'p', text: 'Which model does what and who wins on picture quality is laid out in [the comparison of AI video models](/blog/sravnenie-neyrosetey-dlya-video/). The honest answer is this: the gap between models today is smaller than the gap between a good prompt and a bad one. If the result disappoints, work on how you state the task first and only then change services.' },
+      { type: 'p', text: 'If you would rather not figure it out yourself but still need the videos, we run [training on AI video](/services/obuchenie-ai-video/) and produce the footage end to end.' },
+
+      { type: 'h2', text: 'Frequently asked questions' },
+
+      { type: 'h3', text: 'What kind of AI is Runway and what does it do?' },
+      { type: 'p', text: 'It is a video and image generation platform from the American company Runway. It makes video from text, animates an uploaded image, reworks existing footage, and also removes backgrounds, extends frames and generates voice. The flagship line is called Gen, and the current models are Gen-4, Gen-4 Turbo and Gen-4.5.' },
+
+      { type: 'h3', text: 'What is Runway Gen and how do the versions differ?' },
+      { type: 'p', text: 'Gen is the service’s family of video models. Gen-4 keeps the same character and location consistent across shots from a single reference image and generates clips up to ten seconds long. Gen-4 Turbo is its fast variant, roughly half the credit cost with slightly lower quality. Gen-4.5 is the newest and most expensive model at 12 credits per second.' },
+
+      { type: 'h3', text: 'Can you download Runway to a computer?' },
+      { type: 'p', text: 'No, it is a cloud service that only runs in a browser. There is no Windows or macOS application, and offers to download one are a scam. There is an official iPhone app, but not for iPad and not for desktop.' },
+
+      { type: 'h3', text: 'Does Runway have a free plan?' },
+      { type: 'p', text: 'It does, but it is one-off: 125 credits at sign-up, with no refresh. That covers roughly ten seconds of video on the top model, or a little over twenty on the fast one. Clips carry a watermark and a capped resolution, and only part of the model catalogue is available.' },
+
+      { type: 'h3', text: 'How much does Runway cost per month?' },
+      { type: 'p', text: 'Standard is 12 dollars billed annually and around 15 monthly, Pro is 28 and around 35, Max is 76 and around 95. The difference between plans is the credit allowance: 625, 2,250 and 9,500 a month respectively. Add the cost of your payment route if you are not using your own foreign card.' },
+
+      { type: 'h3', text: 'Is Runway worth the money, judging by reviews?' },
+      { type: 'p', text: 'Reviews usually raise two complaints: credits disappear faster than expected because every attempt is billed, and results vary unpredictably from take to take. Both are fair, and both apply to every generative video model, not just Runway. If you need a single clip, an aggregator or intermediary is cheaper. If you generate regularly, a subscription from Pro upwards pays for itself.' },
+
+      { type: 'h3', text: 'Do you need a VPN to use Runway?' },
+      { type: 'p', text: 'Usually not to reach the site, which opens fine. The problem is not access but payment: the gateway will decline a Russian bank card no matter which country you appear to be connecting from. A VPN does not get around that wall, you need a foreign card or an intermediary.' },
+
+      { type: 'cta' },
+    ],
+  },
   {
     slug: 'neyroset-dlya-foto-besplatno',
     category: 'Images & art',

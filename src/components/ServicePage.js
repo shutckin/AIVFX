@@ -10,7 +10,7 @@ import './services-systems.css';
 const SITE = 'https://aivfx.ru';
 
 // Универсальная страница услуги /services/<slug>/.
-// Контент целиком берётся из SERVICE_PAGES; неизвестный slug — ничего не рендерим.
+// Контент целиком берётся из SERVICE_PAGES; неизвестный slug - ничего не рендерим.
 // Рендер одного блока гайда: абзац, список, нумерованные шаги или врезка
 const GuideBlock = ({ block, L }) => {
   if (block.type === 'p') return <p className="sg-p">{pick(L, block.text)}</p>;
@@ -67,7 +67,7 @@ const ServicePage = ({ slug }) => {
 
     // seoTitle - когда маркетинговый заголовок («Ни одна заявка больше не
     // теряется») хорош на странице, но ничего не говорит поиску
-    document.title = `${pick(L, page.seoTitle || page.title)} — AIVFX`;
+    document.title = `${pick(L, page.seoTitle || page.title)} - AIVFX`;
 
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
@@ -119,7 +119,7 @@ const ServicePage = ({ slug }) => {
           },
         ],
       },
-      // Блок вопросов и ответов из гайда — отдельной разметкой для поиска
+      // Блок вопросов и ответов из гайда - отдельной разметкой для поиска
       ...(faq && faq.length
         ? [{
           '@context': 'https://schema.org',

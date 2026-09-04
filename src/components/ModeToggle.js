@@ -3,7 +3,7 @@ import { useLocale, localizedHref } from '../i18n';
 import './mode-toggle.css';
 
 // Тумблер направлений студии: AI-системы (primary, главная) ↔ AI-контент.
-// Переход — полная навигация (страницы предзарендерены).
+// Переход - полная навигация (страницы предзарендерены).
 const ModeToggle = ({ mode = 'systems' }) => {
   const L = useLocale();
   const en = L === 'en';

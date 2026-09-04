@@ -3,11 +3,11 @@
 // Страница /services/<slug>/ раньше была короткой карточкой-лендингом.
 // Здесь лежит её вторая, содержательная половина: разбор того, как
 // устроена система, как проходит внедрение и что считать результатом.
-// Задача двойная — объяснить процесс человеку и дать поисковикам текст,
+// Задача двойная - объяснить процесс человеку и дать поисковикам текст,
 // за который страницу вообще есть смысл показывать.
 //
-// Структура блоков намеренно бедная: 'p' — абзац, 'list' — маркированный
-// список, 'steps' — нумерованные шаги, 'note' — выделенная врезка.
+// Структура блоков намеренно бедная: 'p' - абзац, 'list' - маркированный
+// список, 'steps' - нумерованные шаги, 'note' - выделенная врезка.
 // Ничего больше в вёрстке гайда не нужно.
 
 export const SERVICE_GUIDES = {
@@ -247,7 +247,7 @@ export const SERVICE_GUIDES = {
       { q: { ru: 'Пациенты не испугаются, что с ними говорит программа?', en: 'Will patients be put off by talking to software?' },
         a: { ru: 'Пугает не программа, а отсутствие ответа. Ассистент честно представляется и отвечает по организационным вопросам за секунды - это заметно лучше, чем автоответчик в девять вечера. Разговоры о здоровье всё равно ведёт человек.', en: 'What puts people off is silence, not software. The assistant introduces itself honestly and answers organisational questions within seconds, which beats voicemail at nine in the evening. Conversations about health are still handled by a human.' } },
       { q: { ru: 'Он сможет работать с нашей медицинской системой?', en: 'Will it work with our practice management system?' },
-        a: { ru: 'Вопрос в том, умеет ли ваша система принимать данные снаружи. Если умеет - запись создаётся прямо в ней. Если нет, остаётся запасной путь: уведомление регистратуре, а внесение вручную. Это хуже, но работает.', en: 'It depends on whether your system can accept data from outside. If it can, appointments are created directly in it. If not, the fallback is a notification to the front desk and manual entry — worse, but workable.' } },
+        a: { ru: 'Вопрос в том, умеет ли ваша система принимать данные снаружи. Если умеет - запись создаётся прямо в ней. Если нет, остаётся запасной путь: уведомление регистратуре, а внесение вручную. Это хуже, но работает.', en: 'It depends on whether your system can accept data from outside. If it can, appointments are created directly in it. If not, the fallback is a notification to the front desk and manual entry - worse, but workable.' } },
       { q: { ru: 'Что будет, если пациент напишет про острую боль?', en: 'What happens if a patient reports acute pain?' },
         a: { ru: 'Диалог немедленно передаётся человеку с пометкой срочности, и ассистент больше в него не вмешивается. Это не настройка вежливости, а обязательное правило системы.', en: 'The conversation is handed to a human immediately, flagged as urgent, and the assistant stops taking part in it. This is a mandatory rule of the system, not a politeness setting.' } },
       { q: { ru: 'Сколько занимает запуск в клинике?', en: 'How long does a clinic launch take?' },
@@ -281,7 +281,7 @@ export const SERVICE_GUIDES = {
             ru: 'Запись, которая не учитывает загрузку, создаёт больше проблем, чем решает: клиент приезжает, а пост занят. Поэтому ассистент должен видеть не абстрактный календарь, а реальную занятость постов и длительность работ.',
             en: 'A booking that ignores bay load creates more problems than it solves: the customer arrives and the bay is busy. So the assistant must see real bay occupancy and job durations, not an abstract calendar.' } },
           { type: 'list', items: [
-            { ru: 'Диагностика и замена масла занимают разное время - слот считается по типу работ', en: 'Diagnostics and an oil change take different times — the slot is sized by job type' },
+            { ru: 'Диагностика и замена масла занимают разное время - слот считается по типу работ', en: 'Diagnostics and an oil change take different times - the slot is sized by job type' },
             { ru: 'Подтверждение накануне снижает число неявок', en: 'Confirmation the day before cuts no-shows' },
             { ru: 'Отмена в переписке освобождает пост автоматически', en: 'A cancellation in chat frees the bay automatically' },
           ] },
@@ -293,7 +293,7 @@ export const SERVICE_GUIDES = {
         blocks: [
           { type: 'p', text: {
             ru: 'Самая недооценённая часть. У вас уже есть история визитов: марка, пробег, что делали и когда. Через нужный срок ассистент напоминает про плановое обслуживание тем, кто уже был, - это дешевле любой рекламы, потому что человек вас знает.',
-            en: 'The most underrated part. You already have visit history: make, mileage, what was done and when. After the right interval the assistant reminds returning customers about scheduled maintenance — cheaper than any advertising, because they already know you.' } },
+            en: 'The most underrated part. You already have visit history: make, mileage, what was done and when. After the right interval the assistant reminds returning customers about scheduled maintenance - cheaper than any advertising, because they already know you.' } },
         ],
       },
     ],
@@ -328,7 +328,7 @@ export const SERVICE_GUIDES = {
         blocks: [
           { type: 'p', text: {
             ru: 'Нужно выяснить бюджет, район, сроки и способ оплаты - но не подряд и не в лоб. Правильный порядок: сначала ответить на вопрос человека, потом уточнить одно. Иначе разговор превращается в анкету, и его закрывают.',
-            en: 'You need budget, area, timing and payment method — but not one after another and not head-on. The right order is: answer the person first, then clarify one thing. Otherwise the chat turns into a form and gets closed.' } },
+            en: 'You need budget, area, timing and payment method - but not one after another and not head-on. The right order is: answer the person first, then clarify one thing. Otherwise the chat turns into a form and gets closed.' } },
           { type: 'list', items: [
             { ru: 'Бюджет спрашивается после того, как названа вилка по району', en: 'Budget is asked after a price range for the area has been given' },
             { ru: 'Ипотека - отдельный вопрос: нужна ли и есть ли одобрение', en: 'Mortgage is a separate question: needed at all, and already approved or not' },
@@ -342,13 +342,13 @@ export const SERVICE_GUIDES = {
         blocks: [
           { type: 'p', text: {
             ru: 'В недвижимости срок принятия решения измеряется месяцами. Человек, который сегодня «просто смотрит», через полгода выйдет на сделку - и придёт к тому, о ком помнит. Автоматизация полезна здесь не скоростью, а тем, что такие контакты не теряются и получают редкие уместные касания вместо еженедельных звонков.',
-            en: 'In property the decision cycle runs for months. Someone «just looking» today may transact in six months — and will go to whoever they remember. Automation helps here not through speed but by keeping such contacts alive with rare, relevant touches instead of weekly calls.' } },
+            en: 'In property the decision cycle runs for months. Someone «just looking» today may transact in six months - and will go to whoever they remember. Automation helps here not through speed but by keeping such contacts alive with rare, relevant touches instead of weekly calls.' } },
         ],
       },
     ],
     faq: [
       { q: { ru: 'Ассистент будет отвечать вместо риелтора?', en: 'Will the assistant replace the agent?' },
-        a: { ru: 'Только на первом касании: ответить сразу, выяснить параметры и записать на показ. Дальше работает человек - в сделках такого размера решение принимают в разговоре с человеком.', en: 'Only on first contact: reply instantly, establish the parameters and book a viewing. After that a human takes over — deals of this size are decided in conversation with a person.' } },
+        a: { ru: 'Только на первом касании: ответить сразу, выяснить параметры и записать на показ. Дальше работает человек - в сделках такого размера решение принимают в разговоре с человеком.', en: 'Only on first contact: reply instantly, establish the parameters and book a viewing. After that a human takes over - deals of this size are decided in conversation with a person.' } },
       { q: { ru: 'Можно ли подключить нашу выгрузку объектов?', en: 'Can it use our listings feed?' },
         a: { ru: 'Да, и без неё смысл теряется наполовину: ассистент должен предлагать конкретные объекты, а не отвечать «варианты есть». Подходит любая регулярная выгрузка, которую вы уже отдаёте на площадки.', en: 'Yes, and without it half the point is lost: the assistant should offer specific listings, not reply «we have options». Any regular feed you already send to the portals will do.' } },
       { q: { ru: 'Что с обращениями не по нашему профилю?', en: 'What about inquiries outside our profile?' },
@@ -371,21 +371,21 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Чат-бот — это интерфейс. Он умеет вести диалог в одном канале и на этом заканчивается: дальше человек всё равно руками переносит данные, ставит задачу менеджеру и вспоминает, кому нужно перезвонить. Поэтому бизнес часто разочаровывается — бот поставили, а количество потерянных заявок не изменилось.',
-              en: 'A chatbot is an interface. It can hold a conversation in one channel and that is where it ends: a human still copies the data over by hand, assigns the task to a manager and tries to remember who needs a call back. That is why businesses get disappointed — the bot is live, but the number of lost leads has not moved.',
+              ru: 'Чат-бот - это интерфейс. Он умеет вести диалог в одном канале и на этом заканчивается: дальше человек всё равно руками переносит данные, ставит задачу менеджеру и вспоминает, кому нужно перезвонить. Поэтому бизнес часто разочаровывается - бот поставили, а количество потерянных заявок не изменилось.',
+              en: 'A chatbot is an interface. It can hold a conversation in one channel and that is where it ends: a human still copies the data over by hand, assigns the task to a manager and tries to remember who needs a call back. That is why businesses get disappointed - the bot is live, but the number of lost leads has not moved.',
             },
           },
           {
             type: 'p',
             text: {
-              ru: 'Система — это цепочка, которая доводит обращение от первого сообщения до записи в CRM и напоминания через сутки. Диалог в ней всего лишь один из узлов. Ценность создаёт не то, что кто-то ответил клиенту, а то, что после ответа обращение не исчезло.',
-              en: 'A system is a chain that carries an inquiry from the first message all the way to a CRM record and a follow-up reminder a day later. The conversation is just one node in it. The value is not that somebody replied to the customer — it is that the inquiry did not vanish afterwards.',
+              ru: 'Система - это цепочка, которая доводит обращение от первого сообщения до записи в CRM и напоминания через сутки. Диалог в ней всего лишь один из узлов. Ценность создаёт не то, что кто-то ответил клиенту, а то, что после ответа обращение не исчезло.',
+              en: 'A system is a chain that carries an inquiry from the first message all the way to a CRM record and a follow-up reminder a day later. The conversation is just one node in it. The value is not that somebody replied to the customer - it is that the inquiry did not vanish afterwards.',
             },
           },
           {
             type: 'note',
             text: {
-              ru: 'Простой тест на зрелость: попросите показать, что происходит с заявкой через 48 часов после первого сообщения. Если ответ — «менеджер посмотрит в переписке», это ещё не система.',
+              ru: 'Простой тест на зрелость: попросите показать, что происходит с заявкой через 48 часов после первого сообщения. Если ответ - «менеджер посмотрит в переписке», это ещё не система.',
               en: 'A simple maturity test: ask to see what happens to a lead 48 hours after the first message. If the answer is “the manager will check the chat history”, it is not a system yet.',
             },
           },
@@ -406,24 +406,24 @@ export const SERVICE_GUIDES = {
             type: 'steps',
             items: [
               {
-                ru: 'Приём. Все каналы — сайт, WhatsApp, Telegram, Instagram Direct, почта, телефония — сводятся в одну точку входа. С этого момента у обращения появляется единый идентификатор, по которому его можно найти.',
-                en: 'Capture. Every channel — website, WhatsApp, Telegram, Instagram DM, email, phone — flows into a single entry point. From that moment the inquiry has one identifier you can trace it by.',
+                ru: 'Приём. Все каналы - сайт, WhatsApp, Telegram, Instagram Direct, почта, телефония - сводятся в одну точку входа. С этого момента у обращения появляется единый идентификатор, по которому его можно найти.',
+                en: 'Capture. Every channel - website, WhatsApp, Telegram, Instagram DM, email, phone - flows into a single entry point. From that moment the inquiry has one identifier you can trace it by.',
               },
               {
                 ru: 'Понимание. Модель читает сообщение в контексте всей переписки и истории клиента: что человек хочет, повторное ли это обращение, какой продукт обсуждается, есть ли срочность.',
                 en: 'Understanding. The model reads the message in the context of the whole thread and the customer history: what the person wants, whether this is a repeat inquiry, which product is being discussed, whether it is urgent.',
               },
               {
-                ru: 'Квалификация. Система задаёт недостающие вопросы — вежливо и по одному, а не анкетой — и отделяет целевые обращения от спама, вакансий и «просто спросить».',
-                en: 'Qualification. The system asks the missing questions — politely and one at a time, not as a form — and separates real leads from spam, job applications and idle curiosity.',
+                ru: 'Квалификация. Система задаёт недостающие вопросы - вежливо и по одному, а не анкетой - и отделяет целевые обращения от спама, вакансий и «просто спросить».',
+                en: 'Qualification. The system asks the missing questions - politely and one at a time, not as a form - and separates real leads from spam, job applications and idle curiosity.',
               },
               {
                 ru: 'Фиксация. Сделка создаётся в CRM с заполненными полями и полной историей переписки. Ручной ввод исчезает как класс, вместе с опечатками в номерах телефона.',
                 en: 'Recording. A deal is created in the CRM with fields filled in and the full conversation attached. Manual entry disappears as a category, and with it the typos in phone numbers.',
               },
               {
-                ru: 'Доведение. Менеджер получает уведомление там, где он реально работает. Если реакции нет — эскалация. Если клиент не ответил — follow-up по расписанию, а не по памяти.',
-                en: 'Follow-through. The manager gets a notification where they actually work. No reaction — escalation. Customer went quiet — a scheduled follow-up rather than one somebody remembered.',
+                ru: 'Доведение. Менеджер получает уведомление там, где он реально работает. Если реакции нет - эскалация. Если клиент не ответил - follow-up по расписанию, а не по памяти.',
+                en: 'Follow-through. The manager gets a notification where they actually work. No reaction - escalation. Customer went quiet - a scheduled follow-up rather than one somebody remembered.',
               },
             ],
           },
@@ -436,35 +436,35 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Мы не начинаем с выбора модели или платформы. Начинаем с разбора: садимся и смотрим, как обращение проходит через компанию сегодня — от какого канала до какого человека, где оно ждёт, где теряется и кто об этом узнаёт.',
-              en: 'We do not start by choosing a model or a platform. We start with a walkthrough: we sit down and map how an inquiry travels through the company today — from which channel to which person, where it waits, where it is lost and who finds out about it.',
+              ru: 'Мы не начинаем с выбора модели или платформы. Начинаем с разбора: садимся и смотрим, как обращение проходит через компанию сегодня - от какого канала до какого человека, где оно ждёт, где теряется и кто об этом узнаёт.',
+              en: 'We do not start by choosing a model or a platform. We start with a walkthrough: we sit down and map how an inquiry travels through the company today - from which channel to which person, where it waits, where it is lost and who finds out about it.',
             },
           },
           {
             type: 'list',
             items: [
               {
-                ru: 'Неделя 1 — разбор процесса, доступы к каналам и CRM, согласование архитектуры и границ ответственности системы.',
-                en: 'Week 1 — process walkthrough, access to channels and CRM, sign-off on the architecture and on the limits of the system’s responsibility.',
+                ru: 'Неделя 1 - разбор процесса, доступы к каналам и CRM, согласование архитектуры и границ ответственности системы.',
+                en: 'Week 1 - process walkthrough, access to channels and CRM, sign-off on the architecture and on the limits of the system’s responsibility.',
               },
               {
-                ru: 'Недели 2–3 — сборка первого контура на одном канале и одном сценарии. Он уже работает вживую, но под наблюдением.',
-                en: 'Weeks 2–3 — the first loop is assembled on one channel and one scenario. It is already live, but supervised.',
+                ru: 'Недели 2-3 - сборка первого контура на одном канале и одном сценарии. Он уже работает вживую, но под наблюдением.',
+                en: 'Weeks 2-3 - the first loop is assembled on one channel and one scenario. It is already live, but supervised.',
               },
               {
-                ru: 'Недели 4–6 — подключение остальных каналов, тонкая настройка ответов на реальных диалогах, правила эскалации и отчётность.',
-                en: 'Weeks 4–6 — the remaining channels are connected, answers are tuned on real conversations, escalation rules and reporting are added.',
+                ru: 'Недели 4-6 - подключение остальных каналов, тонкая настройка ответов на реальных диалогах, правила эскалации и отчётность.',
+                en: 'Weeks 4-6 - the remaining channels are connected, answers are tuned on real conversations, escalation rules and reporting are added.',
               },
               {
-                ru: 'Дальше — развитие итерациями. Каждый месяц смотрим, на каких вопросах система спотыкается, и дообучаем её на этих же вопросах.',
-                en: 'After that — iterative development. Every month we look at where the system stumbles and retrain it on exactly those questions.',
+                ru: 'Дальше - развитие итерациями. Каждый месяц смотрим, на каких вопросах система спотыкается, и дообучаем её на этих же вопросах.',
+                en: 'After that - iterative development. Every month we look at where the system stumbles and retrain it on exactly those questions.',
               },
             ],
           },
           {
             type: 'p',
             text: {
-              ru: 'Первый работающий контур обычно появляется за две–шесть недель в зависимости от того, сколько каналов и интеграций нужно завести. Запускать всё сразу мы не советуем: на одном канале ошибки видно быстрее и стоят они дешевле.',
+              ru: 'Первый работающий контур обычно появляется за две-шесть недель в зависимости от того, сколько каналов и интеграций нужно завести. Запускать всё сразу мы не советуем: на одном канале ошибки видно быстрее и стоят они дешевле.',
               en: 'A first working loop usually appears within two to six weeks depending on how many channels and integrations are involved. We advise against launching everything at once: on a single channel mistakes surface faster and cost less.',
             },
           },
@@ -477,7 +477,7 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Количество сообщений, которые обработал ИИ, — метрика для презентации, а не для бизнеса. Смотреть нужно на другое.',
+              ru: 'Количество сообщений, которые обработал ИИ, - метрика для презентации, а не для бизнеса. Смотреть нужно на другое.',
               en: 'The number of messages the AI handled is a metric for a slide deck, not for a business. Look at these instead.',
             },
           },
@@ -485,16 +485,16 @@ export const SERVICE_GUIDES = {
             type: 'list',
             items: [
               {
-                ru: 'Время до первого ответа — медиана, а не среднее, и отдельно по ночам и выходным. Именно там прячется основная потеря.',
-                en: 'Time to first response — the median, not the average, and split out for nights and weekends. That is where most of the loss hides.',
+                ru: 'Время до первого ответа - медиана, а не среднее, и отдельно по ночам и выходным. Именно там прячется основная потеря.',
+                en: 'Time to first response - the median, not the average, and split out for nights and weekends. That is where most of the loss hides.',
               },
               {
                 ru: 'Доля обращений, дошедших до CRM. Если она не 100%, где-то остался ручной шаг.',
                 en: 'Share of inquiries that reached the CRM. If it is not 100%, a manual step is still in the chain somewhere.',
               },
               {
-                ru: 'Доля квалифицированных заявок в общем потоке — показывает, сколько времени менеджеров освободилось.',
-                en: 'Share of qualified leads in the total flow — it shows how much manager time was freed up.',
+                ru: 'Доля квалифицированных заявок в общем потоке - показывает, сколько времени менеджеров освободилось.',
+                en: 'Share of qualified leads in the total flow - it shows how much manager time was freed up.',
               },
               {
                 ru: 'Конверсия из обращения в запись или встречу до и после запуска. Это единственная цифра, которая интересует собственника.',
@@ -515,21 +515,21 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Первая и самая дорогая — попытка заставить систему продавать вместо человека. ИИ хорошо снимает рутину: принимает, уточняет, фиксирует, напоминает. Решение о сделке и работа с сомнениями остаются за менеджером, и это не временное ограничение технологии, а разумное распределение ролей.',
-              en: 'The first and most expensive one is trying to make the system sell instead of a human. AI is good at removing routine: capturing, clarifying, recording, reminding. Closing the deal and handling objections stay with the manager — and that is not a temporary limitation of the technology but a sensible division of labour.',
+              ru: 'Первая и самая дорогая - попытка заставить систему продавать вместо человека. ИИ хорошо снимает рутину: принимает, уточняет, фиксирует, напоминает. Решение о сделке и работа с сомнениями остаются за менеджером, и это не временное ограничение технологии, а разумное распределение ролей.',
+              en: 'The first and most expensive one is trying to make the system sell instead of a human. AI is good at removing routine: capturing, clarifying, recording, reminding. Closing the deal and handling objections stay with the manager - and that is not a temporary limitation of the technology but a sensible division of labour.',
             },
           },
           {
             type: 'p',
             text: {
-              ru: 'Вторая — автоматизировать процесс, который сам по себе сломан. Если в компании нет правила, кто и за какое время отвечает на заявку, система просто начнёт быстрее доставлять обращения в ту же пустоту. Сначала правило, потом автоматизация.',
+              ru: 'Вторая - автоматизировать процесс, который сам по себе сломан. Если в компании нет правила, кто и за какое время отвечает на заявку, система просто начнёт быстрее доставлять обращения в ту же пустоту. Сначала правило, потом автоматизация.',
               en: 'The second is automating a process that is broken to begin with. If the company has no rule about who answers an inquiry and how fast, the system will simply deliver inquiries into the same void more quickly. The rule comes first, the automation second.',
             },
           },
           {
             type: 'p',
             text: {
-              ru: 'Третья — прятать от клиента, что он говорит с ассистентом. Это всегда вскрывается и всегда стоит доверия. Гораздо лучше работает честная формулировка и мгновенная передача человеку по первой просьбе.',
+              ru: 'Третья - прятать от клиента, что он говорит с ассистентом. Это всегда вскрывается и всегда стоит доверия. Гораздо лучше работает честная формулировка и мгновенная передача человеку по первой просьбе.',
               en: 'The third is hiding from the customer that they are talking to an assistant. It always comes out and it always costs trust. An honest line plus an instant handover to a human on first request works far better.',
             },
           },
@@ -550,9 +550,9 @@ export const SERVICE_GUIDES = {
             type: 'list',
             items: [
               { ru: 'Количество каналов, из которых приходят обращения.', en: 'How many channels inquiries arrive from.' },
-              { ru: 'Количество и зрелость интеграций: у современных CRM есть API, у самописных систем — далеко не всегда.', en: 'The number and maturity of integrations: modern CRMs have APIs, in-house systems often do not.' },
-              { ru: 'Сложность сценариев: одно дело записать на консультацию, другое — подобрать объект по десятку параметров.', en: 'Scenario complexity: booking a consultation is one thing, matching a property against a dozen parameters is another.' },
-              { ru: 'Объём базы знаний, которую системе нужно освоить, и то, в каком виде она существует сегодня.', en: 'The size of the knowledge base the system has to absorb — and what shape it is in today.' },
+              { ru: 'Количество и зрелость интеграций: у современных CRM есть API, у самописных систем - далеко не всегда.', en: 'The number and maturity of integrations: modern CRMs have APIs, in-house systems often do not.' },
+              { ru: 'Сложность сценариев: одно дело записать на консультацию, другое - подобрать объект по десятку параметров.', en: 'Scenario complexity: booking a consultation is one thing, matching a property against a dozen parameters is another.' },
+              { ru: 'Объём базы знаний, которую системе нужно освоить, и то, в каком виде она существует сегодня.', en: 'The size of the knowledge base the system has to absorb - and what shape it is in today.' },
             ],
           },
         ],
@@ -562,15 +562,15 @@ export const SERVICE_GUIDES = {
       {
         q: { ru: 'Нужно ли менять CRM?', en: 'Do we need to change our CRM?' },
         a: {
-          ru: 'Нет. Система встраивается в то, что у вас уже стоит — Bitrix24, amoCRM, HubSpot или самописное решение с API. Менять инструменты ради внедрения мы не предлагаем.',
-          en: 'No. The system plugs into what you already run — Bitrix24, amoCRM, HubSpot or an in-house tool with an API. We do not propose changing your tooling for the sake of the deployment.',
+          ru: 'Нет. Система встраивается в то, что у вас уже стоит - Bitrix24, amoCRM, HubSpot или самописное решение с API. Менять инструменты ради внедрения мы не предлагаем.',
+          en: 'No. The system plugs into what you already run - Bitrix24, amoCRM, HubSpot or an in-house tool with an API. We do not propose changing your tooling for the sake of the deployment.',
         },
       },
       {
         q: { ru: 'Что будет, если система не поймёт вопрос?', en: 'What happens if the system does not understand a question?' },
         a: {
-          ru: 'Она не выдумывает ответ. Непонятое обращение помечается и передаётся человеку с пометкой о том, что именно осталось неясным. Эти случаи мы разбираем на регулярной основе — они и есть материал для дообучения.',
-          en: 'It does not invent an answer. The unresolved inquiry is flagged and handed to a human along with a note about what stayed unclear. We review those cases regularly — they are the raw material for retraining.',
+          ru: 'Она не выдумывает ответ. Непонятое обращение помечается и передаётся человеку с пометкой о том, что именно осталось неясным. Эти случаи мы разбираем на регулярной основе - они и есть материал для дообучения.',
+          en: 'It does not invent an answer. The unresolved inquiry is flagged and handed to a human along with a note about what stayed unclear. We review those cases regularly - they are the raw material for retraining.',
         },
       },
       {
@@ -594,7 +594,7 @@ export const SERVICE_GUIDES = {
   'ai-assistants': {
     readTime: { ru: '8 минут чтения', en: '8 min read' },
     lead: {
-      ru: 'Как устроен ассистент, который отвечает не общими словами, а по документам компании: где живёт база знаний, как проверяется качество до запуска и почему главное умение ассистента — вовремя замолчать.',
+      ru: 'Как устроен ассистент, который отвечает не общими словами, а по документам компании: где живёт база знаний, как проверяется качество до запуска и почему главное умение ассистента - вовремя замолчать.',
       en: 'How to build an assistant that answers from company documents rather than in generalities: where the knowledge base lives, how quality is verified before launch, and why the assistant’s most important skill is knowing when to stop talking.',
     },
     sections: [
@@ -612,8 +612,8 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Внутренний ассистент говорит с сотрудником: находит пункт в регламенте, поднимает историю по клиенту, готовит черновик документа, отвечает на вопросы новичка вместо того, чтобы он шёл к коллеге. Здесь рамки мягче, зато требования к точности выше — на основании его ответа человек примет решение.',
-              en: 'An internal assistant talks to employees: it finds the clause in a policy, pulls up a customer’s history, drafts a document, answers a newcomer’s questions instead of them walking over to a colleague. The limits here are softer, but the accuracy bar is higher — a person will act on its answer.',
+              ru: 'Внутренний ассистент говорит с сотрудником: находит пункт в регламенте, поднимает историю по клиенту, готовит черновик документа, отвечает на вопросы новичка вместо того, чтобы он шёл к коллеге. Здесь рамки мягче, зато требования к точности выше - на основании его ответа человек примет решение.',
+              en: 'An internal assistant talks to employees: it finds the clause in a policy, pulls up a customer’s history, drafts a document, answers a newcomer’s questions instead of them walking over to a colleague. The limits here are softer, but the accuracy bar is higher - a person will act on its answer.',
             },
           },
           {
@@ -632,15 +632,15 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Выбор модели — самая переоценённая часть задачи. Современные модели примерно одинаково хорошо формулируют; разница между хорошим и бесполезным ассистентом почти всегда в том, что ему дали читать.',
+              ru: 'Выбор модели - самая переоценённая часть задачи. Современные модели примерно одинаково хорошо формулируют; разница между хорошим и бесполезным ассистентом почти всегда в том, что ему дали читать.',
               en: 'Choosing the model is the most overrated part of the job. Modern models phrase things about equally well; the difference between a good assistant and a useless one is almost always in what it was given to read.',
             },
           },
           {
             type: 'p',
             text: {
-              ru: 'Поэтому первый этап работы — не промпты, а сбор и вычистка знаний: прайсы, регламенты, ответы на частые вопросы, описания услуг, ограничения и исключения. Часто выясняется, что половина этого существует только в голове у руководителя отдела, и мы помогаем это записать.',
-              en: 'So the first stage is not prompting but collecting and cleaning up knowledge: price lists, policies, FAQs, service descriptions, limitations and exceptions. It often turns out half of it exists only in a department head’s memory — and we help write it down.',
+              ru: 'Поэтому первый этап работы - не промпты, а сбор и вычистка знаний: прайсы, регламенты, ответы на частые вопросы, описания услуг, ограничения и исключения. Часто выясняется, что половина этого существует только в голове у руководителя отдела, и мы помогаем это записать.',
+              en: 'So the first stage is not prompting but collecting and cleaning up knowledge: price lists, policies, FAQs, service descriptions, limitations and exceptions. It often turns out half of it exists only in a department head’s memory - and we help write it down.',
             },
           },
           {
@@ -659,17 +659,17 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Самая опасная черта языковой модели — готовность ответить на что угодно. Именно поэтому границы проектируются раньше, чем сценарии диалога.',
+              ru: 'Самая опасная черта языковой модели - готовность ответить на что угодно. Именно поэтому границы проектируются раньше, чем сценарии диалога.',
               en: 'The most dangerous trait of a language model is its willingness to answer anything. That is exactly why the boundaries are designed before the dialogue scenarios.',
             },
           },
           {
             type: 'list',
             items: [
-              { ru: 'Всё, что связано со здоровьем, правом и деньгами клиента, — только по утверждённым формулировкам, без импровизации.', en: 'Anything touching a customer’s health, legal position or money — approved wording only, no improvisation.' },
-              { ru: 'Скидки, исключения из правил и индивидуальные условия — всегда человек.', en: 'Discounts, exceptions and individual terms — always a human.' },
-              { ru: 'Жалоба, конфликт или явное раздражение в тоне — мгновенная передача с полным контекстом.', en: 'A complaint, a conflict or clear irritation in tone — instant handover with full context.' },
-              { ru: 'Вопрос, ответа на который нет в базе, — честное «уточню и вернусь», а не правдоподобная выдумка.', en: 'A question the knowledge base does not cover — an honest “let me check and come back” rather than a plausible invention.' },
+              { ru: 'Всё, что связано со здоровьем, правом и деньгами клиента, - только по утверждённым формулировкам, без импровизации.', en: 'Anything touching a customer’s health, legal position or money - approved wording only, no improvisation.' },
+              { ru: 'Скидки, исключения из правил и индивидуальные условия - всегда человек.', en: 'Discounts, exceptions and individual terms - always a human.' },
+              { ru: 'Жалоба, конфликт или явное раздражение в тоне - мгновенная передача с полным контекстом.', en: 'A complaint, a conflict or clear irritation in tone - instant handover with full context.' },
+              { ru: 'Вопрос, ответа на который нет в базе, - честное «уточню и вернусь», а не правдоподобная выдумка.', en: 'A question the knowledge base does not cover - an honest “let me check and come back” rather than a plausible invention.' },
             ],
           },
         ],
@@ -681,8 +681,8 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Ассистента нельзя выпускать к клиентам «на глазок». Перед запуском мы собираем набор проверочных диалогов — обычно 60–150 реальных вопросов из вашей переписки, включая неудобные, — и прогоняем ассистента по ним после каждого изменения.',
-              en: 'You cannot release an assistant to customers on a hunch. Before launch we assemble a test set — typically 60 to 150 real questions from your own conversation history, awkward ones included — and run the assistant against them after every change.',
+              ru: 'Ассистента нельзя выпускать к клиентам «на глазок». Перед запуском мы собираем набор проверочных диалогов - обычно 60-150 реальных вопросов из вашей переписки, включая неудобные, - и прогоняем ассистента по ним после каждого изменения.',
+              en: 'You cannot release an assistant to customers on a hunch. Before launch we assemble a test set - typically 60 to 150 real questions from your own conversation history, awkward ones included - and run the assistant against them after every change.',
             },
           },
           {
@@ -708,8 +708,8 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Один и тот же ассистент живёт сразу везде, где вы общаетесь с клиентом: виджет на сайте, WhatsApp, Telegram, Instagram Direct, почта. Логика и база знаний общие, меняется только оформление ответа под канал — в мессенджере короче, на сайте можно позволить себе список.',
-              en: 'The same assistant lives everywhere you talk to customers at once: a website widget, WhatsApp, Telegram, Instagram DM, email. The logic and knowledge base are shared; only the formatting changes per channel — shorter in a messenger, a list is acceptable on the site.',
+              ru: 'Один и тот же ассистент живёт сразу везде, где вы общаетесь с клиентом: виджет на сайте, WhatsApp, Telegram, Instagram Direct, почта. Логика и база знаний общие, меняется только оформление ответа под канал - в мессенджере короче, на сайте можно позволить себе список.',
+              en: 'The same assistant lives everywhere you talk to customers at once: a website widget, WhatsApp, Telegram, Instagram DM, email. The logic and knowledge base are shared; only the formatting changes per channel - shorter in a messenger, a list is acceptable on the site.',
             },
           },
           {
@@ -728,7 +728,7 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Ассистент — не коробка, которую поставили и забыли. У компании меняются цены, услуги и правила, и база знаний должна меняться вместе с ними. Мы передаём заказчику простой способ обновлять её без разработчика и раз в месяц смотрим статистику: какие вопросы приходят чаще всего, где ассистент передаёт человеку, что стоит добавить.',
+              ru: 'Ассистент - не коробка, которую поставили и забыли. У компании меняются цены, услуги и правила, и база знаний должна меняться вместе с ними. Мы передаём заказчику простой способ обновлять её без разработчика и раз в месяц смотрим статистику: какие вопросы приходят чаще всего, где ассистент передаёт человеку, что стоит добавить.',
               en: 'An assistant is not a box you install and forget. Prices, services and rules change, and the knowledge base has to change with them. We hand over a simple way to update it without a developer and review the stats monthly: which questions come up most, where the assistant hands off, what is worth adding.',
             },
           },
@@ -739,8 +739,8 @@ export const SERVICE_GUIDES = {
       {
         q: { ru: 'Ассистент может выдумать ответ?', en: 'Can the assistant make an answer up?' },
         a: {
-          ru: 'Может — если построить его неправильно. Мы ограничиваем ответы базой знаний компании и учим честно признавать, когда информации нет. Проверочный набор диалогов существует именно для того, чтобы ловить такие случаи до клиентов.',
-          en: 'It can — if it is built badly. We constrain answers to the company knowledge base and train it to admit honestly when information is missing. The test dialogue set exists precisely to catch such cases before customers do.',
+          ru: 'Может - если построить его неправильно. Мы ограничиваем ответы базой знаний компании и учим честно признавать, когда информации нет. Проверочный набор диалогов существует именно для того, чтобы ловить такие случаи до клиентов.',
+          en: 'It can - if it is built badly. We constrain answers to the company knowledge base and train it to admit honestly when information is missing. The test dialogue set exists precisely to catch such cases before customers do.',
         },
       },
       {
@@ -753,7 +753,7 @@ export const SERVICE_GUIDES = {
       {
         q: { ru: 'Сколько занимает запуск?', en: 'How long does launch take?' },
         a: {
-          ru: 'Обычно две–четыре недели, и львиная доля этого времени уходит не на разработку, а на сбор и вычистку базы знаний. Чем лучше у вас записаны правила, тем быстрее.',
+          ru: 'Обычно две-четыре недели, и львиная доля этого времени уходит не на разработку, а на сбор и вычистку базы знаний. Чем лучше у вас записаны правила, тем быстрее.',
           en: 'Usually two to four weeks, and most of that goes not into development but into collecting and cleaning the knowledge base. The better your rules are written down, the faster it goes.',
         },
       },
@@ -782,7 +782,7 @@ export const SERVICE_GUIDES = {
           {
             type: 'list',
             items: [
-              { ru: 'Перенос данных между системами — из формы в CRM, из CRM в таблицу, из таблицы в бухгалтерию.', en: 'Moving data between systems — from a form to the CRM, from the CRM to a spreadsheet, from the spreadsheet to accounting.' },
+              { ru: 'Перенос данных между системами - из формы в CRM, из CRM в таблицу, из таблицы в бухгалтерию.', en: 'Moving data between systems - from a form to the CRM, from the CRM to a spreadsheet, from the spreadsheet to accounting.' },
               { ru: 'Формирование документов: договоры, счета, акты, коммерческие предложения по шаблону.', en: 'Producing documents: contracts, invoices, statements, template-based proposals.' },
               { ru: 'Отчёты, которые кто-то собирает руками каждый понедельник.', en: 'Reports somebody assembles by hand every Monday.' },
               { ru: 'Напоминания и согласования, которые держатся на чьей-то памяти.', en: 'Reminders and approvals that rest on somebody’s memory.' },
@@ -805,7 +805,7 @@ export const SERVICE_GUIDES = {
           {
             type: 'p',
             text: {
-              ru: 'Автоматизировать можно только то, что описано. Чаще всего процесс в компании существует в виде «Марина знает, как это делается», и первый честный шаг — вытащить это знание наружу.',
+              ru: 'Автоматизировать можно только то, что описано. Чаще всего процесс в компании существует в виде «Марина знает, как это делается», и первый честный шаг - вытащить это знание наружу.',
               en: 'You can only automate what has been described. Most often the process exists as “Marina knows how it is done”, and the first honest step is getting that knowledge out into the open.',
             },
           },
@@ -815,7 +815,7 @@ export const SERVICE_GUIDES = {
               { ru: 'Что запускает процесс: письмо, заявка, дата, действие в CRM.', en: 'What starts the process: an email, a lead, a date, an action in the CRM.' },
               { ru: 'Какие данные нужны на входе и откуда они берутся.', en: 'What data is needed as input and where it comes from.' },
               { ru: 'Какие решения принимаются по пути и по какому правилу.', en: 'Which decisions are made along the way and by what rule.' },
-              { ru: 'Что считается успешным завершением — и как это проверить.', en: 'What counts as successful completion — and how to verify it.' },
+              { ru: 'Что считается успешным завершением - и как это проверить.', en: 'What counts as successful completion - and how to verify it.' },
               { ru: 'Что делать при исключении: нет данных, отказ сервиса, нестандартный случай.', en: 'What to do on an exception: missing data, service failure, an edge case.' },
             ],
           },
@@ -843,24 +843,24 @@ export const SERVICE_GUIDES = {
             type: 'list',
             items: [
               {
-                ru: 'Make — быстрый старт для линейных сценариев с популярными сервисами. Отлично подходит, когда логика простая и её редко меняют.',
-                en: 'Make — a fast start for linear scenarios with popular services. Great when the logic is simple and rarely changes.',
+                ru: 'Make - быстрый старт для линейных сценариев с популярными сервисами. Отлично подходит, когда логика простая и её редко меняют.',
+                en: 'Make - a fast start for linear scenarios with popular services. Great when the logic is simple and rarely changes.',
               },
               {
-                ru: 'n8n — когда сценариев много, логика ветвится и данные не должны покидать вашу инфраструктуру: его можно поставить на собственный сервер.',
-                en: 'n8n — when there are many scenarios, the logic branches, and the data must not leave your infrastructure: it can be self-hosted.',
+                ru: 'n8n - когда сценариев много, логика ветвится и данные не должны покидать вашу инфраструктуру: его можно поставить на собственный сервер.',
+                en: 'n8n - when there are many scenarios, the logic branches, and the data must not leave your infrastructure: it can be self-hosted.',
               },
               {
-                ru: 'Собственный код — когда нагрузка высокая, интеграция нестандартная или требуется поведение, которое в конструкторе выражается через десять костылей.',
-                en: 'Custom code — when the load is high, the integration is non-standard, or the required behaviour would take ten workarounds in a visual builder.',
+                ru: 'Собственный код - когда нагрузка высокая, интеграция нестандартная или требуется поведение, которое в конструкторе выражается через десять костылей.',
+                en: 'Custom code - when the load is high, the integration is non-standard, or the required behaviour would take ten workarounds in a visual builder.',
               },
             ],
           },
           {
             type: 'p',
             text: {
-              ru: 'В реальных проектах это почти всегда смесь: тяжёлая логика в коде, обвязка и интеграции в n8n. Мы стараемся, чтобы бо́льшая часть системы оставалась в наглядном виде — так её сможет прочитать не только автор.',
-              en: 'In real projects it is nearly always a mix: heavy logic in code, wiring and integrations in n8n. We try to keep most of the system in a visual form — so somebody other than its author can read it.',
+              ru: 'В реальных проектах это почти всегда смесь: тяжёлая логика в коде, обвязка и интеграции в n8n. Мы стараемся, чтобы бо́льшая часть системы оставалась в наглядном виде - так её сможет прочитать не только автор.',
+              en: 'In real projects it is nearly always a mix: heavy logic in code, wiring and integrations in n8n. We try to keep most of the system in a visual form - so somebody other than its author can read it.',
             },
           },
         ],
@@ -879,10 +879,10 @@ export const SERVICE_GUIDES = {
           {
             type: 'list',
             items: [
-              { ru: 'Повторные попытки с нарастающей паузой — большинство сбоев сетевые и проходят сами.', en: 'Retries with backoff — most failures are network hiccups and resolve on their own.' },
+              { ru: 'Повторные попытки с нарастающей паузой - большинство сбоев сетевые и проходят сами.', en: 'Retries with backoff - most failures are network hiccups and resolve on their own.' },
               { ru: 'Уведомление ответственному человеку при отказе, а не запись в лог, который никто не читает.', en: 'A notification to a responsible human on failure, not an entry in a log nobody reads.' },
               { ru: 'Очередь необработанных задач: когда сервис вернётся, они доедут, а не потеряются.', en: 'A queue of unprocessed jobs: when the service comes back they get through instead of being lost.' },
-              { ru: 'Ручной обход для критичных процессов — чтобы бизнес не встал целиком из-за одного упавшего сценария.', en: 'A manual fallback for critical processes — so the business does not stop entirely because of one broken scenario.' },
+              { ru: 'Ручной обход для критичных процессов - чтобы бизнес не встал целиком из-за одного упавшего сценария.', en: 'A manual fallback for critical processes - so the business does not stop entirely because of one broken scenario.' },
             ],
           },
         ],
@@ -930,9 +930,9 @@ export const SERVICE_GUIDES = {
     ],
     faq: [
       {
-        q: { ru: 'Мы небольшая компания — нам это рано?', en: 'We are a small company — is it too early for us?' },
+        q: { ru: 'Мы небольшая компания - нам это рано?', en: 'We are a small company - is it too early for us?' },
         a: {
-          ru: 'Скорее наоборот. В большой компании рутину распределяют по людям, в маленькой она вся падает на двух–трёх человек, и именно там час освобождённого времени стоит дороже всего.',
+          ru: 'Скорее наоборот. В большой компании рутину распределяют по людям, в маленькой она вся падает на двух-трёх человек, и именно там час освобождённого времени стоит дороже всего.',
           en: 'Rather the opposite. In a large company routine is spread across people; in a small one it all lands on two or three, and that is exactly where an hour of freed time is worth the most.',
         },
       },

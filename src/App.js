@@ -8,7 +8,7 @@ import Hero from './components/Hero';
 import Stats from './components/Stats';
 
 // Ленивые чанки объявлены парами «фабрика импорта + lazy-компонент».
-// Фабрика нужна, чтобы прогреть чанк до гидратации — см. preloadRouteChunks.
+// Фабрика нужна, чтобы прогреть чанк до гидратации - см. preloadRouteChunks.
 const loadAboutUs        = () => import('./components/AboutUs');
 const loadContactForm    = () => import('./components/ContactForm');
 const loadFooter         = () => import('./components/Footer');
@@ -35,7 +35,7 @@ const loadVideoProduction = () => import('./components/VideoProduction');
 // ── Конверсионные элементы ──
 const loadCTABreak   = () => import('./components/CTABreak');
 // Демо-ассистент: сайт сам показывает продукт, который студия продаёт.
-// Заменяет плавающую Telegram-кнопку — Telegram живёт внутри чата.
+// Заменяет плавающую Telegram-кнопку - Telegram живёт внутри чата.
 const loadChatWidget = () => import('./components/ChatWidget');
 
 const AboutUs         = lazy(loadAboutUs);
@@ -82,7 +82,7 @@ export const useNotification = () => {
   return ctx;
 };
 
-// Success modal — cinematic style
+// Success modal - cinematic style
 const SuccessModal = ({ isVisible, onClose }) => {
   const en = useLocale() === 'en';
   if (!isVisible) return null;
@@ -182,8 +182,8 @@ const InfoNotification = ({ isVisible, onClose }) => {
         </h2>
         <p style={{ fontSize: 15, color: 'var(--fg-2)', lineHeight: 1.55, marginTop: 14, marginBottom: 24 }}>
           {en
-            ? 'Fill in the form below — a manager will get back to you within 24 hours with an estimate.'
-            : 'Заполните форму ниже — менеджер свяжется в течение 24 часов и пришлёт смету.'}
+            ? 'Fill in the form below - a manager will get back to you within 24 hours with an estimate.'
+            : 'Заполните форму ниже - менеджер свяжется в течение 24 часов и пришлёт смету.'}
         </p>
         <button
           className="btn btn-primary"
@@ -202,10 +202,10 @@ const InfoNotification = ({ isVisible, onClose }) => {
 
 // URL-based routing: читаем путь при загрузке страницы
 // Поддерживаемые URL:
-//   /          — главная
-//   /works     — полный каталог работ
-//   /privacy   — политика конфиденциальности
-//   /consent   — согласие на обработку персональных данных
+//   / - главная
+//   /works - полный каталог работ
+//   /privacy - политика конфиденциальности
+//   /consent - согласие на обработку персональных данных
 const getPageFromUrl = () => {
   if (typeof window === 'undefined') return 'main';
   // Сначала снимаем языковой префикс (/en), потом разбираем логический путь.
@@ -239,7 +239,7 @@ const getServiceSlugFromUrl = () => {
   return m ? m[1] : null;
 };
 
-// Достаём slug статьи из /blog/<slug>/ (для /blog/ вернёт null — это список)
+// Достаём slug статьи из /blog/<slug>/ (для /blog/ вернёт null - это список)
 const getBlogSlugFromUrl = () => {
   if (typeof window === 'undefined') return null;
   const path = stripLocale(window.location.pathname);
@@ -250,7 +250,7 @@ const getBlogSlugFromUrl = () => {
 // ── Прогрев ленивых чанков перед гидратацией ────────────────────────────
 // Страницы отдаются предзарендеренными: в HTML уже лежит готовая разметка
 // всех секций. Но React.lazy при гидратации сначала показал бы заглушку
-// Suspense — разметка не совпадала бы с серверной, React ругался ошибками
+// Suspense - разметка не совпадала бы с серверной, React ругался ошибками
 // #418/#423 и выбрасывал готовый HTML, перерисовывая страницу с нуля.
 // Поэтому перед hydrateRoot дожидаемся чанков, которые нужны этому маршруту.
 // Для пользователя это незаметно: предзарендеренная страница уже на экране.
@@ -307,27 +307,27 @@ function App() {
   // Правовые страницы раньше не ставили ничего своего и донашивали
   // заголовок с описанием главной. Для поиска это дубли: Яндекс
   // отдельно жаловался на них в диагностике, а Google при дублях сам
-  // выбирает, какую из страниц показывать, — и выбирает не всегда ту.
+  // выбирает, какую из страниц показывать, - и выбирает не всегда ту.
   useEffect(() => {
     const en = locale === 'en';
 
     const META = {
       main: {
-        ru: ['AIVFX — AI-системы и автоматизация бизнеса | От заявки до повторных продаж',
+        ru: ['AIVFX - AI-системы и автоматизация бизнеса | От заявки до повторных продаж',
           'Проектируем и внедряем AI-автоматизации для бизнеса: приём и квалификация заявок, AI-ассистенты, интеграция с CRM и автоматизация процессов.'],
-        en: ['AIVFX — AI Systems & Business Automation | From First Inquiry to Repeat Sales',
+        en: ['AIVFX - AI Systems & Business Automation | From First Inquiry to Repeat Sales',
           'We design and deploy AI automations for business: lead intake and qualification, AI assistants, CRM integration and process automation. No lead gets lost.'],
       },
       privacy: {
-        ru: ['Политика конфиденциальности — AIVFX',
+        ru: ['Политика конфиденциальности - AIVFX',
           'Как AIVFX собирает, использует и хранит персональные данные посетителей сайта: состав данных, цели обработки, сроки хранения и права пользователя.'],
-        en: ['Privacy Policy — AIVFX',
+        en: ['Privacy Policy - AIVFX',
           'How AIVFX collects, uses and stores personal data of site visitors: what data is processed, for what purposes, how long it is kept and what rights you have.'],
       },
       consent: {
-        ru: ['Согласие на обработку персональных данных — AIVFX',
+        ru: ['Согласие на обработку персональных данных - AIVFX',
           'Текст согласия на обработку персональных данных, которое даёт посетитель при отправке заявки через формы на сайте AIVFX.'],
-        en: ['Consent to Personal Data Processing — AIVFX',
+        en: ['Consent to Personal Data Processing - AIVFX',
           'The consent to personal data processing given by a visitor when submitting a request through the forms on the AIVFX website.'],
       },
     };
@@ -426,7 +426,7 @@ function App() {
   const showAllPortfolio = () => navigate('works', '/works/');
   const hideAllPortfolio = () => {
     navigate('main', '/');
-    // После возврата на главную — прокрутить к секции "Работы"
+    // После возврата на главную - прокрутить к секции "Работы"
     setTimeout(() => {
       const el = document.getElementById('portfolio');
       if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
@@ -461,7 +461,7 @@ function App() {
 
     // Страховка: в фоновой вкладке браузер не запускает IntersectionObserver,
     // и секции остались бы невидимыми. Через 2.5 с показываем всё, что уже
-    // попадает в экран, — анимация появления не должна прятать контент.
+    // попадает в экран, - анимация появления не должна прятать контент.
     const safety = setTimeout(() => {
       document.querySelectorAll('.reveal:not(.in)').forEach((el) => {
         const r = el.getBoundingClientRect();
@@ -513,7 +513,7 @@ function App() {
           </Suspense>
         ) : showVideoPage ? (
           <Suspense fallback={<SectionFallback />}>
-            {/* vp-theme: янтарная палитра направления «AI-контент» — вместе с футером */}
+            {/* vp-theme: янтарная палитра направления «AI-контент» - вместе с футером */}
             <div className="vp-theme">
               <main><VideoProduction /></main>
               <Footer />

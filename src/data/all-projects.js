@@ -1,4 +1,4 @@
-// Full Kinescope portfolio — ALL videos with orientation + featured flags
+// Full Kinescope portfolio - ALL videos with orientation + featured flags
 // Auto-generated from Kinescope API
 
 export const ALL_PROJECTS = [
@@ -71,7 +71,7 @@ export const ALL_PROJECTS = [
   {
     id: 7,
     kinescopeId: 'a25b1439-6ce9-4c5a-bd01-391cde455b41',
-    title: 'Chevrolet × NL — к горизонту',
+    title: 'Chevrolet × NL - к горизонту',
     tags: ['AI'],
     orientation: 'horizontal',
     featured: false,
@@ -82,7 +82,7 @@ export const ALL_PROJECTS = [
   {
     id: 8,
     kinescopeId: '9cb24953-2745-4d7e-8206-5e0ddffded89',
-    title: 'CINQUE — рекламный ролик',
+    title: 'CINQUE - рекламный ролик',
     tags: ['ADS', 'Съемка'],
     orientation: 'horizontal',
     featured: true,
@@ -93,7 +93,7 @@ export const ALL_PROJECTS = [
   {
     id: 9,
     kinescopeId: '9594ab6a-831b-4bad-ae02-d56839127d53',
-    title: 'Bluewaters — ЖК в Дубае',
+    title: 'Bluewaters - ЖК в Дубае',
     tags: ['Съемка', 'Real Estate', 'Reels'],
     orientation: 'vertical',
     featured: false,
@@ -104,7 +104,7 @@ export const ALL_PROJECTS = [
   {
     id: 10,
     kinescopeId: '63d3bba0-6b46-485c-9225-3d3ffed18ffe',
-    title: 'Porsche 911 — лесная охота',
+    title: 'Porsche 911 - лесная охота',
     tags: ['ADS', 'AI'],
     orientation: 'horizontal',
     featured: true,
@@ -302,7 +302,7 @@ export const ALL_PROJECTS = [
   {
     id: 28,
     kinescopeId: 'd264e898-73ae-49ad-8483-8ee76527e5f8',
-    title: 'SACRED — fashion reel',
+    title: 'SACRED - fashion reel',
     tags: ['AI', 'Reels'],
     orientation: 'vertical',
     featured: false,
@@ -335,7 +335,7 @@ export const ALL_PROJECTS = [
   {
     id: 31,
     kinescopeId: '3e42c0a2-9ac7-42f5-bd0f-8121d640221e',
-    title: 'Fashion — проект',
+    title: 'Fashion - проект',
     tags: ['ADS', 'Съемка', 'Reels'],
     orientation: 'vertical',
     featured: false,

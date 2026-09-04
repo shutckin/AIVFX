@@ -10,7 +10,7 @@ import './chat-widget.css';
 // Сайт сам показывает продукт, который студия продаёт: посетитель задаёт
 // вопросы, получает осмысленные ответы по сценарию и оставляет контакт.
 // Отвечает настоящая модель на сервере: ключ в браузер не попадает.
-// Сценарий из CHAT_DEMO остался запасным путём — на случай, когда сервер
+// Сценарий из CHAT_DEMO остался запасным путём - на случай, когда сервер
 // недоступен или ключ ещё не подключён. Посетитель не должен упираться
 // в поломку из-за чужой проблемы, поэтому чат в любом случае отвечает.
 // ─────────────────────────────────────────────────────────────────────────
@@ -20,7 +20,7 @@ const IDLE_TRIGGER_MS = 4000; // либо просто через 4 секунд
 const THINK_MIN = 600;        // «обдумывание» ответа, мс
 const THINK_MAX = 900;
 
-// Счётчик id сообщений живёт на уровне модуля — так функции-обработчики
+// Счётчик id сообщений живёт на уровне модуля - так функции-обработчики
 // остаются стабильными и не тянут лишние зависимости в хуки.
 let uid = 0;
 const nextId = () => {
@@ -42,41 +42,41 @@ export const matchNode = (text) => {
   return hit ? hit.node : null;
 };
 
-// Когда не поняли вопрос — предлагаем стартовые темы и путь к живому человеку.
+// Когда не поняли вопрос - предлагаем стартовые темы и путь к живому человеку.
 const FALLBACK_CHIPS = CHAT_DEMO.start.includes('contact')
   ? CHAT_DEMO.start
   : [...CHAT_DEMO.start, 'contact'];
 
 // ─── Фоновая запись диалога ──────────────────────────────────────────────
-// Диалог пишется в localStorage, а владельцу уходит краткая сводка — даже
+// Диалог пишется в localStorage, а владельцу уходит краткая сводка - даже
 // если посетитель не оставил контакт. В интерфейсе это никак не видно.
 const LOG_KEY = 'aivfx_chat_log_v1';
 const LOG_LIMIT = 100;           // храним последние N реплик, чтобы не раздувать
 const SUMMARY_IDLE_MS = 60000;   // минута тишины после вопроса → шлём сводку
-const SUMMARY_MIN_QUESTIONS = 2; // меньше двух вопросов — владельца не дёргаем
+const SUMMARY_MIN_QUESTIONS = 2; // меньше двух вопросов - владельца не дёргаем
 
 const makeSessionId = () => {
   try {
     if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
       return crypto.randomUUID();
     }
-  } catch (_) { /* старый браузер или приватный режим — уходим на фолбэк */ }
+  } catch (_) { /* старый браузер или приватный режим - уходим на фолбэк */ }
   return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 };
 
 const saveLog = (log) => {
   try {
     window.localStorage.setItem(LOG_KEY, JSON.stringify(log));
-  } catch (_) { /* приватный режим может запрещать запись — молча пропускаем */ }
+  } catch (_) { /* приватный режим может запрещать запись - молча пропускаем */ }
 };
 
 // Единая точка отправки: и лид, и авто-сводка идут через серверный
-// обработчик заявок. Токена Telegram в браузере нет — он живёт только
+// обработчик заявок. Токена Telegram в браузере нет - он живёт только
 // на сервере (см. src/lib/leadApi.js и папку aivfx-lead-api).
-// beacon=true — посетитель уходит со страницы, запрос обязан пережить уход.
+// beacon=true - посетитель уходит со страницы, запрос обязан пережить уход.
 const sendChatMessage = (text, { beacon = false } = {}) => {
   if (beacon) {
-    // sendBeacon не сообщает результат — считаем отправку состоявшейся,
+    // sendBeacon не сообщает результат - считаем отправку состоявшейся,
     // если браузер принял запрос в очередь
     if (sendLeadBeacon({ message: text })) return Promise.resolve(true);
   }
@@ -91,7 +91,7 @@ const formatDuration = (startedAt) => {
 };
 
 // Сводка по диалогу без контакта: что спрашивали и по каким темам отвечал бот
-// Что ассистент понял о посетителе — человеческими подписями
+// Что ассистент понял о посетителе - человеческими подписями
 const SLOT_LABELS = {
   'ниша': 'Ниша',
   'каналы': 'Каналы заявок',
@@ -110,11 +110,11 @@ const formatSlots = (slots) => {
 const buildSummary = (log, questions, topics, slots) => {
   const list = questions.length
     ? questions.map((q, i) => `${i + 1}. ${q}`).join('\n')
-    : '—';
-  const path = typeof window !== 'undefined' ? window.location.pathname : '—';
+    : '-';
+  const path = typeof window !== 'undefined' ? window.location.pathname : '-';
   const facts = formatSlots(slots || {});
   // В темы попадает только то, что бот НЕ понял: это и есть самое
-  // ценное — видно, чего ему не хватает
+  // ценное - видно, чего ему не хватает
   const missed = topics
     .filter((t, i) => topics.indexOf(t) === i)
     .filter((t) => t.startsWith('не распознано'));
@@ -134,11 +134,11 @@ const buildSummary = (log, questions, topics, slots) => {
   return parts.join('\n');
 };
 
-// Лид: посетитель оставил имя и контакт — это отдельное событие от сводки
+// Лид: посетитель оставил имя и контакт - это отдельное событие от сводки
 const sendLeadToTelegram = async ({ name, contact, questions, locale, summarySent, slots }) => {
   const list = questions.length
     ? questions.map((q, i) => `${i + 1}. ${q}`).join('\n')
-    : '—';
+    : '-';
 
   const facts = formatSlots(slots || {});
 
@@ -194,7 +194,7 @@ const ChatWidget = () => {
   const greeted = useRef(false);
 
   // Фоновая запись: сам лог, вопросы, темы ответов и флаги отправки.
-  // Всё в ref — обработчики ухода со страницы должны видеть свежие значения.
+  // Всё в ref - обработчики ухода со страницы должны видеть свежие значения.
   const logRef = useRef(null);
   const askedRef = useRef([]);
   const topicsRef = useRef([]);
@@ -221,7 +221,7 @@ const ChatWidget = () => {
     };
   }
 
-  // Язык может переключиться посреди сессии — держим в логе актуальный
+  // Язык может переключиться посреди сессии - держим в логе актуальный
   useEffect(() => {
     logRef.current.locale = L;
   }, [L]);
@@ -234,7 +234,7 @@ const ChatWidget = () => {
   }, []);
 
   // Сводка уходит один раз за сессию и только если вопросов было минимум два.
-  // Если контакт уже оставлен — сводка не нужна, владелец получил заявку.
+  // Если контакт уже оставлен - сводка не нужна, владелец получил заявку.
   const flushSummary = useCallback((beacon = false) => {
     if (summarySent.current || leadDelivered.current) return;
     if (askedRef.current.length < SUMMARY_MIN_QUESTIONS) return;
@@ -250,7 +250,7 @@ const ChatWidget = () => {
     saveLog(log);
 
     sendChatMessage(buildSummary(log, askedRef.current, topicsRef.current, slotsRef.current), { beacon })
-      .catch(() => { /* сводка — фоновая история, интерфейс ломать нечем */ });
+      .catch(() => { /* сводка - фоновая история, интерфейс ломать нечем */ });
   }, []);
 
   // Уход со страницы и сворачивание вкладки: тут только beacon успевает
@@ -280,7 +280,7 @@ const ChatWidget = () => {
     };
   }, []);
 
-  // Лаунчер: после 500px скролла ИЛИ через 4 секунды — что раньше
+  // Лаунчер: после 500px скролла ИЛИ через 4 секунды - что раньше
   useEffect(() => {
     if (window.scrollY > SCROLL_TRIGGER) {
       setLauncherVisible(true);
@@ -297,7 +297,7 @@ const ChatWidget = () => {
     };
   }, []);
 
-  // Приветствие — один раз, при первом открытии
+  // Приветствие - один раз, при первом открытии
   useEffect(() => {
     if (!open || greeted.current) return;
     greeted.current = true;
@@ -342,7 +342,7 @@ const ChatWidget = () => {
 
     appendLog('user', text);
     askedRef.current = [...askedRef.current, text];
-    // Тишина после вопроса — повод отправить сводку, не дожидаясь ухода
+    // Тишина после вопроса - повод отправить сводку, не дожидаясь ухода
     if (summaryTimer.current.id) clearTimeout(summaryTimer.current.id);
     summaryTimer.current.id = setTimeout(() => flushSummary(false), SUMMARY_IDLE_MS);
 
@@ -357,7 +357,7 @@ const ChatWidget = () => {
 
       if (!node) {
         const miss = pick(L, CHAT_DEMO.fallback);
-        // Нераспознанные вопросы — самое ценное: видно, чего боту не хватает
+        // Нераспознанные вопросы - самое ценное: видно, чего боту не хватает
         topicsRef.current = [...topicsRef.current, `не распознано: ${text}`];
         appendLog('bot', miss);
         setMessages((m) => [
@@ -386,13 +386,13 @@ const ChatWidget = () => {
       setChips(node.next || []);
     };
 
-    // Клик по подсказке ведёт в конкретный узел сценария — там ответ
+    // Клик по подсказке ведёт в конкретный узел сценария - там ответ
     // уже написан и утверждён, спрашивать модель незачем
     if (!forcedNode && isAssistantConfigured()) {
       setTyping(true);
       askAssistant(convoRef.current).then((res) => {
         if (!res) {
-          // Сервер молчит — отвечаем по сценарию, посетитель не заметит
+          // Сервер молчит - отвечаем по сценарию, посетитель не заметит
           reply();
           return;
         }
@@ -400,7 +400,7 @@ const ChatWidget = () => {
         setTyping(false);
         convoRef.current = [...convoRef.current, { role: 'assistant', content: res.reply }].slice(-16);
         appendLog('bot', res.reply);
-        // Что модель поняла о посетителе — уходит владельцу в сводку
+        // Что модель поняла о посетителе - уходит владельцу в сводку
         if (res.slots) {
           // Новое значение перекрывает старое, пустые не затирают
           Object.entries(res.slots).forEach(([k, v]) => {
@@ -410,7 +410,7 @@ const ChatWidget = () => {
         setMessages((m) => {
           const withAnswer = [...m, { id: nextId(), role: 'bot', text: res.reply }];
           // Ассистент предложил передать разговор человеку. Ссылку он
-          // писать не может — она в пузыре чата не кликается. Вместо неё
+          // писать не может - она в пузыре чата не кликается. Вместо неё
           // показываем форму: там и поля, и кнопка в Telegram.
           if (res.handoff && !m.some((x) => x.role === 'lead')) {
             return [...withAnswer, { id: nextId(), role: 'lead' }];

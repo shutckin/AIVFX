@@ -15,7 +15,7 @@ const CookieBanner = ({ onPrivacyClick }) => {
         return () => clearTimeout(t);
       }
     } catch (_) {
-      // если localStorage недоступен — показываем баннер
+      // если localStorage недоступен - показываем баннер
       setVisible(true);
     }
   }, []);
@@ -29,8 +29,8 @@ const CookieBanner = ({ onPrivacyClick }) => {
 
   if (!visible) return null;
 
-  // Компактная нижняя полоса: раскладка и адаптив — в about-b2b.css (.cookie-banner).
-  // z-index 9990 — ниже модалок приложения (9998/9999).
+  // Компактная нижняя полоса: раскладка и адаптив - в about-b2b.css (.cookie-banner).
+  // z-index 9990 - ниже модалок приложения (9998/9999).
   return (
     <div
       role="dialog"

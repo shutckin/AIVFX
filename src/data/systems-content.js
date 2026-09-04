@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════════
-// AIVFX AI SYSTEMS — весь контент нового позиционирования.
-// Двуязычные поля — объекты { ru, en }; в компонентах выбираются через
+// AIVFX AI SYSTEMS - весь контент нового позиционирования.
+// Двуязычные поля - объекты { ru, en }; в компонентах выбираются через
 // pick(locale, obj) из src/i18n.js.
 // Здесь НЕТ выдуманных достижений: кейсы помечены isDemo и показываются
 // как демо-сценарии, пока не заменим реальными.
@@ -28,28 +28,28 @@ export const HERO_SYS = {
   },
   accentLineIndex: 1, // какая строка подсвечивается акцентом
   sub: {
-    ru: 'Для клиник, недвижимости и сервисного бизнеса с потоком заявок: система отвечает клиенту за секунды, доводит до записи и фиксирует каждое обращение в CRM — 24/7.',
-    en: 'For clinics, real estate and service businesses with inquiry flow: the system replies in seconds, drives bookings and logs every lead in the CRM — 24/7.',
+    ru: 'Для клиник, недвижимости и сервисного бизнеса с потоком заявок: система отвечает клиенту за секунды, доводит до записи и фиксирует каждое обращение в CRM - 24/7.',
+    en: 'For clinics, real estate and service businesses with inquiry flow: the system replies in seconds, drives bookings and logs every lead in the CRM - 24/7.',
   },
-  // Оффер под кнопками — главный крючок
+  // Оффер под кнопками - главный крючок
   offer: {
-    ru: 'Ответ с архитектурой решения — в течение 24 часов',
-    en: 'A solution architecture in reply — within 24 hours',
+    ru: 'Ответ с архитектурой решения - в течение 24 часов',
+    en: 'A solution architecture in reply - within 24 hours',
   },
   // Строка-отличие от чат-бот агентств
   diff: {
     ru: 'Не чат-бот, а система: приём → квалификация → CRM → follow-up',
-    en: 'Not a chatbot — a system: intake → qualification → CRM → follow-up',
+    en: 'Not a chatbot - a system: intake → qualification → CRM → follow-up',
   },
   cta1: { ru: 'Обсудить задачу', en: 'Discuss your case' },
   cta2: { ru: 'Посмотреть решения', en: 'See solutions' },
 };
 
 // Чат-диалог в hero-телефоне: продукт показан буквально.
-// from: 'client' | 'ai' | 'system'. t — время сообщения.
+// from: 'client' | 'ai' | 'system'. t - время сообщения.
 export const HERO_CHAT = [
   { from: 'client', t: '21:47', text: { ru: 'Здравствуйте! Сколько стоит имплантация под ключ?', en: 'Hi! How much is a full dental implant?' } },
-  { from: 'ai', t: '21:47', text: { ru: 'Добрый вечер! От 45 000 ₽ за зуб — зависит от снимка. Могу записать вас на бесплатную консультацию — удобно завтра в 12:00 или 18:30?', en: 'Good evening! From $600 per tooth — it depends on your scan. I can book you a free consultation — tomorrow at 12:00 or 6:30 pm?' } },
+  { from: 'ai', t: '21:47', text: { ru: 'Добрый вечер! От 45 000 ₽ за зуб - зависит от снимка. Могу записать вас на бесплатную консультацию - удобно завтра в 12:00 или 18:30?', en: 'Good evening! From $600 per tooth - it depends on your scan. I can book you a free consultation - tomorrow at 12:00 or 6:30 pm?' } },
   { from: 'client', t: '21:48', text: { ru: 'Давайте в 18:30', en: '6:30 pm works' } },
   { from: 'ai', t: '21:48', text: { ru: 'Записал: завтра, 18:30, доктор Соколова. Пришлю напоминание за 2 часа 👌', en: 'Booked: tomorrow, 6:30 pm, Dr. Sokolova. I will remind you 2 hours before 👌' } },
   { from: 'system', t: '21:48', text: { ru: 'Сделка создана в CRM · Менеджер уведомлён', en: 'Deal created in CRM · Manager notified' } },
@@ -64,12 +64,12 @@ export const HERO_PIPELINE = [
   { icon: '↻', label: { ru: 'Follow-up запланирован на завтра', en: 'Follow-up scheduled for tomorrow' }, tone: 'ok' },
 ];
 
-// Полоса метрик — свойства систем, а не «достижения» (ничего выдуманного)
+// Полоса метрик - свойства систем, а не «достижения» (ничего выдуманного)
 export const STATS_SYS = [
   { v: '24/7', l: { ru: 'обработка обращений', en: 'inquiry handling' } },
   { v: '6+', l: { ru: 'каналов в одной системе', en: 'channels in one system' } },
   { v: '100%', l: { ru: 'заявок фиксируются в CRM', en: 'of leads logged in the CRM' } },
-  { v: '0', l: { ru: 'изменений вашего стека — встраиваемся в текущий', en: 'changes to your stack — we plug into it' } },
+  { v: '0', l: { ru: 'изменений вашего стека - встраиваемся в текущий', en: 'changes to your stack - we plug into it' } },
 ];
 
 // ── Блок проблем ───────────────────────────────────────────────────────
@@ -77,19 +77,19 @@ export const PROBLEMS_SYS = {
   head: {
     num: { ru: 'ПРОБЛЕМА', en: 'PROBLEM' },
     title: { ru: 'Ваш бизнес уже получает заявки.', en: 'Your business already gets inquiries.' },
-    titleIt: { ru: 'Вопрос — сколько из них теряется', en: 'The question is how many get lost' },
+    titleIt: { ru: 'Вопрос - сколько из них теряется', en: 'The question is how many get lost' },
     side: {
       ru: 'Чаще всего дело не в маркетинге, а в том, что происходит с обращением после того, как клиент написал.',
-      en: 'Most of the time the issue is not marketing — it is what happens to an inquiry after the customer reaches out.',
+      en: 'Most of the time the issue is not marketing - it is what happens to an inquiry after the customer reaches out.',
     },
     sideTitle: 'REALITY CHECK',
   },
-  // ui — тип мини-интерфейса в bento-плитке: chat | task | pipe | copy | churn
+  // ui - тип мини-интерфейса в bento-плитке: chat | task | pipe | copy | churn
   items: [
     {
       time: '21:47',
       ui: 'chat',
-      text: { ru: 'Написал вечером — ответ утром', en: 'Wrote at night — answered in the morning' },
+      text: { ru: 'Написал вечером - ответ утром', en: 'Wrote at night - answered in the morning' },
       tag: { ru: 'упущенное время', en: 'lost time' },
     },
     {
@@ -99,7 +99,7 @@ export const PROBLEMS_SYS = {
       tag: { ru: 'человеческий фактор', en: 'human factor' },
     },
     {
-      time: '—',
+      time: '-',
       ui: 'pipe',
       text: { ru: 'Заявка потерялась между WhatsApp и CRM', en: 'Lead lost between WhatsApp and the CRM' },
       tag: { ru: 'разрыв каналов', en: 'channel gap' },
@@ -131,8 +131,8 @@ export const FLOW_SYS = {
     title: { ru: 'Одна система', en: 'One system' },
     titleIt: { ru: 'вместо хаоса каналов', en: 'instead of channel chaos' },
     side: {
-      ru: 'Каждое обращение проходит один и тот же управляемый путь — независимо от того, откуда оно пришло.',
-      en: 'Every inquiry travels the same managed path — no matter which channel it came from.',
+      ru: 'Каждое обращение проходит один и тот же управляемый путь - независимо от того, откуда оно пришло.',
+      en: 'Every inquiry travels the same managed path - no matter which channel it came from.',
     },
     sideTitle: 'ARCHITECTURE',
   },
@@ -178,8 +178,8 @@ export const SERVICES_SYS = {
     title: { ru: 'Три системы', en: 'Three systems' },
     titleIt: { ru: 'под задачи бизнеса', en: 'built for business tasks' },
     side: {
-      ru: 'Не каталог из десятков услуг — три направления, которые закрывают путь клиента от заявки до повторной продажи.',
-      en: 'Not a catalog of dozens of services — three directions that cover the customer journey from inquiry to repeat sale.',
+      ru: 'Не каталог из десятков услуг - три направления, которые закрывают путь клиента от заявки до повторной продажи.',
+      en: 'Not a catalog of dozens of services - three directions that cover the customer journey from inquiry to repeat sale.',
     },
     sideTitle: 'WHAT WE BUILD',
   },
@@ -199,8 +199,8 @@ export const SERVICES_SYS = {
       num: 'S/02',
       title: { ru: 'AI-ассистенты', en: 'AI assistants' },
       desc: {
-        ru: 'Работают с клиентами и сотрудниками через сайт, WhatsApp, Telegram и другие интерфейсы — от консультаций до базы знаний компании.',
-        en: 'Serve customers and employees via the website, WhatsApp, Telegram and other interfaces — from consultations to the company knowledge base.',
+        ru: 'Работают с клиентами и сотрудниками через сайт, WhatsApp, Telegram и другие интерфейсы - от консультаций до базы знаний компании.',
+        en: 'Serve customers and employees via the website, WhatsApp, Telegram and other interfaces - from consultations to the company knowledge base.',
       },
       chips: ['Website', 'WhatsApp', 'Telegram', 'Knowledge base', 'Internal'],
     },
@@ -353,19 +353,19 @@ export const SERVICE_PAGES = {
     },
     proof: [
       { ru: 'Сообщение · WhatsApp, 22:14', en: 'Message · WhatsApp, 22:14' },
-      { ru: 'Вопрос про подготовку к приёму - ответ из базы клиники', en: 'Question about preparation — answered from the clinic knowledge base' },
+      { ru: 'Вопрос про подготовку к приёму - ответ из базы клиники', en: 'Question about preparation - answered from the clinic knowledge base' },
       { ru: 'Свободные окна на четверг предложены', en: 'Available Thursday slots offered' },
       { ru: 'Запись создана в медицинской системе', en: 'Appointment created in the practice system' },
-      { ru: 'Упоминание симптома - диалог передан администратору', en: 'Symptom mentioned — conversation handed to the desk' },
+      { ru: 'Упоминание симптома - диалог передан администратору', en: 'Symptom mentioned - conversation handed to the desk' },
       { ru: 'Напоминание за сутки отправлено', en: 'Reminder sent 24 h before' },
     ],
     features: {
       title: { ru: 'Что делает система в клинике', en: 'What the system does in a clinic' },
       items: [
         { t: { ru: 'Запись без администратора', en: 'Booking without the desk' }, d: { ru: 'Показывает свободные окна нужного специалиста и создаёт запись в вашей медицинской системе, а не в отдельной табличке.', en: 'Shows free slots for the right specialist and creates the appointment in your practice system, not a side spreadsheet.' } },
-        { t: { ru: 'Ответы на организационные вопросы', en: 'Organisational answers' }, d: { ru: 'Подготовка к процедурам, документы, адрес, парковка, стоимость приёма - по вашим материалам, без выдумок.', en: 'Preparation, documents, address, parking, prices — strictly from your own materials, nothing invented.' } },
+        { t: { ru: 'Ответы на организационные вопросы', en: 'Organisational answers' }, d: { ru: 'Подготовка к процедурам, документы, адрес, парковка, стоимость приёма - по вашим материалам, без выдумок.', en: 'Preparation, documents, address, parking, prices - strictly from your own materials, nothing invented.' } },
         { t: { ru: 'Жёсткая граница по медицине', en: 'A hard medical boundary' }, d: { ru: 'Ни диагнозов, ни советов по лечению, ни трактовки анализов. Любой такой вопрос уходит человеку немедленно и с пометкой срочности.', en: 'No diagnoses, no treatment advice, no reading of test results. Any such question goes to a human immediately, flagged as urgent.' } },
-        { t: { ru: 'Напоминания и переносы', en: 'Reminders and reschedules' }, d: { ru: 'Напоминает за сутки и за два часа, принимает перенос и отмену прямо в переписке - расписание обновляется само.', en: 'Reminds a day and two hours ahead, accepts reschedules and cancellations in chat — the calendar updates itself.' } },
+        { t: { ru: 'Напоминания и переносы', en: 'Reminders and reschedules' }, d: { ru: 'Напоминает за сутки и за два часа, принимает перенос и отмену прямо в переписке - расписание обновляется само.', en: 'Reminds a day and two hours ahead, accepts reschedules and cancellations in chat - the calendar updates itself.' } },
         { t: { ru: 'Возврат тех, кто не дошёл', en: 'Win-back for no-shows' }, d: { ru: 'Пациент, который записался и не пришёл, получает аккуратное сообщение, а не теряется навсегда.', en: 'A patient who booked and never came gets a gentle follow-up instead of disappearing.' } },
         { t: { ru: 'Персональные данные под контролем', en: 'Personal data under control' }, d: { ru: 'Согласие на обработку, хранение в вашем контуре, доступ по минимуму и удаление переписок по расписанию.', en: 'Explicit consent, storage inside your perimeter, least-privilege access and scheduled deletion of conversations.' } },
       ],
@@ -403,7 +403,7 @@ export const SERVICE_PAGES = {
         { t: { ru: 'Сбор данных об автомобиле', en: 'Vehicle details upfront' }, d: { ru: 'Марка, модель, год, пробег и описание проблемы выясняются до записи - мастер видит картину заранее.', en: 'Make, model, year, mileage and the described fault are gathered before the booking, so the advisor sees the picture in advance.' } },
         { t: { ru: 'Вилка по типовым работам', en: 'Ranges for standard jobs' }, d: { ru: 'Называет диапазон по вашему прайсу и честно говорит, что точная сумма - после диагностики. Никаких выдуманных цен.', en: 'Quotes a range from your own price list and says plainly that the exact figure follows diagnostics. No invented numbers.' } },
         { t: { ru: 'Запись с учётом загрузки постов', en: 'Booking against real bay load' }, d: { ru: 'Предлагает время, когда пост реально свободен, а не первое попавшееся окно в календаре.', en: 'Offers times when a bay is genuinely free, not the first empty slot in a calendar.' } },
-        { t: { ru: 'Напоминание и подтверждение', en: 'Reminders and confirmation' }, d: { ru: 'Напоминает накануне и просит подтвердить - меньше пустых постов из-за неявок.', en: 'Reminds the day before and asks to confirm — fewer idle bays from no-shows.' } },
+        { t: { ru: 'Напоминание и подтверждение', en: 'Reminders and confirmation' }, d: { ru: 'Напоминает накануне и просит подтвердить - меньше пустых постов из-за неявок.', en: 'Reminds the day before and asks to confirm - fewer idle bays from no-shows.' } },
         { t: { ru: 'Возврат на регламент', en: 'Service-interval win-back' }, d: { ru: 'Через нужный срок или пробег напоминает про ТО тем, кто уже был у вас.', en: 'Reminds returning customers about scheduled maintenance at the right time or mileage.' } },
         { t: { ru: 'Всё в одной карточке', en: 'One record per customer' }, d: { ru: 'Переписка, автомобиль, работы и история визитов лежат вместе, а не в чужом телефоне.', en: 'Chat, vehicle, jobs and visit history live together instead of on someone\'s personal phone.' } },
       ],
@@ -438,12 +438,12 @@ export const SERVICE_PAGES = {
     features: {
       title: { ru: 'Что делает система в агентстве', en: 'What the system does in an agency' },
       items: [
-        { t: { ru: 'Ответ быстрее конкурентов', en: 'Faster than the competition' }, d: { ru: 'Отвечает за секунды в любое время - в недвижимости первый ответивший чаще всего и работает с клиентом.', en: 'Replies within seconds at any hour — in property the first responder usually keeps the client.' } },
+        { t: { ru: 'Ответ быстрее конкурентов', en: 'Faster than the competition' }, d: { ru: 'Отвечает за секунды в любое время - в недвижимости первый ответивший чаще всего и работает с клиентом.', en: 'Replies within seconds at any hour - in property the first responder usually keeps the client.' } },
         { t: { ru: 'Разбор по бюджету и району', en: 'Budget and area triage' }, d: { ru: 'Выясняет вилку, район, сроки и способ оплаты, не превращая разговор в анкету.', en: 'Works out the range, area, timing and payment method without turning the chat into a form.' } },
         { t: { ru: 'Подбор из вашей базы', en: 'Matching from your own base' }, d: { ru: 'Предлагает подходящие объекты из вашей выгрузки, а не абстрактные «варианты есть».', en: 'Suggests matching listings from your feed instead of a vague «we have options».' } },
         { t: { ru: 'Запись на показ и подтверждение', en: 'Viewings and confirmations' }, d: { ru: 'Согласует время, ставит встречу в календарь риелтора и напоминает обеим сторонам.', en: 'Agrees the time, puts it in the agent calendar and reminds both sides.' } },
         { t: { ru: 'Долгие сделки не теряются', en: 'Long deals stay alive' }, d: { ru: 'Тем, кто «вернётся через полгода», приходят редкие уместные касания вместо еженедельного «ну что, надумали».', en: 'People who «will come back in six months» get rare, relevant touches instead of weekly nagging.' } },
-        { t: { ru: 'Честность в цифрах', en: 'Honest numbers' }, d: { ru: 'Никаких обещаний по одобрению ипотеки и доходности - только факты из ваших материалов.', en: 'No promises about mortgage approval or returns — only facts from your own materials.' } },
+        { t: { ru: 'Честность в цифрах', en: 'Honest numbers' }, d: { ru: 'Никаких обещаний по одобрению ипотеки и доходности - только факты из ваших материалов.', en: 'No promises about mortgage approval or returns - only facts from your own materials.' } },
       ],
     },
   },
@@ -466,10 +466,10 @@ export const SERVICE_PAGES = {
         { ru: 'Заявки приходят в 5 разных каналов, и часть из них никто не видит', en: 'Leads arrive in 5 different channels and some are never seen' },
         { ru: 'Клиенты пишут вечером и в выходные, а отвечают им в рабочее время', en: 'Customers write in the evenings and weekends but get answers during office hours' },
         { ru: 'Менеджеры тратят время на нецелевые обращения', en: 'Managers waste time on unqualified inquiries' },
-        { ru: 'CRM заполняется вручную и с ошибками — или не заполняется вовсе', en: 'The CRM is filled in manually with mistakes — or not at all' },
+        { ru: 'CRM заполняется вручную и с ошибками - или не заполняется вовсе', en: 'The CRM is filled in manually with mistakes - or not at all' },
       ],
     },
-    // «интерфейсное доказательство» — что реально делает система
+    // «интерфейсное доказательство» - что реально делает система
     proof: [
       { ru: 'Новая заявка · Instagram Direct', en: 'Incoming lead · Instagram DM' },
       { ru: 'AI уточняет задачу и бюджет', en: 'AI clarifies the task and budget' },
@@ -481,10 +481,10 @@ export const SERVICE_PAGES = {
     features: {
       title: { ru: 'Что делает система', en: 'What the system does' },
       items: [
-        { t: { ru: 'Мгновенный первый ответ', en: 'Instant first response' }, d: { ru: 'Отвечает за секунды в любое время суток — клиент не успевает уйти к конкуренту.', en: 'Replies within seconds at any hour — before the customer moves on to a competitor.' } },
+        { t: { ru: 'Мгновенный первый ответ', en: 'Instant first response' }, d: { ru: 'Отвечает за секунды в любое время суток - клиент не успевает уйти к конкуренту.', en: 'Replies within seconds at any hour - before the customer moves on to a competitor.' } },
         { t: { ru: 'Квалификация и сбор данных', en: 'Qualification & data capture' }, d: { ru: 'Задаёт правильные вопросы, отделяет целевые обращения от шума, собирает контакты и детали задачи.', en: 'Asks the right questions, separates real leads from noise, captures contacts and task details.' } },
         { t: { ru: 'CRM без ручного ввода', en: 'CRM without manual entry' }, d: { ru: 'Каждое обращение автоматически становится карточкой сделки с полной историей.', en: 'Every inquiry automatically becomes a deal record with full history.' } },
-        { t: { ru: 'Передача менеджеру вовремя', en: 'Timely human handover' }, d: { ru: 'Система знает, когда подключить человека, и передаёт диалог с контекстом.', en: 'The system knows when to bring a human in — and hands over the conversation with context.' } },
+        { t: { ru: 'Передача менеджеру вовремя', en: 'Timely human handover' }, d: { ru: 'Система знает, когда подключить человека, и передаёт диалог с контекстом.', en: 'The system knows when to bring a human in - and hands over the conversation with context.' } },
         { t: { ru: 'Follow-up и возврат клиентов', en: 'Follow-up & win-back' }, d: { ru: 'Напоминания, дожим и повторные касания происходят сами, по сценарию.', en: 'Reminders, nudges and repeat touches happen automatically, on schedule.' } },
         { t: { ru: 'Прозрачная аналитика', en: 'Transparent analytics' }, d: { ru: 'Видно каждый этап воронки: сколько пришло, где буксует, что конвертируется.', en: 'Every funnel stage is visible: what comes in, where it stalls, what converts.' } },
       ],
@@ -514,17 +514,17 @@ export const SERVICE_PAGES = {
       { ru: 'Вопрос клиента на сайте', en: 'Customer question on the website' },
       { ru: 'Ассистент отвечает из базы знаний', en: 'Assistant answers from the knowledge base' },
       { ru: 'Уточняет детали и предлагает запись', en: 'Clarifies details, offers a booking' },
-      { ru: 'Сложный случай — эскалация человеку', en: 'Complex case — escalated to a human' },
+      { ru: 'Сложный случай - эскалация человеку', en: 'Complex case - escalated to a human' },
       { ru: 'Диалог сохранён в CRM', en: 'Conversation saved to the CRM' },
     ],
     features: {
       title: { ru: 'Что делает система', en: 'What the system does' },
       items: [
-        { t: { ru: 'Клиентский консультант', en: 'Customer-facing consultant' }, d: { ru: 'Отвечает на вопросы о продуктах, ценах и условиях на сайте и в мессенджерах — на языке клиента.', en: 'Answers questions about products, prices and terms on the website and in messengers — in the customer’s language.' } },
-        { t: { ru: 'Работа с базой знаний', en: 'Knowledge-base grounding' }, d: { ru: 'Ассистент опирается на ваши документы и регламенты, а не на фантазии модели.', en: 'The assistant is grounded in your documents and policies — not in the model’s imagination.' } },
+        { t: { ru: 'Клиентский консультант', en: 'Customer-facing consultant' }, d: { ru: 'Отвечает на вопросы о продуктах, ценах и условиях на сайте и в мессенджерах - на языке клиента.', en: 'Answers questions about products, prices and terms on the website and in messengers - in the customer’s language.' } },
+        { t: { ru: 'Работа с базой знаний', en: 'Knowledge-base grounding' }, d: { ru: 'Ассистент опирается на ваши документы и регламенты, а не на фантазии модели.', en: 'The assistant is grounded in your documents and policies - not in the model’s imagination.' } },
         { t: { ru: 'Внутренний помощник', en: 'Internal copilot' }, d: { ru: 'Сотрудники мгновенно находят информацию, готовят ответы и документы.', en: 'Employees instantly find information, draft replies and documents.' } },
         { t: { ru: 'Эскалация человеку', en: 'Human escalation' }, d: { ru: 'Ассистент понимает границы своих полномочий и вовремя передаёт диалог команде.', en: 'The assistant knows its limits and hands the conversation to the team at the right time.' } },
-        { t: { ru: 'Многоканальность', en: 'Multi-channel by design' }, d: { ru: 'Один ассистент — сайт, WhatsApp, Telegram, Instagram, внутренние чаты.', en: 'One assistant — website, WhatsApp, Telegram, Instagram, internal chats.' } },
+        { t: { ru: 'Многоканальность', en: 'Multi-channel by design' }, d: { ru: 'Один ассистент - сайт, WhatsApp, Telegram, Instagram, внутренние чаты.', en: 'One assistant - website, WhatsApp, Telegram, Instagram, internal chats.' } },
         { t: { ru: 'Обучение на ваших данных', en: 'Trained on your data' }, d: { ru: 'Тон, сценарии и знания настраиваются под компанию и обновляются по мере роста.', en: 'Tone, scenarios and knowledge are tailored to the company and updated as it grows.' } },
       ],
     },
@@ -546,7 +546,7 @@ export const SERVICE_PAGES = {
         { ru: 'Данные вручную переносятся между CRM, таблицами и чатами', en: 'Data is copied by hand between the CRM, spreadsheets and chats' },
         { ru: 'Отчёты собираются полдня и устаревают к моменту готовности', en: 'Reports take half a day to compile and are stale on arrival' },
         { ru: 'Согласования и напоминания держатся на памяти людей', en: 'Approvals and reminders rely on human memory' },
-        { ru: 'Бизнес растёт — и количество ручной работы растёт вместе с ним', en: 'The business grows — and manual work grows with it' },
+        { ru: 'Бизнес растёт - и количество ручной работы растёт вместе с ним', en: 'The business grows - and manual work grows with it' },
       ],
     },
     proof: [
@@ -563,7 +563,7 @@ export const SERVICE_PAGES = {
         { t: { ru: 'Документы и отчёты', en: 'Documents & reports' }, d: { ru: 'Договоры, счета и регулярные отчёты формируются автоматически из ваших данных.', en: 'Contracts, invoices and recurring reports are generated automatically from your data.' } },
         { t: { ru: 'Напоминания и согласования', en: 'Reminders & approvals' }, d: { ru: 'Система сама следит за дедлайнами и двигает согласования дальше.', en: 'The system tracks deadlines and pushes approvals forward on its own.' } },
         { t: { ru: 'Синхронизация сервисов', en: 'Tool-to-tool sync' }, d: { ru: 'CRM, таблицы, календари и мессенджеры обмениваются данными без людей-курьеров.', en: 'CRM, spreadsheets, calendars and messengers exchange data without human couriers.' } },
-        { t: { ru: 'Уведомления по делу', en: 'Signal-only notifications' }, d: { ru: 'Команда получает только важные события, а не поток шума.', en: 'The team gets only the events that matter — not a stream of noise.' } },
+        { t: { ru: 'Уведомления по делу', en: 'Signal-only notifications' }, d: { ru: 'Команда получает только важные события, а не поток шума.', en: 'The team gets only the events that matter - not a stream of noise.' } },
         { t: { ru: 'Повторные продажи', en: 'Repeat sales triggers' }, d: { ru: 'Система напоминает клиентам о продлении и возвращает их к покупке.', en: 'The system reminds customers about renewals and brings them back to buy.' } },
       ],
     },
@@ -574,8 +574,8 @@ export const SERVICE_PAGES = {
 export const SERVICE_CTA = {
   title: { ru: 'Разберём ваш процесс?', en: 'Shall we map your process?' },
   sub: {
-    ru: 'Расскажите, как устроена работа с заявками сейчас — предложим архитектуру системы и оценку.',
-    en: 'Tell us how you handle inquiries today — we will propose a system architecture and an estimate.',
+    ru: 'Расскажите, как устроена работа с заявками сейчас - предложим архитектуру системы и оценку.',
+    en: 'Tell us how you handle inquiries today - we will propose a system architecture and an estimate.',
   },
   btn: { ru: 'Обсудить задачу', en: 'Discuss your case' },
 };
@@ -621,7 +621,7 @@ export const TRAINING_SYS = {
   more: { ru: 'Подробнее' },
 };
 
-// ── Кейсы (демо-сценарии — честно помечены) ────────────────────────────
+// ── Кейсы (демо-сценарии - честно помечены) ────────────────────────────
 export const CASES_SYS = {
   head: {
     num: { ru: 'КЕЙСЫ', en: 'CASES' },
@@ -629,13 +629,13 @@ export const CASES_SYS = {
     titleIt: { ru: '→ результат', en: '→ result' },
     side: {
       ru: 'Каждый проект строится вокруг измеримого результата, а не вокруг технологии ради технологии.',
-      en: 'Every project is built around a measurable result — not around technology for its own sake.',
+      en: 'Every project is built around a measurable result - not around technology for its own sake.',
     },
     sideTitle: 'OUTCOMES',
   },
   demoBadge: { ru: 'Демо-сценарий', en: 'Demo scenario' },
   demoNote: {
-    ru: 'EastRide — собственный продукт студии, работает вживую. Два сценария рядом собраны на типовых процессах клиники и агентства недвижимости: цифры в них показывают, на какой результат мы проектируем систему.',
+    ru: 'EastRide - собственный продукт студии, работает вживую. Два сценария рядом собраны на типовых процессах клиники и агентства недвижимости: цифры в них показывают, на какой результат мы проектируем систему.',
     en: 'EastRide is the studio’s own product, live in production. The two scenarios beside it are built on the typical processes of a clinic and a real-estate agency: their numbers show the outcome we design such systems for.',
   },
   items: [
@@ -644,10 +644,10 @@ export const CASES_SYS = {
       isDemo: false,
       flagship: true,
       badge: { ru: 'Наш продукт · работает вживую', en: 'Our product · live' },
-      industry: { ru: 'EastRide — travel-платформа', en: 'EastRide — travel platform' },
+      industry: { ru: 'EastRide - travel-платформа', en: 'EastRide - travel platform' },
       problem: {
-        ru: 'Запустить маркетплейс аренды байков и мото-туров по Азии командой без штата: сотни карточек техники, партнёры в 13 городах, заявки, контент и соцсети — всё требовало бы отдела операторов.',
-        en: 'Launch a bike-rental and moto-tour marketplace across Asia without hiring a staff: hundreds of vehicle listings, partners in 13 cities, inquiries, content and social media — all of it would normally take a team of operators.',
+        ru: 'Запустить маркетплейс аренды байков и мото-туров по Азии командой без штата: сотни карточек техники, партнёры в 13 городах, заявки, контент и соцсети - всё требовало бы отдела операторов.',
+        en: 'Launch a bike-rental and moto-tour marketplace across Asia without hiring a staff: hundreds of vehicle listings, partners in 13 cities, inquiries, content and social media - all of it would normally take a team of operators.',
       },
       solution: {
         ru: 'Построили всю инфраструктуру AI-инструментами: платформа eastride.cc, партнёрский Telegram-бот с кабинетом, CRM-контур, мгновенные уведомления о заявках, автогенерация и автопубликация контента по расписанию, SEO-автоматика.',
@@ -664,8 +664,8 @@ export const CASES_SYS = {
       isDemo: true,
       industry: { ru: 'Клиника', en: 'Clinic' },
       problem: {
-        ru: 'Пациенты пишут в WhatsApp вечером и в выходные. Администраторы отвечают только в смену — к утру часть пациентов уже записалась к конкурентам.',
-        en: 'Patients message on WhatsApp in the evenings and on weekends. Admins reply only during shifts — by morning some patients have already booked elsewhere.',
+        ru: 'Пациенты пишут в WhatsApp вечером и в выходные. Администраторы отвечают только в смену - к утру часть пациентов уже записалась к конкурентам.',
+        en: 'Patients message on WhatsApp in the evenings and on weekends. Admins reply only during shifts - by morning some patients have already booked elsewhere.',
       },
       solution: {
         ru: 'AI-приём обращений в WhatsApp и на сайте: ответы на вопросы, запись на приём, интеграция с CRM и расписанием, напоминания о визите.',
@@ -682,8 +682,8 @@ export const CASES_SYS = {
       isDemo: true,
       industry: { ru: 'Недвижимость', en: 'Real estate' },
       problem: {
-        ru: 'Лиды с рекламы падают в Instagram, Telegram и на сайт. Брокеры отвечают выборочно, CRM заполняется от случая к случаю — маркетинговый бюджет утекает.',
-        en: 'Ad leads land in Instagram, Telegram and on the website. Brokers reply selectively, the CRM is updated sporadically — the marketing budget leaks away.',
+        ru: 'Лиды с рекламы падают в Instagram, Telegram и на сайт. Брокеры отвечают выборочно, CRM заполняется от случая к случаю - маркетинговый бюджет утекает.',
+        en: 'Ad leads land in Instagram, Telegram and on the website. Brokers reply selectively, the CRM is updated sporadically - the marketing budget leaks away.',
       },
       solution: {
         ru: 'Единый AI-контур: квалификация по бюджету и объекту, автоматические карточки сделок, умное распределение по брокерам, follow-up цепочки.',
@@ -724,12 +724,12 @@ export const APPROACH_SYS = {
     {
       num: '03',
       title: { ru: 'Проектируем систему', en: 'Design the system' },
-      desc: { ru: 'Выбираем AI, автоматизации и интеграции, которые действительно нужны — без лишнего.', en: 'We choose the AI, automations and integrations that are actually needed — nothing extra.' },
+      desc: { ru: 'Выбираем AI, автоматизации и интеграции, которые действительно нужны - без лишнего.', en: 'We choose the AI, automations and integrations that are actually needed - nothing extra.' },
     },
     {
       num: '04',
       title: { ru: 'Внедряем', en: 'Deploy' },
-      desc: { ru: 'Подключаем систему к существующей инфраструктуре — без перестройки компании под нас.', en: 'We plug the system into your existing infrastructure — without rebuilding the company around us.' },
+      desc: { ru: 'Подключаем систему к существующей инфраструктуре - без перестройки компании под нас.', en: 'We plug the system into your existing infrastructure - without rebuilding the company around us.' },
     },
     {
       num: '05',
@@ -756,8 +756,8 @@ export const INTEGRATIONS_SYS = {
     {
       label: { ru: 'Ваша CRM остаётся вашей', en: 'Your CRM stays yours' },
       desc: {
-        ru: 'Заявки и диалоги попадают туда, где команда уже работает — карточки создаются и обновляются сами.',
-        en: 'Leads and conversations land where your team already works — records are created and updated automatically.',
+        ru: 'Заявки и диалоги попадают туда, где команда уже работает - карточки создаются и обновляются сами.',
+        en: 'Leads and conversations land where your team already works - records are created and updated automatically.',
       },
       items: ['Битрикс24', 'amoCRM', 'HubSpot'],
       itemsEn: ['Bitrix24', 'amoCRM', 'HubSpot'],
@@ -765,8 +765,8 @@ export const INTEGRATIONS_SYS = {
     {
       label: { ru: 'Каналы, где пишут клиенты', en: 'The channels your customers use' },
       desc: {
-        ru: 'Подключаем мессенджеры, соцсети, почту и сайт — все обращения сходятся в один поток.',
-        en: 'We connect messengers, social media, email and the website — every inquiry flows into one place.',
+        ru: 'Подключаем мессенджеры, соцсети, почту и сайт - все обращения сходятся в один поток.',
+        en: 'We connect messengers, social media, email and the website - every inquiry flows into one place.',
       },
       items: ['WhatsApp', 'Telegram', 'Instagram', 'Email', 'Сайт'],
       itemsEn: ['WhatsApp', 'Telegram', 'Instagram', 'Email', 'Website'],
@@ -791,8 +791,8 @@ export const INTEGRATIONS_SYS = {
     },
   ],
   note: {
-    ru: 'Работаем и с другими сервисами — если у вас своя система, подключимся к ней через API.',
-    en: 'We work with other tools too — if you run your own system, we connect to it via API.',
+    ru: 'Работаем и с другими сервисами - если у вас своя система, подключимся к ней через API.',
+    en: 'We work with other tools too - if you run your own system, we connect to it via API.',
   },
 };
 
@@ -806,19 +806,19 @@ export const ABOUT_SYS = {
     title: { ru: 'Инженерная студия,', en: 'An engineering studio' },
     titleIt: { ru: 'а не агентство чат-ботов', en: 'not a chatbot agency' },
     side: {
-      ru: 'AIVFX проектирует системы под процесс конкретной компании — от архитектуры до внедрения и поддержки.',
-      en: 'AIVFX designs systems around a specific company’s process — from architecture to deployment and support.',
+      ru: 'AIVFX проектирует системы под процесс конкретной компании - от архитектуры до внедрения и поддержки.',
+      en: 'AIVFX designs systems around a specific company’s process - from architecture to deployment and support.',
     },
     sideTitle: 'AIVFX AI SYSTEMS',
   },
   paragraphs: [
     {
-      ru: 'Мы начинали как AI-продакшн: генеративное видео, VFX и автоматизированные контент-конвейеры для брендов. Именно там мы научились главному — собирать из AI-моделей, API и интеграций рабочие системы, которые крутятся каждый день без присмотра.',
-      en: 'We started as an AI production studio: generative video, VFX and automated content pipelines for brands. That is where we learned the key skill — assembling AI models, APIs and integrations into working systems that run every day without supervision.',
+      ru: 'Мы начинали как AI-продакшн: генеративное видео, VFX и автоматизированные контент-конвейеры для брендов. Именно там мы научились главному - собирать из AI-моделей, API и интеграций рабочие системы, которые крутятся каждый день без присмотра.',
+      en: 'We started as an AI production studio: generative video, VFX and automated content pipelines for brands. That is where we learned the key skill - assembling AI models, APIs and integrations into working systems that run every day without supervision.',
     },
     {
-      ru: 'Сегодня главный фокус AIVFX — AI-системы и автоматизации для бизнеса: приём и квалификация заявок, ассистенты, процессы. Для кого это? Клиники, недвижимость, юридические и сервисные компании, образовательные проекты — любой бизнес с потоком обращений и отделом продаж.',
-      en: 'Today the main focus of AIVFX is AI systems and automation for business: lead intake and qualification, assistants, processes. Who is it for? Clinics, real estate, legal and service companies, education projects — any business with an inquiry flow and a sales team.',
+      ru: 'Сегодня главный фокус AIVFX - AI-системы и автоматизации для бизнеса: приём и квалификация заявок, ассистенты, процессы. Для кого это? Клиники, недвижимость, юридические и сервисные компании, образовательные проекты - любой бизнес с потоком обращений и отделом продаж.',
+      en: 'Today the main focus of AIVFX is AI systems and automation for business: lead intake and qualification, assistants, processes. Who is it for? Clinics, real estate, legal and service companies, education projects - any business with an inquiry flow and a sales team.',
     },
   ],
   audience: {
@@ -834,20 +834,20 @@ export const ABOUT_SYS = {
   },
   // Честный перенос доверия: бренды из видео-направления
   brands: {
-    label: { ru: 'Выросли из AI-продакшна — делали работы для', en: 'We grew out of AI production — with work for' },
+    label: { ru: 'Выросли из AI-продакшна - делали работы для', en: 'We grew out of AI production - with work for' },
     items: ['AUDI', 'PORSCHE', 'DYSON', 'DANUBE', 'NL INT.', 'WHITEWILL', 'CINQUE', 'DEHANCER'],
   },
   founder: {
     name: { ru: 'Артем Шуткин', en: 'Artem Shutkin' },
     role: { ru: 'Основатель AIVFX', en: 'Founder, AIVFX' },
     line: {
-      ru: 'Каждый проект веду лично — от разбора процесса до запуска и сопровождения. Мне важно, чтобы система реально работала в вашем бизнесе, а не красиво выглядела в презентации.',
-      en: 'I run every project personally — from process mapping to launch and support. What matters to me is a system that actually works in your business, not one that just looks good in a deck.',
+      ru: 'Каждый проект веду лично - от разбора процесса до запуска и сопровождения. Мне важно, чтобы система реально работала в вашем бизнесе, а не красиво выглядела в презентации.',
+      en: 'I run every project personally - from process mapping to launch and support. What matters to me is a system that actually works in your business, not one that just looks good in a deck.',
     },
   },
   videoNote: {
     text: {
-      ru: 'Второе направление студии — AI-видеопродакшн: реклама, продуктовые ролики и контент.',
+      ru: 'Второе направление студии - AI-видеопродакшн: реклама, продуктовые ролики и контент.',
       en: 'The studio’s second direction is AI video production: ads, product videos and content.',
     },
     link: { ru: 'Смотреть направление AI-видео →', en: 'Explore AI video →' },
@@ -859,7 +859,7 @@ export const FAQ_SYS = [
   {
     q: { ru: 'Чем вы отличаетесь от агентства чат-ботов?', en: 'How are you different from a chatbot agency?' },
     a: {
-      ru: 'Чат — лишь один из интерфейсов. Мы проектируем систему целиком: приём обращений, квалификация, CRM, распределение, follow-up и аналитика. Продаём не бота, а решение конкретной операционной проблемы с измеримым результатом.',
+      ru: 'Чат - лишь один из интерфейсов. Мы проектируем систему целиком: приём обращений, квалификация, CRM, распределение, follow-up и аналитика. Продаём не бота, а решение конкретной операционной проблемы с измеримым результатом.',
       en: 'Chat is just one interface. We design the whole system: intake, qualification, CRM, routing, follow-up and analytics. We sell not a bot but a solution to a specific operational problem, with a measurable result.',
     },
   },
@@ -867,21 +867,21 @@ export const FAQ_SYS = [
     q: { ru: 'Придётся ли менять нашу CRM или сервисы?', en: 'Will we have to change our CRM or tools?' },
     a: {
       ru: 'Нет. Система встраивается в существующий стек: вашу CRM, мессенджеры, телефонию и таблицы. Мы адаптируемся под вас, а не наоборот.',
-      en: 'No. The system plugs into your existing stack: your CRM, messengers, telephony and spreadsheets. We adapt to you — not the other way around.',
+      en: 'No. The system plugs into your existing stack: your CRM, messengers, telephony and spreadsheets. We adapt to you - not the other way around.',
     },
   },
   {
     q: { ru: 'Сколько это стоит?', en: 'How much does it cost?' },
     a: {
-      ru: 'Зависит от объёма: количества каналов, интеграций и сценариев. Начинаем с разбора процесса — после него даём архитектуру решения и точную смету.',
-      en: 'It depends on scope: the number of channels, integrations and scenarios. We start by mapping your process — then provide the solution architecture and an exact estimate.',
+      ru: 'Зависит от объёма: количества каналов, интеграций и сценариев. Начинаем с разбора процесса - после него даём архитектуру решения и точную смету.',
+      en: 'It depends on scope: the number of channels, integrations and scenarios. We start by mapping your process - then provide the solution architecture and an exact estimate.',
     },
   },
   {
     q: { ru: 'Какие сроки внедрения?', en: 'How long does deployment take?' },
     a: {
-      ru: 'Первый работающий контур — обычно от 2 до 6 недель в зависимости от сложности. Дальше система развивается итерациями на реальных данных.',
-      en: 'A first working loop typically takes 2–6 weeks depending on complexity. After that the system evolves in iterations on real data.',
+      ru: 'Первый работающий контур - обычно от 2 до 6 недель в зависимости от сложности. Дальше система развивается итерациями на реальных данных.',
+      en: 'A first working loop typically takes 2-6 weeks depending on complexity. After that the system evolves in iterations on real data.',
     },
   },
   {
@@ -894,14 +894,14 @@ export const FAQ_SYS = [
   {
     q: { ru: 'Что происходит после запуска?', en: 'What happens after launch?' },
     a: {
-      ru: 'Система остаётся на нашем сопровождении: мониторим работу, разбираем реальные диалоги и дорабатываем сценарии. Если что-то меняется на стороне подключённых сервисов — чиним мы, а не вы.',
-      en: 'The system stays under our care: we monitor it, review real conversations and refine scenarios. If something changes on the side of connected services — we fix it, not you.',
+      ru: 'Система остаётся на нашем сопровождении: мониторим работу, разбираем реальные диалоги и дорабатываем сценарии. Если что-то меняется на стороне подключённых сервисов - чиним мы, а не вы.',
+      en: 'The system stays under our care: we monitor it, review real conversations and refine scenarios. If something changes on the side of connected services - we fix it, not you.',
     },
   },
   {
     q: { ru: 'Что с данными и безопасностью?', en: 'What about data and security?' },
     a: {
-      ru: 'Данные остаются в вашей инфраструктуре и ваших сервисах. Доступы выдаются по минимуму, ключи и токены — только на вашей стороне.',
+      ru: 'Данные остаются в вашей инфраструктуре и ваших сервисах. Доступы выдаются по минимуму, ключи и токены - только на вашей стороне.',
       en: 'Data stays in your infrastructure and your tools. Access is granted on a least-privilege basis; keys and tokens remain on your side.',
     },
   },
@@ -914,8 +914,8 @@ export const CONTACT_SYS = {
     title: { ru: 'Обсудим', en: 'Let’s discuss' },
     titleIt: { ru: 'вашу задачу', en: 'your case' },
     side: {
-      ru: 'Опишите процесс или проблему — вернёмся с вопросами и предложением архитектуры в течение 24 часов.',
-      en: 'Describe your process or problem — we will come back with questions and a proposed architecture within 24 hours.',
+      ru: 'Опишите процесс или проблему - вернёмся с вопросами и предложением архитектуры в течение 24 часов.',
+      en: 'Describe your process or problem - we will come back with questions and a proposed architecture within 24 hours.',
     },
     sideTitle: 'START',
   },
@@ -959,7 +959,7 @@ export const VIDEO_PAGE = {
   portfolioCta: { ru: 'Смотреть портфолио', en: 'View portfolio' },
   contactCta: { ru: 'Обсудить ролик', en: 'Discuss a video' },
   blogNote: {
-    ru: 'Гайды и разборы AI-видео — в нашем блоге.',
+    ru: 'Гайды и разборы AI-видео - в нашем блоге.',
     en: 'AI video guides and breakdowns live in our blog.',
   },
 };
@@ -967,7 +967,7 @@ export const VIDEO_PAGE = {
 // ── CTA-врезка между секциями главной ──────────────────────────────────
 export const CTA_BREAK = {
   title: { ru: 'Разберём ваш процесс и предложим архитектуру', en: 'We will map your process and propose an architecture' },
-  sub: { ru: 'Разбор бесплатный. Ответ — в течение 24 часов.', en: 'The review is free. Reply within 24 hours.' },
+  sub: { ru: 'Разбор бесплатный. Ответ - в течение 24 часов.', en: 'The review is free. Reply within 24 hours.' },
   btn: { ru: 'Обсудить задачу', en: 'Discuss your case' },
   tg: { ru: 'Написать в Telegram', en: 'Message on Telegram' },
   tgUrl: 'https://t.me/aivfx',
@@ -980,7 +980,7 @@ export const VIDEO_FORMATS = {
     title: { ru: 'Три формата', en: 'Three formats' },
     titleIt: { ru: 'работы', en: 'of engagement' },
     side: {
-      ru: 'Стоимость считаем сметой под задачу. Бриф бесплатный, оценка — в течение 24 часов.',
+      ru: 'Стоимость считаем сметой под задачу. Бриф бесплатный, оценка - в течение 24 часов.',
       en: 'Pricing is a per-project estimate. The brief is free; you get the quote within 24 hours.',
     },
     sideTitle: 'HOW WE WORK',
@@ -991,7 +991,7 @@ export const VIDEO_FORMATS = {
       timing: { ru: '~72 часа', en: '~72 hours' },
       desc: { ru: 'Проверить формат и качество на короткой задаче.', en: 'Validate the format and quality on a short task.' },
       features: [
-        { ru: '1–2 минуты готового видео', en: '1–2 minutes of finished video' },
+        { ru: '1-2 минуты готового видео', en: '1-2 minutes of finished video' },
         { ru: 'AI-генерация + базовый VFX', en: 'AI generation + basic VFX' },
         { ru: '3 итерации правок', en: '3 revision rounds' },
       ],
@@ -1019,8 +1019,8 @@ export const VIDEO_FORMATS = {
     },
   ],
   note: {
-    ru: 'Точную смету и сроки присылаем после брифа — в течение 24 часов.',
-    en: 'We send the exact estimate and timeline after the brief — within 24 hours.',
+    ru: 'Точную смету и сроки присылаем после брифа - в течение 24 часов.',
+    en: 'We send the exact estimate and timeline after the brief - within 24 hours.',
   },
 };
 
@@ -1032,7 +1032,7 @@ export const VIDEO_FAQ = [
   },
   {
     q: { ru: 'Как быстро будет готов ролик?', en: 'How fast will the video be ready?' },
-    a: { ru: 'Тест-ролик — около 72 часов, кампания — около недели, флагманский проект — около двух. Точные сроки фиксируем в смете.', en: 'A test video takes about 72 hours, a campaign about a week, a flagship project about two. Exact timelines are fixed in the estimate.' },
+    a: { ru: 'Тест-ролик - около 72 часов, кампания - около недели, флагманский проект - около двух. Точные сроки фиксируем в смете.', en: 'A test video takes about 72 hours, a campaign about a week, a flagship project about two. Exact timelines are fixed in the estimate.' },
   },
   {
     q: { ru: 'Сколько это стоит?', en: 'How much does it cost?' },
@@ -1044,7 +1044,7 @@ export const VIDEO_FAQ = [
   },
   {
     q: { ru: 'Чем AI-продакшн лучше классической съёмки?', en: 'Why is AI production better than a classic shoot?' },
-    a: { ru: 'Без съёмочной группы, аренды локаций и месяцев постпродакшена: любые локации и сцены собираются в разы быстрее и заметно дешевле — при кинематографичной картинке.', en: 'No film crew, location rentals or months of post: any location or scene comes together several times faster and materially cheaper — with a cinematic image.' },
+    a: { ru: 'Без съёмочной группы, аренды локаций и месяцев постпродакшена: любые локации и сцены собираются в разы быстрее и заметно дешевле - при кинематографичной картинке.', en: 'No film crew, location rentals or months of post: any location or scene comes together several times faster and materially cheaper - with a cinematic image.' },
   },
 ];
 
@@ -1055,8 +1055,8 @@ export const VIDEO_CONTACT = {
     title: { ru: 'Обсудим', en: 'Let’s discuss' },
     titleIt: { ru: 'ваш ролик', en: 'your video' },
     side: {
-      ru: 'Опишите задачу и референсы — вернёмся со сметой и сроками в течение 24 часов.',
-      en: 'Describe the task and references — we will come back with an estimate and timeline within 24 hours.',
+      ru: 'Опишите задачу и референсы - вернёмся со сметой и сроками в течение 24 часов.',
+      en: 'Describe the task and references - we will come back with an estimate and timeline within 24 hours.',
     },
     sideTitle: 'START',
   },
@@ -1072,25 +1072,25 @@ export const VIDEO_CONTACT = {
 // Сайт сам показывает продукт: ассистент консультирует по сценарию и
 // доводит до контакта. Ответы настоящие (не выдумка модели), поэтому
 // консультация честная; сложные вопросы честно передаются человеку.
-// Позже подключается живой AI — достаточно заменить источник ответов.
+// Позже подключается живой AI - достаточно заменить источник ответов.
 // ═══════════════════════════════════════════════════════════════════════
 export const CHAT_DEMO = {
   launcher: { ru: 'Спросить ассистента', en: 'Ask the assistant' },
   title: 'AIVFX Assistant',
   status: { ru: 'отвечает мгновенно · 24/7', en: 'replies instantly · 24/7' },
   // Бейдж «демо» убран: ассистент отвечает настоящей моделью, и подпись
-  // занижала то, что студия продаёт. Вместо него строка под полем ввода —
+  // занижала то, что студия продаёт. Вместо него строка под полем ввода -
   // она говорит ровно то, ради чего этот виджет тут стоит.
   // Одна строка, а не рекламный абзац: подробности и призыв к действию
   // живут на странице услуги, в узком окне чата им тесно и навязчиво
   pitch: {
-    ru: 'Такой же ассистент — для вашего бизнеса',
+    ru: 'Такой же ассистент - для вашего бизнеса',
     en: 'The same assistant, for your business',
   },
   inputPlaceholder: { ru: 'Напишите вопрос...', en: 'Type your question...' },
   greeting: {
-    ru: 'Здравствуйте! Я AI-ассистент AIVFX — такой же, каких мы ставим клиентам. Расскажу, что мы делаем, и помогу понять, подойдёт ли это вашему бизнесу.',
-    en: 'Hi! I am the AIVFX AI assistant — the same kind we build for clients. I can explain what we do and help you see whether it fits your business.',
+    ru: 'Здравствуйте! Я AI-ассистент AIVFX - такой же, каких мы ставим клиентам. Расскажу, что мы делаем, и помогу понять, подойдёт ли это вашему бизнесу.',
+    en: 'Hi! I am the AIVFX AI assistant - the same kind we build for clients. I can explain what we do and help you see whether it fits your business.',
   },
   // Свободный ввод: ключевые слова → узел сценария
   keywords: [
@@ -1105,8 +1105,8 @@ export const CHAT_DEMO = {
     { node: 'contact', words: ['связ', 'обсуд', 'заяв', 'позвон', 'contact', 'talk', 'call', 'discuss'] },
   ],
   fallback: {
-    ru: 'Хороший вопрос — на него точнее ответит человек, чем демо-сценарий. Оставьте контакт, и мы вернёмся с разбором именно вашей ситуации в течение 24 часов.',
-    en: 'Good question — a human will answer it better than a demo script. Leave your contact and we will come back with a review of your specific case within 24 hours.',
+    ru: 'Хороший вопрос - на него точнее ответит человек, чем демо-сценарий. Оставьте контакт, и мы вернёмся с разбором именно вашей ситуации в течение 24 часов.',
+    en: 'Good question - a human will answer it better than a demo script. Leave your contact and we will come back with a review of your specific case within 24 hours.',
   },
   // Стартовые подсказки
   start: ['what', 'price', 'time', 'diff'],
@@ -1114,31 +1114,31 @@ export const CHAT_DEMO = {
     what: {
       q: { ru: 'Что вы делаете?', en: 'What do you do?' },
       a: {
-        ru: 'Мы строим системы, которые работают с вашими заявками: принимают обращения из WhatsApp, Telegram, Instagram, сайта и почты, отвечают клиенту за секунды в любое время, квалифицируют, заносят всё в CRM и напоминают менеджеру о следующем шаге. Плюс автоматизируем внутреннюю рутину — документы, отчёты, уведомления.',
-        en: 'We build systems that handle your inquiries: capture messages from WhatsApp, Telegram, Instagram, the website and email, reply within seconds at any hour, qualify the lead, log everything in your CRM and remind the manager about the next step. We also automate internal routine — documents, reports, notifications.',
+        ru: 'Мы строим системы, которые работают с вашими заявками: принимают обращения из WhatsApp, Telegram, Instagram, сайта и почты, отвечают клиенту за секунды в любое время, квалифицируют, заносят всё в CRM и напоминают менеджеру о следующем шаге. Плюс автоматизируем внутреннюю рутину - документы, отчёты, уведомления.',
+        en: 'We build systems that handle your inquiries: capture messages from WhatsApp, Telegram, Instagram, the website and email, reply within seconds at any hour, qualify the lead, log everything in your CRM and remind the manager about the next step. We also automate internal routine - documents, reports, notifications.',
       },
       next: ['clinic', 'realestate', 'crm', 'contact'],
     },
     price: {
       q: { ru: 'Сколько это стоит?', en: 'How much does it cost?' },
       a: {
-        ru: 'Фиксированного прайса нет — считаем смету под задачу: сколько каналов подключаем, какие интеграции и сценарии нужны. Начинаем с бесплатного разбора вашего процесса, после него присылаем архитектуру решения и точную цифру — в течение 24 часов.',
-        en: 'There is no fixed price list — we quote per project: how many channels, which integrations and scenarios are needed. We start with a free review of your process, then send the solution architecture and an exact figure — within 24 hours.',
+        ru: 'Фиксированного прайса нет - считаем смету под задачу: сколько каналов подключаем, какие интеграции и сценарии нужны. Начинаем с бесплатного разбора вашего процесса, после него присылаем архитектуру решения и точную цифру - в течение 24 часов.',
+        en: 'There is no fixed price list - we quote per project: how many channels, which integrations and scenarios are needed. We start with a free review of your process, then send the solution architecture and an exact figure - within 24 hours.',
       },
       next: ['time', 'diff', 'contact'],
     },
     time: {
       q: { ru: 'Какие сроки?', en: 'How long does it take?' },
       a: {
-        ru: 'Первый работающий контур обычно запускаем за 2–6 недель — зависит от количества каналов и сложности сценариев. Дальше система развивается итерациями: смотрим на реальные диалоги и дорабатываем.',
-        en: 'The first working loop usually goes live in 2–6 weeks, depending on the number of channels and scenario complexity. After that the system evolves in iterations: we review real conversations and refine it.',
+        ru: 'Первый работающий контур обычно запускаем за 2-6 недель - зависит от количества каналов и сложности сценариев. Дальше система развивается итерациями: смотрим на реальные диалоги и дорабатываем.',
+        en: 'The first working loop usually goes live in 2-6 weeks, depending on the number of channels and scenario complexity. After that the system evolves in iterations: we review real conversations and refine it.',
       },
       next: ['price', 'safety', 'contact'],
     },
     diff: {
       q: { ru: 'Чем вы отличаетесь от чат-ботов?', en: 'How are you different from chatbots?' },
       a: {
-        ru: 'Чат — только одно окно системы. Бот отвечает и на этом всё; наша система ведёт заявку дальше: квалифицирует клиента, создаёт сделку в CRM, передаёт менеджеру в нужный момент, запускает follow-up и показывает аналитику по воронке. Мы продаём не бота, а закрытую операционную проблему.',
+        ru: 'Чат - только одно окно системы. Бот отвечает и на этом всё; наша система ведёт заявку дальше: квалифицирует клиента, создаёт сделку в CRM, передаёт менеджеру в нужный момент, запускает follow-up и показывает аналитику по воронке. Мы продаём не бота, а закрытую операционную проблему.',
         en: 'Chat is just one window of the system. A bot answers and stops there; our system carries the lead onward: qualifies the customer, creates the deal in your CRM, hands it to a manager at the right moment, triggers follow-ups and reports on the funnel. We sell a solved operational problem, not a bot.',
       },
       next: ['what', 'crm', 'contact'],
@@ -1146,7 +1146,7 @@ export const CHAT_DEMO = {
     crm: {
       q: { ru: 'А наша CRM подойдёт?', en: 'Will it work with our CRM?' },
       a: {
-        ru: 'Да. Работаем с Битрикс24, amoCRM, HubSpot, а если у вас своя система — подключаемся через API. Менять CRM или переучивать команду не нужно: система встраивается в то, чем вы уже пользуетесь.',
+        ru: 'Да. Работаем с Битрикс24, amoCRM, HubSpot, а если у вас своя система - подключаемся через API. Менять CRM или переучивать команду не нужно: система встраивается в то, чем вы уже пользуетесь.',
         en: 'Yes. We work with Bitrix24, amoCRM, HubSpot, and if you run your own system we connect via API. No need to change your CRM or retrain the team: the system plugs into what you already use.',
       },
       next: ['safety', 'time', 'contact'],
@@ -1154,32 +1154,32 @@ export const CHAT_DEMO = {
     clinic: {
       q: { ru: 'У нас клиника', en: 'We run a clinic' },
       a: {
-        ru: 'Частый сценарий. Пациенты пишут вечером и в выходные, а администратор отвечает в смену — и часть уходит к конкурентам. Ассистент отвечает сразу: консультирует по услугам, записывает на приём в ваше расписание, напоминает о визите и возвращает тех, кто не дошёл. Всё фиксируется в CRM.',
-        en: 'A common scenario. Patients write in the evenings and on weekends while your front desk answers during shifts — and some go to competitors. The assistant replies instantly: explains services, books into your schedule, sends visit reminders and wins back no-shows. Everything is logged in the CRM.',
+        ru: 'Частый сценарий. Пациенты пишут вечером и в выходные, а администратор отвечает в смену - и часть уходит к конкурентам. Ассистент отвечает сразу: консультирует по услугам, записывает на приём в ваше расписание, напоминает о визите и возвращает тех, кто не дошёл. Всё фиксируется в CRM.',
+        en: 'A common scenario. Patients write in the evenings and on weekends while your front desk answers during shifts - and some go to competitors. The assistant replies instantly: explains services, books into your schedule, sends visit reminders and wins back no-shows. Everything is logged in the CRM.',
       },
       next: ['safety', 'price', 'contact'],
     },
     realestate: {
       q: { ru: 'У нас недвижимость', en: 'We are in real estate' },
       a: {
-        ru: 'Тоже знакомо. Лиды с рекламы падают в разные каналы, брокеры отвечают выборочно, CRM заполняется как получится. Система собирает все обращения, квалифицирует по бюджету и объекту, распределяет между брокерами и ведёт follow-up цепочки — маркетинговый бюджет перестаёт утекать.',
-        en: 'Familiar too. Ad leads land in different channels, brokers reply selectively, the CRM is filled in at random. The system collects every inquiry, qualifies by budget and property, routes to brokers and runs follow-up sequences — your marketing budget stops leaking.',
+        ru: 'Тоже знакомо. Лиды с рекламы падают в разные каналы, брокеры отвечают выборочно, CRM заполняется как получится. Система собирает все обращения, квалифицирует по бюджету и объекту, распределяет между брокерами и ведёт follow-up цепочки - маркетинговый бюджет перестаёт утекать.',
+        en: 'Familiar too. Ad leads land in different channels, brokers reply selectively, the CRM is filled in at random. The system collects every inquiry, qualifies by budget and property, routes to brokers and runs follow-up sequences - your marketing budget stops leaking.',
       },
       next: ['crm', 'price', 'contact'],
     },
     safety: {
       q: { ru: 'А если AI ошибётся?', en: 'What if the AI makes a mistake?' },
       a: {
-        ru: 'Ассистент отвечает только из вашей базы знаний и согласованных сценариев — он не фантазирует. Границы полномочий задаём на старте: чувствительные темы (диагнозы, юридические оценки, скидки) он не трогает, а сразу передаёт человеку с полным контекстом переписки. Данные остаются в вашей инфраструктуре.',
-        en: 'The assistant answers only from your knowledge base and approved scenarios — it does not improvise. We define its limits upfront: sensitive topics (diagnoses, legal assessments, discounts) go straight to a human with full conversation context. Your data stays in your infrastructure.',
+        ru: 'Ассистент отвечает только из вашей базы знаний и согласованных сценариев - он не фантазирует. Границы полномочий задаём на старте: чувствительные темы (диагнозы, юридические оценки, скидки) он не трогает, а сразу передаёт человеку с полным контекстом переписки. Данные остаются в вашей инфраструктуре.',
+        en: 'The assistant answers only from your knowledge base and approved scenarios - it does not improvise. We define its limits upfront: sensitive topics (diagnoses, legal assessments, discounts) go straight to a human with full conversation context. Your data stays in your infrastructure.',
       },
       next: ['crm', 'diff', 'contact'],
     },
     contact: {
       q: { ru: 'Хочу обсудить задачу', en: 'I want to discuss my case' },
       a: {
-        ru: 'Отлично. Оставьте контакт — вернёмся с разбором вашего процесса и архитектурой решения в течение 24 часов. Или напишите сразу в Telegram, там отвечаем в течение часа.',
-        en: 'Great. Leave your contact — we will come back with a review of your process and a solution architecture within 24 hours. Or message us on Telegram, where we reply within an hour.',
+        ru: 'Отлично. Оставьте контакт - вернёмся с разбором вашего процесса и архитектурой решения в течение 24 часов. Или напишите сразу в Telegram, там отвечаем в течение часа.',
+        en: 'Great. Leave your contact - we will come back with a review of your process and a solution architecture within 24 hours. Or message us on Telegram, where we reply within an hour.',
       },
       lead: true,
     },
@@ -1191,35 +1191,35 @@ export const CHAT_DEMO = {
     tg: { ru: 'Написать в Telegram', en: 'Message on Telegram' },
     tgUrl: 'https://t.me/aivfx',
     success: {
-      ru: 'Записал, спасибо! Вернёмся в течение 24 часов. Если удобнее переписка — напишите в Telegram.',
-      en: 'Got it, thank you! We will get back within 24 hours. If chat suits you better — write to us on Telegram.',
+      ru: 'Записал, спасибо! Вернёмся в течение 24 часов. Если удобнее переписка - напишите в Telegram.',
+      en: 'Got it, thank you! We will get back within 24 hours. If chat suits you better - write to us on Telegram.',
     },
     error: {
-      ru: 'Не получилось отправить. Напишите, пожалуйста, в Telegram — так точно не потеряется.',
-      en: 'Could not send it. Please write to us on Telegram — that way it will not get lost.',
+      ru: 'Не получилось отправить. Напишите, пожалуйста, в Telegram - так точно не потеряется.',
+      en: 'Could not send it. Please write to us on Telegram - that way it will not get lost.',
     },
   },
 };
 
 // ── Видео-направление: витрина услуг с реальными кадрами ──────────────
 // Кадры сгенерированы в фирменном луке студии (public/services/*.jpg),
-// каждый иллюстрирует конкретную услугу — вместо абстрактных иконок.
+// каждый иллюстрирует конкретную услугу - вместо абстрактных иконок.
 export const VIDEO_SHOWCASE = {
   head: {
     num: { ru: 'ЧТО ДЕЛАЕМ', en: 'WHAT WE DO' },
     title: { ru: 'Шесть форматов', en: 'Six kinds of work' },
     titleIt: { ru: 'работы с кадром', en: 'with the frame' },
     side: {
-      ru: 'Каждый кадр ниже сделан нашим пайплайном — это не стоковые картинки, а примеры того, что получает клиент.',
-      en: 'Every frame below came out of our pipeline — these are not stock images but examples of what a client gets.',
+      ru: 'Каждый кадр ниже сделан нашим пайплайном - это не стоковые картинки, а примеры того, что получает клиент.',
+      en: 'Every frame below came out of our pipeline - these are not stock images but examples of what a client gets.',
     },
     sideTitle: 'CAPABILITIES',
   },
   items: [
     {
       // Единственный пункт витрины, где вместо кадра стоит сам ролик:
-      // формат этого направления — движение, и статичной картинкой его
-      // не показать. Постер — первый кадр ролика, он стоит в карточке,
+      // формат этого направления - движение, и статичной картинкой его
+      // не показать. Постер - первый кадр ролика, он стоит в карточке,
       // пока видео не подгрузилось (грузится оно только на подъезде,
       // см. LazyVideo).
       video: '/services/s01-video.mp4',
@@ -1239,8 +1239,8 @@ export const VIDEO_SHOWCASE = {
       h: 732,
       title: { ru: 'VFX и композитинг', en: 'VFX & compositing' },
       desc: {
-        ru: 'Эффекты, частицы, дым, разрушения и интеграция 3D в отснятый материал — на уровне большого продакшена.',
-        en: 'Effects, particles, smoke, destruction and 3D integration into live footage — at big-production level.',
+        ru: 'Эффекты, частицы, дым, разрушения и интеграция 3D в отснятый материал - на уровне большого продакшена.',
+        en: 'Effects, particles, smoke, destruction and 3D integration into live footage - at big-production level.',
       },
       tag: { ru: 'эффекты · 3D', en: 'effects · 3D' },
     },
@@ -1250,8 +1250,8 @@ export const VIDEO_SHOWCASE = {
       h: 726,
       title: { ru: 'Гибрид AI + съёмка', en: 'Hybrid AI + live action' },
       desc: {
-        ru: 'Реальные кадры дополняем сгенерированными сценами и объектами — там, где снять дорого или невозможно.',
-        en: 'Real footage extended with generated scenes and objects — where shooting would be costly or impossible.',
+        ru: 'Реальные кадры дополняем сгенерированными сценами и объектами - там, где снять дорого или невозможно.',
+        en: 'Real footage extended with generated scenes and objects - where shooting would be costly or impossible.',
       },
       tag: { ru: 'съёмка · доработка', en: 'shoot · augment' },
     },
@@ -1261,7 +1261,7 @@ export const VIDEO_SHOWCASE = {
       h: 822,
       title: { ru: 'Адаптация форматов', en: 'Format adaptation' },
       desc: {
-        ru: 'Один ролик — десять площадок: вертикаль для Reels и Shorts, квадрат для ленты, широкий формат для сайта и ТВ.',
+        ru: 'Один ролик - десять площадок: вертикаль для Reels и Shorts, квадрат для ленты, широкий формат для сайта и ТВ.',
         en: 'One video, ten placements: vertical for Reels and Shorts, square for feed, widescreen for site and TV.',
       },
       tag: { ru: 'Reels · Shorts · ТВ', en: 'Reels · Shorts · TV' },
@@ -1272,8 +1272,8 @@ export const VIDEO_SHOWCASE = {
       h: 822,
       title: { ru: 'Продуктовые демо', en: 'Product films' },
       desc: {
-        ru: 'Фотореалистичные ролики о товаре без студии, логистики и предметного стола — с точной фактурой материалов.',
-        en: 'Photorealistic product films without a studio, logistics or a tabletop rig — with accurate material texture.',
+        ru: 'Фотореалистичные ролики о товаре без студии, логистики и предметного стола - с точной фактурой материалов.',
+        en: 'Photorealistic product films without a studio, logistics or a tabletop rig - with accurate material texture.',
       },
       tag: { ru: 'продукт · e-com', en: 'product · e-com' },
     },
@@ -1321,7 +1321,7 @@ export const VIDEO_PROCESS = {
         { ru: 'Ограничения бренда: палитра, шрифты, тон', en: 'Brand constraints: palette, type, tone of voice' },
       ],
       out: { ru: 'мудборд', en: 'moodboard' },
-      time: { ru: '1–2 дня', en: '1–2 days' },
+      time: { ru: '1-2 дня', en: '1-2 days' },
     },
     {
       num: '02',
@@ -1336,7 +1336,7 @@ export const VIDEO_PROCESS = {
         { ru: 'Черновой текст закадрового голоса', en: 'A draft of the voice-over script' },
       ],
       out: { ru: 'раскадровка', en: 'storyboard' },
-      time: { ru: '2–3 дня', en: '2–3 days' },
+      time: { ru: '2-3 дня', en: '2-3 days' },
     },
     {
       num: '03',
@@ -1351,7 +1351,7 @@ export const VIDEO_PROCESS = {
         { ru: 'Досъёмка там, где генерация не даёт точности', en: 'Live footage where generation cannot be precise enough' },
       ],
       out: { ru: 'черновые сцены', en: 'rough scenes' },
-      time: { ru: '3–7 дней', en: '3–7 days' },
+      time: { ru: '3-7 дней', en: '3-7 days' },
     },
     {
       num: '04',
@@ -1366,7 +1366,7 @@ export const VIDEO_PROCESS = {
         { ru: 'Цветокоррекция и титры в стиле бренда', en: 'Colour grading and titles in the brand style' },
       ],
       out: { ru: 'превью-версия', en: 'preview cut' },
-      time: { ru: '2–4 дня', en: '2–4 days' },
+      time: { ru: '2-4 дня', en: '2-4 days' },
     },
     {
       num: '05',
@@ -1381,7 +1381,7 @@ export const VIDEO_PROCESS = {
         { ru: 'Исходники и права на использование', en: 'Source files and usage rights' },
       ],
       out: { ru: 'мастер-файлы', en: 'master files' },
-      time: { ru: '1–2 дня', en: '1–2 days' },
+      time: { ru: '1-2 дня', en: '1-2 days' },
     },
   ],
 };
@@ -1400,8 +1400,8 @@ export const VIDEO_DELIVERABLES = {
   },
   items: [
     { t: { ru: 'Мастер до 4K', en: 'Master up to 4K' }, d: { ru: 'Финальный файл в максимальном качестве, готовый к эфиру и сайту.', en: 'The final file at maximum quality, ready for broadcast and web.' } },
-    { t: { ru: 'Адаптации под площадки', en: 'Platform adaptations' }, d: { ru: 'Вертикаль, квадрат и широкий формат с правильной композицией, а не обрезкой.', en: 'Vertical, square and widescreen — recomposed, not just cropped.' } },
-    { t: { ru: 'Версии с субтитрами', en: 'Subtitled versions' }, d: { ru: 'Для ленты без звука — вшитые титры в фирменном стиле.', en: 'For sound-off feeds — burned-in captions in your brand style.' } },
+    { t: { ru: 'Адаптации под площадки', en: 'Platform adaptations' }, d: { ru: 'Вертикаль, квадрат и широкий формат с правильной композицией, а не обрезкой.', en: 'Vertical, square and widescreen - recomposed, not just cropped.' } },
+    { t: { ru: 'Версии с субтитрами', en: 'Subtitled versions' }, d: { ru: 'Для ленты без звука - вшитые титры в фирменном стиле.', en: 'For sound-off feeds - burned-in captions in your brand style.' } },
     { t: { ru: 'Обложки и стоп-кадры', en: 'Covers & stills' }, d: { ru: 'Кадры из ролика для превью, баннеров и постов.', en: 'Frames from the video for thumbnails, banners and posts.' } },
     { t: { ru: 'Исходники по запросу', en: 'Source files on request' }, d: { ru: 'Проектные файлы и слои, если планируете дорабатывать сами.', en: 'Project files and layers if you plan to iterate in-house.' } },
     { t: { ru: 'Права на использование', en: 'Usage rights' }, d: { ru: 'Материал ваш: используйте в рекламе, соцсетях и на любых носителях.', en: 'The material is yours: use it in ads, social media and any medium.' } },

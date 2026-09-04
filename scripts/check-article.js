@@ -42,7 +42,7 @@ if (post.description && post.description.length > 160) {
 if (post.title && post.title.length > 100) warn(`title длинный: ${post.title.length} символов`);
 
 // ── стилевые запреты ────────────────────────────────────────────────
-const dashes = (raw.match(/[—–]/g) || []).length;
+const dashes = (raw.match(/[--]/g) || []).length;
 if (dashes) fail(`длинных тире: ${dashes} штук (запрещены)`);
 
 const banned = [
@@ -71,6 +71,20 @@ if (h3 < 5) fail(`h3 всего ${h3}, а нужен блок вопросов �
 
 const faqHead = c.some((b) => b.type === 'h2' && /Частые вопросы|Frequently asked/i.test(b.text));
 if (!faqHead) fail('нет заголовка блока частых вопросов');
+
+// Разметка вопросов для поиска строится только по заголовкам, которые
+// кончаются знаком вопроса. Без него блок в статье есть, а расширенного
+// сниппета в выдаче не будет - молча.
+const faqStart = c.findIndex((b) => b.type === 'h2' && /Частые вопросы|Frequently asked/i.test(b.text));
+if (faqStart >= 0) {
+  const after = c.slice(faqStart + 1);
+  const stop = after.findIndex((b) => b.type === 'h2');
+  const qs = (stop === -1 ? after : after.slice(0, stop)).filter((b) => b.type === 'h3');
+  const noMark = qs.filter((b) => !b.text.trim().endsWith('?'));
+  if (noMark.length) {
+    fail(`вопросов без знака «?»: ${noMark.length} (например «${noMark[0].text.slice(0, 50)}»)`);
+  }
+}
 
 const badBlocks = c.filter((b) => !['p', 'h2', 'h3', 'ul', 'ol', 'quote', 'image', 'cta'].includes(b.type));
 if (badBlocks.length) fail('неизвестные типы блоков: ' + badBlocks.map((b) => b.type).join(', '));

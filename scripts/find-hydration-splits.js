@@ -36,7 +36,7 @@ for (const file of walk('src')) {
         const isExpr = (n) => n.type === 'JSXExpressionContainer';
         if ((isText(a) && isExpr(b)) || (isExpr(a) && isText(b))) {
           const name = p.node.openingElement.name.name || '?';
-          hits.push(`${file}:${a.loc.start.line}  <${name}> — ${code.split('\n')[a.loc.start.line - 1].trim().slice(0, 90)}`);
+          hits.push(`${file}:${a.loc.start.line}  <${name}> - ${code.split('\n')[a.loc.start.line - 1].trim().slice(0, 90)}`);
           break;
         }
       }
@@ -44,11 +44,11 @@ for (const file of walk('src')) {
   });
 }
 if (hits.length) {
-  console.error('\nНайдены разрывы текста в JSX — гидратация предзарендеренной страницы сломается:\n');
+  console.error('\nНайдены разрывы текста в JSX - гидратация предзарендеренной страницы сломается:\n');
   hits.forEach((h) => console.error('  ' + h));
   console.error(`\nВсего мест: ${hits.length}`);
   console.error('Как чинить: собрать текст и выражение в ОДНО выражение,');
   console.error('например {`${имя} `}<span>…</span> вместо {имя} <span>…</span>\n');
   process.exit(1);
 }
-console.log('Разрывов текста в JSX нет — гидратация не сломается');
+console.log('Разрывов текста в JSX нет - гидратация не сломается');

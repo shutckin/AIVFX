@@ -14,13 +14,14 @@
 # Нужен cwebp:  brew install webp
 set -e
 
-DIR="$(cd "$(dirname "$0")/.." && pwd)/public/blog-images"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+DIRS=("$ROOT/public/blog-images" "$ROOT/public/case-media")
 command -v cwebp >/dev/null || { echo "Нет cwebp. Поставь: brew install webp"; exit 1; }
 
 made=0
 skipped=0
 
-for src in "$DIR"/*.jpg "$DIR"/*.png; do
+for src in "${DIRS[0]}"/*.jpg "${DIRS[0]}"/*.png "${DIRS[1]}"/*.jpg "${DIRS[1]}"/*.png; do
   [ -e "$src" ] || continue
   base="${src%.*}"
   full="$base.webp"
@@ -46,7 +47,7 @@ echo "[картинки] создано вариантов: $made, пропущ�
 
 # Показываем, сколько сэкономили на самых тяжёлых кадрах
 echo "[картинки] топ по экономии:"
-for src in "$DIR"/*.jpg; do
+for src in "${DIRS[0]}"/*.jpg "${DIRS[1]}"/*.jpg; do
   [ -e "$src" ] || continue
   w="${src%.*}.webp"
   [ -f "$w" ] || continue

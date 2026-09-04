@@ -7,7 +7,7 @@ import './cases-approach.css';
 // ── Секция «Стек / интеграции» ───────────────────────────────────────────
 // Стек подан на языке выгоды: 4 карточки, у каждой заголовок-обещание,
 // пояснение и ряд контурных чипов с названиями инструментов внизу.
-// Никаких картинок-логотипов — только типографика.
+// Никаких картинок-логотипов - только типографика.
 const Integrations = () => {
   const L = useLocale();
   const { head, groups, note } = INTEGRATIONS_SYS;
@@ -26,7 +26,7 @@ const Integrations = () => {
         <div className="ig-grid">
           {groups.map((group) => {
             // Английские подписи инструментов там, где они отличаются
-            // (Битрикс24 → Bitrix24, Сайт → Website). Если itemsEn нет —
+            // (Битрикс24 → Bitrix24, Сайт → Website). Если itemsEn нет -
             // берём общий список.
             const items = (L === 'en' && group.itemsEn) ? group.itemsEn : group.items;
 

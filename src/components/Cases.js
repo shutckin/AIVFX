@@ -4,10 +4,11 @@ import { useLocale, pick } from '../i18n';
 import { CASES_SYS } from '../data/systems-content';
 import { useCountUp } from '../hooks/useCountUp';
 import './cases-approach.css';
+import Pic from './Pic';
 
 // ── Секция «Кейсы» ───────────────────────────────────────────────────────
-// Флагман EastRide — живой продукт с реальными скриншотами в браузерных
-// рамках и метриками с анимацией накрутки. Ниже — два компактных
+// Флагман EastRide - живой продукт с реальными скриншотами в браузерных
+// рамках и метриками с анимацией накрутки. Ниже - два компактных
 // сценария «было → стало». Плашки «демо-сценарий» на карточках нет: она
 // читалась как «здесь черновик» и сбивала. Честность держит сноска под сеткой.
 
@@ -37,12 +38,12 @@ const BrowserFrame = ({ src, alt, width, height, className }) => (
       <span className="cs2-frame-dot" />
       <span className="cs2-frame-url mono">eastride.cc</span>
     </div>
-    <img
+    <Pic
       src={src}
       alt={alt}
       width={width}
       height={height}
-      loading="lazy"
+      sizes="(max-width: 768px) 100vw, 640px"
     />
   </figure>
 );
@@ -112,8 +113,8 @@ const Cases = () => {
                   className="cs2-shot--main"
                   src="/case-media/eastride-home.jpg"
                   alt={L === 'en'
-                    ? 'EastRide home page — live travel platform for riders in Asia'
-                    : 'Главная страница EastRide — живая travel-платформа для райдеров в Азии'}
+                    ? 'EastRide home page - live travel platform for riders in Asia'
+                    : 'Главная страница EastRide - живая travel-платформа для райдеров в Азии'}
                   width={1280}
                   height={800}
                 />
@@ -121,8 +122,8 @@ const Cases = () => {
                   className="cs2-shot--overlay"
                   src="/case-media/eastride-catalog.jpg"
                   alt={L === 'en'
-                    ? 'EastRide bike catalog — 180+ vehicles across 13 cities'
-                    : 'Каталог байков EastRide — 180+ единиц техники в 13 городах'}
+                    ? 'EastRide bike catalog - 180+ vehicles across 13 cities'
+                    : 'Каталог байков EastRide - 180+ единиц техники в 13 городах'}
                   width={1280}
                   height={800}
                 />

@@ -5,11 +5,11 @@ import { FLOW_SYS } from '../data/systems-content';
 import { useNotification } from '../App';
 import './flow-graph.css';
 
-// ── Секция «Система» — живой граф узлов (workflow-канвас в духе n8n) ─────
+// ── Секция «Система» - живой граф узлов (workflow-канвас в духе n8n) ─────
 // Desktop: absolute-узлы на точечной сетке + SVG-кривые Безье с бегущими
 // импульсами. Mobile/tablet: чипы источников → вертикальный рельс стадий.
 
-// Координаты связей — в той же %-логике, что узлы:
+// Координаты связей - в той же %-логике, что узлы:
 // viewBox 0 0 1000 600, X = left% * 10, Y = top% * 6.
 // Порты источников: x=135 (правый край колонки), y = top% * 6.
 // Вход Intake: (190, 300). Дальше зигзаг: Intake → Qualification → CRM →
@@ -22,7 +22,7 @@ const WIRES = [
   { id: 's4', d: 'M135,336 C180,336 145,300 190,300', dur: '3.8s' },
   { id: 's5', d: 'M135,426 C180,426 145,300 190,300', dur: '4.9s' },
   { id: 's6', d: 'M135,516 C180,516 145,300 190,300', dur: '3.1s' },
-  // цепочка стадий (узлы расширены до 15% — порты пересчитаны)
+  // цепочка стадий (узлы расширены до 15% - порты пересчитаны)
   { id: 'c1', d: 'M340,300 C400,300 295,180 355,180', dur: '3.6s' }, // Intake → Qualification
   { id: 'c2', d: 'M505,180 C565,180 460,408 520,408', dur: '4.4s' }, // Qualification → CRM
   { id: 'c3', d: 'M670,408 C730,408 625,240 685,240', dur: '3.9s' }, // CRM → Routing
@@ -31,7 +31,7 @@ const WIRES = [
   { id: 'f2', d: 'M835,240 C895,240 795,432 855,432', dur: '3.3s' }, // Routing → Analytics
 ];
 
-// у каких стадий есть выходной порт (конечные узлы вилки — без выхода)
+// у каких стадий есть выходной порт (конечные узлы вилки - без выхода)
 const HAS_OUT = ['intake', 'qualification', 'crm', 'routing'];
 
 const SystemFlow = () => {
@@ -80,7 +80,7 @@ const SystemFlow = () => {
           {sources.map((s, i) => (
             <div className={`sf2-node sf2-src sf2-src-${i + 1} mono`} key={`src-${i}`}>
               {sourceLabel(s)}
-              {/* пульс — у WhatsApp, чтобы канвас «дышал» */}
+              {/* пульс - у WhatsApp, чтобы канвас «дышал» */}
               <span className={`sf2-port sf2-port--out${i === 1 ? ' sf2-port--beat' : ''}`} aria-hidden="true" />
             </div>
           ))}
@@ -134,7 +134,7 @@ const SystemFlow = () => {
           </ol>
         </div>
 
-        {/* итог — кнопка-ссылка к форме контактов */}
+        {/* итог - кнопка-ссылка к форме контактов */}
         <div className="sf2-result">
           <button
             type="button"

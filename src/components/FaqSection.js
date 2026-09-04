@@ -10,7 +10,7 @@ import './faq-section.css';
 //
 // Здесь он отдельной секцией и намеренно ломает ритм остальной страницы:
 // своя полоса фона, заголовок в левой колонке, вопросы карточками справа.
-// Обычный SecHead не используется — именно он и делал секцию неотличимой
+// Обычный SecHead не используется - именно он и делал секцию неотличимой
 // от соседних.
 const FaqSection = () => {
   const [openIdx, setOpenIdx] = useState(0);
@@ -28,8 +28,8 @@ const FaqSection = () => {
           </h2>
           <p className="faq-aside-note">
             {en
-              ? 'If your question is not here, ask it directly — we answer with a solution architecture, not a price list.'
-              : 'Если вашего вопроса здесь нет, задайте его напрямую — в ответ придёт архитектура решения, а не прайс.'}
+              ? 'If your question is not here, ask it directly - we answer with a solution architecture, not a price list.'
+              : 'Если вашего вопроса здесь нет, задайте его напрямую - в ответ придёт архитектура решения, а не прайс.'}
           </p>
           <a className="faq-aside-link" href="#contact">
             {en ? 'Ask a question' : 'Задать вопрос'}

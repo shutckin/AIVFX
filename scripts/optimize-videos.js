@@ -17,7 +17,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-// Исходники теперь вне public — иначе они деплоятся на сервер
+// Исходники теперь вне public - иначе они деплоятся на сервер
 const PUBLIC_DIR = path.join(__dirname, '..', 'media-src', 'fixed-source');
 const OPTIMIZED_DIR = path.join(__dirname, '..', 'media-src', 'fixed-optimized');
 

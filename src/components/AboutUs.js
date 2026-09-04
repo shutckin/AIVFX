@@ -23,7 +23,7 @@ const AboutUs = () => {
           sideTitle={ABOUT_SYS.head.sideTitle}
         />
 
-        {/* Трастбар: первое, что видит глаз в секции — крупные вордмарки брендов */}
+        {/* Трастбар: первое, что видит глаз в секции - крупные вордмарки брендов */}
         <div className="ab-trustbar reveal">
           <span className="ab-brands-label">{pick(locale, ABOUT_SYS.brands.label)}</span>
           <div className="ab-brands-row">
@@ -43,7 +43,7 @@ const AboutUs = () => {
 
           <aside className="ab-founder">
             {/* Фото основателя: подставляется автоматически, как только файл
-                public/founder.jpg появится. Пока его нет — круг с инициалами. */}
+                public/founder.jpg появится. Пока его нет - круг с инициалами. */}
             <div className="ab-founder-photo">
               <img
                 src="/founder.jpg"
@@ -63,7 +63,7 @@ const AboutUs = () => {
           </aside>
         </div>
 
-        {/* «Для кого» — компактная строка без карточки */}
+        {/* «Для кого» - компактная строка без карточки */}
         <div className="ab-audience reveal">
           <span className="ab-audience-title mono">{pick(locale, ABOUT_SYS.audience.title)}</span>
           <div className="ab-chips">
@@ -73,7 +73,7 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* Второе направление студии — одной компактной строкой */}
+        {/* Второе направление студии - одной компактной строкой */}
         <div className="ab-video-note reveal">
           <p>{pick(locale, ABOUT_SYS.videoNote.text)}</p>
           <a className="ab-video-link mono" href={localizedHref('/video-production/', locale)}>

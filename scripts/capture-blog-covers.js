@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Захват обложек для статей блога — скриншоты официальных сайтов сервисов.
+ * Захват обложек для статей блога - скриншоты официальных сайтов сервисов.
  * Редакционное использование с указанием источника (подпись под обложкой в UI).
  *
  * Запуск: node scripts/capture-blog-covers.js
@@ -22,7 +22,7 @@ const TARGETS = [
   { slug: 'midjourney-gayd',             url: 'https://www.midjourney.com/home' },
 ];
 
-// Частые селекторы кнопок принятия cookie — пытаемся закрыть баннер
+// Частые селекторы кнопок принятия cookie - пытаемся закрыть баннер
 const COOKIE_SELECTORS = [
   '#onetrust-accept-btn-handler',
   'button[aria-label="Accept all"]',

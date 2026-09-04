@@ -155,7 +155,7 @@ const FullPortfolio = ({ onBack }) => {
     // Одно слово «Портфолио» поиску ничего не говорит: это страница про
     // AI-видео, рекламу и VFX, и заголовок должен это нести
     document.title = en
-      ? 'AI Video, Ads & VFX Portfolio — AIVFX Studio Work'
+      ? 'AI Video, Ads & VFX Portfolio - AIVFX Studio Work'
       : 'Портфолио AIVFX: AI-видео, рекламные ролики, VFX и съёмка';
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
@@ -199,7 +199,7 @@ const FullPortfolio = ({ onBack }) => {
           </p>
         </div>
 
-        {/* Избранное — только когда фильтр "Все" */}
+        {/* Избранное - только когда фильтр "Все" */}
         {showFeatured && featured.length > 0 && (
           <section className="fp-section">
             <div className="fp-section-head">
@@ -245,7 +245,7 @@ const FullPortfolio = ({ onBack }) => {
               <span className="fp-section-num">02</span>
               <h2 className="fp-section-title">
                 {en ? 'Horizontal ' : 'Горизонтальные '}<span className="it">{en ? 'works' : 'работы'}</span>
-                <span className="fp-section-count">{` — ${horizontal.length}`}</span>
+                <span className="fp-section-count">{` - ${horizontal.length}`}</span>
               </h2>
             </div>
             <div className="fp-grid-horizontal">
@@ -268,7 +268,7 @@ const FullPortfolio = ({ onBack }) => {
               <span className="fp-section-num">03</span>
               <h2 className="fp-section-title">
                 {en ? 'Vertical ' : 'Вертикальные '}<span className="it">{en ? 'works' : 'работы'}</span>
-                <span className="fp-section-count">{` — ${vertical.length}`}</span>
+                <span className="fp-section-count">{` - ${vertical.length}`}</span>
               </h2>
             </div>
             <div className="fp-grid-vertical">

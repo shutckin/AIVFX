@@ -142,7 +142,7 @@ const Header = () => {
             </button>
           ))}
           {/* Разделы-страницы отделены от якорей: они уводят со страницы,
-              и смешивать их с прокруткой по текущей — врать читателю */}
+              и смешивать их с прокруткой по текущей - врать читателю */}
           <a className="mm-link mm-link--page" href={worksHref}>{en ? 'Work' : 'Работы'}</a>
           <a className="mm-link mm-link--page" href={blogHref}>{en ? 'Blog' : 'Блог'}</a>
         </nav>

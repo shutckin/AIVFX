@@ -1,4 +1,4 @@
-// EN-переводы блога, часть 5 — кластер про автоматизацию заявок.
+// EN-переводы блога, часть 5 - кластер про автоматизацию заявок.
 //
 // Порядок статей внутри файла совпадает с русским BLOG_POSTS: витрина
 // блога показывает первую статью крупной карточкой, и при расхождении
@@ -29,7 +29,7 @@ const PART_5 = [
       { type: 'p', text: 'The difference is hidden inside. It lies in where the assistant gets its answers, what it can do besides talking, and what happens when it is wrong. Let us go layer by layer.' },
 
       { type: 'h2', text: 'Layer one: a scripted bot' },
-      { type: 'p', text: 'The simplest option. You write the questions and answers in advance, the bot delivers them. There is no language model inside, so there is no "artificial intelligence" in any strict sense either — though it is very often sold under exactly that word.' },
+      { type: 'p', text: 'The simplest option. You write the questions and answers in advance, the bot delivers them. There is no language model inside, so there is no "artificial intelligence" in any strict sense either - though it is very often sold under exactly that word.' },
       { type: 'ul', items: [
         '**What it can do:** answer frequent questions, capture a contact, book an appointment through buttons.',
         '**What it cannot do:** understand a question phrased differently from what you anticipated. The customer writes "are you open on Sunday" while the script has "opening hours" - and the bot does not connect the two.',
@@ -40,7 +40,7 @@ const PART_5 = [
 
       { type: 'h2', text: 'Layer two: an assistant on a language model' },
       { type: 'p', text: 'Here there is a real language model inside. It understands a question phrased any way at all and answers coherently. The key difference from the previous layer: the assistant does not pick from prepared answers, it composes a new one.' },
-      { type: 'p', text: 'This is where the main technical task appears — the one you are actually paying for. The model on its own knows nothing about your business: not your prices, not your delivery terms, not the fact that you do not work with companies. To make it answer about you rather than about the world in general, it needs your knowledge base and a way to search it. That is a separate piece of engineering.' },
+      { type: 'p', text: 'This is where the main technical task appears - the one you are actually paying for. The model on its own knows nothing about your business: not your prices, not your delivery terms, not the fact that you do not work with companies. To make it answer about you rather than about the world in general, it needs your knowledge base and a way to search it. That is a separate piece of engineering.' },
       { type: 'ul', items: [
         '**What it can do:** hold a natural conversation, answer from your materials, clarify details, work around the clock.',
         '**Price:** roughly from 120 thousand roubles for a basic deployment, from 200 thousand for a version with integrations.',
@@ -84,7 +84,7 @@ const PART_5 = [
       { type: 'ol', items: [
         '**Collecting the knowledge base: from a few days to a couple of weeks.** Entirely on your side, and most often the bottleneck.',
         '**Development: from one week for a simple bot to six or eight weeks for a system with integrations.**',
-        '**Testing on real inquiries: two to three weeks.** Not skippable — this is where the questions nobody anticipated show up.',
+        '**Testing on real inquiries: two to three weeks.** Not skippable - this is where the questions nobody anticipated show up.',
         '**Reaching a steady state: another month.** The assistant is tuned on real conversations and you correct the wording.',
       ]},
       { type: 'p', text: 'So from "let us do it" to "runs without supervision" usually takes two to three months even on a simple project. Promises of a week apply to the first layer described above.' },
@@ -125,7 +125,7 @@ const PART_5 = [
         '**Few inquiries.** At five a week a manager copes and there is nothing to automate.',
         '**Every deal is unique.** Project work negotiated from scratch each time maps poorly onto scripts.',
         '**No described process.** If nobody inside the company can explain what happens to an inquiry after it arrives, there is nothing to automate yet. Process first, tool second.',
-        '**The problem is not response speed.** If customers leave because of price or product quality, an assistant will not fix that — it will only deliver the bad news faster.',
+        '**The problem is not response speed.** If customers leave because of price or product quality, an assistant will not fix that - it will only deliver the bad news faster.',
       ]},
 
       { type: 'h2', text: 'What to ask a vendor before signing' },
@@ -145,7 +145,7 @@ const PART_5 = [
       { type: 'h3', text: 'Will we have to lay people off?' },
       { type: 'p', text: 'In practice something else happens: routine comes off the managers and they start working the deals that genuinely need a human. If your inquiry flow grows, you will more likely need the same number of people producing more. Headcount reduction as the goal of a deployment usually means the maths was done wrong.' },
       { type: 'h3', text: 'What if the assistant is rude or promises something we cannot deliver?' },
-      { type: 'p', text: 'This is the real risk, and it is solved by constraints rather than promises: the assistant must not be able to quote prices that are not in the knowledge base or give guarantees. Ask the vendor how exactly that is prevented. "We asked the model not to" is a bad answer — a request is not a constraint.' },
+      { type: 'p', text: 'This is the real risk, and it is solved by constraints rather than promises: the assistant must not be able to quote prices that are not in the knowledge base or give guarantees. Ask the vendor how exactly that is prevented. "We asked the model not to" is a bad answer - a request is not a constraint.' },
       { type: 'h3', text: 'Can we start small?' },
       { type: 'p', text: 'You should. Take one channel with the most inquiries and one task: for example, answering price questions and booking a consultation. Within a month you will see what people actually ask, and the next step will rest on data rather than assumptions.' },
 

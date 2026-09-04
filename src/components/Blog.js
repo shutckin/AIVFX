@@ -3,35 +3,9 @@ import { BLOG_POSTS, getPostBySlug } from '../data/blog-posts';
 import { BLOG_POSTS_EN, getPostBySlugEn } from '../data/blog-posts-en';
 import LangSwitch from './LangSwitch';
 import { useLocale, localizedHref } from '../i18n';
+import Pic from './Pic';
 
 // Дата статьи в человеческом виде для подписи под заголовком
-// ── Картинка в двух форматах и двух размерах ────────────────────────────
-//
-// Отдаём webp современным браузерам и jpg всем остальным, а телефонам -
-// узкий вариант на 640 пикселей вместо кадра в 1280. Обложка статьи весит
-// около 150 КБ в jpg и около 45 КБ в webp, и на мобильном интернете именно
-// она держит отрисовку первого экрана.
-//
-// Варианты создаёт scripts/make-image-variants.sh, запускать после
-// добавления новых картинок. Если webp вдруг нет, браузер возьмёт jpg.
-const Pic = ({ src, alt, sizes, className, eager = false, width, height }) => {
-  const base = src.replace(/\.(jpg|jpeg|png)$/i, '');
-  return (
-    <picture>
-      <source type="image/webp" srcSet={`${base}-640.webp 640w, ${base}.webp 1280w`} sizes={sizes} />
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className={className}
-        decoding="async"
-        {...(eager ? { fetchPriority: 'high' } : { loading: 'lazy' })}
-      />
-    </picture>
-  );
-};
-
 const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const fmtDate = (iso, en) => {
@@ -86,8 +60,8 @@ const CtaBlock = ({ onBack }) => {
       </p>
       <p className="text-white/70 mb-6">
         {en
-          ? 'Describe your case — we will come back with a proposal and an estimate within a day.'
-          : 'Опишите задачу — вернёмся с предложением и оценкой в течение дня.'}
+          ? 'Describe your case - we will come back with a proposal and an estimate within a day.'
+          : 'Опишите задачу - вернёмся с предложением и оценкой в течение дня.'}
       </p>
       <a
         href={`${localizedHref('/', locale)}#contact`}
@@ -283,7 +257,7 @@ const ReadingProgress = () => {
   );
 };
 
-// Карточка статьи (обычная или featured — крупная горизонтальная)
+// Карточка статьи (обычная или featured - крупная горизонтальная)
 const PostCard = ({ post, onOpenPost, featured }) => {
   const locale = useLocale();
   const en = locale === 'en';
@@ -398,8 +372,8 @@ const BlogList = ({ onBack, onOpenPost }) => {
         </h1>
         <p className="text-white/55 text-lg max-w-2xl mb-10 leading-relaxed">
           {en
-            ? 'Step-by-step guides to the tools, honest model comparisons and breakdowns of real cases — from the first prompt to a finished commercial.'
-            : 'Пошаговые гайды по сервисам, честные сравнения моделей и разбор реальных кейсов — от первого промпта до готового рекламного ролика.'}
+            ? 'Step-by-step guides to the tools, honest model comparisons and breakdowns of real cases - from the first prompt to a finished commercial.'
+            : 'Пошаговые гайды по сервисам, честные сравнения моделей и разбор реальных кейсов - от первого промпта до готового рекламного ролика.'}
         </p>
 
         {/* Категории. Раньше это были восемь одинаковых «таблеток», которые
@@ -625,12 +599,12 @@ const Blog = ({ slug, onBack, onOpenPost, onBackToList }) => {
       setDocumentMeta(`${post.title} | AIVFX`, post.description);
     } else if (en) {
       setDocumentMeta(
-        'AIVFX Blog — AI video guides and comparisons',
+        'AIVFX Blog - AI video guides and comparisons',
         'The AIVFX studio blog: step-by-step guides to creating AI video, neural network comparisons and breakdowns of real AI video production cases.'
       );
     } else {
       setDocumentMeta(
-        'Блог AIVFX — гайды и сравнения по AI-видео',
+        'Блог AIVFX - гайды и сравнения по AI-видео',
         'Блог студии AIVFX: пошаговые гайды по созданию AI-видео, сравнения нейросетей и разбор реальных кейсов AI-видеопроизводства.'
       );
     }

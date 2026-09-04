@@ -1,10 +1,10 @@
 // Работы для бегущей витрины на странице AI-контента.
-// Не путать с all-projects.js — там полный каталог из 38 работ для /works/.
+// Не путать с all-projects.js - там полный каталог из 38 работ для /works/.
 //
 // Состав и порядок выбраны вручную. Раньше здесь лежал весь список из 21
 // работы, лента дублировалась и в ней оказывалось 42 ролика разом: браузер
 // столько одновременных превью не тянет, часть карточек доезжала до экрана
-// чёрными. Девять работ — это 18 элементов, с таким запасом лента успевает
+// чёрными. Девять работ - это 18 элементов, с таким запасом лента успевает
 // подгрузиться до того, как карточка попадёт в кадр.
 
 export const PROJECTS = [
@@ -33,7 +33,7 @@ export const PROJECTS = [
   {
     id: 5,
     kinescopeId: 'a25b1439-6ce9-4c5a-bd01-391cde455b41',
-    title: 'Chevrolet × NL — к горизонту',
+    title: 'Chevrolet × NL - к горизонту',
     cat: 'Автомобили',
     tech: 'AI',
     duration: '1:17',
@@ -44,7 +44,7 @@ export const PROJECTS = [
   {
     id: 6,
     kinescopeId: '63d3bba0-6b46-485c-9225-3d3ffed18ffe',
-    title: 'Porsche 911 — лесная охота',
+    title: 'Porsche 911 - лесная охота',
     cat: 'Автомобили',
     tech: 'AI',
     duration: '0:57',
@@ -88,7 +88,7 @@ export const PROJECTS = [
   {
     id: 14,
     kinescopeId: '9cb24953-2745-4d7e-8206-5e0ddffded89',
-    title: 'Cinque — мебельное производство',
+    title: 'Cinque - мебельное производство',
     cat: 'Продукты',
     tech: 'VFX',
     duration: '1:06',
@@ -108,7 +108,7 @@ export const PROJECTS = [
 ]
 
 // ── Английская локализация портфолио ──
-// Видео (preview/embed/poster) общие для обоих языков — переводим только текст.
+// Видео (preview/embed/poster) общие для обоих языков - переводим только текст.
 export const CATEGORIES_EN = ['All', 'Automotive', 'Products', 'Social', 'Architecture']
 
 // Соответствие русской категории → английской
@@ -121,15 +121,15 @@ const CAT_EN = {
   'Медицина': 'Healthcare',
 }
 
-// Английские названия проектов по id (только там, где русское — описательное).
+// Английские названия проектов по id (только там, где русское - описательное).
 // Бренды (NL Sets, Rolex, CINQUE, Dyson и т.п.) остаются как есть.
 const TITLE_EN = {
   2: 'The Legend of the Kraken',
   4: 'Tourism image film',
-  5: 'Chevrolet × NL — to the horizon',
-  6: 'Porsche 911 — forest hunt',
+  5: 'Chevrolet × NL - to the horizon',
+  6: 'Porsche 911 - forest hunt',
   10: 'AI film for a property developer',
-  14: 'Cinque — furniture manufacture',
+  14: 'Cinque - furniture manufacture',
 }
 
 // Проекты с локализованными названием и категорией.
