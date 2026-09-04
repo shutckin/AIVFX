@@ -131,7 +131,7 @@ const PART_2 = [
         '**Runway Gen-4.5** - the choice for those who value control above all: precise camera moves, structured prompts, convenient integration into a team\'s editing pipeline.',
         '**Seedance 2.0** by ByteDance - a hot new arrival in February 2026, especially strong in image-to-video and in preserving characters and products across frames.'
       ] },
-      { type: 'p', text: 'One warning worth noting separately: **OpenAI\'s Sora is winding down in 2026**, so it\'s no longer worth building a workflow around it - choose from the current models above. In practice, professionals rarely use a single neural network: Kling shoots one scene better, Veo another, Seedance a third. That\'s exactly how studios work, assembling a clip from each model\'s strengths.' },
+      { type: 'p', text: 'One warning worth noting separately: **OpenAI\'s Sora is gone**: the site and the app were switched off on April 26, 2026, and the API ends on September 24. Building a workflow around it is no longer an option, so choose from the current models above. In practice, professionals rarely use a single neural network: Kling shoots one scene better, Veo another, Seedance a third. That\'s exactly how studios work, assembling a clip from each model\'s strengths.' },
       { type: 'h2', text: 'Common beginner mistakes' },
       { type: 'p', text: 'So you don\'t burn through credits for nothing, here are the rakes almost everyone steps on at the start.' },
       { type: 'ul', items: [
@@ -209,23 +209,23 @@ const PART_2 = [
       ] },
       { type: 'p', text: 'An important detail of 2026: with a single Runway subscription you often get access not only to its own models, but also to third-party ones - Google Veo, Kling, Seedance. That is, the platform is gradually turning into an "all-in-one combine" where you can pick the engine for the task without paying for each service separately.' },
       { type: 'h2', text: 'Runway pricing and limits in 2026' },
-      { type: 'p', text: 'Runway works on a **credit** system: each second of video deducts a certain number of them. The more powerful the model - the more expensive the second. For reference: Gen-4 Turbo - about 5 credits per second, regular Gen-4 - about 12, and the flagship Gen-4.5 - roughly 25 credits per second.' },
+      { type: 'p', text: 'Runway works on a **credit** system: each second of video deducts a certain number of them. The more powerful the model - the more expensive the second. For reference: the flagship Gen-4.5 burns 12 credits per second, and the simpler modes noticeably less. On the Standard plan that is about 50 seconds of flagship video per month, on Pro roughly three minutes, on Max around thirteen.' },
       { type: 'ul', items: [
         '**Free** - a one-time ~125 credits to get acquainted. Enough for a few short tests.',
         '**Standard - about $15/month (or $12 when paid annually)** - roughly 625 credits per month. That\'s tens of seconds of flagship video or a couple of minutes on Turbo.',
         '**Pro - about $35/month ($28 annually)** - about 2,250 credits, generation at higher resolution, and advanced features. The working plan for a freelancer or a small studio.',
-        '**Unlimited - about $95/month ($76 annually)** - unlimited generation in "slow" mode plus the full set of directorial tools. For those who generate every day.',
+        '**Max - about $95/month ($76 annually)** - 9,500 credits per month plus the full set of directorial tools. Runway no longer has an unlimited plan: the old Unlimited tier was retired.',
         '**Enterprise** - custom terms for companies.'
       ] },
-      { type: 'p', text: 'The main thing to understand about the limits: credits are spent on every attempt, even an unsuccessful one. So for beginners we advise first working out the idea on cheap Gen-4 Turbo, and then "finishing off" the final frame on Gen-4.5. The maximum length of a single clip in Runway is about 16 seconds, and that\'s worth keeping in mind: long clips are assembled from several scenes in editing.' },
+      { type: 'p', text: 'The main thing to understand about the limits: credits are spent on every attempt, even an unsuccessful one. So for beginners we advise first working out the idea on cheap Gen-4 Turbo, and then "finishing off" the final frame on Gen-4.5. The maximum length of a single generation in Runway is 10 seconds; an extension takes a scene to roughly eighteen, after which consistency starts to drift. Long clips are assembled from several scenes in editing.' },
       { type: 'h2', text: 'Runway vs Kling and Veo: a brief comparison' },
       { type: 'p', text: 'Today Runway has two serious rivals, and each has its own specialization. Understanding the difference saves you money and nerves.' },
       { type: 'ul', items: [
-        '**Runway Gen-4.5** - the choice for artistic imagery, camera control, Motion Brush, and convenient post-production in one window. Its strength - aesthetics and fine control. Its downside - generation is a bit slower (1-3 minutes per clip) and there\'s no built-in audio.',
+        '**Runway Gen-4.5** - the choice for artistic imagery, camera control, Motion Brush, and convenient post-production in one window. Its strength - aesthetics and fine control. Since spring 2026 it also does sound: the audio track is generated together with the video through the ElevenLabs integration. Its downside - generation is a bit slower, 1-3 minutes per clip.',
         '**Kling 3.0** - the leader in realistic motion and multi-shot "storyboard" scenes with native 4K. It generates faster (30-90 seconds). Good when you need dynamic action and complex movement.',
         '**Veo 3.1 (by Google)** - its main trump card is native audio: it generates video together with lines, sounds, and ambient in a single pass. Clip length up to 60 seconds. Indispensable when you need a talking character with sound.'
       ] },
-      { type: 'p', text: 'A separate note about **Sora** by OpenAI: in 2026 this product is being wound down, so it\'s not worth building a workflow around it - we don\'t include it in the current list. The real "big three" for business right now is Runway, Kling, and Veo.' },
+      { type: 'p', text: 'A separate note about **Sora** by OpenAI: the product is closed. The site and the app were switched off on April 26, 2026, and the API ends on September 24. Building a workflow around it is no longer an option, so we do not include it in the current list. The real "big three" for business right now is Runway, Kling, and Veo.' },
       { type: 'quote', text: 'A simple rule: need a cinematic atmosphere and frame control - Runway; need lively realistic motion - Kling; need sound and a talking character - Veo.' },
       { type: 'h2', text: 'Common beginner mistakes' },
       { type: 'p', text: 'Almost everyone steps on these rakes. Knowing them in advance, you\'ll save credits and time.' },
@@ -234,7 +234,7 @@ const PART_2 = [
         '**The final generation straight on the expensive model.** The idea should be tested on Gen-4 Turbo, and Gen-4.5 turned on only once the composition already works.',
         '**Ignoring Motion Brush and Camera Control.** Without them you rely on luck. With them - you control the frame. This is Runway\'s main advantage, a sin not to use it.',
         '**A poor source image in Image to Video mode.** The neural network won\'t pull off a noisy, tiny, or crooked photo. The cleaner the source - the better the motion.',
-        '**Expecting a long story from a single generation.** Remember the ~16-second limit. A big video is always edited from short scenes, not one magic clip.',
+        '**Expecting a long story from a single generation.** Remember: one generation is 10 seconds at most, or about eighteen with an extension. A big video is always edited from short scenes, not one magic clip.',
         '**Trying to get perfect text or tiny facial details in the background.** This is the weak spot of all video neural networks; such moments are better re-shot or added in editing.'
       ] },
       { type: 'h2', text: 'What tasks Runway suits best' },

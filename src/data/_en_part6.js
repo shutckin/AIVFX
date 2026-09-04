@@ -107,7 +107,7 @@ const PART_6 = [
 
       { type: 'h2', text: 'Higgsfield: a video aggregator with a cinematic layer' },
       { type: 'p', text: 'It gathers around fifteen video models under one subscription: Veo, Kling, Seedance, MiniMax and others. But the real difference is not the list - it is the proprietary layer built on top of other people models: camera movement presets, character consistency tools, ready-made cinematic techniques.' },
-      { type: 'p', text: 'So it is not a shop window for other companies models but a working tool for people making video. By early 2026 the platform reported fifteen million users and a valuation above a billion - notable figures for a product a couple of years old.' },
+      { type: 'p', text: 'So it is not a shop window for other companies models but a working tool for people making video. By autumn 2026 the platform reported more than thirty million users and a valuation of 5.4 billion dollars after the August funding round - notable figures for a product a couple of years old.' },
       { type: 'ul', items: [
         '**Who it suits:** people producing clips rather than experimenting. Ads, music videos, short formats.',
         '**Strength:** presets and camera control the raw models do not have. They save hours of hunting for the right phrasing.',
@@ -208,7 +208,7 @@ const PART_6 = [
       { type: 'p', text: 'Seedream claims search integration: the model can pull in fresh information to render a recognisable building, logo or recently changed detail correctly. Nano Banana Pro relies on knowledge baked in during training, which does not hurt its photorealism but does occasionally show in the accuracy of real-world details.' },
 
       { type: 'h2', text: 'Price' },
-      { type: 'p', text: 'By published figures from cloud providers, Seedream 5 Pro costs around five and a half cents per image against eight for its rival - roughly a third less. On single pictures that is invisible; on hundreds a month it is noticeable.' },
+      { type: 'p', text: 'By published figures from cloud providers, Seedream 5 Pro costs around seven and a half cents per image against thirteen and a half for Nano Banana Pro - almost half the price. Seedream also has a lighter Lite option at roughly three and a half cents. On single pictures that is invisible; on hundreds a month it is noticeable.' },
       { type: 'p', text: 'One caveat: prices differ between providers, and through an aggregator you pay by its own credit scale rather than the model price list. Compare inside the service you actually work in.' },
 
       { type: 'h2', text: 'Which to pick for which job' },
