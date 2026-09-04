@@ -5,6 +5,33 @@ import LangSwitch from './LangSwitch';
 import { useLocale, localizedHref } from '../i18n';
 
 // Дата статьи в человеческом виде для подписи под заголовком
+// ── Картинка в двух форматах и двух размерах ────────────────────────────
+//
+// Отдаём webp современным браузерам и jpg всем остальным, а телефонам -
+// узкий вариант на 640 пикселей вместо кадра в 1280. Обложка статьи весит
+// около 150 КБ в jpg и около 45 КБ в webp, и на мобильном интернете именно
+// она держит отрисовку первого экрана.
+//
+// Варианты создаёт scripts/make-image-variants.sh, запускать после
+// добавления новых картинок. Если webp вдруг нет, браузер возьмёт jpg.
+const Pic = ({ src, alt, sizes, className, eager = false, width, height }) => {
+  const base = src.replace(/\.(jpg|jpeg|png)$/i, '');
+  return (
+    <picture>
+      <source type="image/webp" srcSet={`${base}-640.webp 640w, ${base}.webp 1280w`} sizes={sizes} />
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+        decoding="async"
+        {...(eager ? { fetchPriority: 'high' } : { loading: 'lazy' })}
+      />
+    </picture>
+  );
+};
+
 const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const fmtDate = (iso, en) => {
@@ -107,10 +134,10 @@ const Block = ({ block, onBack }) => {
       return (
         <figure className="my-8 -mx-2 sm:mx-0">
           <div className="rounded-lg overflow-hidden border border-white/10 bg-black/30">
-            <img
+            <Pic
               src={block.src}
               alt={block.alt || ''}
-              loading="lazy"
+              sizes="(max-width: 768px) 100vw, 1024px"
               className="w-full h-auto block"
             />
           </div>
@@ -267,7 +294,7 @@ const PostCard = ({ post, onOpenPost, featured }) => {
       className={`blog-card ${featured ? 'md:grid md:grid-cols-2' : ''}`}
     >
       <div className={`blog-card-img ${featured ? 'aspect-video md:aspect-auto' : 'aspect-video'}`}>
-        <img src={post.cover} alt={post.title} loading="lazy" />
+        <Pic src={post.cover} alt={post.title} sizes="(max-width: 768px) 100vw, 520px" />
       </div>
       <div className={featured ? 'p-7 lg:p-9 flex flex-col justify-center' : 'p-6'}>
         <div className="flex items-center gap-3 mb-3">
@@ -308,7 +335,7 @@ const PostRow = ({ post, onOpenPost, num }) => {
         <span className="blog-row-time">{post.readingTime}</span>
       </span>
       <span className="blog-row-thumb">
-        <img src={post.cover} alt={post.title} loading="lazy" />
+        <Pic src={post.cover} alt={post.title} sizes="120px" />
       </span>
     </a>
   );
@@ -533,7 +560,7 @@ const BlogPost = ({ post, onBack, onBackToList, onOpenPost }) => {
             <div className="aspect-video overflow-hidden bg-black/30 rounded-t-lg">
               {/* Обложка - самый крупный элемент первого экрана статьи (LCP):
                   грузим её первой, до скриптов и шрифтов */}
-              <img src={post.cover} alt={post.title} width="768" height="432" fetchPriority="high" decoding="async" className="w-full h-full object-cover" />
+              <Pic src={post.cover} alt={post.title} width="768" height="432" eager sizes="(max-width: 768px) 100vw, 1024px" className="w-full h-full object-cover" />
             </div>
             {post.coverSource && (
               <figcaption className="text-white/40 text-xs px-6 pt-2">
