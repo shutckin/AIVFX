@@ -3,6 +3,86 @@
 // оплата нейросетей из России. Русские оригиналы - в blog-posts.js.
 const PART_7 = [
   {
+    slug: 'neyroset-dlya-sozdaniya-video-novichku',
+    category: 'Guides',
+    title: 'AI Video Generators for Beginners: Where to Start in 2026',
+    description:
+      'Which AI video tool to start with if you have never tried one: a single model, three exercises for the first evening, first-week mistakes and when to pay.',
+    keywords:
+      'ai video generator for beginners, how to start making ai video, first ai video, ai video where to start, beginner ai video tutorial, kling for beginners, image to video for beginners',
+    cover: '/blog-images/cover-video-novichku.jpg',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
+    date: '2026-09-05',
+    dateModified: '2026-09-05',
+    readingTime: '9 min',
+    related: ['neyroset-dlya-video-besplatno', 'kak-sdelat-ai-video', 'kling-v-rossii-besplatno'],
+    excerpt:
+      'There are hundreds of ’best AI video generator’ lists, and a beginner has one question: where do I start without burning a month hopping between services. The short answer is one model, one evening, three exercises. Here is which ones, what will inevitably go wrong, and where self-teaching runs out.',
+    content: [
+      { type: 'p', text: 'If you have never tried any of this, the answer fits in one sentence: open a Kling account, upload an ordinary photo and make it move. Do not hunt for the ’best’ model, do not compare pricing tiers, do not read about 4K. The first evening is not for results; it is for getting a hands-on feel for how this thing thinks. Everything else, including which model to pick, becomes obvious after a dozen attempts of your own, not after a dozen other people’s reviews.' },
+      { type: 'p', text: 'This is not a guide to building a finished clip: the five production steps from script to edit are covered [in a separate guide](/blog/kak-sdelat-ai-video/). Nor is it about free-tier limits, which have [their own breakdown](/blog/neyroset-dlya-video-besplatno/). This one is about the very beginning: what to do on the first evening, what will break in the first weeks, and when to stop learning alone.' },
+
+      { type: 'h2', text: 'Which model to pick first, and why' },
+      { type: 'p', text: 'Your first model has to meet three conditions: it gives you attempts every day rather than once at sign-up; it handles motion well enough that you learn from successes rather than from junk; and it opens without a quest. **Kling** ticks all three: 66 free credits a day, roughly one short clip in the basic mode, but every single day. A month of such evenings adds up to thirty attempts, and that is already the kind of experience that saves money on any paid model later. Access, language and payment details are in [the Kling from Russia article](/blog/kling-v-rossii-besplatno/).' },
+      { type: 'p', text: 'There are two cases where a different first model makes sense.' },
+      { type: 'ul', items: [
+        '**The Kling site does not open from your network** and you do not want to fiddle with a VPN on your first evening. Then try Shedevrum by Yandex: no VPN, no card, Russian interface, works from a phone. The motion quality is noticeably lower, but for understanding what text-to-video even is, it is enough. Among foreign services, Hailuo opens without a VPN, but its starter pack is one-off: spend it and it is gone.',
+        '**You already know you will be making clips for clients** and are ready to pay from day one. Then the logic is different: read [the model comparison](/blog/sravnenie-neyrosetey-dlya-video/) and pick whatever fits the job. Even then, spend the first evening on free Kling: paid credits are a waste when all you are doing is finding the buttons.',
+      ] },
+      { type: 'p', text: 'What not to do: do not start with Runway, where the free 125 credits land once per account, and do not start with Seedance or Veo, which offer almost nothing free. They are strong models for month two, not for evening one. And do not open five accounts at once: until you have made ten clips in one service, you have nothing to compare.' },
+
+      { type: 'h2', text: 'The first evening: three exercises' },
+      { type: 'p', text: 'The three exercises will eat several days of credits, and that is fine: do one per evening. Before you start, put a notebook next to you. You will write down each prompt and what came out of it, because a week from now you will not remember which wording gave you a good frame and which gave you mush.' },
+      { type: 'h3', text: 'Exercise 1. Bring a photo to life' },
+      { type: 'p', text: 'Open the Image to Video tab and upload an ordinary photo: a cup on a table, a window with a curtain, a person just sitting there. Not a landscape and not a crowd. Prompt in English, one action, static camera: ’steam rises from the cup, static camera’. Standard mode, 5 seconds. Hit generate and wait. While you wait, notice the waiting itself: on the free tier the queue can stretch into tens of minutes, and this is your first encounter with the fact that video generation is a process, not a button.' },
+      { type: 'p', text: 'When the clip arrives, watch it on a large screen rather than in the thumbnail. The goal is not ’make it pretty’ but to see what the model did to your photo: what it shifted, what it invented, where the picture ’swam’. This is your first feel for how the network understands motion.' },
+      { type: 'h3', text: 'Exercise 2. One frame, three prompts' },
+      { type: 'p', text: 'Take the same photo and run two more generations with different wording. One with strong motion: ’she turns her head and laughs’. One with camera motion: ’slow push in, static subject’. You now have three clips from one frame. Put them side by side and compare. Do not judge each on its own: a single generation tells you nothing about whether the model is good or bad, or whether your prompt is. Meaning only appears in comparison.' },
+      { type: 'image', src: '/blog-images/video-novichku-tri-popytki.jpg', alt: 'A phone screen showing three versions of the same short clip side by side, a finger picking one; a cup on the table, warm home light', caption: 'The key skill of the first week: early generations are compared against each other, never judged one at a time', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+      { type: 'p', text: 'Most likely you will spot the pattern everyone spots: the less you asked for, the cleaner the result. The camera push-in ruined the frame more than the head turn did. Write that down in your own words. It is the first rule you earned with your own credits rather than read somewhere.' },
+      { type: 'h3', text: 'Exercise 3. The same scene from text' },
+      { type: 'p', text: 'Now switch to Text to Video and describe the same scene in words, without uploading the photo: ’a ceramic cup on a wooden table by the window, morning light, steam rises, static camera’. Compare it with your first clip. Text usually comes out worse: the model invented the cup, the table and the light itself, and invented the wrong ones. This is exactly why experienced people almost never generate video straight from text; they build a reference frame first and then animate it. In [the production guide](/blog/kak-sdelat-ai-video/) that is a separate step, and now you know where it comes from.' },
+      { type: 'quote', text: 'After three exercises you will have something no review can give you: your own sense of where the model is strong and where it breaks. Everything you learn from here builds on that sense.' },
+
+      { type: 'h2', text: 'What will go wrong, and why that is normal' },
+      { type: 'p', text: 'In the first weeks a beginner is not so much learning as collecting the same set of pitfalls everyone collects. Here are the ones lying in everybody’s path. None of them means ’I am not getting it’.' },
+      { type: 'ul', items: [
+        '**Hands, fingers and small objects.** Fingers multiply, a spoon passes through the cup. This is a weak spot of every model without exception. The fix is not the prompt but the scene: build the frame so that risky spots simply are not in it.',
+        '**Camera motion breaks the frame.** Push-ins, orbits and pans are the main source of junk. While you are learning, the camera stays still. Add camera motion only once the static version comes out reliably.',
+        '**A long prompt.** ’She stands up, walks to the window, opens it and turns around’ is more than the model can carry. One action per generation. Long scenes are assembled from short pieces in the edit, not from one prompt.',
+        '**Prompting in Russian.** The model understands it but loses detail. If the result is ’not it’, the first thing to try is rewriting the prompt in English, not switching models.',
+        '**Expecting a hit on the first try.** Out of ten generations, one or two come out well even for an experienced person. A good frame is several iterations of one prompt, not one magic prompt. Accept that and half the disappointment of the first weeks disappears.',
+        '**Junk costs the same as success.** Credits are charged for every attempt. Hence the rule: test the idea at short length in the basic mode, and switch on the higher mode only for a prompt that already works.',
+      ] },
+      { type: 'p', text: 'One trap nobody writes about: after a week it feels like you have got it all, and after three weeks like you have got nothing. That is normal too. The first week teaches the buttons; the third shows that the buttons are not the point. After that, the craft begins.' },
+
+      { type: 'h2', text: 'When free stops being enough' },
+      { type: 'p', text: 'The moment comes not when the credits run out but when the free tier starts getting in the way of learning. The signs are simple. You planned a series of five scenes, can make one a day, and by the fifth you have forgotten the first. You want to show a clip to someone and it carries a watermark. The queue eats the evening and you get one attempt instead of three. Or the task hits the resolution ceiling: 720p is tolerable for a phone feed, not for anything bigger.' },
+      { type: 'p', text: 'From there you have two routes, and the order in which to pick them is laid out in [the article on paying for AI tools from Russia](/blog/kak-oplatit-neyroset-iz-rossii/). In short: as long as you need up to a couple of dozen clips a month, a Russian aggregator billed in roubles is simpler, no card and no VPN. Once you generate more, your own subscription with a foreign card works out cheaper. Kling plans start at roughly 7 dollars a month, which is less than it sounds once you count the evenings the free queue eats.' },
+      { type: 'p', text: 'It matters what you are paying for. Not for model quality: the paid tier is the same ’brain’, just without the watermark, with queue priority and the higher modes. You are paying for the number of attempts per unit of time. And attempts are the only thing that turns the first weeks into a skill. So pay for a tool when you are sure you will keep making attempts, not when you ’want to try something better’.' },
+
+      { type: 'h2', text: 'Where self-teaching runs out' },
+      { type: 'p', text: 'Honestly: everything above can be learned on your own in a month of daily practice. The buttons, the modes, the prompt wording, credit economy. That is the level at which you make clips for yourself and for your feed, and they look decent. Many people stop right there, and it is a perfectly reasonable place to stop.' },
+      { type: 'p', text: 'Beyond that, self-teaching hits the things the model does not teach. It will not explain why a frame does not work when the motion in it is correct. It will not tell you that a person by a window comes out better in one model and a product on a table in another. It will not say that a clip made of ten pretty pieces does not hold together because the pieces were shot from different heights in different light. Those are no longer questions about the network; they are questions about framing, light and editing, and the answers come not from reviews but from a person who can see your task.' },
+      { type: 'p', text: 'When to pay for a session instead of a tool: when you have a specific task rather than a wish to ’learn a bit’. A clip for your own business, a series for a channel, a product that needs showing. Then a single session on your own material saves a month of trial and error, because the answer you get is not ’how Kling works’ but ’why yours is not working and what to change’. And if the task is already on the table and there is no time to learn, [the studio can produce the clip](/video-production/).' },
+
+      { type: 'h2', text: 'Frequently asked questions' },
+      { type: 'h3', text: 'Which AI video generator should a beginner start with?' },
+      { type: 'p', text: 'Kling in image-to-video mode: daily free credits and solid motion physics make it the best training ground. If the site will not open, Shedevrum will do for the first attempts: no VPN, no card, Russian interface.' },
+      { type: 'h3', text: 'Can I make AI video from a phone?' },
+      { type: 'p', text: 'Yes, and for the first evening that is enough: Shedevrum runs on a phone, and Kling has an app, though it may be missing from Russian app stores. You will need a computer later, once you start assembling a clip from several pieces and adding sound in an editing program.' },
+      { type: 'h3', text: 'Do I need English to use AI video tools?' },
+      { type: 'p', text: 'For prompts, preferably yes: the models understand Russian but hit the target more precisely in English. Being able to build a simple sentence is enough, and ready-made wording can be lifted from [the prompt guide](/blog/promty-dlya-neyrosetey/). A Russian interface comes from Russian aggregators or the browser’s auto-translate.' },
+      { type: 'h3', text: 'How long does it take to learn to make AI video?' },
+      { type: 'p', text: 'Buttons and modes take one evening. Understanding which wording produces what takes about a month of daily practice on the free tier. A clip you would not be embarrassed to show a client also needs a grasp of framing and editing, and that timeline no longer depends on the network.' },
+      { type: 'h3', text: 'Is text-to-video or image-to-video better for a beginner?' },
+      { type: 'p', text: 'Image-to-video. A reference frame removes half the junk: the model already knows what the subject, light and composition look like, and only has to invent the motion. Leave text-to-video for later; the results there are far less predictable.' },
+
+      { type: 'p', text: 'A first evening with an AI video tool almost always ends the same way: three clips, one of them unexpectedly good, and a wish to understand why that one. That wish is the beginning. What follows is either a month of your own attempts or a session on your own task, and the second does not replace the first; it shortens it.' },
+      { type: 'cta' },
+    ],
+  },
+  {
     slug: 'neyroset-dlya-video-besplatno',
     category: 'Guides',
     title: 'Free AI Video Generators in 2026: What Actually Works From Russia',
@@ -93,7 +173,7 @@ const PART_7 = [
       { type: 'p', text: 'Usually the same models running in a trimmed mode: lower resolution, shorter clips, no access to the higher generation modes or to tools like scene extension. The model itself is the same, the delivery is restricted.' },
 
       { type: 'h2', text: 'When you need a result, not an experiment' },
-      { type: 'p', text: 'Free limits answer the question ’what is this thing, anyway’ very well. But what stands between ’that looks nice’ and ’that is what the client asked for’ is not a subscription, it is understanding framing, light and which model suits which scene. That is what we work through in [our AI video training](/services/obuchenie-ai-video/) on your own project, and the studio’s finished work is in the [portfolio](/works/).' },
+      { type: 'p', text: 'Free limits answer the question ’what is this thing, anyway’ very well. But what stands between ’that looks nice’ and ’that is what the client asked for’ is not a subscription, it is understanding framing, light and which model suits which scene. That is what we work through in [our AI video training](/services/obuchenie-ai-video/) on your own project, and the studio’s finished work is in the [portfolio](/works/). Where to start if this is your very first clip is covered in a [separate article](/blog/neyroset-dlya-sozdaniya-video-novichku/).' },
       { type: 'cta' },
     ],
   },
