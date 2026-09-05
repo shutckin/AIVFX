@@ -190,6 +190,7 @@ const PART_6 = [
     content: [
       { type: 'p', text: 'In 2026 the argument about the best image generator narrowed to two names: Nano Banana Pro from Google, built on the Gemini 3 Pro architecture, and Seedream 5 Pro from ByteDance, released in July. Both solve the same task differently, and the choice depends less on overall quality than on what exactly you are making.' },
       { type: 'p', text: 'We will go through the differences that matter rather than the beauty of the samples on the landing page - samples on landing pages are always beautiful.' },
+      { type: 'gen', src: '/blog-images/seedream-greyhound-diner.jpg', alt: 'A greyhound in a mustard tweed coat sitting in a pastel 1970s diner booth in front of cherry pie and a milkshake, symmetrical frame', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'a greyhound in a tailored mustard tweed coat sits alone in a retro 1970s diner booth, cherry pie and a milkshake on the table, perfectly symmetrical composition, pastel pink and mint interior, deadpan Wes Anderson style', caption: 'A style task rather than a photorealism task: symmetry, pastel, a character instead of a person. Seedream 5 Pro holds the directorial reference all the way through: the colour, the furniture, the blank stare into the lens.' },
 
       { type: 'h2', text: 'Text in frame: the pain of recent years' },
       { type: 'p', text: 'For a long time generators could not write. A sign turned into a set of letter-like shapes, and any layout with text had to be finished by hand.' },
