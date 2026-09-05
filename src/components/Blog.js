@@ -4,6 +4,8 @@ import { BLOG_POSTS_EN, getPostBySlugEn } from '../data/blog-posts-en';
 import LangSwitch from './LangSwitch';
 import { useLocale, localizedHref } from '../i18n';
 import Pic from './Pic';
+import CoverTypo from './CoverTypo';
+import GenFrame from './GenFrame';
 
 // Дата статьи в человеческом виде для подписи под заголовком
 const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
@@ -128,6 +130,8 @@ const Block = ({ block, onBack }) => {
           )}
         </figure>
       );
+    case 'gen':
+      return <GenFrame block={block} />;
     case 'cta':
       return <CtaBlock onBack={onBack} />;
     default:
@@ -268,19 +272,13 @@ const PostCard = ({ post, onOpenPost, featured }) => {
       className={`blog-card ${featured ? 'md:grid md:grid-cols-2' : ''}`}
     >
       <div className={`blog-card-img ${featured ? 'aspect-video md:aspect-auto' : 'aspect-video'}`}>
-        <Pic src={post.cover} alt={post.title} sizes="(max-width: 768px) 100vw, 520px" />
+        <CoverTypo post={post} variant="card" titleTag="h3" />
       </div>
       <div className={featured ? 'p-7 lg:p-9 flex flex-col justify-center' : 'p-6'}>
         <div className="flex items-center gap-3 mb-3">
           <span className="blog-badge">{post.category}</span>
           <span className="blog-meta">{post.readingTime}</span>
         </div>
-        <h3
-          className={`font-bold text-white leading-snug mb-2 ${featured ? 'text-2xl lg:text-3xl' : 'text-lg'}`}
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
-          {post.title}
-        </h3>
         <p className="text-white/55 text-sm leading-relaxed">{post.excerpt}</p>
         <span className="blog-read mt-4 inline-block">{en ? 'Read →' : 'Читать →'}</span>
       </div>
@@ -309,7 +307,7 @@ const PostRow = ({ post, onOpenPost, num }) => {
         <span className="blog-row-time">{post.readingTime}</span>
       </span>
       <span className="blog-row-thumb">
-        <Pic src={post.cover} alt={post.title} sizes="120px" />
+        <CoverTypo post={post} variant="thumb" />
       </span>
     </a>
   );
@@ -530,18 +528,14 @@ const BlogPost = ({ post, onBack, onBackToList, onOpenPost }) => {
         </div>
 
         <article className="card">
-          <figure className="m-0">
-            <div className="aspect-video overflow-hidden bg-black/30 rounded-t-lg">
-              {/* Обложка - самый крупный элемент первого экрана статьи (LCP):
-                  грузим её первой, до скриптов и шрифтов */}
-              <Pic src={post.cover} alt={post.title} width="768" height="432" eager sizes="(max-width: 768px) 100vw, 1024px" className="w-full h-full object-cover" />
-            </div>
-            {post.coverSource && (
-              <figcaption className="text-white/40 text-xs px-6 pt-2">
-                {`${en ? 'Image source' : 'Источник изображения'}: ${post.coverSource}`}
-              </figcaption>
-            )}
-          </figure>
+          {/* Первый экран статьи - типографская обложка, нарисованная
+              вёрсткой (CoverTypo), а не jpeg. Раньше здесь была
+              сгенерированная сцена и подпись «Источник изображения»;
+              с 05.09.2026 обложка это часть страницы, источника у неё
+              нет. Заодно ушёл самый тяжёлый элемент LCP. */}
+          <div className="aspect-video overflow-hidden rounded-t-lg">
+            <CoverTypo post={post} variant="hero" titleTag="h1" />
+          </div>
           <div className="p-6 lg:p-10">
             {/* Подпись автора и даты. Без видимого автора и даты обновления
                 ИИ-поисковики и Google считают материал анонимным и не цитируют:
@@ -558,7 +552,6 @@ const BlogPost = ({ post, onBack, onBackToList, onOpenPost }) => {
               <span aria-hidden="true"> · </span>
               <span>{post.readingTime} {en ? 'read' : 'чтения'}</span>
             </div>
-            <h1 className="text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">{post.title}</h1>
             <div className="text-white/80 space-y-1 leading-relaxed text-base lg:text-lg">
               {post.content.map((block, i) => <Block key={i} block={block} onBack={onBack} />)}
             </div>
