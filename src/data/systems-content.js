@@ -320,6 +320,54 @@ export const SERVICE_PAGES = {
       ],
     },
   },
+  // Хаб под запрос «обучение нейросетям». Человек, который так ищет, ещё
+  // не выбрал ни тему, ни формат: страница раскладывает запрос на три
+  // задачи, отдаёт бесплатный путь по нашим статьям и честно говорит, где
+  // самообучение кончается и чему мы учим сами. Две страницы выше - уже
+  // конкретные программы: отсюда ведём на них, с них - сюда.
+  'obuchenie-neyrosetyam': {
+    cta: {
+      title: { ru: 'Не знаете, с какой дорожки начать?' },
+      sub: { ru: 'Напишите, что хотите научиться делать и что уже пробовали. Скажу, хватит ли бесплатных статей или есть смысл в занятии, и в каком именно.' },
+      btn: { ru: 'Написать' },
+    },
+    alsoSee: ['obuchenie-ai-video', 'obuchenie-ii-dlya-biznesa'],
+    readMore: ['neyroset-dlya-sozdaniya-video-novichku', 'promty-dlya-neyrosetey', 'neyroset-dlya-foto-besplatno', 'neyroseti-na-russkom', 'kak-oplatit-neyroset-iz-rossii', 'kak-sdelat-ai-video'],
+    kicker: { ru: 'ОБУЧЕНИЕ / НЕЙРОСЕТИ', en: 'TRAINING / AI TOOLS' },
+    title: { ru: 'Обучение нейросетям с нуля: с чего начать и где самому уже не разобраться', en: 'Learning AI tools from scratch' },
+    sub: {
+      ru: 'Три дорожки: картинки и видео, тексты и документы, ИИ в своей компании. Для каждой есть бесплатный путь по нашим статьям и честный ответ, где самообучение кончается.',
+      en: 'Three learning tracks, a free reading path for each, and an honest line where self-study ends.',
+    },
+    pains: {
+      title: { ru: 'Знакомо?', en: 'Sound familiar?' },
+      items: [
+        { ru: 'Открыли ChatGPT, что-то спросили, и дальше дело не пошло', en: 'Tried ChatGPT once and it went nowhere' },
+        { ru: 'Курс «нейросети для всех» за сто с лишним тысяч, а результата ноль', en: 'An expensive general AI course with zero result' },
+        { ru: 'Сорок инструментов в подборках, и непонятно, с какого начинать', en: 'Forty tools in every list, no idea where to start' },
+        { ru: 'Что-то получается, но выглядит так же, как у всех', en: 'Results look exactly like everyone else has' },
+      ],
+    },
+    proof: [
+      { ru: 'Разговор до занятия: какая задача и что уже пробовали', en: 'A short talk before: the task and what was tried' },
+      { ru: 'Выбираем дорожку и один инструмент под неё', en: 'Choosing the track and one tool for it' },
+      { ru: 'Первый результат на вашей задаче, не на примере', en: 'First result on your own task' },
+      { ru: 'Разбираем, почему вышло не то и что именно менять', en: 'Reviewing what went wrong and what to change' },
+      { ru: 'Второй заход с правками, пока не получится показать', en: 'Second pass with fixes' },
+      { ru: 'Запись занятия и список следующих шагов остаются у вас', en: 'Recording and next steps stay with you' },
+    ],
+    features: {
+      title: { ru: 'Что разбираем', en: 'What we cover' },
+      items: [
+        { t: { ru: 'Что стоит за словом «нейросети»', en: 'What the word hides' }, d: { ru: 'Три разные задачи под одним словом: картинки и видео, тексты и документы, ИИ в работе компании. Учатся они по-разному, и первый шаг - понять, какая из них ваша.', en: 'Three different tasks under one word, learned differently.' } },
+        { t: { ru: 'Промпт как техзадание', en: 'The prompt as a brief' }, d: { ru: 'Не «волшебные фразы», а структура: что нужно, в каком виде, чего быть не должно. Одно правило на все модели, текстовые и визуальные.', en: 'Structure instead of magic phrases; one rule for every model.' } },
+        { t: { ru: 'Как читать результат', en: 'Reading the output' }, d: { ru: 'Почему картинка выглядит дёшево, а текст «как у всех», и что именно в запросе это вызвало. Навык, который переживёт любую смену моделей.', en: 'Why a result looks cheap and which part of the prompt caused it.' } },
+        { t: { ru: 'Инструменты и оплата из России', en: 'Tools and payment' }, d: { ru: 'Что работает без VPN, что понимает русский, где хватит бесплатного тарифа и как платить. Два-три сервиса вместо списка из сорока.', en: 'What works, what understands Russian, how to pay: two or three tools, not forty.' } },
+        { t: { ru: 'Где ИИ ошибается', en: 'Where AI fails' }, d: { ru: 'Модель одинаково уверенно пишет правду и выдумку и не объясняет, почему не вышло. Разбираем, где это ловится, где нет и что нельзя отдавать нейросети вовсе.', en: 'Confident invention, silent failures, and what must never go to a model.' } },
+        { t: { ru: 'Куда идти дальше', en: 'What comes next' }, d: { ru: 'Хватит ли бесплатных статей, нужна ли программа по видео или разбор для команды. Говорю прямо, включая вариант «вам занятие не нужно».', en: 'Whether free articles are enough, said plainly, including when no lesson is needed.' } },
+      ],
+    },
+  },
 
   // ── Отраслевые страницы ──────────────────────────────────────────────
   //
@@ -615,6 +663,13 @@ export const TRAINING_SYS = {
       title: { ru: 'ИИ в работе компании' },
       desc: {
         ru: 'Что нейросети закрывают уже завтра, без интеграций и разработки. И где проходит граница, за которой без внедрения не обойтись.',
+      },
+    },
+    {
+      slug: 'obuchenie-neyrosetyam',
+      title: { ru: 'Обучение нейросетям с нуля' },
+      desc: {
+        ru: 'Если пока не ясно, что именно нужно: картинки и видео, тексты или ИИ в компании. Бесплатный путь по статьям и честный ответ, где без занятий не обойтись.',
       },
     },
   ],
@@ -944,6 +999,7 @@ export const FOOTER_SYS = {
   training: [
     { slug: 'obuchenie-ai-video', label: { ru: 'Обучение AI-видео' } },
     { slug: 'obuchenie-ii-dlya-biznesa', label: { ru: 'ИИ в работе компании' } },
+    { slug: 'obuchenie-neyrosetyam', label: { ru: 'Обучение нейросетям' } },
   ],
 };
 
