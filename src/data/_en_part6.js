@@ -96,7 +96,9 @@ const PART_6 = [
       'Three platforms with dozens of AI models on one subscription: how they differ, who each suits, and when paying the models directly works out better.',
     keywords:
       'ai aggregators, higgsfield, flowith, syntx ai, access to ai models one subscription, video generation platforms, multi-model ai platform',
-    cover: '/blog-images/cover-agregatory.jpg',
+    cover: '/blog-images/aggregators-dj-five-mixers.jpg',
+    coverPrompt: 'a DJ in a festival booth controls five different mixers and screens at once, lasers and haze, a crowd of raised hands below, sweat on his face, one person running everything',
+    coverCaption: 'An aggregator is one console for every model. The article covers when it saves money and when it just takes a cut.',
     date: '2026-08-30',
     dateModified: '2026-08-30',
     readingTime: '12 min',

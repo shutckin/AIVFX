@@ -118,7 +118,9 @@ const PART_1 = [
       'We break down step by step how to create an AI video from scratch: from idea and script to a finished clip.',
     keywords:
       'how to make ai video, creating video with neural network, ai video for business, neural network for video, ai video generation, ai video production',
-    cover: '/blog-images/cover-aivideo.jpg',
+    cover: '/blog-images/make-ai-video-led-wall-set.jpg',
+    coverPrompt: 'a director in a chair with a monitor on a virtual production stage, a huge LED wall showing a desert highway at sunset behind a real vintage car, a small crew with headsets, film set atmosphere',
+    coverCaption: 'AI video is made like regular film: script, anchor frames, generation, edit. Five steps from idea to finished clip.',
     date: '2026-05-12',
     dateModified: '2026-05-29',
     readingTime: '9 min',
@@ -181,7 +183,9 @@ const PART_1 = [
       'An honest comparison of the top neural networks for video: Runway, Kling, Google Veo, Seedance, MiniMax H3.',
     keywords:
       'comparison of neural networks for video, runway vs kling, best neural network for video, google veo, minimax hailuo, kling ai, seedance, neural network video generation',
-    cover: '/blog-images/cover-sravnenie.jpg',
+    cover: '/blog-images/compare-models-police-lineup.jpg',
+    coverPrompt: 'five identical twin men stand in a police lineup room against a height chart, each dressed differently: cowboy, punk, businessman, astronaut, monk, deadpan faces, harsh fluorescent light',
+    coverCaption: 'Five models in one lineup: the same prompt, different character. Compared by motion, sound, price and access from Russia.',
     date: '2026-05-20',
     dateModified: '2026-09-02',
     readingTime: '11 min',
