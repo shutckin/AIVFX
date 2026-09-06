@@ -2361,89 +2361,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   border-radius: 4px;
 }
 
-/* ── Типографская обложка статьи (CoverTypo.js) ──────────────────────
-   Та же сетка и свечение, что на страницах сайта: обложка обязана
-   выглядеть частью издания, а не картинкой, вставленной отдельно. */
-.cover-typo {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background:
-    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
-    #0b0b0d;
-  background-size: 48px 48px, 48px 48px, auto;
-  color: #f2f5fa;
-  container-type: inline-size;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 6.5% 7%;
-  box-sizing: border-box;
-}
-.cover-typo-glow {
-  position: absolute; inset: 0; pointer-events: none;
-  background:
-    radial-gradient(60% 70% at 100% 0%, rgba(61,110,247,0.28), transparent 60%),
-    radial-gradient(40% 50% at 0% 100%, rgba(61,110,247,0.10), transparent 60%);
-}
-.cover-typo-body, .cover-typo-foot { position: relative; }
-.cover-typo-kicker {
-  display: block;
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: clamp(9px, 1.9cqw, 14px);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #6a94ff;
-}
-.cover-typo-title {
-  display: block;
-  margin-top: 3.5cqw;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(16px, 5.4cqw, 56px);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
-  max-width: 18ch;
-  text-wrap: balance;
-}
-.cover-typo-sub {
-  display: block;
-  margin-top: 2.4cqw;
-  font-size: clamp(11px, 1.9cqw, 20px);
-  line-height: 1.4;
-  color: rgba(216,234,255,0.62);
-  max-width: 62ch;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.cover-typo-foot {
-  display: flex; align-items: center; gap: 2cqw;
-}
-.cover-typo-line { flex: 1; height: 1px; background: rgba(255,255,255,0.12); }
-.cover-typo-mark, .cover-typo-time {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(9px, 1.8cqw, 16px);
-  letter-spacing: 0.04em;
-  color: rgba(242,245,250,0.85);
-}
-.cover-typo-time { font-weight: 400; color: rgba(216,234,255,0.5); }
-.cover-typo--thumb { padding: 12% 12%; }
-.cover-typo--thumb .cover-typo-kicker { font-size: 8px; letter-spacing: 0.14em; }
-.cover-typo--thumb .cover-typo-line { display: none; }
-/* Ховер карточки раньше масштабировал картинку; для обложки-вёрстки
-   тот же жест делает свечение ярче */
-.blog-card:hover .cover-typo-glow { opacity: 1.35; }
-.cover-typo-glow { transition: opacity .5s ease; }
-.cover-typo h1.cover-typo-title, .cover-typo h3.cover-typo-title { margin-bottom: 0; }
-.cover-typo--card { padding: 7% 7% 6%; }
-
 /* ── Блок «генерация» в статье: кадр + промпт в фирменной рамке ─────── */
 .gen-frame {
   position: relative;
@@ -2511,3 +2428,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   font-family: var(--font-display); font-weight: 600; font-size: 11px; letter-spacing: 0.06em;
   color: rgba(242,245,250,0.7);
 }
+.cover-gen .gen-frame-head { margin-bottom: 8px; }
+.cover-gen .gen-frame-prompt { margin-top: 0; }
+.cover-gen .gen-frame-caption { margin: 10px 0 0; }

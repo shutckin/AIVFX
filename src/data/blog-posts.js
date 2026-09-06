@@ -25,6 +25,8 @@ export const BLOG_POSTS = [
     keywords:
       'нейросеть для создания видео, нейросеть для создания видео новичку, с чего начать нейросеть видео, как начать делать ai видео, нейросеть для видео для начинающих, первое видео нейросетью, нейросеть видео из текста',
     cover: '/blog-images/video-novichku-shibuya.jpg',
+    coverPrompt: 'editorial street portrait: a young woman in an oversized silver puffer jacket stands in the middle of Shibuya crossing at night, filming herself on an iPhone, neon signs and taxi headlights reflected in the wet asphalt',
+    coverCaption: 'Хороший опорный кадр для первого ролика: один человек, простое действие, город позади. Загрузите его в Image to Video и попросите «she lowers the phone and looks at the camera».',
     coverSource: 'AI-генерация AIVFX (Seedream 5 Pro)',
     date: '2026-09-05',
     dateModified: '2026-09-05',
@@ -49,7 +51,6 @@ export const BLOG_POSTS = [
       { type: 'p', text: 'На три упражнения уйдут кредиты нескольких дней, и это нормально: делайте по одному за вечер. Перед стартом положите рядом блокнот. В него вы будете записывать запрос и что из него вышло, потому что через неделю вы не вспомните, какая формулировка дала хороший кадр, а какая кашу.' },
       { type: 'h3', text: 'Упражнение 1. Оживить фотографию' },
       { type: 'p', text: 'Откройте вкладку Image to Video и загрузите обычное фото: чашку на столе, окно с занавеской, человека, который просто сидит. Не пейзаж и не толпу. Запрос по-английски, одно действие, камера неподвижна: «steam rises from the cup, static camera». Режим Standard, 5 секунд. Запустите и ждите. Пока ждёте, обратите внимание на само ожидание: на бесплатном тарифе очередь может тянуться десятки минут, и это ваша первая встреча с тем, что генерация видео это не кнопка, а процесс.' },
-      { type: 'gen', src: '/blog-images/video-novichku-shibuya.jpg', alt: 'Девушка в серебристом пуховике снимает себя на iPhone посреди перекрёстка Сибуя ночью, мокрый асфальт, неон и такси', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'editorial street portrait: a young woman in an oversized silver puffer jacket stands in the middle of Shibuya crossing at night, filming herself on an iPhone, neon signs and taxi headlights reflected in the wet asphalt', caption: 'Хороший опорный кадр для первого ролика: один человек, простое действие, город позади. Загрузите его в Image to Video и попросите «she lowers the phone and looks at the camera».' },
       { type: 'p', text: 'Когда ролик придёт, посмотрите его на большом экране, а не в превью. Задача не «получить красиво», а увидеть, что модель сделала с вашим фото: что сдвинула, что дорисовала, где картинка «поплыла». Это первое ощущение того, как нейросеть понимает движение.' },
       { type: 'h3', text: 'Упражнение 2. Один кадр, три запроса' },
       { type: 'p', text: 'Возьмите ту же фотографию и сделайте ещё две генерации с другими формулировками. Одну с сильным движением: «she turns her head and laughs». Одну с движением камеры: «slow push in, static subject». Получится три ролика из одного кадра. Положите их рядом и сравните. Не оценивайте каждый в отдельности: по одной генерации вообще нельзя понять, хороша модель или плоха, и хорош ли ваш запрос. Смысл появляется только в сравнении.' },
@@ -197,7 +198,9 @@ export const BLOG_POSTS = [
     title: 'Google Veo из России: доступ, подписка и чем заменить',
     description: 'Работает ли Google Veo из России в 2026, какие подписки Google AI дают доступ, сколько стоят, есть ли бесплатные генерации и чем модель заменить.',
     keywords: 'veo 3, google veo, veo из россии, veo доступ, veo подписка, google ai pro, google ai ultra, google flow, veo бесплатно, чем заменить veo',
-    cover: '/blog-images/cover-veo-dostup.jpg',
+    cover: '/blog-images/veo-kids-bmx-dusk.jpg',
+    coverPrompt: 'three kids on BMX bikes stopped on a suburban street at dusk, looking up at something out of frame, a streetlamp cone in light fog, a station wagon in a driveway, 1980s Spielberg suburbia',
+    coverCaption: 'Сцена, которую Veo любит больше всего: узнаваемая киноэпоха, туман, один источник света и звук, который сам просится в кадр - цикады, цепь велосипеда, далёкий гул.',
     coverSource: 'AI-генерация AIVFX (Seedream 5 Pro)',
     date: '2026-09-04',
     dateModified: '2026-09-04',
@@ -206,7 +209,6 @@ export const BLOG_POSTS = [
     excerpt: 'Veo часто советуют как лучшую модель для видео со звуком и речью, но из России до неё ещё надо дотянуться. Разбираем, через какие продукты Google она отдаётся, что именно ломается на регистрации и оплате, сколько стоят подписки и в каких случаях проще взять другую модель.',
     content: [
       { type: 'p', text: 'Про Veo обычно пишут одно и то же: модель делает видео сразу со звуком, речь попадает в губы, выглядит дорого. Всё так. Но между «выглядит дорого» и «я нажал кнопку и получил ролик» из России стоит целая полоса препятствий: регион, аккаунт, карта, подписка. Эта статья не про то, как писать промпты. Про промпты и возможности модели у нас есть отдельный разбор: [гайд по Veo](/blog/veo-gayd/). Здесь только про доступ и деньги.' },
-      { type: 'gen', src: '/blog-images/veo-kids-bmx-dusk.jpg', alt: 'Трое детей на BMX остановились на пригородной улице в сумерках и смотрят вверх, фонарь в тумане, универсал на подъездной дорожке', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'three kids on BMX bikes stopped on a suburban street at dusk, looking up at something out of frame, a streetlamp cone in light fog, a station wagon in a driveway, 1980s Spielberg suburbia', caption: 'Сцена, которую Veo любит больше всего: узнаваемая киноэпоха, туман, один источник света и звук, который сам просится в кадр - цикады, цепь велосипеда, далёкий гул.' },
       { type: 'p', text: 'Сразу главная мысль, чтобы не тянуть. **Официально Россия в списке поддерживаемых стран отсутствует.** Дальше вопрос не «можно ли», а «сколько возни вы готовы вытерпеть ради синхронного звука» и «не проще ли взять модель, которая открывается без плясок».' },
 
       { type: 'h2', text: 'Где вообще живёт Veo: четыре разных входа' },
@@ -294,7 +296,9 @@ export const BLOG_POSTS = [
       'Открывается ли Runway из России в 2026, что даёт бесплатный тариф на 125 кредитов, сколько стоят подписки, проходят ли карты и чем заменить сервис.',
     keywords:
       'runway нейросеть, runway gen, runway ml, runway скачать, runway отзывы, runway видео, runway в россии, runway бесплатно, runway цена, runway оплата',
-    cover: '/blog-images/cover-runway-dostup.jpg',
+    cover: '/blog-images/runway-rooftop-run.jpg',
+    coverPrompt: 'modern action-film frame: a woman in a black tactical jacket sprints across a rain-soaked rooftop at dawn and leaps over an air-conditioning unit, wet gravel spraying, city skyline in blue-grey haze, a helicopter searchlight cutting through the mist, low wide angle',
+    coverCaption: 'Кадр в духе того, ради чего идут в Runway: экшн, брызги, вертолёт и один непрерывный пробег камеры. Опорный кадр статичен, движение потом дорисовывает модель.',
     coverSource: 'AI-генерация AIVFX (Seedream 5 Pro)',
     date: '2026-09-04',
     dateModified: '2026-09-04',
@@ -304,7 +308,6 @@ export const BLOG_POSTS = [
       'Runway остаётся одним из самых заметных видеогенераторов, но из России к нему ведёт не самая прямая дорога. Разбираем, что реально открывается, сколько кредитов дают бесплатно, во что обходятся тарифы и почему «скачать Runway» - это тупиковый запрос.',
     content: [
       { type: 'p', text: 'Сразу отсечём путаницу: речь про Runway ML - американский сервис генерации видео нейросетью. Не про беговые дорожки, не про октан-корректор и не про телешоу про моделей. Если вам нужно, как устроен интерфейс и как писать запросы, это в отдельном материале: [как пользоваться - в гайде по Runway](/blog/runway-gayd/). Здесь только про доступ и деньги. Состояние на сентябрь 2026 года.' },
-      { type: 'gen', src: '/blog-images/runway-rooftop-run.jpg', alt: 'Женщина в чёрной куртке бежит по мокрой крыше на рассвете и перепрыгивает кондиционер, вертолёт с прожектором, силуэт города в дымке', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'modern action-film frame: a woman in a black tactical jacket sprints across a rain-soaked rooftop at dawn and leaps over an air-conditioning unit, wet gravel spraying, city skyline in blue-grey haze, a helicopter searchlight cutting through the mist, low wide angle', caption: 'Кадр в духе того, ради чего идут в Runway: экшн, брызги, вертолёт и один непрерывный пробег камеры. Опорный кадр статичен, движение потом дорисовывает модель.' },
 
       { type: 'h2', text: 'Открывается ли Runway из России' },
       { type: 'p', text: 'Сам сайт runway.com с российских адресов обычно открывается, и регистрация через почту или Google-аккаунт проходит. То есть барьер стоит не на входе. Он стоит на кассе: платёжный шлюз не пропускает карты, выпущенные в России. Именно поэтому типичная история выглядит так - человек завёл аккаунт, потратил стартовые кредиты, а дальше упёрся в оплату.' },
@@ -756,7 +759,9 @@ export const BLOG_POSTS = [
       'Есть ли у Midjourney бесплатный тариф в 2026, почему его нельзя скачать, открывается ли сервис из России, сколько стоят тарифы и чем заменить бесплатно.',
     keywords:
       'midjourney бесплатно, midjourney нейросеть бесплатно, скачать midjourney, midjourney на русском, нейросеть midjourney на русском, midjourney подписка, midjourney официальный сайт, midjourney из россии, midjourney цена',
-    cover: '/blog-images/cover-midjourney-dostup.jpg',
+    cover: '/blog-images/midjourney-saul-bass-poster.jpg',
+    coverPrompt: 'film-poster composition in the spirit of Saul Bass: a flat cut-paper silhouette of a man in a trench coat descending a spiral staircase, burnt-orange background, printed paper texture, no letters',
+    coverCaption: 'Задача из мира Midjourney: плоские силуэты, два цвета, фактура бумаги. Этот кадр сделан в Seedream 5 Pro, так что стиль постера сегодня не привязан к одному сервису.',
     coverSource: 'AI-генерация AIVFX (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
@@ -766,7 +771,6 @@ export const BLOG_POSTS = [
       'Каждый месяц тысячи людей ищут «midjourney бесплатно» и «скачать midjourney». У обоих запросов есть короткий и неприятный ответ. Разбираем без иллюзий: бесплатного тарифа нет, скачивать нечего, российская карта не пройдёт - и что со всем этим делать.',
     content: [
       { type: 'p', text: 'Эта статья не про то, как писать запросы и жать кнопки: как пользоваться - в [отдельном гайде](/blog/midjourney-gayd/). Здесь только про деньги и доступ. Три вопроса, которые люди задают поиску чаще всего: сколько это стоит, можно ли бесплатно и работает ли оно из России. Состояние на сентябрь 2026 года.' },
-      { type: 'gen', src: '/blog-images/midjourney-saul-bass-poster.jpg', alt: 'Постер в духе Сола Басса: чёрный силуэт мужчины в плаще на спиральной лестнице на оранжевом фоне с фактурой бумаги', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'film-poster composition in the spirit of Saul Bass: a flat cut-paper silhouette of a man in a trench coat descending a spiral staircase, burnt-orange background, printed paper texture, no letters', caption: 'Задача из мира Midjourney: плоские силуэты, два цвета, фактура бумаги. Этот кадр сделан в Seedream 5 Pro, так что стиль постера сегодня не привязан к одному сервису.' },
 
       { type: 'h2', text: 'Бесплатного тарифа нет. Совсем' },
       { type: 'p', text: 'Начнём с главного, потому что вокруг этого построена целая индустрия вранья. **У Midjourney нет ни бесплатного тарифа, ни пробного периода.** Чтобы сгенерировать хотя бы одну картинку, нужно оформить подписку - минимум за 10 долларов в месяц.' },
@@ -960,7 +964,9 @@ export const BLOG_POSTS = [
       'Kling AI из России в 2026: сколько дают бесплатно, есть ли русский интерфейс, что не открывается, как оплатить подписку без российской карты и как экономить кредиты.',
     keywords:
       'kling бесплатно, kling на русском, kling ai бесплатно, kling подписка, kling купить, kling как пользоваться, kling в россии, kling нейросеть бесплатно на русском',
-    cover: '/blog-images/cover-kling-rossiya.jpg',
+    cover: '/blog-images/kling-dancer-night-market.jpg',
+    coverPrompt: 'a young street dancer freezes mid-move on wet concrete at a Guangzhou night market, steam from food stalls, red lanterns and neon signs, onlookers with phones out, low angle close to the ground',
+    coverCaption: 'Опорный кадр под Kling: одно движение и много фактуры вокруг. Из такого стартового кадра модель вытягивает и пар, и толпу, и блик на мокром бетоне.',
     coverSource: 'AI-генерация AIVFX (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
@@ -970,7 +976,6 @@ export const BLOG_POSTS = [
       'Kling - самая популярная видеомодель у русскоязычных пользователей теперь, когда Sora закрыта, и в отличие от Sora её реально открыть из России. Разбираем практическую сторону: бесплатные кредиты, язык, оплата, лимиты и где бесплатное заканчивается.',
     content: [
       { type: 'p', text: 'Про то, что умеет Kling 3.0 и как строить для него запрос, у нас есть [большой гайд](/blog/kling-gayd/). Здесь - только то, о чём спрашивают чаще всего, судя по поиску: «kling бесплатно», «kling на русском», «kling подписка», «kling купить». Коротко и по делу, состояние на сентябрь 2026 года.' },
-      { type: 'gen', src: '/blog-images/kling-dancer-night-market.jpg', alt: 'Уличный танцор замер в движении на мокром бетоне ночного рынка Гуанчжоу, красные фонари, пар от лотков, зрители снимают на телефоны', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'a young street dancer freezes mid-move on wet concrete at a Guangzhou night market, steam from food stalls, red lanterns and neon signs, onlookers with phones out, low angle close to the ground', caption: 'Опорный кадр под Kling: одно движение и много фактуры вокруг. Из такого стартового кадра модель вытягивает и пар, и толпу, и блик на мокром бетоне.' },
 
       { type: 'h2', text: 'Бесплатно: 66 кредитов в день' },
       { type: 'p', text: 'Kling начисляет бесплатные кредиты ежедневно - 66 в сутки. Это примерно одна короткая генерация в базовом режиме. Кредиты не копятся: не потратили сегодня - сгорели. Бесплатные ролики идут с водяным знаком, в очереди на обработку и с ограничением по длине. Для «понять, как это работает» - достаточно; для работы - нет.' },
@@ -1322,7 +1327,9 @@ export const BLOG_POSTS = [
       'OpenAI закрыла Sora: сайт и приложение отключены 26 апреля 2026, API уходит 24 сентября. Почему так вышло и чем заменить: Seedance, Kling, MiniMax H3.',
     keywords:
       'sora 2, sora нейросеть, sora закрыта, sora 2 в россии, sora 2 как пользоваться, sora бесплатно, sora официальный сайт, sora 2 скачать, нейросеть сора, чем заменить sora',
-    cover: '/blog-images/cover-sora-2.jpg',
+    cover: '/blog-images/sora-astronaut-kitchen.jpg',
+    coverPrompt: 'an astronaut in a full spacesuit sits at a tiny kitchen table in a cramped Soviet-era apartment, floral wallpaper, a kettle on the stove, a cat on the windowsill, centered symmetrical composition in the spirit of Kubrick',
+    coverCaption: 'Бытовой сюр, за который полюбили первые ролики Sora: абсурдная посылка и абсолютно серьёзная подача. Кадр статичный, но каждый предмет на кухне просится в движение.',
     coverSource: 'AI-генерация AIVFX (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
@@ -1332,7 +1339,6 @@ export const BLOG_POSTS = [
       'Sora до сих пор самая искомая видеомодель в Рунете, больше ста тысяч запросов в месяц. При этом сервиса уже нет: OpenAI отключила сайт и приложение 26 апреля 2026 года, а 24 сентября выключает и API. Разбираем, что произошло, что с вашими роликами и какие модели закрывают те же задачи сейчас.',
     content: [
       { type: 'p', text: 'Sora - видеомодель OpenAI, тех же, кто сделал ChatGPT. Вторая версия вышла осенью 2025 года и мгновенно стала самым громким именем в генерации видео: запросы «sora 2», «sora скачать», «sora официальный сайт» до сих пор дают больше ста тысяч показов в месяц. Проблема в том, что искать уже нечего. Весной 2026 года OpenAI закрыла Sora, и всё, что сейчас предлагается под этим названием, либо устарело, либо не имеет к OpenAI отношения.' },
-      { type: 'gen', src: '/blog-images/sora-astronaut-kitchen.jpg', alt: 'Космонавт в скафандре сидит за столом на тесной кухне хрущёвки, цветочные обои, чайник на плите, кошки на подоконнике, симметричный кадр', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'an astronaut in a full spacesuit sits at a tiny kitchen table in a cramped Soviet-era apartment, floral wallpaper, a kettle on the stove, a cat on the windowsill, centered symmetrical composition in the spirit of Kubrick', caption: 'Бытовой сюр, за который полюбили первые ролики Sora: абсурдная посылка и абсолютно серьёзная подача. Кадр статичный, но каждый предмет на кухне просится в движение.' },
 
       { type: 'h2', text: 'Что произошло и когда' },
       { type: 'ul', items: [
@@ -1499,7 +1505,9 @@ export const BLOG_POSTS = [
       'Сравнение двух сильнейших генераторов изображений 2026 года: Nano Banana Pro от Google и Seedream 5 Pro от ByteDance.',
     keywords:
       'nano banana pro, seedream 5 pro, лучшая нейросеть для картинок, генератор изображений 2026, nano banana vs seedream, нейросеть с текстом на картинке',
-    cover: '/blog-images/cover-nano-seedream.jpg',
+    cover: '/blog-images/seedream-greyhound-diner.jpg',
+    coverPrompt: 'a greyhound in a tailored mustard tweed coat sits alone in a retro 1970s diner booth, cherry pie and a milkshake on the table, perfectly symmetrical composition, pastel pink and mint interior, deadpan Wes Anderson style',
+    coverCaption: 'Задача на стиль, а не на фотореализм: симметрия, пастель, персонаж вместо человека. Seedream 5 Pro держит режиссёрскую отсылку целиком: и цвет, и мебель, и пустой взгляд персонажа в камеру.',
     date: '2026-08-30',
     dateModified: '2026-08-30',
     readingTime: '11 мин',
@@ -1509,7 +1517,6 @@ export const BLOG_POSTS = [
     content: [
       { type: 'p', text: 'В 2026 году спор о лучшем генераторе изображений свёлся к двум именам: Nano Banana Pro от Google, построенный на архитектуре Gemini 3 Pro, и Seedream 5 Pro от ByteDance, вышедший в июле. Обе модели решают одну задачу, но по-разному, и выбор между ними зависит не от общего качества, а от того, что именно вы делаете.' },
       { type: 'p', text: 'Разберём по существенным различиям, а не по красоте примеров на витрине - примеры на витрине всегда красивые.' },
-      { type: 'gen', src: '/blog-images/seedream-greyhound-diner.jpg', alt: 'Грейхаунд в горчичном твидовом пальто сидит в пастельном дайнере 70-х перед вишнёвым пирогом и молочным коктейлем, симметричный кадр', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'a greyhound in a tailored mustard tweed coat sits alone in a retro 1970s diner booth, cherry pie and a milkshake on the table, perfectly symmetrical composition, pastel pink and mint interior, deadpan Wes Anderson style', caption: 'Задача на стиль, а не на фотореализм: симметрия, пастель, персонаж вместо человека. Seedream 5 Pro держит режиссёрскую отсылку целиком: и цвет, и мебель, и пустой взгляд персонажа в камеру.' },
 
       { type: 'h2', text: 'Текст в кадре: главная боль последних лет' },
       { type: 'p', text: 'Долгое время генераторы не умели писать. Надпись на вывеске превращалась в набор символов, похожих на буквы, и любой макет с текстом приходилось доделывать руками.' },
@@ -1658,7 +1665,9 @@ export const BLOG_POSTS = [
       'Разбор Seedance 2.5: тридцатисекундные ролики и длинное видео до трёх минут, полсотни референсов, точечная правка готовой сцены, звук и 4K.',
     keywords:
       'seedance 2.5, seedance гайд, seedance 2.0 отличия, bytedance видео нейросеть, seedance как пользоваться, seedance длинное видео',
-    cover: '/blog-images/cover-seedance.jpg',
+    cover: '/blog-images/seedance-kpop-backstage.jpg',
+    coverPrompt: 'backstage before a K-pop show: a young idol with lavender hair in front of a mirror framed by warm bulbs, a stylist adjusts his collar, racks of stage costumes behind, candid documentary moment',
+    coverCaption: 'Опорный кадр для Seedance: два человека, живой жест и много мелкой моторики за спиной. Именно такие сцены показывают, держит ли модель руки и лица в движении.',
     date: '2026-08-30',
     dateModified: '2026-09-02',
     readingTime: '11 мин',
@@ -1667,7 +1676,6 @@ export const BLOG_POSTS = [
       'В июле 2026 Seedance 2.5 заменила 2.0 без изменения цены. Главное - длина: тридцать секунд нативно и до трёх минут в длинном режиме. Разбираем, что это даёт на практике и где модель всё ещё спотыкается.',
     content: [
       { type: 'p', text: 'Seedance - видеомодель ByteDance, тех же, кто сделал TikTok. Версия 2.0 вышла в феврале 2026 и быстро заняла верхние строчки рейтингов, а в июле её сменила 2.5. Замена прошла тихо: та же подписка, те же тарифы, просто модель по умолчанию стала новой.' },
-      { type: 'gen', src: '/blog-images/seedance-kpop-backstage.jpg', alt: 'За кулисами K-pop шоу: айдол с лавандовыми волосами перед зеркалом с лампочками, стилист поправляет ему воротник, сзади вешалки с костюмами', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'backstage before a K-pop show: a young idol with lavender hair in front of a mirror framed by warm bulbs, a stylist adjusts his collar, racks of stage costumes behind, candid documentary moment', caption: 'Опорный кадр для Seedance: два человека, живой жест и много мелкой моторики за спиной. Именно такие сцены показывают, держит ли модель руки и лица в движении.' },
       { type: 'p', text: 'Разберём, что изменилось на самом деле, потому что список новшеств выглядит внушительно, но на практике решают две вещи из него.' },
       { type: 'p', text: 'Если вопрос не «что умеет», а «где попробовать бесплатно и почему нельзя скачать» - это в отдельной статье [Seedance 2.5 бесплатно](/blog/seedance-besplatno/).' },
 
@@ -2416,7 +2424,9 @@ export const BLOG_POSTS = [
       'Пошаговая инструкция, как создать своего AI-аватара в HeyGen: от записи видео до готового цифрового двойника, который говорит на 175 языках.',
     keywords:
       'как создать ai аватар, heygen аватар, цифровой двойник, ai avatar, говорящий аватар, heygen на русском, создать аватара нейросеть, digital twin video',
-    cover: '/blog-images/cover-heygen.jpg',
+    cover: '/blog-images/heygen-creator-ring-light.jpg',
+    coverPrompt: 'candid behind-the-scenes photo: a bearded man in a mustard knit sweater records a talking-head video at his kitchen table at night, an iPhone on a small tripod in the foreground, a ring light on his face, he gestures mid-sentence and laughs',
+    coverCaption: 'С такой записи всё и начинается: пара минут перед телефоном на кухне. Дальше HeyGen делает из неё аватар, который говорит любой текст на любом языке.',
     date: '2026-05-29',
     dateModified: '2026-09-02',
     readingTime: '13 мин',
@@ -2425,7 +2435,6 @@ export const BLOG_POSTS = [
       'Создаём цифрового двойника в HeyGen с нуля: запись, обучение, озвучка, перевод на 175 языков. Реальные цены, лимиты и лайфхаки - всё за пальцы.',
     content: [
       { type: 'p', text: 'Представьте: вы записываете себя на камеру один раз, на пару минут - а дальше ваш «двойник» снимает за вас сотни роликов на любом языке, никогда не устаёт и не требует второго дубля. Это не фантастика, а рядовая задача 2026 года. Технология называется **AI-аватар** (или **цифровой двойник**, digital twin), и самый популярный сервис для этого - **HeyGen**. В этом гайде разберём всё за пальцы: как создать аватара, сколько это стоит, где подводные камни и как такие аватары уже используют от блогеров до голливудских студий.' },
-      { type: 'gen', src: '/blog-images/heygen-creator-ring-light.jpg', alt: 'Бородатый мужчина в жёлтом свитере записывает видео на iPhone на штативе за кухонным столом, кольцевая лампа, смеётся и жестикулирует', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'candid behind-the-scenes photo: a bearded man in a mustard knit sweater records a talking-head video at his kitchen table at night, an iPhone on a small tripod in the foreground, a ring light on his face, he gestures mid-sentence and laughs', caption: 'С такой записи всё и начинается: пара минут перед телефоном на кухне. Дальше HeyGen делает из неё аватар, который говорит любой текст на любом языке.' },
 
       { type: 'h2', text: 'Что такое AI-аватар и зачем он нужен' },
       { type: 'p', text: 'AI-аватар - это цифровая копия человека, которая может произнести любой текст вашим голосом и с вашей мимикой. Вы пишете сценарий - аватар его «проговаривает» на видео, синхронно двигая губами. Не нужно ставить свет, гримироваться, переписывать дубли и арендовать студию.' },

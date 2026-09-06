@@ -11,6 +11,8 @@ const PART_7 = [
     keywords:
       'ai video generator for beginners, how to start making ai video, first ai video, ai video where to start, beginner ai video tutorial, kling for beginners, image to video for beginners',
     cover: '/blog-images/video-novichku-shibuya.jpg',
+    coverPrompt: 'editorial street portrait: a young woman in an oversized silver puffer jacket stands in the middle of Shibuya crossing at night, filming herself on an iPhone, neon signs and taxi headlights reflected in the wet asphalt',
+    coverCaption: 'A good anchor frame for a first clip: one person, a simple action, the city behind. Upload it to Image to Video and ask for “she lowers the phone and looks at the camera”.',
     coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-05',
     dateModified: '2026-09-05',
@@ -35,7 +37,6 @@ const PART_7 = [
       { type: 'p', text: 'The three exercises will eat several days of credits, and that is fine: do one per evening. Before you start, put a notebook next to you. You will write down each prompt and what came out of it, because a week from now you will not remember which wording gave you a good frame and which gave you mush.' },
       { type: 'h3', text: 'Exercise 1. Bring a photo to life' },
       { type: 'p', text: 'Open the Image to Video tab and upload an ordinary photo: a cup on a table, a window with a curtain, a person just sitting there. Not a landscape and not a crowd. Prompt in English, one action, static camera: ’steam rises from the cup, static camera’. Standard mode, 5 seconds. Hit generate and wait. While you wait, notice the waiting itself: on the free tier the queue can stretch into tens of minutes, and this is your first encounter with the fact that video generation is a process, not a button.' },
-      { type: 'gen', src: '/blog-images/video-novichku-shibuya.jpg', alt: 'A young woman in a silver puffer jacket filming herself on an iPhone in the middle of Shibuya crossing at night, wet asphalt, neon and taxis', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'editorial street portrait: a young woman in an oversized silver puffer jacket stands in the middle of Shibuya crossing at night, filming herself on an iPhone, neon signs and taxi headlights reflected in the wet asphalt', caption: 'A good anchor frame for a first clip: one person, a simple action, the city behind. Upload it to Image to Video and ask for “she lowers the phone and looks at the camera”.' },
       { type: 'p', text: 'When the clip arrives, watch it on a large screen rather than in the thumbnail. The goal is not ’make it pretty’ but to see what the model did to your photo: what it shifted, what it invented, where the picture ’swam’. This is your first feel for how the network understands motion.' },
       { type: 'h3', text: 'Exercise 2. One frame, three prompts' },
       { type: 'p', text: 'Take the same photo and run two more generations with different wording. One with strong motion: ’she turns her head and laughs’. One with camera motion: ’slow push in, static subject’. You now have three clips from one frame. Put them side by side and compare. Do not judge each on its own: a single generation tells you nothing about whether the model is good or bad, or whether your prompt is. Meaning only appears in comparison.' },
@@ -183,7 +184,9 @@ const PART_7 = [
     title: 'Google Veo from Russia: access, subscription and what to use instead',
     description: 'Does Google Veo work from Russia in 2026, which Google AI plans unlock it, what they cost, is there a free tier and which models replace it.',
     keywords: 'veo 3, google veo, veo access russia, veo subscription, google ai pro, google ai ultra, google flow, veo free, veo alternative, ai video with sound',
-    cover: '/blog-images/cover-veo-dostup.jpg',
+    cover: '/blog-images/veo-kids-bmx-dusk.jpg',
+    coverPrompt: 'three kids on BMX bikes stopped on a suburban street at dusk, looking up at something out of frame, a streetlamp cone in light fog, a station wagon in a driveway, 1980s Spielberg suburbia',
+    coverCaption: 'The kind of scene Veo loves most: a recognisable film era, fog, a single light source and a soundtrack that writes itself - cicadas, a bicycle chain, a distant hum.',
     coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-04',
     dateModified: '2026-09-04',
@@ -192,7 +195,6 @@ const PART_7 = [
     excerpt: 'Veo is usually recommended as the best model for video with synced sound and speech, but from Russia you still have to reach it. Here is which Google products serve the model, what exactly breaks at signup and at payment, what the plans cost, and when another model is simply the saner choice.',
     content: [
       { type: 'p', text: 'People write the same thing about Veo every time: it makes video with sound in one pass, speech lands on the lips, the result looks expensive. All true. But between «looks expensive» and «I pressed a button and got a clip» there is a whole wall for users in Russia: region, account, card, subscription. This article is not about prompting. For prompts and model capabilities we have a separate piece: [the Veo guide](/blog/veo-gayd/). This one is only about access and money.' },
-      { type: 'gen', src: '/blog-images/veo-kids-bmx-dusk.jpg', alt: 'Three kids on BMX bikes stopped on a suburban street at dusk looking up, a streetlamp in fog, a station wagon in a driveway', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'three kids on BMX bikes stopped on a suburban street at dusk, looking up at something out of frame, a streetlamp cone in light fog, a station wagon in a driveway, 1980s Spielberg suburbia', caption: 'The kind of scene Veo loves most: a recognisable film era, fog, a single light source and a soundtrack that writes itself - cicadas, a bicycle chain, a distant hum.' },
       { type: 'p', text: 'The main point up front, so nobody has to dig for it. **Russia is not on the list of supported countries.** So the real question is not «is it possible», it is «how much hassle are you willing to eat for synced sound» and «would another model that opens without any of this be good enough».' },
 
       { type: 'h2', text: 'Where Veo actually lives: four different doors' },
@@ -280,7 +282,9 @@ const PART_7 = [
       'Does Runway open from Russia in 2026, what the 125-credit free plan gives you, how much the paid tiers cost, whether cards work and what to use instead.',
     keywords:
       'runway ai, runway gen, runway ml, runway download, runway reviews, runway video, runway in russia, runway free, runway price, runway payment',
-    cover: '/blog-images/cover-runway-dostup.jpg',
+    cover: '/blog-images/runway-rooftop-run.jpg',
+    coverPrompt: 'modern action-film frame: a woman in a black tactical jacket sprints across a rain-soaked rooftop at dawn and leaps over an air-conditioning unit, wet gravel spraying, city skyline in blue-grey haze, a helicopter searchlight cutting through the mist, low wide angle',
+    coverCaption: 'The kind of frame people go to Runway for: action, spray, a helicopter and one continuous camera run. The anchor frame is still; the model draws the motion afterwards.',
     coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-04',
     dateModified: '2026-09-04',
@@ -290,7 +294,6 @@ const PART_7 = [
       'Runway is still one of the most visible video generators, but the road to it from Russia is not a straight one. Here is what actually opens, how many credits you get for free, what the plans really cost, and why searching for a Runway download is a dead end.',
     content: [
       { type: 'p', text: 'First, let’s clear up the confusion: this is about Runway ML, the American AI video generation service. Not treadmills, not fuel additives, not the fashion TV show. If you need the interface and how to write prompts, that lives in a separate piece: [how to use it is covered in the Runway guide](/blog/runway-gayd/). This article is only about access and money. Status as of September 2026.' },
-      { type: 'gen', src: '/blog-images/runway-rooftop-run.jpg', alt: 'A woman in a black jacket sprinting across a wet rooftop at dawn and leaping over an air-conditioning unit, a helicopter searchlight, city skyline in haze', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'modern action-film frame: a woman in a black tactical jacket sprints across a rain-soaked rooftop at dawn and leaps over an air-conditioning unit, wet gravel spraying, city skyline in blue-grey haze, a helicopter searchlight cutting through the mist, low wide angle', caption: 'The kind of frame people go to Runway for: action, spray, a helicopter and one continuous camera run. The anchor frame is still; the model draws the motion afterwards.' },
 
       { type: 'h2', text: 'Does Runway open from Russia' },
       { type: 'p', text: 'The runway.com site itself usually opens from Russian addresses, and signing up with an email or a Google account goes through. So the barrier is not at the door. It is at the checkout: the payment gateway does not accept cards issued in Russia. That is why the typical story goes like this - someone creates an account, burns the starter credits, and then hits a wall at payment.' },
@@ -739,7 +742,9 @@ const PART_7 = [
       'Does Midjourney have a free plan in 2026, why you cannot download it, whether it opens from Russia, what it costs and which free alternatives are worth it.',
     keywords:
       'midjourney free, midjourney free plan, download midjourney, midjourney in russian, midjourney subscription price, midjourney official site, midjourney from russia, midjourney cost, midjourney alternatives',
-    cover: '/blog-images/cover-midjourney-dostup.jpg',
+    cover: '/blog-images/midjourney-saul-bass-poster.jpg',
+    coverPrompt: 'film-poster composition in the spirit of Saul Bass: a flat cut-paper silhouette of a man in a trench coat descending a spiral staircase, burnt-orange background, printed paper texture, no letters',
+    coverCaption: 'A task from the Midjourney world: flat silhouettes, two colours, paper texture. This frame was made in Seedream 5 Pro, so the poster style is no longer tied to one service.',
     coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
@@ -749,7 +754,6 @@ const PART_7 = [
       'Thousands of people every month search for a free Midjourney and for a way to download it. Both searches have a short, unwelcome answer. Here it is without the sugar coating: there is no free plan, there is nothing to download, and a Russian card will not go through.',
     content: [
       { type: 'p', text: 'This article is not about writing prompts and pressing buttons: how to actually use the tool is covered in a [separate guide](/blog/midjourney-gayd/). This one is about money and access. Three questions people ask search engines most often: what it costs, whether you can use it free, and whether it works from Russia. Status as of September 2026.' },
-      { type: 'gen', src: '/blog-images/midjourney-saul-bass-poster.jpg', alt: 'A poster in the spirit of Saul Bass: a black silhouette of a man in a trench coat on a spiral staircase against an orange paper-textured background', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'film-poster composition in the spirit of Saul Bass: a flat cut-paper silhouette of a man in a trench coat descending a spiral staircase, burnt-orange background, printed paper texture, no letters', caption: 'A task from the Midjourney world: flat silhouettes, two colours, paper texture. This frame was made in Seedream 5 Pro, so the poster style is no longer tied to one service.' },
 
       { type: 'h2', text: 'There is no free plan. None at all' },
       { type: 'p', text: 'Let us start with the important part, because an entire industry of misinformation is built on top of it. **Midjourney has no free plan and no trial period.** To generate even a single image you need a subscription, starting at 10 dollars a month.' },
@@ -1023,7 +1027,9 @@ const PART_7 = [
       'OpenAI shut down Sora: the site and app went offline on 26 April 2026, the API ends 24 September. Why it happened and what to use instead: Seedance, Kling, MiniMax H3.',
     keywords:
       'sora 2, sora shut down, sora discontinued, sora 2 alternatives, openai sora what happened, sora 2 russia, download sora',
-    cover: '/blog-images/cover-sora-2.jpg',
+    cover: '/blog-images/sora-astronaut-kitchen.jpg',
+    coverPrompt: 'an astronaut in a full spacesuit sits at a tiny kitchen table in a cramped Soviet-era apartment, floral wallpaper, a kettle on the stove, a cat on the windowsill, centered symmetrical composition in the spirit of Kubrick',
+    coverCaption: 'The everyday surrealism that made the first Sora clips famous: an absurd premise delivered completely straight. The frame is static, yet every object in the kitchen is begging to move.',
     coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
@@ -1033,7 +1039,6 @@ const PART_7 = [
       'Sora is still the most searched video model in the Russian-speaking web, over a hundred thousand queries a month. Yet the service no longer exists: OpenAI took the site and app offline on 26 April 2026 and switches off the API on 24 September. Here is what happened, what became of your clips, and which models cover the same jobs today.',
     content: [
       { type: 'p', text: 'Sora is the video model from OpenAI, the makers of ChatGPT. The second version came out in autumn 2025 and instantly became the loudest name in video generation: "sora 2", "download sora" and "sora official site" still add up to over a hundred thousand searches a month. The problem is that there is nothing left to find. In spring 2026 OpenAI shut Sora down, and everything offered under that name today is either outdated or has nothing to do with OpenAI.' },
-      { type: 'gen', src: '/blog-images/sora-astronaut-kitchen.jpg', alt: 'An astronaut in a full spacesuit sitting at a tiny kitchen table in a cramped Soviet-era flat, floral wallpaper, a kettle on the stove, cats on the windowsill', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'an astronaut in a full spacesuit sits at a tiny kitchen table in a cramped Soviet-era apartment, floral wallpaper, a kettle on the stove, a cat on the windowsill, centered symmetrical composition in the spirit of Kubrick', caption: 'The everyday surrealism that made the first Sora clips famous: an absurd premise delivered completely straight. The frame is static, yet every object in the kitchen is begging to move.' },
 
       { type: 'h2', text: 'What happened and when' },
       { type: 'ul', items: [
@@ -1175,7 +1180,9 @@ const PART_7 = [
       'Kling AI from Russia in 2026: free credits, Russian interface, what does not open, how to pay without a Russian card and how to save credits.',
     keywords:
       'kling free, kling ai free credits, kling subscription, kling russia, kling how to use, kling ai pay',
-    cover: '/blog-images/cover-kling-rossiya.jpg',
+    cover: '/blog-images/kling-dancer-night-market.jpg',
+    coverPrompt: 'a young street dancer freezes mid-move on wet concrete at a Guangzhou night market, steam from food stalls, red lanterns and neon signs, onlookers with phones out, low angle close to the ground',
+    coverCaption: 'An anchor frame for Kling: one movement and plenty of texture around it. From a start frame like this the model carries the steam, the crowd and the shine on wet concrete.',
     coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
     dateModified: '2026-09-02',
@@ -1185,7 +1192,6 @@ const PART_7 = [
       'Kling is the most popular video model among Russian-speaking users now that Sora is shut down, and unlike Sora it can actually be opened from Russia. The practical side: free credits, language, payment, limits, and where free ends.',
     content: [
       { type: 'p', text: 'What Kling 3.0 can do and how to build a prompt for it is in our [big guide](/blog/kling-gayd/). This one covers only what people ask most, judging by search: "kling free", "kling in Russian", "kling subscription", "buy kling". Short and to the point, as of September 2026.' },
-      { type: 'gen', src: '/blog-images/kling-dancer-night-market.jpg', alt: 'A street dancer frozen mid-move on wet concrete at a Guangzhou night market, red lanterns, steam from food stalls, onlookers filming on phones', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'a young street dancer freezes mid-move on wet concrete at a Guangzhou night market, steam from food stalls, red lanterns and neon signs, onlookers with phones out, low angle close to the ground', caption: 'An anchor frame for Kling: one movement and plenty of texture around it. From a start frame like this the model carries the steam, the crowd and the shine on wet concrete.' },
       { type: 'h2', text: 'Free: 66 credits a day' },
       { type: 'p', text: 'Kling grants free credits daily, 66 a day, roughly one short generation in the basic mode. Credits do not accumulate: unused today, gone tonight. Free clips carry a watermark, wait in a queue and have a length cap. Enough to understand how it works; not enough for work. The key difference from Seedance: it has essentially no free tier, Kling’s is daily. So this is the sensible place to learn video generation: a month of daily trials builds the experience that later saves money on any paid model.' },
       { type: 'h2', text: 'In Russian: no interface, but understanding' },

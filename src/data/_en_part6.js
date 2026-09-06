@@ -9,7 +9,9 @@ const PART_6 = [
       'A breakdown of Seedance 2.5: thirty-second clips and long video up to three minutes, fifty reference images, spot editing of a finished scene, sound and 4K.',
     keywords:
       'seedance 2.5, seedance guide, seedance 2.0 differences, bytedance video model, how to use seedance, seedance long video',
-    cover: '/blog-images/cover-seedance.jpg',
+    cover: '/blog-images/seedance-kpop-backstage.jpg',
+    coverPrompt: 'backstage before a K-pop show: a young idol with lavender hair in front of a mirror framed by warm bulbs, a stylist adjusts his collar, racks of stage costumes behind, candid documentary moment',
+    coverCaption: 'An anchor frame for Seedance: two people, a live gesture and a lot of small motion behind them. Scenes like this show whether a model keeps hands and faces stable in motion.',
     date: '2026-08-30',
     dateModified: '2026-08-30',
     readingTime: '11 min',
@@ -18,7 +20,6 @@ const PART_6 = [
       'In July 2026 Seedance 2.5 replaced 2.0 at no extra cost. The headline change is length: thirty seconds natively and up to three minutes in long mode. What that gives you in practice, and where the model still trips up.',
     content: [
       { type: 'p', text: 'Seedance is a video model from ByteDance, the same people behind TikTok. Version 2.0 arrived in February 2026 and quickly climbed the rankings; in July it was succeeded by 2.5. The switch was quiet: the same subscription, the same rates, the default model simply became the new one.' },
-      { type: 'gen', src: '/blog-images/seedance-kpop-backstage.jpg', alt: 'Backstage at a K-pop show: an idol with lavender hair in front of a bulb-framed mirror while a stylist adjusts his collar, costume racks behind', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'backstage before a K-pop show: a young idol with lavender hair in front of a mirror framed by warm bulbs, a stylist adjusts his collar, racks of stage costumes behind, candid documentary moment', caption: 'An anchor frame for Seedance: two people, a live gesture and a lot of small motion behind them. Scenes like this show whether a model keeps hands and faces stable in motion.' },
       { type: 'p', text: 'Let us look at what actually changed, because the list of new features looks impressive while in practice two items on it do the work.' },
 
       { type: 'h2', text: 'The main change is length' },
@@ -181,7 +182,9 @@ const PART_6 = [
       'A comparison of the two strongest image generators of 2026: Nano Banana Pro from Google and Seedream 5 Pro from ByteDance.',
     keywords:
       'nano banana pro, seedream 5 pro, best ai image model, image generator 2026, nano banana vs seedream, ai model that writes text',
-    cover: '/blog-images/cover-nano-seedream.jpg',
+    cover: '/blog-images/seedream-greyhound-diner.jpg',
+    coverPrompt: 'a greyhound in a tailored mustard tweed coat sits alone in a retro 1970s diner booth, cherry pie and a milkshake on the table, perfectly symmetrical composition, pastel pink and mint interior, deadpan Wes Anderson style',
+    coverCaption: 'A style task rather than a photorealism task: symmetry, pastel, a character instead of a person. Seedream 5 Pro holds the directorial reference all the way through: the colour, the furniture, the blank stare into the lens.',
     date: '2026-08-30',
     dateModified: '2026-08-30',
     readingTime: '11 min',
@@ -191,7 +194,6 @@ const PART_6 = [
     content: [
       { type: 'p', text: 'In 2026 the argument about the best image generator narrowed to two names: Nano Banana Pro from Google, built on the Gemini 3 Pro architecture, and Seedream 5 Pro from ByteDance, released in July. Both solve the same task differently, and the choice depends less on overall quality than on what exactly you are making.' },
       { type: 'p', text: 'We will go through the differences that matter rather than the beauty of the samples on the landing page - samples on landing pages are always beautiful.' },
-      { type: 'gen', src: '/blog-images/seedream-greyhound-diner.jpg', alt: 'A greyhound in a mustard tweed coat sitting in a pastel 1970s diner booth in front of cherry pie and a milkshake, symmetrical frame', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'a greyhound in a tailored mustard tweed coat sits alone in a retro 1970s diner booth, cherry pie and a milkshake on the table, perfectly symmetrical composition, pastel pink and mint interior, deadpan Wes Anderson style', caption: 'A style task rather than a photorealism task: symmetry, pastel, a character instead of a person. Seedream 5 Pro holds the directorial reference all the way through: the colour, the furniture, the blank stare into the lens.' },
 
       { type: 'h2', text: 'Text in frame: the pain of recent years' },
       { type: 'p', text: 'For a long time generators could not write. A sign turned into a set of letter-like shapes, and any layout with text had to be finished by hand.' },
