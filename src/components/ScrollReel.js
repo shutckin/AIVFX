@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocale } from '../i18n';
 import { mediaFor, fetchLocalized } from '../lib/localizedMedia';
+import { isLightDevice } from '../lib/device';
 import './scroll-reel.css';
 
 // ── Полноэкранный ролик, которым управляет прокрутка ─────────────────────
@@ -83,6 +84,10 @@ const ScrollReel = ({
   // прыгает по всему ролику и упирается в неподгруженный конец.
   useEffect(() => {
     if (!loading) return undefined;
+    // На телефоне и при экономии трафика полную версию (около 6 МБ)
+    // не качаем вовсе: лёгкая версия на маленьком экране неотличима,
+    // а докачка полной забирала канал у всего остального на странице
+    if (isLightDevice()) return undefined;
 
     let url = null;
     let cancelled = false;

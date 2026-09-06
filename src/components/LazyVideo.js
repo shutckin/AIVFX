@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { isLightDevice } from '../lib/device';
 
 // ── Превью-ролик, который грузится только когда нужен ──────────────────
 //
@@ -164,10 +165,19 @@ const LazyVideo = ({ src, title, poster, always = false }) => {
   const ref = useRef(null);
   // Пока пусто - тег ничего не грузит
   const [source, setSource] = useState(null);
+  // У каждого превью рядом лежит кадр-постер с тем же именем (.webp).
+  // Он стоит в теге с самого начала: на компьютере закрывает чёрный
+  // прямоугольник, пока ролик едет, на телефоне остаётся вместо ролика.
+  const posterSrc = poster || (src ? src.replace(/\.mp4$/i, '.webp') : undefined);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return undefined;
+
+    // Телефон или экономия трафика: ролики-превью не грузим вовсе.
+    // Полсотни отдельных запросов на медленном канале превращали
+    // страницу в минуты ожидания, а смысл превью держит и один кадр.
+    if (isLightDevice()) return undefined;
 
     // Ролики бегущей ленты живут по своим правилам, см. moving.js ниже
     if (always) {
@@ -205,7 +215,7 @@ const LazyVideo = ({ src, title, poster, always = false }) => {
     <video
       ref={ref}
       src={source || undefined}
-      poster={poster || undefined}
+      poster={posterSrc || undefined}
       muted
       loop
       playsInline
