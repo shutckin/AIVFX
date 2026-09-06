@@ -15,7 +15,7 @@ const GenFrame = ({ block }) => {
     <figure className="gen-frame my-10 -mx-2 sm:mx-0">
       <div className="gen-frame-glow" />
       <div className="gen-frame-head">
-        <span className="gen-frame-kicker">{label} · {model}</span>
+        <span className="gen-frame-kicker">{`${label} · ${model}`}</span>
         <span className="gen-frame-meta">{meta}</span>
       </div>
       <div className="gen-frame-shot">
