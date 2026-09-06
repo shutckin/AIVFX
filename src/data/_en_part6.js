@@ -18,6 +18,7 @@ const PART_6 = [
       'In July 2026 Seedance 2.5 replaced 2.0 at no extra cost. The headline change is length: thirty seconds natively and up to three minutes in long mode. What that gives you in practice, and where the model still trips up.',
     content: [
       { type: 'p', text: 'Seedance is a video model from ByteDance, the same people behind TikTok. Version 2.0 arrived in February 2026 and quickly climbed the rankings; in July it was succeeded by 2.5. The switch was quiet: the same subscription, the same rates, the default model simply became the new one.' },
+      { type: 'gen', src: '/blog-images/seedance-kpop-backstage.jpg', alt: 'Backstage at a K-pop show: an idol with lavender hair in front of a bulb-framed mirror while a stylist adjusts his collar, costume racks behind', model: 'Seedream 5 Pro', meta: '2K · 16:9', prompt: 'backstage before a K-pop show: a young idol with lavender hair in front of a mirror framed by warm bulbs, a stylist adjusts his collar, racks of stage costumes behind, candid documentary moment', caption: 'An anchor frame for Seedance: two people, a live gesture and a lot of small motion behind them. Scenes like this show whether a model keeps hands and faces stable in motion.' },
       { type: 'p', text: 'Let us look at what actually changed, because the list of new features looks impressive while in practice two items on it do the work.' },
 
       { type: 'h2', text: 'The main change is length' },
