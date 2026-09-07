@@ -497,7 +497,10 @@ export const SERVICE_PAGES = {
   },
 
   'ai-sales-automation': {
-    alsoSee: ['ai-dlya-klinik', 'ai-dlya-avtoservisa', 'ai-dlya-nedvizhimosti', 'obuchenie-ii-dlya-biznesa'],
+    // Ассистенты первыми: это соседняя услуга по той же задаче, и ссылка
+    // работает в обе стороны. Обучение убрано: страница только русская,
+    // на английской версии ссылка вела бы на редирект.
+    alsoSee: ['ai-assistants', 'ai-dlya-klinik', 'ai-dlya-avtoservisa', 'ai-dlya-nedvizhimosti'],
     // Статьи блога по теме услуги. Список ручной: подбор по совпадению
     // слов дал бы соседство, а не пользу читателю.
     readMore: ['pochemu-teryayutsya-zayavki', 'ai-kvalifikaciya-lidov', 'skolko-stoit-ai-assistent'],
@@ -539,7 +542,7 @@ export const SERVICE_PAGES = {
     },
   },
   'ai-assistants': {
-    alsoSee: ['ai-dlya-klinik', 'ai-dlya-nedvizhimosti', 'ai-dlya-avtoservisa', 'obuchenie-ii-dlya-biznesa'],
+    alsoSee: ['ai-sales-automation', 'ai-dlya-klinik', 'ai-dlya-nedvizhimosti', 'ai-dlya-avtoservisa'],
     // Статьи блога по теме услуги. Список ручной: подбор по совпадению
     // слов дал бы соседство, а не пользу читателю.
     readMore: ['chat-bot-ili-ai-assistent', 'skolko-stoit-ai-assistent', 'ai-assistent-i-crm'],

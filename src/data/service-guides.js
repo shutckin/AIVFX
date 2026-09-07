@@ -533,6 +533,73 @@ export const SERVICE_GUIDES = {
         ],
       },
       {
+        id: 'put-zayavki',
+        h: { ru: 'Путь одной заявки', en: 'The journey of a single lead' },
+        blocks: [
+          {
+            type: 'p',
+            text: {
+              ru: 'Проще всего понять систему, если пройти вместе с одним обращением от первого сообщения до сделки в работе. Ниже шесть шагов, между которыми человек не участвует до тех пор, пока его не позовут.',
+              en: 'The easiest way to understand the system is to follow a single inquiry from the first message to a deal in progress. Below are six steps, and no human is involved until one is called in.',
+            },
+          },
+          {
+            type: 'steps',
+            items: [
+              { ru: 'Клиент пишет. Форма на сайте, бот в Telegram, WhatsApp. Любое время суток, любой день недели.', en: 'The customer writes. A form on the site, a Telegram bot, WhatsApp. Any hour, any day of the week.' },
+              { ru: 'Сделка создаётся сама. Контакт и сделка появляются в воронке сразу, до того как кто-то из людей открыл почту. Заявка не может потеряться в чужой переписке или в отпуске.', en: 'The deal creates itself. Contact and deal appear in the pipeline immediately, before anyone has opened their inbox. The lead cannot get lost in somebody else\'s chat or vacation.' },
+              { ru: 'Ассистент отвечает и выясняет. Первым в чат выходит ассистент: отвечает по вашей базе знаний, задаёт два-три вопроса по делу и фиксирует, что понял.', en: 'The assistant replies and clarifies. It goes first: answers from your knowledge base, asks two or three questions that matter and records what it understood.' },
+              { ru: 'Зовёт менеджера. Когда задача ясна или клиент просит человека, ассистент передаёт разговор и ставит задачу с выжимкой.', en: 'It calls the manager. Once the task is clear or the customer asks for a human, the assistant hands the conversation over and creates a task with a summary.' },
+              { ru: 'Менеджер продолжает. Открывает сделку, видит переписку и сводку, отвечает клиенту из CRM в тот же чат. Клиент этого перехода не замечает.', en: 'The manager continues. They open the deal, see the conversation and the summary, and reply from the CRM into the same chat. The customer does not notice the switch.' },
+              { ru: 'Ничего не повисает. Если сделка стоит сутки без движения, робот напоминает. В воронке видно, сколько заявок пришло и где они встали.', en: 'Nothing hangs. If a deal sits for a day without movement, a robot sends a reminder. The pipeline shows how many leads arrived and where they stalled.' },
+            ],
+          },
+          {
+            type: 'note',
+            text: {
+              ru: 'Клиент всё это время остаётся в своём мессенджере. Он не ставит приложений и не переходит по ссылкам, для него это обычная переписка с компанией.',
+              en: 'Throughout all of this the customer stays in their own messenger. No apps to install, no links to follow: for them it is an ordinary conversation with the company.',
+            },
+          },
+        ],
+      },
+      {
+        id: 'chto-vidit-menedzher',
+        h: { ru: 'Что видит менеджер', en: 'What the manager sees' },
+        blocks: [
+          {
+            type: 'p',
+            text: {
+              ru: 'Менеджеру не нужно читать всю переписку, чтобы понять, о чём речь. К моменту, когда его зовут, в карточке сделки уже собрано главное.',
+              en: 'The manager does not need to read the whole thread to understand the case. By the time they are called in, the deal card already holds the essentials.',
+            },
+          },
+          {
+            type: 'list',
+            items: [
+              { ru: 'Контакт клиента и канал, из которого он пришёл', en: 'The customer contact and the channel they came from' },
+              { ru: 'Задача его словами, как он сам её описал', en: 'The task in their own words, the way they described it' },
+              { ru: 'Вся переписка с ассистентом и отметки, что происходило и когда', en: 'The full assistant conversation and a log of what happened and when' },
+              { ru: 'Задача связаться с клиентом, с напоминанием, если её не двигают', en: 'A task to contact the customer, with a reminder if it does not move' },
+            ],
+          },
+          {
+            type: 'p',
+            text: {
+              ru: 'Ответ менеджер пишет прямо из CRM, и он приходит клиенту туда же, где тот начал разговор. Отдельного окна мессенджера и переписки в личном телефоне не остаётся, поэтому история сделки не теряется вместе с сотрудником.',
+              en: 'The manager replies straight from the CRM and it lands where the customer started the conversation. No separate messenger window, no chats on a personal phone, so the deal history does not walk out with the employee.',
+            },
+          },
+          {
+            type: 'note',
+            text: {
+              ru: 'Границы ассистента задаются заранее и не двигаются сами: он не называет цены, не выдумывает опыт и кейсы, а на прямой вопрос отвечает, что он ассистент, и что живой человек рядом.',
+              en: 'The assistant boundaries are set in advance and do not drift: it never quotes prices, never invents experience or cases, and when asked directly it says it is an assistant and that a human is nearby.',
+            },
+          },
+        ],
+      },
+      {
         id: 'vnedrenie',
         h: { ru: 'Как проходит внедрение', en: 'How deployment works' },
         blocks: [
@@ -833,6 +900,26 @@ export const SERVICE_GUIDES = {
             text: {
               ru: 'Ассистент - не коробка, которую поставили и забыли. У компании меняются цены, услуги и правила, и база знаний должна меняться вместе с ними. Мы передаём заказчику простой способ обновлять её без разработчика и раз в месяц смотрим статистику: какие вопросы приходят чаще всего, где ассистент передаёт человеку, что стоит добавить.',
               en: 'An assistant is not a box you install and forget. Prices, services and rules change, and the knowledge base has to change with them. We hand over a simple way to update it without a developer and review the stats monthly: which questions come up most, where the assistant hands off, what is worth adding.',
+            },
+          },
+        ],
+      },
+      {
+        id: 'zayavki',
+        h: { ru: 'Ассистент на входящих заявках', en: 'The assistant on incoming leads' },
+        blocks: [
+          {
+            type: 'p',
+            text: {
+              ru: 'Самый частый сценарий, с которого начинают: ассистент встречает обращения с сайта и из мессенджеров, отвечает первым и передаёт разговор менеджеру внутри CRM. Заявка становится сделкой автоматически, а человек подключается уже с готовым контекстом.',
+              en: 'The most common starting scenario: the assistant meets inquiries from the site and messengers, answers first and hands the conversation to a manager inside the CRM. The lead becomes a deal automatically and the human joins with the context already prepared.',
+            },
+          },
+          {
+            type: 'p',
+            text: {
+              ru: 'Путь заявки по шагам, вид со стороны менеджера и порядок внедрения разобраны отдельно, в услуге про заявки и продажи. Там же метрики, по которым видно результат, и от чего зависит смета.',
+              en: 'The step by step journey of a lead, the manager side of the screen and the rollout order are covered separately, in the leads and sales service. It also covers the metrics that show the result and what the estimate depends on.',
             },
           },
         ],
