@@ -71,6 +71,22 @@
     display: flex; flex-direction: column; gap: 10px; min-height: 100%; position: relative;
   }
   .step-n { font-size: 12px; letter-spacing: 0.16em; color: var(--kicker); font-weight: 500; }
+  .ico {
+    width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+    background: var(--accent-soft); border: 1px solid rgba(61,110,247,0.35); color: var(--kicker); margin-bottom: 2px;
+  }
+  .ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .step.hot .ico { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .step.human .ico { background: var(--amber-soft); border-color: rgba(217,164,65,0.45); color: var(--amber); }
+  /* стрелка между шагами */
+  .step:not(:last-child)::after {
+    content: ""; position: absolute; top: 34px; right: -13px; width: 14px; height: 14px; z-index: 1;
+    background: var(--ground); border-right: 1.5px solid var(--line-strong); border-top: 1.5px solid var(--line-strong);
+    transform: rotate(45deg); border-radius: 0 2px 0 0;
+  }
+  @media (max-width: 860px) {
+    .step:not(:last-child)::after { top: auto; right: auto; bottom: -13px; left: 30px; transform: rotate(135deg); }
+  }
   .step h3 { font-size: 17px; }
   .step p { font-size: 14px; color: var(--muted); }
   .step.hot { border-color: rgba(61,110,247,0.55); box-shadow: 0 0 0 1px rgba(61,110,247,0.25), 0 24px 48px -32px rgba(61,110,247,0.7); }
@@ -169,26 +185,31 @@
     <h2 style="margin-top:12px">Путь одной заявки</h2>
     <div class="flow">
       <div class="step">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V16A2.5 2.5 0 0 1 4 13.5z"/><path d="M8 9h8M8 12.5h5"/></svg></div>
         <span class="step-n">1 · Вход</span>
         <h3>Клиент пишет</h3>
         <p>Форма на сайте, бот в Telegram, WhatsApp. Любое время суток, любой день.</p>
       </div>
       <div class="step">
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="5" height="16" rx="1.2"/><rect x="9.5" y="4" width="5" height="11" rx="1.2"/><rect x="16" y="4" width="5" height="7" rx="1.2"/></svg></div>
         <span class="step-n">2 · CRM</span>
         <h3>Сделка создаётся сама</h3>
         <p>Контакт и сделка появляются в воронке ещё до того, как кто-то из людей открыл глаза. Ничего не теряется.</p>
       </div>
       <div class="step hot">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z"/><path d="M5 16l.8 2.2L8 19l-2.2.8L5 22l-.8-2.2L2 19l2.2-.8z"/><path d="M18.5 15l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6z"/></svg></div>
         <span class="step-n">3 · Ассистент</span>
         <h3>Отвечает и выясняет</h3>
         <p>Первым в чат выходит ассистент: отвечает по вашей базе знаний, задаёт два-три вопроса по делу, фиксирует, что понял.</p>
       </div>
       <div class="step">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 12h13"/><path d="M13 7l5 5-5 5"/><circle cx="20.5" cy="12" r="1.2"/></svg></div>
         <span class="step-n">4 · Передача</span>
         <h3>Зовёт менеджера</h3>
         <p>Когда задача ясна или клиент просит человека, ассистент передаёт разговор и ставит задачу с выжимкой.</p>
       </div>
-      <div class="step">
+      <div class="step human">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg></div>
         <span class="step-n">5 · Человек</span>
         <h3>Менеджер продолжает</h3>
         <p>Открывает сделку, видит переписку и сводку, отвечает клиенту из CRM в тот же чат. Робот напомнит, если сделка застоялась.</p>
