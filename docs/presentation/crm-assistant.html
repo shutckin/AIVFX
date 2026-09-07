@@ -65,7 +65,7 @@
   .facts b { color: var(--text); font-weight: 600; }
 
   /* Схема */
-  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 28px; }
+  .flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
   .step {
     background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px;
     display: grid; grid-template-columns: 40px 1fr; column-gap: 12px; row-gap: 10px;
@@ -82,14 +82,18 @@
   .step.hot .ico { background: var(--accent); border-color: var(--accent); color: #fff; }
   .step.human .ico { background: var(--amber-soft); border-color: rgba(217,164,65,0.45); color: var(--amber); }
   .step.human .step-n { color: var(--amber); }
-  /* стрелка между шагами */
-  .step:not(:last-child)::after {
+  /* стрелка между шагами, только внутри ряда */
+  .step:nth-child(3n)::after, .step:last-child::after { content: none; }
+  .step::after {
     content: ""; position: absolute; top: 30px; right: -13px; width: 14px; height: 14px; z-index: 1;
     background: var(--ground); border-right: 1.5px solid var(--line-strong); border-top: 1.5px solid var(--line-strong);
     transform: rotate(45deg); border-radius: 0 2px 0 0;
   }
   @media (max-width: 860px) {
-    .step:not(:last-child)::after { top: auto; right: auto; bottom: -13px; left: 28px; transform: rotate(135deg); }
+    .flow { grid-template-columns: 1fr; }
+    .step::after { top: auto; right: auto; bottom: -14px; left: 28px; transform: rotate(135deg); }
+    .step:nth-child(3n)::after { content: ""; }
+    .step:last-child::after { content: none; }
   }
   .step h3 { font-size: 17px; }
   .step p { font-size: 14px; color: var(--muted); }
@@ -217,13 +221,14 @@
 
     /* Печать иногда считает страницу узкой и включает мобильную вёрстку.
        Здесь колонки заданы жёстко, чтобы схема не падала в столбик. */
-    .flow { grid-template-columns: repeat(5, 1fr) !important; }
+    .flow { grid-template-columns: repeat(3, 1fr) !important; }
     .split, .rules, .need { grid-template-columns: 1fr 1fr !important; }
     .stages { grid-template-columns: repeat(3, 1fr) !important; }
-    .step:not(:last-child)::after {
-      top: 30px !important; right: -13px !important; bottom: auto !important; left: auto !important;
+    .step::after {
+      top: 30px !important; right: -14px !important; bottom: auto !important; left: auto !important;
       transform: rotate(45deg) !important;
     }
+    .step:nth-child(3n)::after, .step:last-child::after { content: none !important; }
 
     .step, .pane, .stage, .rule, .honest, .deal, footer, .cta-row { break-inside: avoid; }
   }
@@ -292,7 +297,15 @@
         <div class="step-head"><span class="step-n">5 · Человек</span></div>
         <div class="step-body">
           <h3>Менеджер продолжает</h3>
-          <p>Открывает сделку, видит переписку и сводку, отвечает клиенту из CRM в тот же чат. Робот напомнит, если сделка застоялась.</p>
+          <p>Открывает сделку, видит переписку и сводку, отвечает клиенту из CRM в тот же чат. Клиент этого перехода не замечает.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M18 8.5a6 6 0 0 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5z"/><path d="M13.7 19a2 2 0 0 1-3.4 0"/></svg></div>
+        <div class="step-head"><span class="step-n">6 · Контроль</span></div>
+        <div class="step-body">
+          <h3>Ничего не повисает</h3>
+          <p>Если сделка стоит сутки без движения, робот напоминает. В воронке видно, сколько заявок пришло и где они встали.</p>
         </div>
       </div>
     </div>
