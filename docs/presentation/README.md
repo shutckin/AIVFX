@@ -13,10 +13,14 @@
 const puppeteer = require('puppeteer'); const dir = process.argv[2];
 (async () => {
   const b = await puppeteer.launch({ headless: 'new' }); const p = await b.newPage();
+  // Ширину окна задать обязательно: иначе печать идёт в узком окне,
+  // срабатывает мобильная вёрстка и схема падает в один столбец.
+  await p.setViewport({ width: 1123, height: 794, deviceScaleFactor: 2 });
   await p.goto('file://' + process.cwd() + '/' + dir + '/crm-assistant.html', { waitUntil: 'networkidle0' });
   await p.emulateMediaType('print');
-  await p.pdf({ path: dir + '/AIVFX-ассистент-в-CRM.pdf', format: 'A4', landscape: true, printBackground: true,
-    margin: { top: '12mm', right: '14mm', bottom: '12mm', left: '14mm' } });
+  // Формат листа здесь, а не через @page size: с preferCSSPageSize Chrome
+  // считает страницу книжной. Поля нулевые, отступы держит сам слайд.
+  await p.pdf({ path: dir + '/AIVFX-ассистент-в-CRM.pdf', format: 'A4', landscape: true, printBackground: true });
   await b.close();
 })();
 ```

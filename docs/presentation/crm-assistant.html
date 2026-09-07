@@ -115,7 +115,9 @@
   .pill { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 500; }
   .pill.new { background: var(--accent-soft); color: var(--kicker); }
   .pill.task { background: var(--amber-soft); color: var(--amber); }
-  .deal-actions { display: flex; gap: 8px; margin-top: 4px; }
+  .deal-log { display: flex; flex-direction: column; gap: 5px; padding: 12px 0 2px; border-top: 1px solid var(--line); margin-top: 4px; }
+  .deal-log span { font-size: 12.5px; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .deal-actions { display: flex; gap: 8px; margin-top: 8px; }
   .btn { font: inherit; font-size: 13px; font-weight: 500; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line-strong); background: transparent; color: var(--text); }
   .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
   .pane-foot { padding: 12px 18px 16px; font-size: 13px; color: var(--dim); border-top: 1px solid var(--line); }
@@ -161,21 +163,69 @@
     @keyframes glow { 50% { box-shadow: 0 0 0 1px rgba(61,110,247,0.45), 0 24px 60px -28px rgba(61,110,247,0.9); } }
   }
 
-  /* Печать и PDF: каждый раздел с новой страницы, карточки не рвутся */
+  /* Печать и PDF: каждый раздел это слайд во всю страницу А4 поперёк.
+     Поля страницы убраны, отступы держит сам слайд, поэтому фон с сеткой
+     идёт до краёв листа, без рамки и шва. */
   @media print {
-    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 15px; }
-    .wrap { max-width: none; padding: 0 6px; }
-    section { break-before: page; border-top: 0; padding: 18px 0 0; }
+    @page { margin: 0; }
+    /* Фон с сеткой переносим на html: body уже её сам не растянет на весь
+       лист, и по краю страницы был виден шов */
+    html {
+      background:
+        linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px),
+        var(--ground);
+      background-size: 56px 56px, 56px 56px, auto;
+    }
+    body {
+      position: relative; background: transparent; font-size: 16px;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    .wrap { max-width: none; width: 100%; padding: 0; }
+
+    /* Шапка живёт поверх первого слайда, а не отдельной строкой */
+    .brand { position: absolute; top: 13mm; left: 18mm; right: 18mm; padding: 0; z-index: 2; }
+
+    section {
+      break-before: page; border-top: 0;
+      min-height: 210mm; padding: 0 18mm;
+      display: flex; align-items: center;
+    }
     section:first-of-type { break-before: auto; }
-    .hero { padding: 8px 0 0; }
-    .hero h1 { font-size: 40px; }
-    .lead { font-size: 18px; max-width: 46ch; }
-    .brand { padding: 0 0 10px; }
-    .step, .pane, .stage, .rule, .honest, .deal, footer { break-inside: avoid; }
-    .flow { gap: 10px; }
-    .step p { font-size: 13px; }
-    .cta { padding-bottom: 0; }
-    .btn { border-color: var(--line-strong); }
+    .hero { padding: 0 18mm; overflow: visible; }
+    .hero h1 { font-size: 46px; margin: 16px 0 22px; }
+    .lead { font-size: 21px; max-width: 44ch; }
+    .facts { margin-top: 34px; font-size: 15px; gap: 12px 34px; }
+
+    h2 { font-size: 34px; }
+    .flow { margin-top: 34px; gap: 11px; }
+    .step h3 { font-size: 16px; }
+    .step p { font-size: 13.5px; }
+    .flow-note { margin-top: 22px; font-size: 14px; }
+    .split { margin-top: 34px; gap: 22px; }
+    .rules { margin-top: 34px; gap: 20px 40px; }
+    .rule { font-size: 16px; }
+    .rule span { font-size: 14.5px; }
+    .stages { margin-top: 30px; }
+    .need { margin-top: 22px; }
+    .honest { margin-top: 26px; }
+
+    /* Последний слайд делит страницу с подписью внизу */
+    .cta { min-height: 188mm; padding-bottom: 0; }
+    .cta h2 { font-size: 40px; }
+    footer { padding: 0 18mm 14mm; border-top: 0; }
+
+    /* Печать иногда считает страницу узкой и включает мобильную вёрстку.
+       Здесь колонки заданы жёстко, чтобы схема не падала в столбик. */
+    .flow { grid-template-columns: repeat(5, 1fr) !important; }
+    .split, .rules, .need { grid-template-columns: 1fr 1fr !important; }
+    .stages { grid-template-columns: repeat(3, 1fr) !important; }
+    .step:not(:last-child)::after {
+      top: 30px !important; right: -13px !important; bottom: auto !important; left: auto !important;
+      transform: rotate(45deg) !important;
+    }
+
+    .step, .pane, .stage, .rule, .honest, .deal, footer, .cta-row { break-inside: avoid; }
   }
 </style>
 
@@ -275,7 +325,14 @@
             <div class="deal-row"><span>Контакт</span><span>Артём, +7 999 ···, @username</span></div>
             <div class="deal-row"><span>Задача</span><span>Reels для кофейни, цель: атмосфера и новые гости. Есть фото и референсы.</span></div>
             <div class="deal-row"><span>Источник</span><span>Telegram-бот</span></div>
+            <div class="deal-row"><span>Ответственный</span><span>Артем</span></div>
+            <div class="deal-row"><span>Создана</span><span>вчера, 21:48 · без участия человека</span></div>
             <div class="deal-row"><span>Дело</span><span><span class="pill task">Связаться с клиентом</span></span></div>
+            <div class="deal-log">
+              <span>21:48 · сделка создана из чата</span>
+              <span>21:48 · задача поставлена менеджеру</span>
+              <span>21:52 · ассистент передал разговор</span>
+            </div>
             <div class="deal-actions"><button class="btn primary" type="button">Присоединиться к чату</button><button class="btn" type="button">Открыть переписку</button></div>
           </div>
         </div>
