@@ -126,6 +126,34 @@
   .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
   .pane-foot { padding: 12px 18px 16px; font-size: 13px; color: var(--dim); border-top: 1px solid var(--line); }
 
+  /* Выжимка ассистента внутри карточки: в живой CRM это комментарий к сделке */
+  .note-block {
+    background: var(--surface-2); border: 1px solid var(--line); border-left: 2px solid var(--accent);
+    border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 5px;
+  }
+  .note-head { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--kicker); }
+  .note-line { display: grid; grid-template-columns: 112px 1fr; gap: 8px; font-size: 13.5px; }
+  .note-line span:first-child { color: var(--dim); }
+  .note-foot { font-size: 12.5px; color: var(--dim); margin-top: 3px; }
+  .good { color: #6fcf97; font-weight: 600; }
+
+  /* Уведомление менеджеру: та же выжимка приходит в мессенджер */
+  .notify { display: grid; grid-template-columns: 300px 1fr; gap: 24px; align-items: center; margin-top: 22px; }
+  .notify-card {
+    background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px;
+    padding: 15px 17px; display: flex; flex-direction: column; gap: 6px;
+    box-shadow: 0 22px 44px -30px rgba(0,0,0,0.9);
+  }
+  .notify-app { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+  .notify-card b { font-size: 15px; }
+  .notify-line { display: grid; grid-template-columns: 104px 1fr; gap: 8px; font-size: 13.5px; }
+  .notify-line span:first-child { color: var(--dim); }
+  .notify-link { font-size: 13.5px; color: var(--kicker); margin-top: 4px; }
+  .notify-text h3 { margin-bottom: 8px; }
+  .notify-text p { font-size: 15px; color: var(--muted); max-width: 52ch; }
+  .stages.tl { margin-top: 30px; }
+  @media (max-width: 860px) { .notify { grid-template-columns: 1fr; } }
+
   /* Списки */
   .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 32px; margin-top: 24px; }
   .rule { display: grid; grid-template-columns: 26px 1fr; gap: 10px; font-size: 15px; }
@@ -223,6 +251,12 @@
        Здесь колонки заданы жёстко, чтобы схема не падала в столбик. */
     .flow { grid-template-columns: repeat(3, 1fr) !important; }
     .split, .rules, .need { grid-template-columns: 1fr 1fr !important; }
+    .notify { grid-template-columns: 340px 1fr !important; margin-top: 36px; gap: 30px; }
+    .notify-card { padding: 18px 20px; }
+    .notify-card b { font-size: 16px; }
+    .notify-line, .notify-link { font-size: 14.5px; }
+    .notify-text p { font-size: 16px; }
+    .stages.tl { margin-top: 40px; }
     .stages { grid-template-columns: repeat(3, 1fr) !important; }
     .step::after {
       top: 30px !important; right: -14px !important; bottom: auto !important; left: auto !important;
@@ -230,7 +264,7 @@
     }
     .step:nth-child(3n)::after, .step:last-child::after { content: none !important; }
 
-    .step, .pane, .stage, .rule, .honest, .deal, footer, .cta-row { break-inside: avoid; }
+    .step, .pane, .stage, .rule, .honest, .deal, .notify, footer, .cta-row { break-inside: avoid; }
   }
 </style>
 
@@ -245,7 +279,7 @@
   <div class="wrap">
     <span class="kicker">Автоматизация заявок</span>
     <h1>Клиент пишет вечером. Ему отвечают сразу, а утром у вас готовая сделка.</h1>
-    <p class="lead">AI-ассистент принимает обращения с сайта и из мессенджеров, отвечает первым, выясняет задачу и передаёт разговор менеджеру внутри CRM.</p>
+    <p class="lead">AI-ассистент принимает обращения с сайта и из мессенджеров, отвечает первым, выясняет задачу, заполняет карточку сделки и передаёт разговор менеджеру внутри CRM.</p>
     <div class="facts">
       <span><b>Битрикс24</b> или amoCRM</span>
       <span><b>Telegram</b>, WhatsApp, форма на сайте</span>
@@ -289,7 +323,7 @@
         <div class="step-head"><span class="step-n">4 · Передача</span></div>
         <div class="step-body">
           <h3>Зовёт менеджера</h3>
-          <p>Когда задача ясна или клиент просит человека, ассистент передаёт разговор и ставит задачу с выжимкой.</p>
+          <p>Когда задача ясна или клиент просит человека, ассистент передаёт разговор, ставит задачу и шлёт менеджеру выжимку в мессенджер.</p>
         </div>
       </div>
       <div class="step human">
@@ -297,7 +331,7 @@
         <div class="step-head"><span class="step-n">5 · Человек</span></div>
         <div class="step-body">
           <h3>Менеджер продолжает</h3>
-          <p>Открывает сделку, видит переписку и сводку, отвечает клиенту из CRM в тот же чат. Клиент этого перехода не замечает.</p>
+          <p>Открывает сделку по ссылке из уведомления, видит переписку и разобранную заявку, отвечает клиенту в тот же чат. Клиент перехода не замечает.</p>
         </div>
       </div>
       <div class="step">
@@ -334,23 +368,49 @@
         <div class="pane-body">
           <div class="deal">
             <div class="deal-title">Ролик для кофейни · Telegram</div>
-            <div class="deal-row"><span>Стадия</span><span><span class="pill new">Новая заявка</span></span></div>
+            <div class="deal-row"><span>Стадия</span><span><span class="pill new">Новая заявка</span> <span class="pill task">Связаться с клиентом</span></span></div>
             <div class="deal-row"><span>Контакт</span><span>Артём, +7 999 ···, @username</span></div>
-            <div class="deal-row"><span>Задача</span><span>Reels для кофейни, цель: атмосфера и новые гости. Есть фото и референсы.</span></div>
-            <div class="deal-row"><span>Источник</span><span>Telegram-бот</span></div>
-            <div class="deal-row"><span>Ответственный</span><span>Артем</span></div>
             <div class="deal-row"><span>Создана</span><span>вчера, 21:48 · без участия человека</span></div>
-            <div class="deal-row"><span>Дело</span><span><span class="pill task">Связаться с клиентом</span></span></div>
-            <div class="deal-log">
-              <span>21:48 · сделка создана из чата</span>
-              <span>21:48 · задача поставлена менеджеру</span>
-              <span>21:52 · ассистент передал разговор</span>
+            <div class="note-block">
+              <span class="note-head">Выяснил ассистент</span>
+              <div class="note-line"><span>Задача</span><span>ролик для кофейни в Reels</span></div>
+              <div class="note-line"><span>Ниша</span><span>кофейня, одна точка</span></div>
+              <div class="note-line"><span>Откуда заявки</span><span>Instagram и вывеска</span></div>
+              <div class="note-line"><span>Что болит</span><span>снимали на телефон, выглядит слабо</span></div>
+              <div class="note-line"><span>Квалификация</span><span><b class="good">целевой</b></span></div>
+              <span class="note-foot">Разговор передан менеджеру.</span>
             </div>
             <div class="deal-actions"><button class="btn primary" type="button">Присоединиться к чату</button><button class="btn" type="button">Открыть переписку</button></div>
           </div>
         </div>
-        <div class="pane-foot">Менеджер отвечает клиенту прямо из CRM. Если сделка сутки стоит без движения, робот напоминает, а не ждёт, пока о ней вспомнят.</div>
+        <div class="pane-foot">Заголовок и выжимку в карточку пишет ассистент, менеджеру не нужно читать переписку целиком. Если сделка сутки стоит без движения, робот напоминает.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Пока никто не смотрит</span>
+    <h2 style="margin-top:12px">Утром вы читаете выжимку, а не переписку</h2>
+    <div class="notify">
+      <div class="notify-card">
+        <span class="notify-app">Telegram менеджера · 21:52</span>
+        <b>Заявка передана вам</b>
+        <div class="notify-line"><span>Задача</span><span>ролик для кофейни в Reels</span></div>
+        <div class="notify-line"><span>Ниша</span><span>кофейня, одна точка</span></div>
+        <div class="notify-line"><span>Квалификация</span><span><b class="good">целевой</b></span></div>
+        <span class="notify-link">Открыть сделку в CRM →</span>
+      </div>
+      <div class="notify-text">
+        <h3>Менеджера зовут туда, где он и так сидит</h3>
+        <p>Днём человек в мессенджере, а не в воронке. В момент передачи ему приходит выжимка и прямая ссылка на сделку: открыл, прочитал, ответил. Обращения не по адресу ассистент фиксирует в карточке, но менеджера ими не будит.</p>
+      </div>
+    </div>
+    <div class="stages tl">
+      <div class="stage"><span class="when">21:48</span><h3>Сделка в воронке</h3><p>Контакт и сделка созданы из чата, менеджеру поставлена задача. Заявке уже некуда потеряться.</p></div>
+      <div class="stage"><span class="when">21:50</span><h3>Карточка заполнена</h3><p>Заголовок по сути задачи, в комментарии: ниша, объём, что болит, вердикт по квалификации.</p></div>
+      <div class="stage"><span class="when">21:52</span><h3>Вы в курсе</h3><p>Уведомление в мессенджер со ссылкой. Отвечать можно утром, но решение принимаете уже зная, что там.</p></div>
     </div>
   </div>
 </section>
@@ -366,6 +426,8 @@
       <div class="rule no"><i>−</i><div><b>Не выдумывает</b><span>Ни опыта, ни кейсов, ни отзывов. Чего нет в базе, того не существует.</span></div></div>
       <div class="rule yes"><i>+</i><div><b>Передаёт человеку вовремя</b><span>Когда задача понятна, когда клиент просит менеджера, когда вопрос спорный. И всегда говорит об этом клиенту прямо.</span></div></div>
       <div class="rule no"><i>−</i><div><b>Не притворяется человеком</b><span>На прямой вопрос отвечает, что он ассистент, и что живой человек рядом.</span></div></div>
+      <div class="rule yes"><i>+</i><div><b>Помнит разговор</b><span>Клиент вернулся через день или неделю: ассистент продолжает с того же места, а не спрашивает всё заново.</span></div></div>
+      <div class="rule no"><i>−</i><div><b>Не спорит с просьбой позвать человека</b><span>Сказали «соедините с менеджером»: передаёт сразу, что бы ни решил до этого.</span></div></div>
     </div>
   </div>
 </section>
@@ -386,7 +448,7 @@
       <li><b>Материалы для базы знаний:</b> сайт, прайс, частые вопросы, что говорите клиентам голосом.</li>
       <li><b>Один человек</b>, который отвечает за заявки и будет забирать разговоры.</li>
     </ul>
-    <div class="honest"><b>Честно о границах.</b> Ассистент не заменяет менеджера и не закрывает сделки сам. Он отвечает первым, не даёт заявке потеряться и приносит человеку готовый контекст. Первое такое внедрение мы прошли на собственной студии, на этой странице показана именно эта связка.</div>
+    <div class="honest"><b>Честно о границах.</b> Ассистент не заменяет менеджера и не закрывает сделки сам. Он отвечает первым, не даёт заявке потеряться и приносит человеку готовый контекст. На число ответов в час стоит потолок, чтобы публичный чат не превращался в счёт. Первое такое внедрение мы прошли на собственной студии, на этой странице показана именно эта связка.</div>
   </div>
 </section>
 
