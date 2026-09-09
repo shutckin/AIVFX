@@ -3,6 +3,125 @@
 // оплата нейросетей из России. Русские оригиналы - в blog-posts.js.
 const PART_7 = [
   {
+    slug: 'kursy-po-neyrosetyam',
+    category: 'Guides',
+    title: 'AI Courses in 2026: How to Choose One and When You Do Not Need It',
+    description:
+      'What the word «course» actually covers, who is better off learning alone, seven questions to ask before paying and the red flags worth walking away from.',
+    keywords:
+      'ai courses, neural network courses, learn ai video, ai video course, how to choose an ai course, ai training for teams',
+    cover: '/blog-images/kursy-night-kitchen.jpg',
+    coverPrompt: 'a woman in her mid thirties at a kitchen table late at night, laptop glow on her face, handwritten notebook beside the keyboard, one warm lamp, the rest of the apartment dark, learning after work',
+    coverCaption: 'Most people learn this after work at the kitchen table, not on a course that costs a month of salary. Here is when a course is still worth it.',
+    coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
+    date: '2026-09-09',
+    dateModified: '2026-09-09',
+    readingTime: '9 min',
+    related: ['neyroset-dlya-sozdaniya-video-novichku', 'kak-oplatit-neyroset-iz-rossii', 'top-neyrosetey-video'],
+    excerpt:
+      'The word «course» is sold for four different products, and they cost differently not because one is better. Here is how they differ, who learns faster and cheaper alone, the seven questions to ask an author before paying, and the signs that let you close the page without reading.',
+    content: [
+      { type: 'p', text: 'Thousands of people every month search for a course on neural networks, and the market noticed. Good programmes appeared, and so did landing pages assembled over a weekend out of somebody else\'s videos. Telling them apart before you pay is hard: from the outside they look the same.' },
+      { type: 'p', text: 'We run [AI video training](/services/obuchenie-ai-video/) ourselves, so our interest here is not neutral. Which is why we start with the uncomfortable part: most people looking for a course do not need one. Below is an honest way to check that about yourself, and if a course is genuinely needed, how to pick one that is not a reprint of YouTube.' },
+
+      { type: 'h2', text: 'First, who does not need a course' },
+      { type: 'p', text: 'The tools have become simpler than they look from outside. Most services are one text field and a button. The difficulty is not in the buttons but in knowing what to ask for and how to judge the result, and part of that is picked up by practice faster than a course can be finished.' },
+      { type: 'p', text: 'A course is probably unnecessary if at least two of these are true about you:' },
+      { type: 'ul', items: [
+        'The task is a one-off. Animating a few family photos, putting together one birthday clip, trying it out of curiosity. That is an evening with a free guide.',
+        'You have never tried at all. Spend two evenings on any free material first, for instance our [breakdown for beginners](/blog/neyroset-dlya-sozdaniya-video-novichku/): half your questions will disappear and the rest will become specific, and specific questions make choosing a course easy.',
+        'You expect clients to appear after the course. A course gives you a skill, not demand. Work comes from your portfolio and reputation, and that is a separate job most programmes never touch.',
+        'You need one specific answer. «How do I pay for this service», «why do faces melt in my clips» - that is an article or a single review session, not a course.',
+      ] },
+      { type: 'quote', text: 'A good test: if you cannot name what exactly is not working for you, it is too early to buy. Try first and hit something concrete.' },
+
+      { type: 'h2', text: 'Who does get their money back' },
+      { type: 'p', text: 'The other side is equally true: there are situations where learning alone costs more than a course, except you pay in months rather than money.' },
+      { type: 'ul', items: [
+        'There is a deadline and a client. When the result is needed in two weeks rather than eventually, somebody else\'s worked-out order of steps buys you exactly that time.',
+        'You have tried and hit a quality ceiling. The buttons work, the picture looks cheap. That is cured by someone reviewing your work, not by another tool roundup.',
+        'A team is learning. Five people need one shared language, otherwise each of them builds a private workflow.',
+        'You need a process, not a skill. Then what you actually need is implementation, and it is worth saying so out loud.',
+      ] },
+
+      { type: 'image', src: '/blog-images/kursy-evening-class.jpg', alt: 'An evening class for adults in a loft: the teacher reviewing work on a student laptop', caption: 'What you really pay for on a course is not the lectures, it is somebody looking at your work and telling you what is wrong with it', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+
+      { type: 'h2', text: 'One word, four different products' },
+      { type: 'p', text: 'Comparing them on price is meaningless, they are not the same thing. Work out which of the four you need, and only then look at the cost.' },
+      { type: 'h3', text: '1. Recorded lectures' },
+      { type: 'p', text: 'The cheapest format and the one that goes stale fastest. Models update every couple of months and interfaces move, so half the buttons in a recording from last autumn are already called something else. A recording is worth it when it teaches principles (framing, light, prompt structure) and almost worthless when it walks through one service\'s interface.' },
+      { type: 'h3', text: '2. A cohort or a sprint' },
+      { type: 'p', text: 'The same lectures with dates, homework and a shared chat. What you are mostly buying is discipline: deadlines and other people make you finish. If you honestly know you never finish courses, that is a reasonable purchase.' },
+      { type: 'h3', text: '3. Mentoring' },
+      { type: 'p', text: 'The most expensive format and the only one where your own work gets reviewed. That is where the real value of teaching sits: not «here is how it is done» but «here is what is wrong in yours and why». Measure it in hours of personal attention, not hours of video.' },
+      { type: 'h3', text: '4. Team training' },
+      { type: 'p', text: 'Training a team against the company\'s actual tasks: their footage, their brand, their approvals. It differs in that the programme is assembled after a conversation about the process rather than taken off a shelf. If you are offered the same thing as everyone else but pricier, that is not team training.' },
+
+      { type: 'h2', text: 'Seven questions before you pay' },
+      { type: 'p', text: 'All seven fit into one message. Which of them go unanswered usually tells you everything.' },
+      { type: 'ol', items: [
+        'Show me work you made in the last month. Not last year: a year ago the tools were different, and an old portfolio does not prove the author still works today.',
+        'What happens to the materials in six months when the models update? Is access to updates included in the price.',
+        'How much time does the author personally spend on my work, and how many times. If the answer is «the curators will help in the chat», that is a different product at a different price.',
+        'Which services do you teach on and how do I pay for them. A course that stays silent on this is detached from reality: many strong models still do not take cards from every country.',
+        'How many people are in the group. A review in a group of forty and in a group of six are not the same thing.',
+        'What do I keep after the course besides access to lessons. Finished work of my own, a set of prompts, a project template.',
+        'Can I watch one full lesson before paying. A refusal is not always a bad sign, but agreement always is a good one.',
+      ] },
+
+      { type: 'h2', text: 'Red flags' },
+      { type: 'p', text: 'None of these alone is a verdict. Two or more on the same page and you can close it.' },
+      { type: 'ul', items: [
+        'A promise of income. «You will earn X per month» is not about teaching, it is about selling a dream. A skill does not guarantee work.',
+        'Secret prompts. A prompt is not a spell, it is a description of a shot. There is nothing secret in it, and any good prompt can be taken apart in five minutes.',
+        'Not a single named model in the syllabus. If the description says only «neural networks» and never names a service, the author either hides that the material is outdated or does not work hands-on.',
+        'A discount expiring in two hours. A learning product does not spoil because you thought about it until tomorrow.',
+        'A portfolio with no name attached. The work is there, who made it is not.',
+        'Testimonials that are only chat screenshots. Find two of the people quoted and message them.',
+      ] },
+
+      { type: 'h2', text: 'What to learn first if the goal is video' },
+      { type: 'p', text: 'The most common self-taught mistake is trying to cover everything at once: twenty services, every model, the whole list. The reverse order works, narrow to wide.' },
+      { type: 'ol', items: [
+        'One model for stills. Learn to get the frame you wanted: composition, light, lens. That is the foundation and it transfers to any other model.',
+        'One model for animation. Take your own frame and make it move the way you intended rather than the way it came out.',
+        'Prompt structure. What the shot is, who is in it, what happens, where the camera is, what it was shot on. A description, not a set of magic words.',
+        'Assembly. Editing, sound, timing. Separate pretty generations do not add up to a film, and this is where it shows who came from video and who did not.',
+        'Access and payment. The boring step that stops the most people: the service opens and the card is declined.',
+        'And only then breadth. A second model, a third, comparisons. Before this step there is nothing to compare. When you get there, our [roundup of video models](/blog/top-neyrosetey-video/) will help.',
+      ] },
+      { type: 'p', text: 'We have a separate service-by-service breakdown of access and payment: [how to pay for AI tools from Russia](/blog/kak-oplatit-neyroset-iz-rossii/). On timing: the first video takes an evening and it will be bad, which is normal. A sense of control arrives after two to four weeks of regular practice, not after one course. Anyone promising a profession over a weekend is selling something other than teaching.' },
+
+      { type: 'quote', text: 'A course does not replace practice, it shortens it. If you are not going to make work every week after buying, you can keep the money: the result will be the same.' },
+
+      { type: 'h2', text: 'What to do with this' },
+      { type: 'p', text: 'The order we suggest to everyone who writes asking which course to pick: two evenings on free material, then an honest sentence about what exactly is not working, and only then go shopping. That turns «teach me neural networks» into a specific request, a course gets picked in one conversation, and half the people discover one review session is enough.' },
+      { type: 'p', text: 'If you want to talk through your task before buying anything, write to us. We will say plainly if a course is not what you need: cheaper for you and more honest for us.' },
+
+      { type: 'h2', text: 'Frequently asked questions' },
+
+      { type: 'h3', text: 'How much do AI courses cost?' },
+      { type: 'p', text: 'The spread is wide enough that an average number means nothing: a recording and mentoring differ several times over because they are different products. You can only compare honestly inside one format, and not by hours of video but by the hours the author spends on your work. A recording without feedback is cheap and goes stale within a year; a review of your own work is expensive and does not go stale at all.' },
+
+      { type: 'h3', text: 'Can I learn this for free?' },
+      { type: 'p', text: 'To a basic level yes, and for most people that is enough. Free material, including our guides, is enough to make your first video and understand the principle. Paying makes sense for what free material cannot give: a review of your specific work and somebody else\'s experience of where you are currently wasting time.' },
+
+      { type: 'h3', text: 'How long does it take to learn to make video with AI?' },
+      { type: 'p', text: 'A first result the same evening, a sense of control after two to four weeks of regular practice. After that what grows is not speed but taste: understanding why one shot looks expensive and another looks cheap. That takes years, but you can sell work much earlier.' },
+
+      { type: 'h3', text: 'Do I need to know how to code?' },
+      { type: 'p', text: 'No. Generating video and images needs no programming at all, the interface is a text field and a button. Code only comes in if you want to stop making clips one by one and automate the process instead: wiring services together and running things in batches.' },
+
+      { type: 'h3', text: 'Will a course help me find clients?' },
+      { type: 'p', text: 'Not on its own. A course gives a skill, while work comes from visible results and reputation, and that is a separate effort missing from most programmes. If you are promised income after training, that is a sign the product being sold is not training.' },
+
+      { type: 'h3', text: 'How is training different from implementation?' },
+      { type: 'p', text: 'Training is when you do it yourself afterwards. Implementation is when the process runs without you: configured tools, templates and rules inside the team. If the task sounds like «I just need this to work», you need the second one, and a course will be the slower and more expensive way to get there.' },
+
+      { type: 'cta' },
+    ],
+  },
+  {
     slug: 'neyroset-dlya-sozdaniya-video-novichku',
     category: 'Guides',
     title: 'AI Video Generators for Beginners: Where to Start in 2026',
