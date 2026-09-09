@@ -48,10 +48,42 @@ const BrowserFrame = ({ src, alt, width, height, className }) => (
   </figure>
 );
 
+// Карточка сделки из CRM, нарисованная разметкой. Не скриншот: так она
+// не зависит от срока демо-портала, читается на телефоне и не тащит в
+// кадр адрес портала и чужие данные.
+const DealCard = ({ card, L }) => (
+  <div className="cs2-deal" aria-label={L === 'en' ? 'CRM deal record' : 'Карточка сделки в CRM'}>
+    <div className="cs2-deal-head">
+      <span className="cs2-deal-stage mono">{pick(L, card.stage)}</span>
+      <span className="cs2-deal-source mono">{pick(L, card.source)}</span>
+    </div>
+    <h4 className="cs2-deal-title">{pick(L, card.title)}</h4>
+
+    <div className="cs2-deal-note">
+      <span className="cs2-deal-note-label mono">{pick(L, card.noteLabel)}</span>
+      <dl className="cs2-deal-rows">
+        {card.rows.map((row, i) => (
+          <React.Fragment key={i}>
+            <dt className="mono">{pick(L, row.k)}</dt>
+            <dd className={row.good ? 'is-good' : undefined}>{pick(L, row.v)}</dd>
+          </React.Fragment>
+        ))}
+      </dl>
+    </div>
+
+    <ul className="cs2-deal-log mono">
+      {card.log.map((row, i) => (
+        <li key={i}><span>{row.t}</span>{L === 'en' ? row.en : row.ru}</li>
+      ))}
+    </ul>
+  </div>
+);
+
 const Cases = () => {
   const L = useLocale();
   const { head, items, demoNote } = CASES_SYS;
   const flagship = items.find((item) => item.flagship);
+  const wides = items.filter((item) => item.wide);
   const demos = items.filter((item) => item.isDemo);
 
   return (
@@ -130,6 +162,43 @@ const Cases = () => {
               </div>
             </article>
           )}
+
+          {/* ── Второй живой кейс: контур студии, шире демо-карточек ── */}
+          {wides.map((item) => (
+            <article className="cs2-own reveal" key={item.id}>
+              <div className="cs2-own-text">
+                <span className="cs2-badge mono">{pick(L, item.badge)}</span>
+                <h3 className="cs2-title display">{pick(L, item.industry)}</h3>
+
+                <div className="cs2-block">
+                  <span className="cs2-block-label mono">
+                    {L === 'en' ? 'PROBLEM' : 'ПРОБЛЕМА'}
+                  </span>
+                  <p className="cs2-block-text">{pick(L, item.problem)}</p>
+                </div>
+
+                <div className="cs2-block">
+                  <span className="cs2-block-label mono">
+                    {L === 'en' ? 'SOLUTION' : 'РЕШЕНИЕ'}
+                  </span>
+                  <p className="cs2-block-text">{pick(L, item.solution)}</p>
+                </div>
+
+                <div className="cs2-metrics">
+                  {item.metrics.map((m, j) => (
+                    <CountMetric
+                      key={j}
+                      size="lg"
+                      value={L === 'en' && m.vEn ? m.vEn : m.v}
+                      label={pick(L, m.l)}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {item.card && <DealCard card={item.card} L={L} />}
+            </article>
+          ))}
 
           {/* ── Демо-сценарии: компактно, «было → стало» + цифры ── */}
           {demos.map((item) => (

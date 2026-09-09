@@ -693,8 +693,8 @@ export const CASES_SYS = {
   },
   demoBadge: { ru: 'Демо-сценарий', en: 'Demo scenario' },
   demoNote: {
-    ru: 'EastRide - собственный продукт студии, работает вживую. Два сценария рядом собраны на типовых процессах клиники и агентства недвижимости: цифры в них показывают, на какой результат мы проектируем систему.',
-    en: 'EastRide is the studio’s own product, live in production. The two scenarios beside it are built on the typical processes of a clinic and a real-estate agency: their numbers show the outcome we design such systems for.',
+    ru: 'EastRide и внутренний контур студии работают вживую: цифры в них измерены, а не обещаны. Два сценария ниже собраны на типовых процессах клиники и агентства недвижимости - они показывают, на какой результат мы проектируем систему.',
+    en: 'EastRide and the studio internal loop are live: their numbers are measured, not promised. The two scenarios below are built on the typical processes of a clinic and a real-estate agency - they show the outcome we design such systems for.',
   },
   items: [
     {
@@ -716,6 +716,49 @@ export const CASES_SYS = {
         { v: '13', l: { ru: 'городов Азии', en: 'cities across Asia' } },
         { v: '24/7', l: { ru: 'работа без операторов', en: 'runs without operators' } },
       ],
+    },
+    {
+      // Второй живой кейс: студия внедрила контур сама себе, прежде чем
+      // продавать его клиентам. Цифры отсюда проверены на живых прогонах,
+      // выдуманного в них нет.
+      id: 'own-crm',
+      isDemo: false,
+      wide: true,
+      badge: { ru: 'Наш процесс · работает вживую', en: 'Our own process · live' },
+      industry: { ru: 'AIVFX - заявки собственной студии', en: 'AIVFX - the studio own inquiries' },
+      problem: {
+        ru: 'Студия продавала клиентам внедрение CRM, а собственные заявки жили в почте и мессенджерах. Вечернее обращение ждало утра, контекст разговора терялся между каналами, а карточку в CRM всё равно надо было заполнять руками.',
+        en: 'The studio was selling CRM implementation while its own inquiries lived in email and messengers. An evening message waited until morning, context was lost between channels, and the CRM record still had to be filled in by hand.',
+      },
+      solution: {
+        ru: 'Собрали контур на Битрикс24: заявки с сайта и из Telegram приходят в открытую линию, ассистент отвечает первым, заводит сделку, вытаскивает из разговора задачу, нишу и боль, ставит вердикт по квалификации и передаёт разговор человеку вместе с готовой выжимкой и ссылкой на карточку.',
+        en: 'We built the loop on Bitrix24: inquiries from the website and Telegram land in an open channel, the assistant replies first, creates the deal, pulls the task, niche and pain out of the conversation, sets a qualification verdict and hands the chat to a human together with a ready summary and a link to the record.',
+      },
+      metrics: [
+        { v: '4 мин', vEn: '4 min', l: { ru: 'от сообщения до готовой сделки', en: 'from message to a filled deal' } },
+        { v: '24/7', l: { ru: 'приём заявок без операторов', en: 'intake without operators' } },
+        { v: '0', l: { ru: 'ручного ввода в CRM', en: 'manual CRM data entry' } },
+      ],
+      // Карточка сделки: не скриншот, а тот же формат, что ассистент
+      // пишет в Битрикс. Рисуем разметкой, чтобы не зависеть от срока
+      // демо-портала и не тащить в кадр адрес и чужие данные.
+      card: {
+        stage: { ru: 'Новая заявка', en: 'New inquiry' },
+        title: { ru: 'ассистент на заявки для автошколы', en: 'assistant for a driving school' },
+        source: { ru: 'Telegram', en: 'Telegram' },
+        noteLabel: { ru: 'Выяснил ассистент', en: 'Found by the assistant' },
+        rows: [
+          { k: { ru: 'Задача', en: 'Task' }, v: { ru: 'ассистент на заявки', en: 'assistant for inquiries' } },
+          { k: { ru: 'Ниша', en: 'Niche' }, v: { ru: 'автошкола', en: 'driving school' } },
+          { k: { ru: 'Что болит', en: 'Pain' }, v: { ru: 'не успевают отвечать вечером', en: 'no one answers in the evening' } },
+          { k: { ru: 'Квалификация', en: 'Qualification' }, v: { ru: 'целевой', en: 'qualified' }, good: true },
+        ],
+        log: [
+          { t: '21:48', ru: 'сделка создана из чата', en: 'deal created from the chat' },
+          { t: '21:50', ru: 'заголовок и выжимка от ассистента', en: 'title and summary by the assistant' },
+          { t: '21:52', ru: 'разговор передан человеку', en: 'chat handed to a human' },
+        ],
+      },
     },
     {
       id: 'clinic',
