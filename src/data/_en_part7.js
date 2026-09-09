@@ -10,9 +10,9 @@ const PART_7 = [
       'What the word «course» actually covers, who is better off learning alone, seven questions to ask before paying and the red flags worth walking away from.',
     keywords:
       'ai courses, neural network courses, learn ai video, ai video course, how to choose an ai course, ai training for teams',
-    cover: '/blog-images/kursy-night-kitchen.jpg',
-    coverPrompt: 'a woman in her mid thirties at a kitchen table late at night, laptop glow on her face, handwritten notebook beside the keyboard, one warm lamp, the rest of the apartment dark, learning after work',
-    coverCaption: 'Most people learn this after work at the kitchen table, not on a course that costs a month of salary. Here is when a course is still worth it.',
+    cover: '/blog-images/kursy-master-i-uchenik.jpg',
+    coverPrompt: '1970s Hong Kong martial arts film still: an old master and his young student kneel facing each other on a temple courtyard at golden hour, a single open laptop on the stone floor between them instead of fists, both stare at the screen with total seriousness',
+    coverCaption: 'A master, a student and one laptop between them. When a mentor is genuinely worth the money, and when two evenings of free material will do.',
     coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-09',
     dateModified: '2026-09-09',
@@ -44,7 +44,7 @@ const PART_7 = [
         'You need a process, not a skill. Then what you actually need is implementation, and it is worth saying so out loud.',
       ] },
 
-      { type: 'image', src: '/blog-images/kursy-evening-class.jpg', alt: 'An evening class for adults in a loft: the teacher reviewing work on a student laptop', caption: 'What you really pay for on a course is not the lectures, it is somebody looking at your work and telling you what is wrong with it', source: 'AIVFX AI generation (Seedream 5 Pro)' },
+      { type: 'image', src: '/blog-images/kursy-ugol-ringa.jpg', alt: 'A boxing coach between rounds holding his fighter by the chin and talking into his face', caption: 'What you really pay for on a course is not the lectures, it is somebody looking at your work and telling you what is wrong with it', source: 'AIVFX AI generation (Seedream 5 Pro)' },
 
       { type: 'h2', text: 'One word, four different products' },
       { type: 'p', text: 'Comparing them on price is meaningless, they are not the same thing. Work out which of the four you need, and only then look at the cost.' },
