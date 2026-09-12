@@ -731,17 +731,17 @@ export const CASES_SYS = {
         en: 'The studio was selling CRM implementation while its own inquiries lived in email and messengers. An evening message waited until morning, context was lost between channels, and the CRM record still had to be filled in by hand.',
       },
       solution: {
-        ru: 'Собрали контур на Битрикс24: заявки с сайта и из Telegram приходят в открытую линию, ассистент отвечает первым, заводит сделку, вытаскивает из разговора задачу, нишу и боль, ставит вердикт по квалификации и передаёт разговор человеку вместе с готовой выжимкой и ссылкой на карточку.',
-        en: 'We built the loop on Bitrix24: inquiries from the website and Telegram land in an open channel, the assistant replies first, creates the deal, pulls the task, niche and pain out of the conversation, sets a qualification verdict and hands the chat to a human together with a ready summary and a link to the record.',
+        ru: 'Собрали контур без подписки на CRM: заявки с сайта и из Telegram ложатся в базу Notion, ассистент отвечает первым, заводит заявку, вытаскивает из разговора задачу, нишу и боль, ставит вердикт по квалификации и передаёт разговор человеку вместе с готовой выжимкой и ссылкой на карточку. Обслуживание контура стоит ноль рублей в месяц.',
+        en: 'We built the loop without paying for a CRM: inquiries from the website and Telegram land in a Notion database, the assistant replies first, creates the record, pulls the task, niche and pain out of the conversation, sets a qualification verdict and hands the chat to a human together with a ready summary and a link to the record. Running it costs zero per month.',
       },
       metrics: [
         { v: '4 мин', vEn: '4 min', l: { ru: 'от сообщения до готовой сделки', en: 'from message to a filled deal' } },
         { v: '24/7', l: { ru: 'приём заявок без операторов', en: 'intake without operators' } },
         { v: '0', l: { ru: 'ручного ввода в CRM', en: 'manual CRM data entry' } },
       ],
-      // Карточка сделки: не скриншот, а тот же формат, что ассистент
-      // пишет в Битрикс. Рисуем разметкой, чтобы не зависеть от срока
-      // демо-портала и не тащить в кадр адрес и чужие данные.
+      // Карточка заявки: не скриншот, а тот же формат, что ассистент
+      // пишет в Notion. Рисуем разметкой, чтобы не тащить в кадр адрес
+      // базы и чужие данные.
       card: {
         stage: { ru: 'Новая заявка', en: 'New inquiry' },
         title: { ru: 'ассистент на заявки для автошколы', en: 'assistant for a driving school' },
