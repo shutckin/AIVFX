@@ -13,7 +13,7 @@ const PART_1 = [
     coverPrompt: 'candid behind-the-scenes photo: a bearded man in a mustard knit sweater records a talking-head video at his kitchen table at night, an iPhone on a small tripod in the foreground, a ring light on his face, he gestures mid-sentence and laughs',
     coverCaption: 'This is where it all starts: a couple of minutes in front of a phone in the kitchen. From that recording HeyGen builds an avatar that says any text in any language.',
     date: '2026-05-29',
-    dateModified: '2026-05-29',
+    dateModified: '2026-09-04',
     readingTime: '13 min',
     excerpt:
       'We build a digital twin in HeyGen from scratch: recording, training, voice, translation into 175 languages. Real pricing, limits, and tips - all explained step by step.',
@@ -122,7 +122,7 @@ const PART_1 = [
     coverPrompt: 'a director in a chair with a monitor on a virtual production stage, a huge LED wall showing a desert highway at sunset behind a real vintage car, a small crew with headsets, film set atmosphere',
     coverCaption: 'AI video is made like regular film: script, anchor frames, generation, edit. Five steps from idea to finished clip.',
     date: '2026-05-12',
-    dateModified: '2026-05-29',
+    dateModified: '2026-09-04',
     readingTime: '9 min',
     excerpt:
       'A complete breakdown of the AI-video creation process: from the first idea to the final clip. No fluff - just real steps, tools, and timelines.',
@@ -187,7 +187,7 @@ const PART_1 = [
     coverPrompt: 'five identical twin men stand in a police lineup room against a height chart, each dressed differently: cowboy, punk, businessman, astronaut, monk, deadpan faces, harsh fluorescent light',
     coverCaption: 'Five models in one lineup: the same prompt, different character. Compared by motion, sound, price and access from Russia.',
     date: '2026-05-20',
-    dateModified: '2026-09-02',
+    dateModified: '2026-09-04',
     readingTime: '11 min',
     excerpt:
       'Which neural network for video is best in 2026? We break down Runway, Kling, Veo, Seedance, and MiniMax H3 by real criteria - without ads or hype.',

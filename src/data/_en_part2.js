@@ -13,7 +13,7 @@ const PART_2 = [
     coverPrompt: 'a producer and a client at a café table, a storyboard sketched on a paper napkin between them, a calculator and espresso cups, she points at a frame, he frowns, afternoon window light',
     coverCaption: 'What makes up the price of an AI clip: not a button but a script, retries and an edit. A breakdown with real numbers.',
     date: '2026-05-26',
-    dateModified: '2026-05-29',
+    dateModified: '2026-09-04',
     readingTime: '8 min',
     excerpt:
       'What really goes into the price of AI video, why "I\'ll do it for 5,000" often turns into overpayment, and how much a clip costs for your task.',
@@ -75,7 +75,7 @@ const PART_2 = [
     coverCaption: 'Kling 3.0 comes from China and holds fabric and body in a leap better than anyone. The full guide to the model.',
     coverSource: 'Screenshot of the Kling website (klingai.com)',
     date: '2026-05-29',
-    dateModified: '2026-05-29',
+    dateModified: '2026-09-04',
     readingTime: '11 min',
     excerpt: 'We break down the Kling 3.0 neural network piece by piece: what it is, where it beats competitors, how to use it step by step, how much it costs, and what tasks it suits.',
     content: [
@@ -171,7 +171,7 @@ const PART_2 = [
     coverCaption: 'Runway grew out of VFX tools and that is still its strength: background replacement, camera moves, frame edits.',
     coverSource: 'Screenshot of the Runway website (runwayml.com)',
     date: '2026-05-29',
-    dateModified: '2026-05-29',
+    dateModified: '2026-09-04',
     readingTime: '11 min',
     excerpt: 'We break down the Runway Gen-4.5 neural network in plain language: what it can do, where its strength lies, how much it costs, and how to make your first cinematic video with no experience.',
     content: [

@@ -17,7 +17,7 @@ const PART_5 = [
     coverPrompt: 'a bakery owner with flour on his forearms counts cash at a wooden counter at dawn, a calculator and an open laptop beside the trays of bread, first light through the window, thoughtful',
     coverCaption: 'The price of an assistant is counted not in subscription fees but in the leads it did not miss. An honest 2026 price breakdown.',
     date: '2026-08-30',
-    dateModified: '2026-08-30',
+    dateModified: '2026-09-04',
     readingTime: '18 min',
     related: ['ai-video-dlya-biznesa-start', 'skolko-stoit-ai-video', 'kak-sdelat-reklamnyy-rolik-ai'],
     excerpt:

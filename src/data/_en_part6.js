@@ -100,7 +100,7 @@ const PART_6 = [
     coverPrompt: 'a DJ in a festival booth controls five different mixers and screens at once, lasers and haze, a crowd of raised hands below, sweat on his face, one person running everything',
     coverCaption: 'An aggregator is one console for every model. The article covers when it saves money and when it just takes a cut.',
     date: '2026-08-30',
-    dateModified: '2026-08-30',
+    dateModified: '2026-09-04',
     readingTime: '12 min',
     related: ['seedance-gayd', 'top-neyrosetey-video', 'skolko-stoit-ai-video'],
     excerpt:
@@ -188,7 +188,7 @@ const PART_6 = [
     coverPrompt: 'a greyhound in a tailored mustard tweed coat sits alone in a retro 1970s diner booth, cherry pie and a milkshake on the table, perfectly symmetrical composition, pastel pink and mint interior, deadpan Wes Anderson style',
     coverCaption: 'A style task rather than a photorealism task: symmetry, pastel, a character instead of a person. Seedream 5 Pro holds the directorial reference all the way through: the colour, the furniture, the blank stare into the lens.',
     date: '2026-08-30',
-    dateModified: '2026-08-30',
+    dateModified: '2026-09-04',
     readingTime: '11 min',
     related: ['midjourney-gayd', 'top-neyrosetey-video', 'agregatory-ai-servisov'],
     excerpt:

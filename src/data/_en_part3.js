@@ -11,7 +11,7 @@ const PART_3 = [
     coverCaption: 'Veo generates sound with the picture, and this scene is home ground: voice, room, breath into the microphone. The model guide.',
     coverSource: 'Screenshot of Google DeepMind - Veo (deepmind.google)',
     date: '2026-05-29',
-    dateModified: '2026-05-29',
+    dateModified: '2026-09-04',
     readingTime: '11 min',
     excerpt: 'We break down Google Veo 3.1 piece by piece: how the model differs from competitors, how it generates video with sound and speech in one pass, how much it costs, and which production tasks it fits.',
     content: [
@@ -91,7 +91,7 @@ const PART_3 = [
     coverPrompt: 'perfume commercial frame: a woman in a flowing red dress on a Paris rooftop at dusk, wind in her hair, the Eiffel Tower soft in the background, a glass bottle catching the last light in her hand',
     coverCaption: 'An AI-made commercial follows the same rules as a regular one: hook, product, emotion. How to build one in 2026.',
     date: '2026-05-29',
-    dateModified: '2026-05-29',
+    dateModified: '2026-09-04',
     readingTime: '11 min',
     excerpt: 'We break down step by step how to assemble an ad video with AI in 2026: from the offer and script to generating scenes in Kling, Runway, and Veo, voiceover, editing, and A/B tests.',
     content: [
@@ -160,7 +160,7 @@ const PART_3 = [
     coverPrompt: 'a car dealer in a sharp suit stands beside a gleaming SUV in a showroom while a two-person crew films him with a phone on a gimbal and a ring light, he gestures at the car, glass walls, evening',
     coverCaption: 'Where to start with AI video for a business and how to count the return: first clip, first metric, first repeat.',
     date: '2026-05-29',
-    dateModified: '2026-05-29',
+    dateModified: '2026-09-04',
     readingTime: '11 min',
     excerpt: 'We break down piece by piece how AI video changes the economics of content for business: where it actually makes money, where to start, and how to calculate the payoff versus classic filming.',
     content: [
