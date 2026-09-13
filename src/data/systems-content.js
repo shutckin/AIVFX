@@ -268,11 +268,11 @@ export const SERVICE_PAGES = {
     features: {
       title: { ru: 'Что разбираем', en: 'What we cover' },
       items: [
-        { t: { ru: 'Как устроен кадр', en: 'How a shot works' }, d: { ru: 'Почему одна генерация выглядит киношно, а другая нет: оптика, свет, движение камеры. Это не про модели, это про съёмку - и переносится на любой инструмент.', en: 'Why one generation looks cinematic and another does not: optics, light, camera movement.' } },
+        { t: { ru: 'Как устроен кадр', en: 'How a shot works' }, d: { ru: 'Почему одна генерация выглядит киношно, а другая нет: оптика, свет, движение камеры. Это законы съёмки, они работают в любом инструменте.', en: 'Why one generation looks cinematic and another does not: optics, light, camera movement.' } },
         { t: { ru: 'Консистентность персонажа', en: 'Character consistency' }, d: { ru: 'Как собрать опорные кадры так, чтобы герой оставался собой от сцены к сцене. Главная причина, по которой ролики разваливаются.', en: 'How to assemble references so a character stays itself across scenes.' } },
         { t: { ru: 'Промпт как техзадание', en: 'The prompt as a brief' }, d: { ru: 'Разбираем структуру: что в кадре, как снято, чего быть не должно. И почему менять надо одну вещь за раз.', en: 'Prompt structure: what is in frame, how it is shot, what must not appear.' } },
-        { t: { ru: 'Выбор инструмента под задачу', en: 'Choosing the tool' }, d: { ru: 'Где сильнее Veo, где Kling, где Seedance, а где дешевле снять на телефон. Честно, включая случаи, когда AI не нужен.', en: 'Where each model wins - and when AI is not the answer.' } },
-        { t: { ru: 'Сборка и звук', en: 'Assembly and sound' }, d: { ru: 'Что делать с генерациями дальше: монтаж, ритм, звук, титры. Модель выдаёт сцену, а ролик собирает человек.', en: 'What happens after generation: editing, rhythm, sound, titles.' } },
+        { t: { ru: 'Выбор инструмента под задачу', en: 'Choosing the tool' }, d: { ru: 'Где сильнее Veo, где Kling, где Seedance, а где дешевле снять на телефон. И когда AI не нужен вовсе.', en: 'Where each model wins - and when AI is not the answer.' } },
+        { t: { ru: 'Сборка и звук', en: 'Assembly and sound' }, d: { ru: 'Что делать с генерациями дальше: монтаж, ритм, звук, титры.', en: 'What happens after generation: editing, rhythm, sound, titles.' } },
         { t: { ru: 'Экономика производства', en: 'Production economics' }, d: { ru: 'Сколько дублей уходит в брак, как считать бюджет ролика и на чём реально экономить, а на чём нельзя.', en: 'Reject rates, budgeting and where saving actually works.' } },
       ],
     },
@@ -312,10 +312,10 @@ export const SERVICE_PAGES = {
       title: { ru: 'Что разбираем', en: 'What we cover' },
       items: [
         { t: { ru: 'Что закрывается без разработки', en: 'What needs no development' }, d: { ru: 'Подготовка текстов, разбор документов, черновики ответов, картинки для соцсетей, расшифровки встреч.', en: 'Drafting, document review, images, meeting transcripts - subscription-level tools.' } },
-        { t: { ru: 'Где проходит граница', en: 'Where the boundary is' }, d: { ru: 'Честно про то, что без интеграций не решается: работа с вашей базой, автоматический приём заявок, действия в CRM.', en: 'What genuinely requires integrations - so you know when deployment is premature.' } },
+        { t: { ru: 'Где проходит граница', en: 'Where the boundary is' }, d: { ru: 'Что без интеграций не решается: работа с вашей базой, автоматический приём заявок, действия в CRM.', en: 'What genuinely requires integrations - so you know when deployment is premature.' } },
         { t: { ru: 'Правила безопасности', en: 'Safety rules' }, d: { ru: 'Какие данные нельзя загружать в чужие сервисы, как формулировать запросы, чтобы не утекли персональные данные клиентов, и что записать во внутренний регламент.', en: 'What data must never go into external services, and what to put in your internal policy.' } },
-        { t: { ru: 'Как проверять результат', en: 'Checking the output' }, d: { ru: 'Главный навык: замечать, когда модель уверенно выдумывает. Разбираем на реальных примерах, где это ловится, а где проходит незамеченным.', en: 'Spotting confident invention - the single most important skill.' } },
-        { t: { ru: 'Инструменты под ваши задачи', en: 'Tools for your tasks' }, d: { ru: 'Без списка из пятидесяти сервисов. Берём ваши задачи и подбираем два-три инструмента, которыми команда будет пользоваться на самом деле.', en: 'Not a list of fifty services: two or three tools your team will actually use.' } },
+        { t: { ru: 'Как проверять результат', en: 'Checking the output' }, d: { ru: 'Учимся замечать, когда модель уверенно выдумывает. Разбираем на реальных примерах, где это ловится, а где проходит незамеченным.', en: 'Spotting confident invention - the single most important skill.' } },
+        { t: { ru: 'Инструменты под ваши задачи', en: 'Tools for your tasks' }, d: { ru: 'Берём ваши задачи и подбираем два-три инструмента, которыми команда будет пользоваться на самом деле.', en: 'Not a list of fifty services: two or three tools your team will actually use.' } },
         { t: { ru: 'Что делать дальше', en: 'What comes next' }, d: { ru: 'Короткий план на месяц: с чего начать, как измерить эффект и по каким признакам понять, что пора автоматизировать всерьёз.', en: 'A one-month plan with measurable checkpoints.' } },
       ],
     },
@@ -1030,8 +1030,8 @@ export const CONTACT_SYS = {
 // ── Футер ──────────────────────────────────────────────────────────────
 export const FOOTER_SYS = {
   desc: {
-    ru: 'Студия AI-систем и автоматизаций для бизнеса. Проектируем и внедряем решения от первой заявки до повторных продаж.',
-    en: 'A studio for business AI systems and automation. We design and deploy solutions from the first inquiry to repeat sales.',
+    ru: 'Студия AI-систем и автоматизаций для бизнеса. Делаем ассистентов, приём заявок и связку с CRM: от первой заявки до повторных продаж.',
+    en: 'A studio for business AI systems and automation. We build assistants, lead intake and CRM integrations: from the first inquiry to repeat sales.',
   },
   servicesTitle: { ru: 'УСЛУГИ', en: 'SERVICES' },
   services: [
