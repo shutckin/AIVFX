@@ -44,6 +44,30 @@ const COVERS = [
     title: 'Nano Banana Pro\nи Seedream 5 Pro',
     sub: 'Текст в кадре, слои, правка по областям',
   },
+  {
+    file: 'cover-suno-rossiya.jpg',
+    kicker: 'МУЗЫКА · SUNO',
+    title: 'Suno из России',
+    sub: 'Доступ, оплата рублями, права на трек',
+  },
+  {
+    file: 'cover-suno-skachat.jpg',
+    kicker: 'МУЗЫКА · SUNO',
+    title: 'Скачать Suno',
+    sub: 'Приложение есть, песня с бесплатного - нет',
+  },
+  {
+    file: 'cover-suno-pesnya.jpg',
+    kicker: 'МУЗЫКА · ГАЙД',
+    title: 'Как сделать песню\nнейросетью',
+    sub: 'От текста и стиля до готового трека',
+  },
+  {
+    file: 'cover-suno-russkiy.jpg',
+    kicker: 'МУЗЫКА · SUNO',
+    title: 'Suno на русском',
+    sub: 'Вокал, ударения и как писать текст песни',
+  },
 ];
 
 const fontFile = (weight) => {
@@ -70,7 +94,10 @@ const html = ({ kicker, title, sub }) => `
     background: #0b0b0d; color: #f2f5fa;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { position: relative; width: 100%; height: 100%; padding: 78px 84px; display: flex; flex-direction: column; justify-content: space-between; }
+  /* Обложка используется и как широкая карточка 16:9 в списке, и как
+     кадр 4:3 в шапке статьи (там края обрезаются по центру). Текст
+     держим в безопасной зоне 4:3, иначе крайние буквы уходят под обрез. */
+  .wrap { position: relative; width: 100%; height: 100%; padding: 78px 190px; display: flex; flex-direction: column; justify-content: space-between; }
   /* Та же сетка и то же свечение, что на страницах сайта: обложка должна
      выглядеть частью издания, а не отдельной картинкой */
   .grid {
@@ -95,8 +122,8 @@ const html = ({ kicker, title, sub }) => `
     text-transform: uppercase; color: #6a94ff;
   }
   .title {
-    font-weight: 600; font-size: 78px; line-height: 1.02;
-    letter-spacing: -0.04em; white-space: pre-line; margin-top: 22px;
+    font-weight: 600; font-size: 64px; line-height: 1.06;
+    letter-spacing: -0.03em; white-space: pre-line; margin-top: 22px;
   }
   .sub { font-weight: 400; font-size: 26px; color: rgba(216,234,255,0.62); margin-top: 24px; }
   .foot { display: flex; align-items: center; justify-content: space-between; }
