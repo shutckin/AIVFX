@@ -163,7 +163,7 @@
       // выбор читателя хранится в localStorage. Остальной сайт тёмный.
       (function () {
         try {
-          if (/\/blog\/[^/]+\/?$/.test(location.pathname)) {
+          if (/^\/(en\/)?blog\//.test(location.pathname)) {
             document.documentElement.setAttribute('data-theme', localStorage.getItem('aivfx-theme') || 'light');
           }
         } catch (e) {}

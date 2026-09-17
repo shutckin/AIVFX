@@ -1,55 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════════════
    Страница статьи: шаблон «карточки + справочник».
-
-   Светлая тема по умолчанию, тёмная по переключателю. Тема живёт в
-   атрибуте data-theme на <html>: в светлой переопределяются общие
-   переменные сайта (--bg, --fg и остальные), поэтому шапка и меню
-   перекрашиваются сами, без отдельных стилей на каждый элемент.
-   Атрибут ставит страница статьи при открытии и снимает при уходе,
-   остальной сайт остаётся тёмным.
+   Тема и общие переменные поверхностей - в theme.css
    ═══════════════════════════════════════════════════════════════════════ */
 
-html[data-theme="light"] {
-  --bg: #f3f4f6;
-  --bg-2: #ffffff;
-  --bg-3: #e9ebef;
-  --fg: #121417;
-  --fg-2: #4b5059;
-  --muted: #7d828b;
-  --muted-2: #9aa0a8;
-  --line: rgba(18, 20, 23, 0.08);
-  --line-2: rgba(18, 20, 23, 0.14);
-  --accent: #2f5fe0;
-  --accent-2: #2f5fe0;
-  --accent-glow: rgba(47, 95, 224, 0.18);
-  --accent-soft: rgba(47, 95, 224, 0.10);
-}
-
-/* Переменные самой статьи: карточки, тени, цвета «да» и «нет» */
-.art {
-  --surface: var(--bg-2);
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 30px -18px rgba(0, 0, 0, 0.8);
-  --yes: #5fd08a;
-  --no: #ff8a75;
-  --accent-ink: #fff;
-  color: var(--fg);
-  font-size: 18px;
-  line-height: 1.65;
-}
-html[data-theme="light"] .art {
-  --shadow: 0 1px 2px rgba(18, 20, 23, 0.05), 0 10px 30px -18px rgba(18, 20, 23, 0.25);
-  --yes: #1f8a4c;
-  --no: #c8402f;
-}
-
-/* ── Шапка сайта в светлой теме ─────────────────────────────────────── */
-html[data-theme="light"] .header.scrolled {
-  background: rgba(243, 244, 246, 0.82);
-}
-html[data-theme="light"] .nav-loose .nav-link:hover,
-html[data-theme="light"] .nav-loose .nav-link.active {
-  background: rgba(18, 20, 23, 0.05);
-}
+.art { font-size: 18px; line-height: 1.65; }
 
 /* ── Каркас ─────────────────────────────────────────────────────────── */
 .art-wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
@@ -58,16 +12,6 @@ html[data-theme="light"] .nav-loose .nav-link.active {
 .art-crumbs a:hover, .art-crumbs button:hover { color: var(--fg); }
 .art-crumbs .art-wm { font-weight: 700; letter-spacing: 0.04em; color: var(--fg); font-size: 14px; }
 .art-crumbs .art-theme { margin-left: auto; }
-
-/* Переключатель темы: маленький, в строке хлебных крошек */
-.art-theme {
-  display: inline-flex; align-items: center; gap: 8px;
-  height: 32px; padding: 0 12px; border-radius: 999px;
-  border: 1px solid var(--line-2); background: transparent;
-  color: var(--fg-2); cursor: pointer; font: inherit; font-size: 13px;
-}
-.art-theme:hover { color: var(--fg); border-color: var(--muted); }
-.art-theme svg { width: 15px; height: 15px; }
 
 /* Заголовок рядом с обложкой */
 .art-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; padding: 22px 0 28px; }

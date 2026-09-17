@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { BLOG_POSTS, getPostBySlug } from '../data/blog-posts';
-import { BLOG_POSTS_EN, getPostBySlugEn } from '../data/blog-posts-en';
-import LangSwitch from './LangSwitch';
+import React, { useEffect } from 'react';
+import { getPostBySlug } from '../data/blog-posts';
+import { getPostBySlugEn } from '../data/blog-posts-en';
 import { useLocale, localizedHref } from '../i18n';
-import Pic from './Pic';
 import Article from './blog/Article';
+import BlogIndex from './blog/BlogIndex';
 
 const SITE = 'https://aivfx.ru';
 
@@ -41,187 +40,6 @@ const faqFromContent = (content = []) => {
     out.push({ q: b.text.trim(), a: plain });
   }
   return out;
-};
-
-// Карточка статьи (обычная или featured - крупная горизонтальная)
-const PostCard = ({ post, onOpenPost, featured }) => {
-  const locale = useLocale();
-  const en = locale === 'en';
-  return (
-    <a
-      href={localizedHref(`/blog/${post.slug}/`, locale)}
-      onClick={(e) => { e.preventDefault(); onOpenPost(post.slug); }}
-      className={`blog-card ${featured ? 'md:grid md:grid-cols-2' : ''}`}
-    >
-      <div className={`blog-card-img ${featured ? 'aspect-video md:aspect-auto' : 'aspect-video'}`}>
-        <Pic src={post.cover} alt={post.title} sizes="(max-width: 768px) 100vw, 520px" />
-      </div>
-      <div className={featured ? 'p-7 lg:p-9 flex flex-col justify-center' : 'p-6'}>
-        <div className="flex items-center gap-3 mb-3">
-          <span className="blog-badge">{post.category}</span>
-          <span className="blog-meta">{post.readingTime}</span>
-        </div>
-        <h3
-          className={`font-bold text-white leading-snug mb-2 ${featured ? 'text-2xl lg:text-3xl' : 'text-lg'}`}
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
-          {post.title}
-        </h3>
-        <p className="text-white/55 text-sm leading-relaxed">{post.excerpt}</p>
-        <span className="blog-read mt-4 inline-block">{en ? 'Read →' : 'Читать →'}</span>
-      </div>
-    </a>
-  );
-};
-
-// Строка оглавления: номер, категория, заголовок, маленькая обложка.
-//
-// Карточка с большой картинкой честно показывает одну статью и съедает
-// пол-экрана. Когда статей много, читателю важнее увидеть их список
-// целиком, а не разглядывать обложку каждой: строка занимает вчетверо
-// меньше места, а картинка остаётся - просто в роли метки, а не героя.
-const PostRow = ({ post, onOpenPost, num }) => {
-  const locale = useLocale();
-  return (
-    <a
-      href={localizedHref(`/blog/${post.slug}/`, locale)}
-      onClick={(e) => { e.preventDefault(); onOpenPost(post.slug); }}
-      className="blog-row"
-    >
-      <span className="blog-row-num" aria-hidden="true">{String(num).padStart(2, '0')}</span>
-      <span className="blog-row-body">
-        <span className="blog-row-cat">{post.category}</span>
-        <span className="blog-row-title">{post.title}</span>
-        <span className="blog-row-time">{post.readingTime}</span>
-      </span>
-      <span className="blog-row-thumb">
-        <Pic src={post.cover} alt={post.title} sizes="120px" />
-      </span>
-    </a>
-  );
-};
-
-// ── Витрина блога: фильтр по категориям + сетка ─────────────────────────
-const BlogList = ({ onBack, onOpenPost }) => {
-  const en = useLocale() === 'en';
-  const POSTS = en ? BLOG_POSTS_EN : BLOG_POSTS;
-  const ALL = en ? 'All' : 'Все';
-  const FALLBACK = en ? 'Articles' : 'Статьи';
-
-  const categories = [];
-  POSTS.forEach((p) => {
-    const c = p.category || FALLBACK;
-    if (!categories.includes(c)) categories.push(c);
-  });
-
-  const [active, setActive] = useState(ALL);
-  const filtered = active === ALL
-    ? POSTS
-    : POSTS.filter((p) => (p.category || FALLBACK) === active);
-
-  // Три уровня подачи. В режиме «Все» первая статья идёт крупно, две
-  // следующие - средними карточками, остальные - плотным оглавлением.
-  // При выбранной категории статей мало, крупная подача там смотрелась бы
-  // как случайно раздутая карточка, поэтому весь список идёт ровно.
-  const isAll = active === ALL;
-  const featured = isAll ? filtered[0] : null;
-  const secondary = isAll ? filtered.slice(1, 3) : [];
-  const listed = isAll ? filtered.slice(3) : filtered;
-
-  return (
-    <div className="blog-page blog-page--list min-h-screen pt-24 pb-20">
-      <div className="blog-wrap">
-        {/* Назад + переключатель языка */}
-        <div className="page-topbar mb-10">
-          <button
-            onClick={onBack}
-            className="flex items-center text-white/55 hover:text-white transition-colors"
-            style={{ fontFamily: 'var(--font-mono)', fontSize: 13 }}
-          >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            {en ? 'Back to home' : 'На главную'}
-          </button>
-          <LangSwitch locale={en ? 'en' : 'ru'} />
-        </div>
-
-        {/* Заголовок */}
-        <div className="blog-kicker mb-4">{en ? 'AIVFX · JOURNAL' : 'AIVFX · ЖУРНАЛ'}</div>
-        <h1
-          className="text-4xl lg:text-6xl font-bold text-white mb-5 leading-[1.05]"
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
-          {en
-            ? <>The blog on neural networks<br />and AI video production</>
-            : <>Блог о&nbsp;нейросетях<br />и&nbsp;AI-видеопроизводстве</>}
-        </h1>
-        <p className="text-white/55 text-lg max-w-2xl mb-10 leading-relaxed">
-          {en
-            ? 'Step-by-step guides to the tools, honest model comparisons and breakdowns of real cases - from the first prompt to a finished commercial.'
-            : 'Пошаговые гайды по сервисам, честные сравнения моделей и разбор реальных кейсов - от первого промпта до готового рекламного ролика.'}
-        </p>
-
-        {/* Категории. Раньше это были восемь одинаковых «таблеток», которые
-            на узком экране складывались в три ряда и занимали пол-экрана
-            ещё до первой статьи. Теперь строка с прокруткой: активная
-            подчёркнута, рядом счётчик статей. */}
-        <nav className="blog-cats" aria-label={en ? 'Blog categories' : 'Категории блога'}>
-          {[ALL, ...categories].map((cat) => {
-            const count = cat === ALL
-              ? POSTS.length
-              : POSTS.filter((p) => (p.category || FALLBACK) === cat).length;
-            return (
-              <button
-                key={cat}
-                className={`blog-cat ${active === cat ? 'active' : ''}`}
-                onClick={() => setActive(cat)}
-                aria-pressed={active === cat}
-              >
-                {cat}
-                <span className="blog-cat-num">{count}</span>
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Ритм страницы: одна крупная статья, затем пара средних, затем
-            плотное оглавление. Ровная сетка одинаковых карточек не давала
-            глазу зацепиться и заставляла листать одинаковые прямоугольники;
-            здесь видно, что важнее, и на экран помещается втрое больше. */}
-        {featured && (
-          <div className="blog-lead-wrap">
-            <PostCard post={featured} onOpenPost={onOpenPost} featured />
-          </div>
-        )}
-
-        {secondary.length > 0 && (
-          <div className="blog-duo">
-            {secondary.map((post) => (
-              <PostCard key={post.slug} post={post} onOpenPost={onOpenPost} />
-            ))}
-          </div>
-        )}
-
-        {listed.length > 0 && (
-          <div className="blog-index">
-            <div className="blog-index-head">
-              <span>{en ? 'All articles' : 'Все статьи'}</span>
-              <span className="blog-index-count">{listed.length}</span>
-            </div>
-            {listed.map((post, i) => (
-              <PostRow
-                key={post.slug}
-                post={post}
-                onOpenPost={onOpenPost}
-                num={secondary.length + (featured ? 1 : 0) + i + 1}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
 };
 
 // ── Страница статьи ─────────────────────────────────────────────────────
@@ -345,7 +163,7 @@ const Blog = ({ slug, onBack, onOpenPost, onBackToList }) => {
   if (slug && post) {
     return <BlogPost post={post} onBack={onBack} onBackToList={onBackToList} onOpenPost={onOpenPost} />;
   }
-  return <BlogList onBack={onBack} onOpenPost={onOpenPost} />;
+  return <BlogIndex onBack={onBack} onOpenPost={onOpenPost} />;
 };
 
 export default Blog;

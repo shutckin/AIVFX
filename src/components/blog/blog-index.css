@@ -1,0 +1,116 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Витрина блога: поиск, категории, сортировка, сетка карточек.
+
+   Задача страницы не «показать, что статей много», а помочь найти свою
+   за несколько секунд. Поэтому поиск и фильтры стоят выше карточек, а
+   счётчик всегда говорит, сколько статей сейчас показано.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.blogx { padding-top: 28px; padding-bottom: 80px; }
+.blogx-wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+.blogx-top { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.blogx-top button, .blogx-top a { background: none; border: 0; padding: 0; font: inherit; color: var(--muted); cursor: pointer; }
+.blogx-top button:hover, .blogx-top a:hover { color: var(--fg); }
+.blogx-wm { font-weight: 700; letter-spacing: 0.04em; color: var(--fg); font-size: 14px; }
+.blogx-top .art-theme { margin-left: auto; }
+
+/* Заголовок страницы */
+.blogx-head { padding: 26px 0 22px; max-width: 760px; }
+.blogx-head h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.04; font-weight: 700; letter-spacing: -0.03em; margin: 0 0 14px; color: var(--fg); }
+.blogx-head p { font-size: 18px; line-height: 1.55; color: var(--fg-2); margin: 0; }
+
+/* ── Панель управления: поиск, категории, сортировка ─────────────────── */
+.blogx-tools { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; margin: 6px 0 18px; }
+@media (max-width: 720px) { .blogx-tools { grid-template-columns: 1fr; } }
+
+.blogx-search { position: relative; }
+.blogx-search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 17px; height: 17px; color: var(--muted); pointer-events: none; }
+.blogx-search input {
+  width: 100%; height: 46px; padding: 0 40px 0 42px;
+  border-radius: 12px; border: 1px solid var(--line-2);
+  background: var(--surface); color: var(--fg);
+  font: inherit; font-size: 16px;
+}
+.blogx-search input::placeholder { color: var(--muted); }
+/* У type="search" браузер рисует свой крестик, и рядом с нашим получалось
+   два одинаковых значка подряд */
+.blogx-search input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+.blogx-search input:focus { outline: none; border-color: var(--accent); }
+.blogx-clear {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  width: 30px; height: 30px; border: 0; border-radius: 50%;
+  background: none; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1;
+}
+.blogx-clear:hover { color: var(--fg); background: var(--bg-3); }
+
+/* Сортировка: сегменты, а не выпадающий список - вариантов всего три */
+.blogx-sort { display: inline-flex; gap: 2px; padding: 3px; border-radius: 12px; background: var(--bg-3); }
+.blogx-sort button {
+  border: 0; background: none; font: inherit; font-size: 14px;
+  padding: 8px 14px; border-radius: 9px; color: var(--fg-2); cursor: pointer; white-space: nowrap;
+}
+.blogx-sort button:hover { color: var(--fg); }
+.blogx-sort button.on { background: var(--surface); color: var(--fg); font-weight: 600; box-shadow: var(--shadow); }
+
+/* Категории: строка с горизонтальной прокруткой на узком экране */
+.blogx-cats { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 18px; scrollbar-width: none; }
+.blogx-cats::-webkit-scrollbar { display: none; }
+.blogx-cat {
+  flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px;
+  height: 36px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid var(--line-2); background: transparent;
+  color: var(--fg-2); font: inherit; font-size: 14px; cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.blogx-cat:hover { color: var(--fg); border-color: var(--muted); }
+.blogx-cat.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.blogx-cat span { font-size: 12px; opacity: 0.7; }
+
+.blogx-count { font-size: 14px; color: var(--muted); margin: 0 0 16px; }
+
+/* ── Сетка карточек ─────────────────────────────────────────────────── */
+.blogx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 980px) { .blogx-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .blogx-grid { grid-template-columns: 1fr; } }
+
+.blogx-card {
+  display: flex; flex-direction: column;
+  background: var(--surface); border-radius: 16px; overflow: hidden;
+  box-shadow: var(--shadow); color: inherit; text-decoration: none;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s;
+}
+.blogx-card:hover { transform: translateY(-3px); box-shadow: var(--shadow), 0 0 0 1px var(--accent); }
+.blogx-card-img { aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg-3); }
+.blogx-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.blogx-card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.blogx-card-cat { font-size: 12px; font-weight: 600; color: var(--accent); }
+.blogx-card h2, .blogx-card h3 { font-size: 18px; line-height: 1.3; font-weight: 600; margin: 0; color: var(--fg); letter-spacing: -0.01em; }
+.blogx-card p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--fg-2); }
+.blogx-card-meta { margin-top: auto; padding-top: 6px; font-size: 13px; color: var(--muted); display: flex; gap: 10px; }
+.blogx-card-meta span + span::before { content: "\00b7"; margin-right: 10px; }
+.blogx-fresh { color: var(--accent); font-weight: 600; }
+
+/* Первая карточка крупная: во всю ширину, обложка слева. Раньше она
+   занимала две колонки из трёх, и соседняя карточка тянулась под её
+   высоту, оставляя половину пустого белого поля */
+.blogx-card--lead { grid-column: 1 / -1; flex-direction: row; }
+.blogx-card--lead .blogx-card-img { flex: 0 0 46%; aspect-ratio: auto; }
+.blogx-card--lead .blogx-card-body { padding: 24px 26px; gap: 10px; justify-content: center; }
+.blogx-card--lead h2 { font-size: clamp(20px, 2.2vw, 26px); line-height: 1.2; }
+.blogx-card--lead p { font-size: 16px; }
+@media (max-width: 980px) { .blogx-card--lead { flex-direction: column; } .blogx-card--lead .blogx-card-img { flex: none; aspect-ratio: 16 / 9; } }
+
+/* Ничего не нашлось */
+.blogx-empty { padding: 48px 0 30px; text-align: center; color: var(--fg-2); }
+.blogx-empty b { display: block; font-size: 20px; color: var(--fg); margin-bottom: 8px; font-weight: 600; }
+.blogx-empty button { margin-top: 16px; padding: 10px 18px; border-radius: 10px; border: 0; background: var(--accent); color: var(--accent-ink); font: inherit; font-weight: 600; cursor: pointer; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .blogx-wrap { animation: blogRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+}
+
+/* Фоновая сетка и свечение остались от тёмной версии витрины: на светлом
+   фоне они читаются как грязь по краям, а не как фактура */
+html[data-theme="light"] .blog-page--list::before,
+html[data-theme="light"] .blog-page--list::after { display: none; }

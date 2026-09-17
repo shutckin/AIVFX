@@ -6,6 +6,7 @@ import Pic from '../Pic';
 import LangSwitch from '../LangSwitch';
 import { ArticleBody, PayRow, headingId } from './ArticleBlocks';
 import { partnerUrl, trackPartnerClick } from '../../data/partners';
+import { useBlogTheme, ThemeButton } from './theme';
 import './article.css';
 
 // ── Страница статьи: «карточки + справочник» ────────────────────────────
@@ -17,7 +18,6 @@ import './article.css';
 // Промпты, подписи к кадрам и должность автора не показываем: они
 // отвлекали от чтения, а поисковикам хватает имени в конце и разметки.
 
-const THEME_KEY = 'aivfx-theme';
 const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const fmtDate = (iso, en) => {
@@ -25,40 +25,6 @@ const fmtDate = (iso, en) => {
   if (!y || !m || !d) return iso || '';
   return en ? `${d} ${MONTHS_EN[m - 1]} ${y}` : `${d} ${MONTHS_RU[m - 1]} ${y}`;
 };
-
-// Тема статьи. Светлая по умолчанию, выбор запоминается в браузере.
-// Атрибут стоит на <html>, чтобы перекрасились и шапка, и меню; при
-// уходе со статьи атрибут снимается, остальной сайт остаётся тёмным.
-const readTheme = () => {
-  try { return localStorage.getItem(THEME_KEY) || 'light'; } catch (e) { return 'light'; }
-};
-const useArticleTheme = () => {
-  const [theme, setTheme] = useState('light');
-  useEffect(() => {
-    const t = readTheme();
-    setTheme(t);
-    document.documentElement.setAttribute('data-theme', t);
-    return () => document.documentElement.removeAttribute('data-theme');
-  }, []);
-  const toggle = () => {
-    const next = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    document.documentElement.setAttribute('data-theme', next);
-    try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* приватный режим */ }
-  };
-  return [theme, toggle];
-};
-
-const ThemeButton = ({ theme, onToggle, en }) => (
-  <button type="button" className="art-theme" onClick={onToggle} aria-label={en ? 'Switch theme' : 'Переключить тему'}>
-    {theme === 'dark' ? (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4" /></svg>
-    ) : (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
-    )}
-    <span>{theme === 'dark' ? (en ? 'Light' : 'Светлая') : (en ? 'Dark' : 'Тёмная')}</span>
-  </button>
-);
 
 // Полоса прочитанного вверху страницы. Считается на прокрутке через
 // requestAnimationFrame: событий приходит больше, чем кадров.
@@ -176,7 +142,7 @@ const Related = ({ post, onOpenPost, locale }) => {
 const Article = ({ post, onBack, onBackToList, onOpenPost }) => {
   const locale = useLocale();
   const en = locale === 'en';
-  const [theme, toggleTheme] = useArticleTheme();
+  const [theme, toggleTheme] = useBlogTheme();
   const active = useActiveHeading(post.content);
   const updated = post.dateModified && post.dateModified !== post.date;
 
