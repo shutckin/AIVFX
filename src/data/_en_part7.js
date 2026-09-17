@@ -400,16 +400,16 @@ const PART_7 = [
     category: 'Models & comparisons',
     title: 'Runway from Russia: access, payment, free plan and what to use instead',
     description:
-      'Does Runway open from Russia in 2026, what the 125-credit free plan gives you, how much the paid tiers cost, whether cards work and what to use instead.',
+      'Does Runway open from Russia in 2026, how to pay for a plan with a Mir card through an intermediary or an aggregator, what the 125-credit free plan gives you and what the tiers cost.',
     keywords:
-      'runway ai, runway gen, runway ml, runway download, runway reviews, runway video, runway in russia, runway free, runway price, runway payment',
+      'runway ai, runway gen, runway ml, runway download, runway reviews, runway video, runway in russia, runway free, runway price, runway payment, runway mir card, pay for runway from russia, runway ml subscription russia, renew runway subscription',
     cover: '/blog-images/runway-rooftop-run.jpg',
     coverPrompt: 'modern action-film frame: a woman in a black tactical jacket sprints across a rain-soaked rooftop at dawn and leaps over an air-conditioning unit, wet gravel spraying, city skyline in blue-grey haze, a helicopter searchlight cutting through the mist, low wide angle',
     coverCaption: 'The kind of frame people go to Runway for: action, spray, a helicopter and one continuous camera run. The anchor frame is still; the model draws the motion afterwards.',
     coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-04',
-    dateModified: '2026-09-04',
-    readingTime: '8 min',
+    dateModified: '2026-09-17',
+    readingTime: '10 min',
     related: ['runway-gayd', 'kling-v-rossii-besplatno', 'kak-oplatit-neyroset-iz-rossii'],
     excerpt:
       'Runway is still one of the most visible video generators, but the road to it from Russia is not a straight one. Here is what actually opens, how many credits you get for free, what the plans really cost, and why searching for a Runway download is a dead end.',
@@ -455,6 +455,15 @@ const PART_7 = [
       ] },
       { type: 'p', text: 'Payment methods, fees and pitfalls are covered in detail in [the guide to paying for AI services from Russia](/blog/kak-oplatit-neyroset-iz-rossii/), and how to pick a reseller is in [the breakdown of AI aggregators](/blog/agregatory-ai-servisov/). The general rule is the same as for other models: up to a couple of dozen clips a month an aggregator in roubles wins, beyond that your own subscription starts to pay off.' },
 
+      { type: 'h2', text: 'How to pay for Runway with a Mir card' },
+      { type: 'p', text: 'Directly you cannot, and a VPN does not help: the gateway declines the card by country of issue, and Mir is not accepted outside a handful of countries anyway. So the real question is different: how to pay in roubles from a Mir card and still end up with access to the models. Two scenarios work, and the choice depends on whether you need a Runway account itself or just the finished clips.' },
+      { type: 'ol', items: [
+        '**An intermediary pays for your subscription.** You pay the intermediary in roubles from a Mir card, they put the charge through their own foreign card, and the plan switches on inside your account. The order matters: first a Runway account on an email you will not lose, then the plan chosen on the Runway site, then payment and confirmation. The markup is usually 10-20% on top of the plan price, plus the exchange rate.',
+        '**An aggregator that takes roubles.** Here you are not buying a Runway subscription but access to the models inside someone else’s interface, and a Mir card goes through like any other Russian purchase. Per generation it costs more, but there is no account of your own, no foreign card and no risk of a regional ban. One caveat: Runway is not in every catalogue, so check before you pay.',
+      ] },
+      { type: 'p', text: 'Nobody can tell you the rouble figure in advance, because Runway has no rouble pricing. The maths is simple: the plan price in dollars times the exchange rate times the markup of your payment method. On Standard at 12 dollars a month the markup barely registers; on Max at 76 it becomes a line item of its own, and at that level your own foreign card pays for itself faster than an intermediary.' },
+      { type: 'p', text: '**What not to do.** Do not hand an intermediary your account password instead of a payment link. Do not pay by transfer to a private card with no receipt and no track record. Do not buy a «ready account with a subscription» second hand: those get banned and the money is gone. The checklist for vetting an intermediary is in [the guide to paying for AI services from Russia](/blog/kak-oplatit-neyroset-iz-rossii/).' },
+
       { type: 'image', src: '/blog-images/runway-dostup-panel.jpg', alt: 'Close-up of a colour grading control panel with a trackball and knobs under warm lighting in a dark studio', caption: 'Generation only gives you raw material. Colour, rhythm and editing are still done by hand, and at that stage the difference between Runway and any other generator almost disappears', source: 'AIVFX AI generation (Seedream 5 Pro)' },
 
       { type: 'h2', text: 'What is behind the «download Runway» search' },
@@ -490,6 +499,15 @@ const PART_7 = [
 
       { type: 'h3', text: 'Is Runway worth the money, judging by reviews?' },
       { type: 'p', text: 'Reviews usually raise two complaints: credits disappear faster than expected because every attempt is billed, and results vary unpredictably from take to take. Both are fair, and both apply to every generative video model, not just Runway. If you need a single clip, an aggregator or intermediary is cheaper. If you generate regularly, a subscription from Pro upwards pays for itself.' },
+
+      { type: 'h3', text: 'Can you pay for Runway with a Mir card?' },
+      { type: 'p', text: 'Not on the Runway site: the gateway declines it by country of issue. Roubles from a Mir card go either to an intermediary who sets the subscription up on your account, or to an aggregator for access to the models inside its own interface. The second route is simpler, the first is closer to the original.' },
+
+      { type: 'h3', text: 'How do you top up a Runway balance from Russia?' },
+      { type: 'p', text: 'Runway has no separate rouble balance: credits arrive with the plan and every payment runs through the same foreign gateway. So topping up from Russia in practice means paying for or renewing the subscription through one of the methods above.' },
+
+      { type: 'h3', text: 'How do you renew a Runway subscription from Russia?' },
+      { type: 'p', text: 'Renewal is charged automatically to the card that paid for the plan. If an intermediary paid, agree on renewal in advance, otherwise the subscription dies in the middle of a project. With a virtual card, keep a buffer on it: a failed charge usually switches the plan off straight away rather than sending a reminder.' },
 
       { type: 'h3', text: 'Do you need a VPN to use Runway?' },
       { type: 'p', text: 'Usually not to reach the site, which opens fine. The problem is not access but payment: the gateway will decline a Russian bank card no matter which country you appear to be connecting from. A VPN does not get around that wall, you need a foreign card or an intermediary.' },
@@ -1491,7 +1509,7 @@ const PART_7 = [
     coverCaption: 'Paying for an AI service from Russia in 2026 still looks like a scene from a noir film. The article covers three routes without fly-by-night middlemen.',
     coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
-    dateModified: '2026-09-02',
+    dateModified: '2026-09-17',
     readingTime: '8 min',
     related: ['minimax-h3-hailuo-gayd', 'kling-v-rossii-besplatno', 'sora-2-v-rossii'],
     excerpt:
@@ -1531,6 +1549,8 @@ const PART_7 = [
       { type: 'p', text: 'An aggregator itself, but a foreign one: a dollar subscription that does not accept Russian cards. A foreign card or an intermediary. "How to pay for Higgsfield from Russia" is one of the most frequent queries, and the answer is the same: card or intermediary, there is no third way. What the subscription includes is in the [aggregator overview](/blog/agregatory-ai-servisov/).' },
       { type: 'h3', text: 'Midjourney' },
       { type: 'p', text: 'Opens, no free tier, cards fail. A card or an intermediary for your own account; nearly every Russian aggregator has Midjourney. Note it is tied to Discord and its own site and is not officially sold via API, so aggregators usually offer a "wrapper" with limitations. [Midjourney guide](/blog/midjourney-gayd/).' },
+      { type: 'h3', text: 'Runway' },
+      { type: 'p', text: 'The site opens, the checkout does not: the gateway declines cards by country of issue, and Mir is not accepted outside a handful of countries at all. The free plan is one-off, 125 credits at sign-up with no refill, so without paying you never get past the first tries. Annual pricing is 12 dollars for Standard, 28 for Pro and 76 for Max. All three methods work, but Runway is missing from some aggregator catalogues, unlike Kling or Midjourney, so check that the model is there before you pay for a subscription. Access, credits and prices are covered in [Runway from Russia](/blog/runway-v-rossii/).' },
       { type: 'h3', text: 'ChatGPT and other OpenAI services' },
       { type: 'p', text: 'The most closed case: OpenAI blocks Russian addresses; a foreign address is needed at sign-up, at payment and during work. OpenAI no longer has a video model: Sora was shut down on 26 April 2026 and its API ends on 24 September, so there is nothing to pay for under "Sora access" today. Details in [what happened to Sora](/blog/sora-2-v-rossii/).' },
       { type: 'h3', text: 'Google: Gemini, Nano Banana, Veo' },
