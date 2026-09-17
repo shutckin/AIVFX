@@ -236,7 +236,9 @@ async function main() {
     } catch (err) {
       console.error(`[prerender] ✗ ${route}: ${err.message}`);
     } finally {
-      await page.close();
+      // Страница могла быть закрыта раньше (пустой контент): повторное
+      // закрытие не должно ронять весь prerender
+      await page.close().catch(() => {});
     }
   }
 

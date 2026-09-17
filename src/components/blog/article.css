@@ -1,0 +1,200 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Страница статьи: шаблон «карточки + справочник».
+
+   Светлая тема по умолчанию, тёмная по переключателю. Тема живёт в
+   атрибуте data-theme на <html>: в светлой переопределяются общие
+   переменные сайта (--bg, --fg и остальные), поэтому шапка и меню
+   перекрашиваются сами, без отдельных стилей на каждый элемент.
+   Атрибут ставит страница статьи при открытии и снимает при уходе,
+   остальной сайт остаётся тёмным.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+html[data-theme="light"] {
+  --bg: #f3f4f6;
+  --bg-2: #ffffff;
+  --bg-3: #e9ebef;
+  --fg: #121417;
+  --fg-2: #4b5059;
+  --muted: #7d828b;
+  --muted-2: #9aa0a8;
+  --line: rgba(18, 20, 23, 0.08);
+  --line-2: rgba(18, 20, 23, 0.14);
+  --accent: #2f5fe0;
+  --accent-2: #2f5fe0;
+  --accent-glow: rgba(47, 95, 224, 0.18);
+  --accent-soft: rgba(47, 95, 224, 0.10);
+}
+
+/* Переменные самой статьи: карточки, тени, цвета «да» и «нет» */
+.art {
+  --surface: var(--bg-2);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 30px -18px rgba(0, 0, 0, 0.8);
+  --yes: #5fd08a;
+  --no: #ff8a75;
+  --accent-ink: #fff;
+  color: var(--fg);
+  font-size: 18px;
+  line-height: 1.65;
+}
+html[data-theme="light"] .art {
+  --shadow: 0 1px 2px rgba(18, 20, 23, 0.05), 0 10px 30px -18px rgba(18, 20, 23, 0.25);
+  --yes: #1f8a4c;
+  --no: #c8402f;
+}
+
+/* ── Шапка сайта в светлой теме ─────────────────────────────────────── */
+html[data-theme="light"] .header.scrolled {
+  background: rgba(243, 244, 246, 0.82);
+}
+html[data-theme="light"] .nav-loose .nav-link:hover,
+html[data-theme="light"] .nav-loose .nav-link.active {
+  background: rgba(18, 20, 23, 0.05);
+}
+
+/* ── Каркас ─────────────────────────────────────────────────────────── */
+.art-wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+.art-crumbs { font-size: 13px; color: var(--muted); padding: 6px 0 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.art-crumbs a, .art-crumbs button { color: var(--muted); background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+.art-crumbs a:hover, .art-crumbs button:hover { color: var(--fg); }
+.art-crumbs .art-wm { font-weight: 700; letter-spacing: 0.04em; color: var(--fg); font-size: 14px; }
+.art-crumbs .art-theme { margin-left: auto; }
+
+/* Переключатель темы: маленький, в строке хлебных крошек */
+.art-theme {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 32px; padding: 0 12px; border-radius: 999px;
+  border: 1px solid var(--line-2); background: transparent;
+  color: var(--fg-2); cursor: pointer; font: inherit; font-size: 13px;
+}
+.art-theme:hover { color: var(--fg); border-color: var(--muted); }
+.art-theme svg { width: 15px; height: 15px; }
+
+/* Заголовок рядом с обложкой */
+.art-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; padding: 22px 0 28px; }
+.art-hero h1 { font-size: clamp(32px, 4.4vw, 46px); line-height: 1.06; font-weight: 700; letter-spacing: -0.025em; margin: 0 0 16px; color: var(--fg); }
+.art-lead { font-size: 18px; line-height: 1.5; color: var(--fg-2); margin: 0 0 18px; }
+.art-meta { font-size: 14px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; }
+.art-meta span + span::before { content: "\00b7"; margin-right: 10px; }
+.art-hero figure { margin: 0; }
+.art-cover { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow); display: block; }
+.art-hero figure img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 860px) {
+  .art-hero { grid-template-columns: 1fr; gap: 20px; padding-top: 16px; }
+  .art-hero figure { order: -1; }
+}
+
+/* «Коротко»: ответы на главные вопросы до текста */
+.art-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 4px 0 8px; }
+.art-fact { background: var(--surface); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); display: block; color: inherit; }
+.art-fact small { display: block; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+.art-fact b { font-weight: 600; font-size: 16px; line-height: 1.35; color: var(--fg); }
+.art-fact b.is-yes { color: var(--yes); }
+.art-fact b.is-no { color: var(--no); }
+a.art-fact b { color: var(--accent); }
+a.art-fact b::after { content: " \2197"; }
+a.art-fact:hover { box-shadow: var(--shadow), 0 0 0 1px var(--accent); }
+@media (max-width: 860px) { .art-facts { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .art-facts { grid-template-columns: 1fr; } }
+
+/* Две колонки: текст и липкое оглавление */
+.art-grid { display: grid; grid-template-columns: minmax(0, 720px) 250px; gap: 64px; justify-content: space-between; margin-top: 28px; }
+.art-side { position: sticky; top: 84px; align-self: start; font-size: 14px; }
+.art-side h5 { margin: 6px 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+.art-toc a { display: block; padding: 6px 0 6px 12px; border-left: 2px solid var(--line-2); color: var(--fg-2); text-decoration: none; line-height: 1.35; }
+.art-toc a:hover { color: var(--fg); }
+.art-toc a.on { border-color: var(--accent); color: var(--fg); }
+.art-side .art-pay { margin: 22px 0 0; font-size: 14px; flex-direction: column; align-items: flex-start; gap: 6px; }
+.art-side .art-pay .go { margin-left: 0; }
+@media (max-width: 1023px) {
+  .art-grid { grid-template-columns: minmax(0, 1fr); }
+  .art-side { display: none; }
+}
+
+/* Оглавление на телефоне: свёрнуто над текстом. Отступ снизу, чтобы
+   первый абзац не прилипал к плашке */
+.art-toc-m { display: none; margin: 18px 0 28px; background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); padding: 0 16px; font-size: 15px; }
+.art-toc-m summary { list-style: none; cursor: pointer; padding: 14px 0; font-weight: 600; position: relative; color: var(--fg); }
+.art-toc-m summary::-webkit-details-marker { display: none; }
+.art-toc-m summary::after { content: "+"; position: absolute; right: 0; top: 10px; font-size: 22px; color: var(--muted); font-weight: 400; }
+.art-toc-m[open] summary::after { content: "\2212"; }
+.art-toc-m .art-toc { padding-bottom: 10px; }
+@media (max-width: 1023px) { .art-toc-m { display: block; } }
+
+/* ── Текст ──────────────────────────────────────────────────────────── */
+.art-body h2 { font-size: clamp(25px, 3.2vw, 30px); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; margin: 54px 0 14px; color: var(--fg); scroll-margin-top: 84px; }
+.art-body h3 { font-size: 20px; font-weight: 600; margin: 30px 0 8px; color: var(--fg); line-height: 1.3; }
+.art-body p { margin: 0 0 18px; }
+.art-body strong { color: var(--fg); font-weight: 600; }
+.art-body ul { padding-left: 0; margin: 0 0 22px; list-style: none; }
+.art-body ul li { position: relative; padding-left: 24px; margin: 0 0 10px; }
+.art-body ul li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 8px; height: 8px; border-radius: 50%; border: 2px solid var(--accent); }
+.art-body blockquote { margin: 28px 0; padding: 20px 22px; border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); font-size: 1.02em; font-weight: 500; color: var(--fg); }
+.art-body figure { margin: 34px 0; }
+.art-body figure img { border-radius: 14px; aspect-ratio: 16 / 9; object-fit: cover; box-shadow: var(--shadow); width: 100%; display: block; }
+
+/* Ссылка в тексте */
+.art-link { color: var(--accent); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent); text-underline-offset: 3px; text-decoration-thickness: 1px; transition: text-decoration-color 0.2s; }
+.art-link:hover { text-decoration-color: var(--accent); }
+
+/* Нумерованный список как шаги в карточках */
+.art-steps { list-style: none; padding: 0; margin: 4px 0 22px; counter-reset: n; display: grid; gap: 12px; }
+.art-steps li { position: relative; padding: 16px 18px 16px 62px; background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); }
+.art-steps li::before { counter-increment: n; content: counter(n); position: absolute; left: 16px; top: 16px; width: 32px; height: 32px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 15px; display: grid; place-items: center; }
+
+/* Тарифы карточками: список, где каждый пункт начинается с **Название** - цена */
+.art-tiers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 6px 0 24px; }
+.art-tier { background: var(--surface); border-radius: 14px; padding: 18px 18px 16px; box-shadow: var(--shadow); }
+.art-tier-name { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.art-tier-price { font-size: 30px; font-weight: 700; letter-spacing: -0.03em; margin: 6px 0 12px; line-height: 1; color: var(--fg); }
+.art-tier-price small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); margin-top: 8px; line-height: 1.4; letter-spacing: 0; }
+.art-tier p { margin: 0; font-size: 15px; color: var(--fg-2); line-height: 1.5; }
+@media (max-width: 480px) { .art-tiers { grid-template-columns: 1fr; } }
+
+/* Вопросы раскрываются по плюсу */
+.art-faq { display: grid; gap: 10px; margin: 8px 0 20px; }
+.art-faq details { background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); padding: 0 18px; }
+.art-faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 600; font-size: 17px; line-height: 1.35; position: relative; color: var(--fg); }
+.art-faq summary::-webkit-details-marker { display: none; }
+.art-faq summary::after { content: "+"; position: absolute; right: 0; top: 12px; font-size: 24px; color: var(--muted); font-weight: 400; }
+.art-faq details[open] summary::after { content: "\2212"; }
+.art-faq-a { padding: 0 0 16px; color: var(--fg-2); font-size: 16px; }
+.art-faq-a p { margin: 0 0 12px; }
+.art-faq-a p:last-child { margin-bottom: 0; }
+
+/* Строка «оплата рублями»: одна строка со стрелкой, без плашки и подписи */
+.art-pay { display: flex; align-items: center; gap: 12px; margin: 22px 0 26px; padding: 12px 14px; border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); font-size: 15px; color: var(--fg-2); text-decoration: none; transition: box-shadow 0.2s; }
+.art-pay:hover { box-shadow: var(--shadow), 0 0 0 1px var(--accent); }
+.art-pay b { color: var(--fg); font-weight: 600; }
+.art-pay .go { margin-left: auto; color: var(--accent); white-space: nowrap; font-weight: 500; }
+.art-pay .go::after { content: " \2197"; }
+
+/* Призыв в конце */
+.art-cta { margin: 48px 0 0; padding: 26px; border-radius: 16px; background: var(--accent); color: var(--accent-ink); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.art-cta p { margin: 0; font-size: 20px; font-weight: 700; flex: 1 1 260px; letter-spacing: -0.01em; color: inherit; }
+.art-cta button { padding: 12px 20px; border-radius: 10px; background: var(--accent-ink); color: var(--accent); border: 0; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+.art-cta button:active { transform: translateY(1px); }
+
+.art-sign { margin: 36px 0 0; font-size: 14px; color: var(--muted); }
+
+/* «Читайте дальше» карточками */
+.art-more { margin: 52px 0 80px; }
+.art-more h2 { font-size: 22px; margin: 0 0 16px; letter-spacing: -0.01em; color: var(--fg); }
+.art-more-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.art-rel { display: block; text-decoration: none; border-radius: 14px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow); color: inherit; }
+.art-rel:hover { box-shadow: var(--shadow), 0 0 0 1px var(--accent); }
+.art-rel .art-rel-img { aspect-ratio: 16 / 9; overflow: hidden; }
+.art-rel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.art-rel span { display: block; padding: 12px 14px 14px; }
+.art-rel small { display: block; font-size: 12px; color: var(--accent); margin-bottom: 4px; font-weight: 600; }
+.art-rel b { display: block; font-weight: 600; font-size: 15px; line-height: 1.35; color: var(--fg); }
+.art-rel i { display: block; font-style: normal; font-size: 12px; color: var(--muted); margin-top: 6px; }
+@media (max-width: 720px) { .art-more-list { grid-template-columns: 1fr; } }
+
+@media (max-width: 640px) {
+  .art { font-size: 17px; line-height: 1.62; }
+  .art-body h2 { margin-top: 42px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .art-wrap { animation: blogRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+}

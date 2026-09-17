@@ -410,6 +410,12 @@ const PART_7 = [
     date: '2026-09-04',
     dateModified: '2026-09-17',
     readingTime: '10 min',
+    facts: [
+      { label: 'Opens from Russia', value: 'Yes, the site and sign-up work', tone: 'yes' },
+      { label: 'Russian cards', value: 'Declined on the site', tone: 'no' },
+      { label: 'Free plan', value: '125 credits once, no refill' },
+      { label: 'Paid plans', value: 'from $12 a month billed yearly' },
+    ],
     related: ['runway-gayd', 'kling-v-rossii-besplatno', 'kak-oplatit-neyroset-iz-rossii'],
     excerpt:
       'Runway is still one of the most visible video generators, but the road to it from Russia is not a straight one. Here is what actually opens, how many credits you get for free, what the plans really cost, and why searching for a Runway download is a dead end.',
