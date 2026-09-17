@@ -5,6 +5,7 @@ import LangSwitch from './LangSwitch';
 import { useLocale, localizedHref } from '../i18n';
 import Pic from './Pic';
 import GenFrame from './GenFrame';
+import { partnerUrl, partnerText, trackPartnerClick } from '../data/partners';
 
 // Дата статьи в человеческом виде для подписи под заголовком
 const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
@@ -35,12 +36,22 @@ const renderRich = (text, locale) => {
     if (link) {
       const [, label, href] = link;
       const isInternal = href.startsWith('/');
+      // partner:syntx - партнёрская ссылка: адрес берётся из data/partners.js,
+      // а rel="sponsored nofollow" говорит поисковику, что это реклама.
+      const partner = href.startsWith('partner:') ? partnerUrl(href.slice(8)) : '';
+      if (href.startsWith('partner:') && !partner) return <React.Fragment key={i}>{label}</React.Fragment>;
       return (
         <a
           key={i}
-          href={isInternal ? localizedHref(href, locale) : href}
+          href={partner || (isInternal ? localizedHref(href, locale) : href)}
           className="blog-inline-link"
-          {...(isInternal ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+          {...(partner
+            ? {
+                target: '_blank',
+                rel: 'sponsored nofollow noopener noreferrer',
+                onClick: () => trackPartnerClick(href.slice(8)),
+              }
+            : isInternal ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
         >
           {label}
         </a>
@@ -48,6 +59,35 @@ const renderRich = (text, locale) => {
     }
     return <React.Fragment key={i}>{part}</React.Fragment>;
   });
+};
+
+// Партнёрский блок внутри статьи.
+//
+// Ставится только в местах, где читатель ищет способ оплаты. Подпись про
+// партнёрскую ссылку обязательна и не прячется мелким шрифтом: человек
+// должен видеть, на чём мы зарабатываем, до того как нажмёт кнопку.
+const PartnerBlock = ({ id }) => {
+  const locale = useLocale();
+  const t = partnerText(id, locale);
+  if (!t) return null;
+  return (
+    <aside className="my-8 p-6 rounded-lg border border-white/10 bg-white/5">
+      <span className="text-xs uppercase tracking-widest text-white/40">{t.kicker}</span>
+      <p className="text-xl font-bold text-white mt-2 mb-3">{t.title}</p>
+      <p className="mb-4">{t.copy}</p>
+      <a
+        href={t.url}
+        target="_blank"
+        rel="sponsored nofollow noopener noreferrer"
+        onClick={() => trackPartnerClick(id)}
+        className="inline-block px-5 py-3 rounded-md font-semibold text-black"
+        style={{ background: 'var(--accent)' }}
+      >
+        {t.action}
+      </a>
+      <p className="text-white/45 text-xs mt-3 leading-relaxed">{t.note}</p>
+    </aside>
+  );
 };
 
 // CTA-блок в конце статьи
@@ -131,6 +171,8 @@ const Block = ({ block, onBack }) => {
       );
     case 'gen':
       return <GenFrame block={block} />;
+    case 'partner':
+      return <PartnerBlock id={block.id} />;
     case 'cta':
       return <CtaBlock onBack={onBack} />;
     default:

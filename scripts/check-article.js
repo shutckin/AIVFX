@@ -92,7 +92,7 @@ if (faqStart >= 0) {
   }
 }
 
-const badBlocks = c.filter((b) => !['p', 'h2', 'h3', 'ul', 'ol', 'quote', 'image', 'cta'].includes(b.type));
+const badBlocks = c.filter((b) => !['p', 'h2', 'h3', 'ul', 'ol', 'quote', 'image', 'cta', 'gen', 'partner'].includes(b.type));
 if (badBlocks.length) fail('неизвестные типы блоков: ' + badBlocks.map((b) => b.type).join(', '));
 c.forEach((b, i) => {
   if ((b.type === 'ul' || b.type === 'ol') && (!Array.isArray(b.items) || !b.items.length)) {
