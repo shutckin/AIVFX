@@ -44,30 +44,6 @@ const COVERS = [
     title: 'Nano Banana Pro\nи Seedream 5 Pro',
     sub: 'Текст в кадре, слои, правка по областям',
   },
-  {
-    file: 'cover-suno-rossiya.jpg',
-    kicker: 'МУЗЫКА · SUNO',
-    title: 'Suno из России',
-    sub: 'Доступ, оплата рублями, права на трек',
-  },
-  {
-    file: 'cover-suno-skachat.jpg',
-    kicker: 'МУЗЫКА · SUNO',
-    title: 'Скачать Suno',
-    sub: 'Приложение есть, песня с бесплатного - нет',
-  },
-  {
-    file: 'cover-suno-pesnya.jpg',
-    kicker: 'МУЗЫКА · ГАЙД',
-    title: 'Как сделать песню\nнейросетью',
-    sub: 'От текста и стиля до готового трека',
-  },
-  {
-    file: 'cover-suno-russkiy.jpg',
-    kicker: 'МУЗЫКА · SUNO',
-    title: 'Suno на русском',
-    sub: 'Вокал, ударения и как писать текст песни',
-  },
 ];
 
 const fontFile = (weight) => {
