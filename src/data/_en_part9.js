@@ -14,9 +14,9 @@ const PART_9 = [
       'A plan-by-plan breakdown of ChatGPT\'s Free, Go, Plus and Pro tiers in September 2026, what GPT-5.6\'s three model tracks actually mean, and why new sign-ups to the $200 Pro tier have been paused since September 10.',
     keywords:
       'chatgpt pricing 2026, chatgpt plus price, chatgpt pro 200, chatgpt go, gpt-5.6, chatgpt free vs plus, chatgpt subscription tiers, chatgpt pro paused',
-    cover: '/blog-images/chatgpt-pro-chrome-doorman.jpg',
-    coverPrompt: 'Fashion editorial, hard directional studio strobe light, high contrast, clean white cyclorama background. Three minimalist brushed-chrome doors, flush and seamless, no ornate trim or mouldings. A tall doorman in sharp monochrome tailoring stands with one arm firmly extended flat against the center chrome door, blocking it, expression composed and poised. To either side the other two chrome doors stand open, and equally styled fashion models walk through them confidently, unbothered, captured like a Vogue cover shoot. No readable signage, numbers or lettering anywhere in frame. Shot on Arricam LT with Cooke S4/i primes, 35mm Kodak Vision3 500T, T2.8, shallow depth of field, halation on highlights, fine organic grain, lifted milky blacks, low contrast, no sharpening, no HDR.',
-    coverCaption: 'The priciest door is held shut for new arrivals. Everyone who already has access keeps walking through the other two.',
+    cover: '/blog-images/chatgpt-vortex-of-copies.jpg',
+    coverPrompt: 'Editorial photograph, hard directional studio strobe, high contrast, dark background. A model stands calmly at the center, holding a smartphone at chin height showing one crisp, correctly-proportioned ChatGPT app icon (the distinctive dark teal interlocking spiral flower-shaped mark, no text). Around her, a physical vortex of dozens of smaller identical spiral logo shapes swirls through the air like debris caught in a whirlwind, each copy slightly warped, smudged, faded or discolored compared to the crisp one on her screen. Shot on Arricam LT with Cooke S4/i primes, 35mm Kodak Vision3 500T, T2.8, shallow depth of field, halation on highlights, fine organic grain, lifted milky blacks, low contrast, no sharpening, no HDR.',
+    coverCaption: 'One tier is closed to new arrivals, the rest keep working. That is ChatGPT this autumn: a lot of noise swirling around a simple core.',
     coverSource: 'AI-generation AIVFX (Seedream 5 Pro)',
     date: '2026-09-18',
     dateModified: '2026-09-18',
