@@ -84,7 +84,7 @@ const PART_4 = [
     category: 'Images & Art',
     title: 'Midjourney: A Beginner\'s Guide 2026 - How to Use It',
     description: 'A complete guide to Midjourney for beginners in 2026: registration, prompt structure, the --ar, --sref, --cref parameters, pricing, and how to turn frames into AI video.',
-    keywords: 'midjourney guide, how to use midjourney, midjourney for beginners, neural network for images, midjourney prompt, midjourney parameters, midjourney price 2026, midjourney v7, ai image generation, midjourney tutorial',
+    keywords: 'midjourney guide, how to use midjourney, midjourney for beginners, neural network for images, midjourney prompt, midjourney parameters, midjourney price 2026, midjourney v8, ai image generation, midjourney tutorial',
     cover: '/blog-images/midjourney-koi-ballroom.jpg',
     coverPrompt: 'surreal editorial: a woman in a sculptural white dress floats among giant koi fish in a flooded baroque ballroom, chandeliers above the water, gilded mirrors, dreamlike',
     coverCaption: 'Midjourney is still the best where you need a dream rather than a photograph. A beginner guide: how to use it and what to ask.',

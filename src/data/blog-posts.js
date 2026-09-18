@@ -4038,7 +4038,7 @@ export const BLOG_POSTS = [
     category: 'Изображения и арт',
     title: 'Midjourney: гайд для новичка 2026 - как пользоваться',
     description: 'Полный гайд по Midjourney для новичка в 2026: регистрация, структура промпта, параметры --ar, --sref, --cref, цены и как превратить кадры в AI-видео.',
-    keywords: 'midjourney гайд, как пользоваться midjourney, midjourney для новичка, нейросеть для картинок, midjourney промпт, midjourney параметры, midjourney цена 2026, midjourney v7, генерация изображений ai, midjourney на русском',
+    keywords: 'midjourney гайд, как пользоваться midjourney, midjourney для новичка, нейросеть для картинок, midjourney промпт, midjourney параметры, midjourney цена 2026, midjourney v8, генерация изображений ai, midjourney на русском',
     cover: '/blog-images/midjourney-koi-ballroom.jpg',
     coverPrompt: 'surreal editorial: a woman in a sculptural white dress floats among giant koi fish in a flooded baroque ballroom, chandeliers above the water, gilded mirrors, dreamlike',
     coverCaption: 'Midjourney до сих пор лучший там, где нужна не фотография, а сон. Гайд для новичка: как пользоваться и что просить.',
