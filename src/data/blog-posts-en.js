@@ -11,8 +11,9 @@ import PART_4 from './_en_part4';
 import PART_5 from './_en_part5';
 import PART_6 from './_en_part6';
 import PART_7 from './_en_part7';
+import PART_8 from './_en_part8';
 
-export const BLOG_POSTS_EN = [...PART_7, ...PART_6, ...PART_5, ...PART_1, ...PART_2, ...PART_3, ...PART_4];
+export const BLOG_POSTS_EN = [...PART_8, ...PART_7, ...PART_6, ...PART_5, ...PART_1, ...PART_2, ...PART_3, ...PART_4];
 
 // Хелпер: найти английскую статью по slug
 export const getPostBySlugEn = (slug) =>

@@ -197,7 +197,7 @@ const Article = ({ post, onBack, onBackToList, onOpenPost }) => {
             <aside className="art-side">
               <h5>{en ? 'In this article' : 'В статье'}</h5>
               <Toc content={post.content} active={active} />
-              {!en && post.partner && <PayRow id={post.partner} compact />}
+              {post.partner && <PayRow id={post.partner} compact />}
             </aside>
           </div>
         </article>

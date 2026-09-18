@@ -84,7 +84,7 @@ const BlogIndex = ({ onBack, onOpenPost }) => {
   const locale = useLocale();
   const en = locale === 'en';
   const POSTS = en ? BLOG_POSTS_EN : BLOG_POSTS;
-  const ALL = en ? 'Все темы' : 'Все темы';
+  const ALL = en ? 'All topics' : 'Все темы';
   const [theme, toggleTheme] = useBlogTheme();
 
   const [query, setQuery] = useState('');
@@ -133,9 +133,9 @@ const BlogIndex = ({ onBack, onOpenPost }) => {
   const rest = lead ? list.slice(1) : list;
 
   const sorts = [
-    ['new', en ? 'Новые' : 'Новые'],
-    ['updated', en ? 'Обновлённые' : 'Обновлённые'],
-    ['short', en ? 'Короткие' : 'Короткие'],
+    ['new', en ? 'Newest' : 'Новые'],
+    ['updated', en ? 'Updated' : 'Обновлённые'],
+    ['short', en ? 'Short reads' : 'Короткие'],
   ];
 
   return (

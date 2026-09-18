@@ -25,10 +25,13 @@ export const PARTNERS = {
       short: 'Оплата рублями: ',
       action: 'Открыть',
     },
+    /* Для англоязычного читателя рубли и карта «Мир» не значат ничего.
+       Ему продаёт другой аргумент: одна подписка вместо пяти отдельных,
+       и оплата, которая проходит, если своя карта не принимается. */
     en: {
-      row: 'We pay for the models in roubles through ',
-      rowTail: ': one subscription, a Russian card',
-      short: 'Pay in roubles: ',
+      row: 'We run the models through ',
+      rowTail: ': one subscription instead of five separate ones',
+      short: 'One subscription: ',
       action: 'Open',
     },
   },

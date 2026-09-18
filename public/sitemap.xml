@@ -182,6 +182,78 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/" />
   </url>
   <url>
+    <loc>https://aivfx.ru/blog/suno-v-rossii/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/suno-v-rossii/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/suno-v-rossii/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/suno-v-rossii/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/suno-v-rossii/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/suno-v-rossii/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/suno-v-rossii/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/suno-v-rossii/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/blog/suno-skachat/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/suno-skachat/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/suno-skachat/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/suno-skachat/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/suno-skachat/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/suno-skachat/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/suno-skachat/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/suno-skachat/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/blog/kak-sdelat-pesnyu-neyrosetyu/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sdelat-pesnyu-neyrosetyu/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sdelat-pesnyu-neyrosetyu/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sdelat-pesnyu-neyrosetyu/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/kak-sdelat-pesnyu-neyrosetyu/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/kak-sdelat-pesnyu-neyrosetyu/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/kak-sdelat-pesnyu-neyrosetyu/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/kak-sdelat-pesnyu-neyrosetyu/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/blog/suno-na-russkom/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/suno-na-russkom/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/suno-na-russkom/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/suno-na-russkom/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/suno-na-russkom/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/suno-na-russkom/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/suno-na-russkom/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/suno-na-russkom/" />
+  </url>
+  <url>
     <loc>https://aivfx.ru/blog/kursy-po-neyrosetyam/</loc>
     <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -858,30 +930,6 @@
     <lastmod>2026-09-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://aivfx.ru/blog/suno-v-rossii/</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aivfx.ru/blog/suno-skachat/</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aivfx.ru/blog/kak-sdelat-pesnyu-neyrosetyu/</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aivfx.ru/blog/suno-na-russkom/</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aivfx.ru/blog/neyroset-dlya-montazha-video/</loc>
