@@ -182,6 +182,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/" />
   </url>
   <url>
+    <loc>https://aivfx.ru/blog/claude-agenty-i-claude-code/</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/claude-agenty-i-claude-code/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/claude-agenty-i-claude-code/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/claude-agenty-i-claude-code/" />
+  </url>
+  <url>
+    <loc>https://aivfx.ru/en/blog/claude-agenty-i-claude-code/</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://aivfx.ru/blog/claude-agenty-i-claude-code/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aivfx.ru/en/blog/claude-agenty-i-claude-code/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aivfx.ru/blog/claude-agenty-i-claude-code/" />
+  </url>
+  <url>
     <loc>https://aivfx.ru/blog/claude-v-2026/</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
