@@ -55,6 +55,8 @@ const splitTier = (it) => {
   // «12 долларов в месяц при оплате за год, около 15 при помесячной» -> 12 $ и пояснение
   const d = m[2].match(/^(\d+)\s*(?:доллар[а-я]*|dollars?|\$)\s*(.*)$/i);
   if (d) return { name: m[1], price: `${d[1]} $`, note: d[2], rest: m[3] };
+  const e = m[2].match(/^(\d+)\s*(?:евро|euros?|€)\s*(.*)$/i);
+  if (e) return { name: m[1], price: `${e[1]} €`, note: e[2], rest: m[3] };
   const c = m[2].split(':');
   const custom = c.length > 1;
   return { name: m[1], price: custom ? null : m[2], note: custom ? c.slice(1).join(':').trim() : '', rest: m[3] };
