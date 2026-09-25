@@ -64,8 +64,9 @@ banned.forEach((re) => { if (re.test(raw)) fail('запрещённая форм
 const c = post.content || [];
 const types = c.map((b) => b.type);
 const imgs = c.filter((b) => b.type === 'image');
-if (imgs.length !== 1) fail(`блоков image: ${imgs.length}, нужен ровно 1`);
-if (imgs[0] && imgs[0].src !== wantImg) fail(`картинка «${imgs[0].src}» вместо «${wantImg}»`);
+if (imgs.length > 1) fail(`блоков image: ${imgs.length}, максимум 1`);
+if (imgs.length === 0) warn('нет блока image внутри текста (для нового шаблона это нормально)');
+if (imgs[0] && wantImg && imgs[0].src !== wantImg) fail(`картинка «${imgs[0].src}» вместо «${wantImg}»`);
 if (imgs[0] && (!imgs[0].alt || !imgs[0].caption)) fail('у картинки нет alt или caption');
 if (types[types.length - 1] !== 'cta') fail('последний блок не cta');
 if (types.filter((t) => t === 'cta').length !== 1) fail('блоков cta должно быть ровно 1');
@@ -92,13 +93,14 @@ if (faqStart >= 0) {
   }
 }
 
-const badBlocks = c.filter((b) => !['p', 'h2', 'h3', 'ul', 'ol', 'quote', 'image', 'cta', 'gen', 'partner'].includes(b.type));
+const badBlocks = c.filter((b) => !['p', 'h2', 'h3', 'ul', 'ol', 'quote', 'image', 'cta', 'gen', 'partner', 'video'].includes(b.type));
 if (badBlocks.length) fail('неизвестные типы блоков: ' + badBlocks.map((b) => b.type).join(', '));
 c.forEach((b, i) => {
   if ((b.type === 'ul' || b.type === 'ol') && (!Array.isArray(b.items) || !b.items.length)) {
     fail(`блок ${i} (${b.type}) без items`);
   }
   if (['p', 'h2', 'h3', 'quote'].includes(b.type) && !b.text) fail(`блок ${i} (${b.type}) без text`);
+  if (b.type === 'video' && !/^[\w-]{11}$/.test(b.id || '')) fail(`блок ${i} (video) без корректного id YouTube`);
 });
 
 // ── объём ───────────────────────────────────────────────────────────

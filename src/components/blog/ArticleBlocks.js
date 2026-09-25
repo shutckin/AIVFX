@@ -102,6 +102,36 @@ export const PayRow = ({ id, compact }) => {
   );
 };
 
+// Видео с YouTube: до клика только превью и кнопка, плеер подгружается
+// по нажатию. Иначе каждый ролик тянет мегабайт скриптов ещё до того,
+// как читатель дошёл до него.
+const Video = ({ id, title }) => {
+  const [open, setOpen] = React.useState(false);
+  const en = useLocale() === 'en';
+  if (open) {
+    return (
+      <figure className="art-video">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
+          title={title || 'YouTube'}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+        {title && <figcaption>{title}</figcaption>}
+      </figure>
+    );
+  }
+  return (
+    <figure className="art-video">
+      <button type="button" className="art-video-play" onClick={() => setOpen(true)} aria-label={en ? `Play: ${title || 'video'}` : `Смотреть: ${title || 'видео'}`}>
+        <img src={`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`} alt="" loading="lazy" width={1280} height={720} />
+        <span className="art-video-btn">{en ? 'Watch' : 'Смотреть'}</span>
+      </button>
+      {title && <figcaption>{title}</figcaption>}
+    </figure>
+  );
+};
+
 const Cta = ({ onBack }) => {
   const en = useLocale() === 'en';
   return (
@@ -137,6 +167,8 @@ const Block = ({ block, locale, onBack }) => {
           <Pic src={block.src} alt={block.alt || ''} sizes="(max-width: 768px) 100vw, 720px" width={1280} height={720} />
         </figure>
       );
+    case 'video':
+      return <Video id={block.id} title={block.title} />;
     case 'partner':
       return <PayRow id={block.id} />;
     case 'cta':
