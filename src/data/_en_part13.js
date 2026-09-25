@@ -58,7 +58,6 @@ const PART_13 = [
       ] },
       { type: 'p', text: 'Three pieces of fine print worth reading before you pay. Unlimited models work only on the higgsfield.ai site, not through the API, CLI, Canvas or Supercomputer. In peak hours unlimited may slow down. New models roll out in stages. There is also a one-time entry for 3 dollars: 40 credits and two days of unlimited Soul 2.0.' },
       { type: 'p', text: 'For scale: a five-second Seedance 2.0 clip at 720p costs about 22 credits, at 1080p about 45. So the 200 credits on Starter are nine short 720p clips a month, unlimited models aside. In January we said the same about the 150 credits of the old base plan: nothing to do on it, start from the second plan.' },
-      { type: 'video', id: 'yH3ZW81Hni8', title: 'Our Higgsfield review, January 2026. The plans are outdated, the interface and workflow are still current. In Russian, YouTube auto-dubbing available' },
 
       { type: 'h2', text: 'Syntx plans as of September 2026' },
       { type: 'p', text: 'Monthly prices in US dollars, as the site shows them. The site promises a 15% annual discount, but the calculator comes out closer to 20%, so check the total on the payment screen. Subscriptions run 1, 3, 6 or 12 months.' },
@@ -70,7 +69,6 @@ const PART_13 = [
         '**Ultra Elite** - 125 dollars a month. 3 000 tokens, Nano Banana and MiniMax join the Elite unlimited set, plus Claude Sonnet 5 and Gemini 3.1 Pro on the text side.',
       ] },
       { type: 'p', text: 'One mechanic Higgsfield does not have: Syntx tokens do not expire at month end. They stay on the account and add up on renewal, but can only be spent while a subscription is active. Language models in the plan do not consume tokens, neither do the unlimited tools. The trial gives 5 tokens and 5 text-model requests for free.' },
-      { type: 'video', id: 'KZzrXHPXvy4', title: 'Our Syntx review, January 2026. The token and unlimited logic is the same, the model list has changed since. In Russian, YouTube auto-dubbing available' },
 
       { type: 'h2', text: 'Which models live where' },
       { type: 'p', text: 'On video and images the overlap is large. The difference is in the details and what surrounds the models.' },
@@ -123,7 +121,6 @@ const PART_13 = [
 
       { type: 'h2', text: 'What about Flowith?' },
       { type: 'p', text: 'The third aggregator people ask about in the same breath. It is a different thing: not a storefront of models and not a layer over video, but an endless canvas for multi-step work with text and images, where every request becomes a node. Not a competitor here, it solves a different problem. We reviewed it too, and its place among aggregators is in [the overview article](/blog/agregatory-ai-servisov/).' },
-      { type: 'video', id: 'FO2-D5b2ZL4', title: 'Our Flowith review: a node interface instead of a chat. In Russian, YouTube auto-dubbing available' },
 
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Which is cheaper, Syntx or Higgsfield?' },
