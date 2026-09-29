@@ -37,8 +37,30 @@ export const PARTNERS = {
   },
 };
 
-/** Адрес партнёра по идентификатору. Неизвестный id возвращает пустую строку. */
-export const partnerUrl = (id) => (PARTNERS[id] ? PARTNERS[id].url : '');
+/**
+ * Метка страницы для журнала кликов: 'runway-v-rossii', 'en.claude-v-2026'.
+ * Считается в браузере; при пререндере Puppeteer открывает ту же страницу,
+ * поэтому адрес в готовом HTML и после загрузки совпадает.
+ */
+const pageTag = () => {
+  if (typeof window === 'undefined') return '';
+  const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+  return path.replace(/^en\/blog\//, 'en.').replace(/^blog\//, '').replace(/\//g, '.') || 'home';
+};
+
+/**
+ * Адрес партнёрской ссылки на сайте. Ведёт не сразу к партнёру, а через
+ * наш сервер: /go/<id>?from=<страница>.<место>. Сервер (nginx, location
+ * /go/syntx) записывает клик в /var/log/aivfx-partner/clicks.log и
+ * перекидывает на партнёрскую ссылку. Так клик виден, даже если
+ * Метрику режет блокировщик.
+ *
+ * ВАЖНО: адрес назначения зашит и в конфиге nginx. Сменилась ссылка в
+ * PARTNERS - поменять её и там, иначе переход уйдёт на старую.
+ * place: facts, row, side, text. Неизвестный id - пустая строка.
+ */
+export const partnerUrl = (id, place = 'link') =>
+  PARTNERS[id] ? `/go/${id}?from=${encodeURIComponent(`${pageTag()}.${place}`)}` : '';
 
 /** Тексты партнёрского блока под язык страницы. */
 export const partnerText = (id, locale) => {

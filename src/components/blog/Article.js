@@ -93,7 +93,7 @@ const Facts = ({ facts, locale }) => {
         const tone = f.tone ? ` is-${f.tone}` : '';
         if (f.href && f.href.startsWith('partner:')) {
           const id = f.href.slice(8);
-          const url = partnerUrl(id);
+          const url = partnerUrl(id, 'facts');
           if (url) {
             return (
               <a key={i} className="art-fact" href={url} target="_blank" rel="sponsored nofollow noopener noreferrer" onClick={() => trackPartnerClick(id)}>

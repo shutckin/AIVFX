@@ -2,60 +2,76 @@
 # Разрешаем всем стандартным поисковикам
 User-agent: *
 Allow: /
+Disallow: /go/
 
 # Явно разрешаем AI-краулерам (OpenAI / ChatGPT)
 User-agent: GPTBot
 Allow: /
+Disallow: /go/
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /go/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /go/
 
 # Anthropic Claude
 User-agent: ClaudeBot
 Allow: /
+Disallow: /go/
 
 User-agent: Claude-Web
 Allow: /
+Disallow: /go/
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /go/
 
 # Perplexity
 User-agent: PerplexityBot
 Allow: /
+Disallow: /go/
 
 User-agent: Perplexity-User
 Allow: /
+Disallow: /go/
 
 # Google Bard / Gemini / AI Overviews
 User-agent: Google-Extended
 Allow: /
+Disallow: /go/
 
 # Apple Intelligence
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /go/
 
 # Common Crawl (используется многими LLM для обучения)
 User-agent: CCBot
 Allow: /
+Disallow: /go/
 
 # ByteDance / TikTok
 User-agent: Bytespider
 Allow: /
+Disallow: /go/
 
 # Meta AI
 User-agent: Meta-ExternalAgent
 Allow: /
+Disallow: /go/
 
 User-agent: FacebookBot
 Allow: /
+Disallow: /go/
 
 # Yandex AI
 User-agent: YandexBot
 Allow: /
+Disallow: /go/
 
 Sitemap: https://aivfx.ru/sitemap.xml
 

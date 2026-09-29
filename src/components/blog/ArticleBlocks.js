@@ -21,7 +21,7 @@ export const renderRich = (text, locale) => {
     const [, label, href] = link;
     if (href.startsWith('partner:')) {
       const id = href.slice(8);
-      const url = partnerUrl(id);
+      const url = partnerUrl(id, 'text');
       if (!url) return <React.Fragment key={i}>{label}</React.Fragment>;
       return (
         <a key={i} href={url} className="art-link" target="_blank" rel="sponsored nofollow noopener noreferrer" onClick={() => trackPartnerClick(id)}>
@@ -92,7 +92,7 @@ export const PayRow = ({ id, compact }) => {
   if (!t) return null;
   return (
     <a
-      href={t.url}
+      href={partnerUrl(id, compact ? 'side' : 'row')}
       className="art-pay"
       target="_blank"
       rel="sponsored nofollow noopener noreferrer"
