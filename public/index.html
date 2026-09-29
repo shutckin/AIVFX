@@ -304,8 +304,11 @@
       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
+      // ssr:true здесь не ставить: с ним Метрика ждёт отдельный вариант
+      // подключения для серверного рендеринга и обычный init молча
+      // игнорирует. Из-за этой опции счётчик не работал с запуска сайта
+      // (найдено 29.09.2026, проверено на эталонной странице).
       ym(109098541, "init", {
-        ssr:true,
         webvisor:true,
         clickmap:true,
         trackLinks:true,

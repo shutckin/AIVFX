@@ -93,6 +93,12 @@ async function main() {
     const page = await browser.newPage();
     try {
       await page.setViewport({ width: 1280, height: 800 });
+      // Метрику при сборке не пускаем в сеть: иначе каждый пререндер
+      // засчитывается визитом с сервера сборки.
+      await page.setRequestInterception(true);
+      page.on('request', (req) => (
+        /mc\.yandex\.(ru|com)/.test(req.url()) ? req.abort() : req.continue()
+      ));
       await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
       // Дополнительная пауза для lazy-загрузки секций
       await new Promise(r => setTimeout(r, SETTLE_MS));
@@ -123,6 +129,12 @@ async function main() {
         // 3. Чат-лаунчер всплывает по таймеру/скроллу - снимаем видимость
         document.querySelectorAll('.chat-launcher.is-visible')
           .forEach((el) => el.classList.remove('is-visible'));
+        // 4. Тег загрузки Метрики, который вставил её же код из index.html.
+        //    В готовом HTML он лишний: код счётчика в конце страницы сам
+        //    вставляет этот тег у посетителя, а запечённая копия грузит
+        //    скрипт раньше инициализации и в обход её.
+        document.querySelectorAll('script[src*="mc.yandex.ru/metrika/tag.js"]')
+          .forEach((el) => el.remove());
       });
 
       // КЛЮЧЕВОЕ: подменяем canonical/og:url, проставляем lang и hreflang
