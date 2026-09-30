@@ -3,8 +3,8 @@ import LangSwitch from './LangSwitch';
 
 const Consent = ({ onBack }) => {
   return (
-    <div className="min-h-screen legal-page pt-20">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+    <div className="min-h-screen legal-page sm:pt-20">
+      <div className="container mx-auto px-4 py-6 sm:py-12 max-w-4xl">
         <div className="mb-6 page-topbar">
           <button
             onClick={onBack}
@@ -19,8 +19,8 @@ const Consent = ({ onBack }) => {
         </div>
 
         <div className="card">
-          <div className="p-8 lg:p-12">
-            <h1 className="text-4xl font-bold text-white mb-8 text-center">
+          <div className="p-5 sm:p-8 lg:p-12">
+            <h1 className="text-2xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 text-center break-words">
               Согласие на обработку персональных данных
             </h1>
 
