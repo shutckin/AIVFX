@@ -3,6 +3,7 @@ import { useLocale, pick, localizedHref } from '../i18n';
 import { CHAT_DEMO } from '../data/systems-content';
 import { sendLead, sendLeadBeacon } from '../lib/leadApi';
 import { askAssistant, isAssistantConfigured } from '../lib/assistantApi';
+import { reachGoal } from '../lib/metrika';
 import './chat-widget.css';
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -458,6 +459,7 @@ const ChatWidget = () => {
       });
       // Успех: форму сворачиваем, ассистент подтверждает в ленте
       leadDelivered.current = true;
+      reachGoal('lead_chat');
       if (summaryTimer.current.id) {
         clearTimeout(summaryTimer.current.id);
         summaryTimer.current.id = null;
@@ -537,7 +539,7 @@ const ChatWidget = () => {
       <button
         type="button"
         className={`chat-launcher${launcherVisible && !open ? ' is-visible' : ''}`}
-        onClick={() => setOpen(true)}
+        onClick={() => { setOpen(true); reachGoal('chat_open'); }}
         aria-label={pick(L, CHAT_DEMO.launcher)}
         aria-expanded={open}
         tabIndex={launcherVisible && !open ? 0 : -1}

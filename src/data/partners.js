@@ -14,6 +14,8 @@
  *   рекламу, и Яндекс за это понижает страницу.
  */
 
+import { reachGoal } from '../lib/metrika';
+
 export const PARTNERS = {
   syntx: {
     name: 'SYNTX',
@@ -69,23 +71,11 @@ export const partnerText = (id, locale) => {
   return { name: p.name, url: p.url, ...(locale === 'en' ? p.en : p.ru) };
 };
 
-/** Номер счётчика Метрики, тот же, что в public/index.html. */
-const METRIKA_ID = 109098541;
-
 /**
- * Отметить клик по партнёрской ссылке как цель в Метрике.
+ * Отметить клик по партнёрской ссылке как цель в Метрике (partner_<id>).
  *
  * Нужно, чтобы понимать, доходит ли поисковый трафик до кнопки: в кабинете
- * партнёрки видно только оплаты, а не переходы. Если Метрика заблокирована
- * или ещё не загрузилась, функция молча ничего не делает: ссылка обязана
- * открыться в любом случае.
+ * партнёрки видно только оплаты, а не переходы. Второй, независимый от
+ * блокировщиков учёт - журнал сервера на /go/<id>, см. partnerUrl.
  */
-export const trackPartnerClick = (id) => {
-  try {
-    if (typeof window !== 'undefined' && typeof window.ym === 'function') {
-      window.ym(METRIKA_ID, 'reachGoal', `partner_${id}`);
-    }
-  } catch (e) {
-    /* аналитика не должна ломать переход */
-  }
-};
+export const trackPartnerClick = (id) => reachGoal(`partner_${id}`);

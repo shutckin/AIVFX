@@ -7,6 +7,8 @@
 // достать из исходников страницы, чем в августе 2026 года и воспользовались.
 // Любой ключ, попавший в браузер, считается публичным — исключений не бывает.
 
+import { reachGoal } from './metrika';
+
 const ENDPOINT = process.env.REACT_APP_LEAD_API || '';
 
 // Адрес обработчика не задан — заявка физически не может уйти.
@@ -57,6 +59,10 @@ export const sendLead = async (payload, kind = 'systems', meta = {}) => {
 
   const data = await res.json().catch(() => null);
   if (!data || data.ok !== true) throw new Error('lead api rejected the request');
+
+  // Цель только для форм: сводки чата уходят и без заявки, а настоящая
+  // заявка из чата отмечается в самом чате (lead_chat)
+  if (kind !== 'chat') reachGoal('lead_form', { kind });
 };
 
 /**
