@@ -77,6 +77,7 @@ const PART_2 = [
     date: '2026-05-29',
     dateModified: '2026-09-04',
     readingTime: '11 min',
+    partner: 'syntx',
     excerpt: 'We break down the Kling 3.0 neural network piece by piece: what it is, where it beats competitors, how to use it step by step, how much it costs, and what tasks it suits.',
     content: [
       { type: 'p', text: 'If you\'ve ever looked for a way to bring a still image to life or put together an ad clip without a film crew, you\'ve almost certainly come across the name **Kling**. It\'s one of the strongest neural networks for video generation, and by 2026 it has grown into version **Kling 3.0** - a model that can shoot multi-shot scenes, hold motion physics at the level of a real camera, and even voice characters with lip-sync. In this guide, we\'ll break it all down in plain language: what Kling is, where its strength lies, how to use it step by step, how much it costs, and what tasks it actually suits.' },
@@ -156,6 +157,7 @@ const PART_2 = [
       ] },
       { type: 'p', text: 'But long dialogue scenes, precisely rendering a specific person, or complex choreography are still hard for neural networks - here live shooting or manual refinement still saves the day. That\'s exactly why the combination of "neural network plus an experienced editor" delivers a stronger result than any model alone.' },
       { type: 'p', text: 'At the **AIVFX** studio, we work every day with the full current lineup of models - Kling, Veo, Seedance, Runway - and assemble finished clips from them for the client\'s task. We know which scene to hand to which neural network, how to build prompts around motion physics, and how to bring raw generation up to clean advertising quality. If you need not an experiment on a free plan, but a finished result - that\'s exactly our job.' },
+      { type: 'partner', id: 'syntx' },
       { type: 'cta' }
     ],
   },
@@ -173,6 +175,7 @@ const PART_2 = [
     date: '2026-05-29',
     dateModified: '2026-09-04',
     readingTime: '11 min',
+    partner: 'syntx',
     excerpt: 'We break down the Runway Gen-4.5 neural network in plain language: what it can do, where its strength lies, how much it costs, and how to make your first cinematic video with no experience.',
     content: [
       { type: 'p', text: 'If you\'ve ever looked for a way to make a beautiful video from text or from a single image, you\'ve almost certainly come across the name **Runway**. It\'s one of the best-known video generation neural networks in the world, and in 2026 it released a powerful version - **Gen-4.5**. In this guide we\'ll lay it all out clearly: what this tool is, where its strength lies, how to use it in the simplest terms, how much it costs, and who actually needs it. No technical jargon - we explain it so that a person opening Runway for the first time will understand.' },
@@ -253,6 +256,7 @@ const PART_2 = [
         '**Creative inserts in a big project** - cinematic shots that are hard or expensive to film live.'
       ] },
       { type: 'p', text: 'At the **AIVFX** studio, we usually don\'t pit neural networks against each other, but combine them: somewhere we take an atmospheric shot in Runway with Motion Brush, somewhere we add realistic motion from Kling, and we do voiced scenes in Veo - and assemble it all into a single clip. For business this means a speed and cost unattainable with classic shooting, without losing picture quality. If you need a turnkey result, not weeks of experimenting with prompts - that\'s exactly our job. Access from Russia, the free plan and payment are covered in a [separate article](/blog/runway-v-rossii/).' },
+      { type: 'partner', id: 'syntx' },
       { type: 'cta' }
     ],
   },

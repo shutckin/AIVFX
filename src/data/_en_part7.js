@@ -137,6 +137,7 @@ const PART_7 = [
     dateModified: '2026-09-05',
     readingTime: '9 min',
     related: ['neyroset-dlya-video-besplatno', 'kak-sdelat-ai-video', 'kling-v-rossii-besplatno'],
+    partner: 'syntx',
     excerpt:
       'There are hundreds of ’best AI video generator’ lists, and a beginner has one question: where do I start without burning a month hopping between services. The short answer is one model, one evening, three exercises. Here is which ones, what will inevitably go wrong, and where self-teaching runs out.',
     content: [
@@ -186,6 +187,7 @@ const PART_7 = [
       { type: 'p', text: 'Beyond that, self-teaching hits the things the model does not teach. It will not explain why a frame does not work when the motion in it is correct. It will not tell you that a person by a window comes out better in one model and a product on a table in another. It will not say that a clip made of ten pretty pieces does not hold together because the pieces were shot from different heights in different light. Those are no longer questions about the network; they are questions about framing, light and editing, and the answers come not from reviews but from a person who can see your task.' },
       { type: 'p', text: 'When to pay for a session instead of a tool: when you have a specific task rather than a wish to ’learn a bit’. A clip for your own business, a series for a channel, a product that needs showing. Then a single session on your own material saves a month of trial and error, because the answer you get is not ’how Kling works’ but ’why yours is not working and what to change’. And if the task is already on the table and there is no time to learn, [the studio can produce the clip](/video-production/).' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Which AI video generator should a beginner start with?' },
       { type: 'p', text: 'Kling in image-to-video mode: daily free credits and solid motion physics make it the best training ground. If the site will not open, Shedevrum will do for the first attempts: no VPN, no card, Russian interface.' },
@@ -218,6 +220,7 @@ const PART_7 = [
     dateModified: '2026-09-04',
     readingTime: '9 min',
     related: ['kling-v-rossii-besplatno', 'seedance-besplatno', 'minimax-h3-hailuo-gayd'],
+    partner: 'syntx',
     excerpt:
       'Plenty of AI video tools call themselves free, but ’free’ means something different in each one: daily credits in some, a single one-time pack in others. Here is the per-service breakdown of limits, watermarks, resolution and access from Russia, plus how to squeeze the most out of what you get.',
     content: [
@@ -278,6 +281,7 @@ const PART_7 = [
       { type: 'p', text: 'An honest list of the walls every free tier runs into, no matter how well you optimise. A clip longer than fifteen seconds in one piece. Resolution above 720p or 768p. Material without a watermark that you can hand to a client. A character who stays consistent across several scenes. And speed: when you need twenty variants in an evening, the queue eats the evening.' },
       { type: 'p', text: 'If your task hits any of those, the question is no longer which other free service to try, but how to pay. Ways to pay for a foreign AI service from Russia are covered [in a separate article](/blog/kak-oplatit-neyroset-iz-rossii/): up to a couple of dozen clips a month a rouble-billing reseller is usually cheaper, beyond that your own subscription wins.' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Is there a completely free AI video generator?' },
       { type: 'p', text: 'Not with decent quality. The closest are the Russian tools, Shedevrum and Kandinsky: no card, no VPN, native language, but noticeably weaker motion. Among the international ones, Kling stays usable for free the longest thanks to its 66 daily credits.' },
@@ -313,6 +317,7 @@ const PART_7 = [
     dateModified: '2026-09-04',
     readingTime: '8 min',
     related: ['veo-gayd', 'minimax-h3-hailuo-gayd', 'kak-oplatit-neyroset-iz-rossii'],
+    partner: 'syntx',
     excerpt: 'Veo is usually recommended as the best model for video with synced sound and speech, but from Russia you still have to reach it. Here is which Google products serve the model, what exactly breaks at signup and at payment, what the plans cost, and when another model is simply the saner choice.',
     content: [
       { type: 'p', text: 'People write the same thing about Veo every time: it makes video with sound in one pass, speech lands on the lips, the result looks expensive. All true. But between «looks expensive» and «I pressed a button and got a clip» there is a whole wall for users in Russia: region, account, card, subscription. This article is not about prompting. For prompts and model capabilities we have a separate piece: [the Veo guide](/blog/veo-gayd/). This one is only about access and money.' },
@@ -377,6 +382,7 @@ const PART_7 = [
       { type: 'p', text: 'Do not ask which model is better. Add up the cost of access plus the cost of finishing. Veo takes your time at the door and gives it back at the conform stage. Kling or Seedance take your time at the conform stage and cost nothing at the door. A task-by-task comparison is laid out separately: [comparing AI video models](/blog/sravnenie-neyrosetey-dlya-video/).' },
       { type: 'p', text: 'And a sober note about any of these routes: generation is only half the work. Take selection, editing, rhythm and sound come next, and that is where a clip either becomes watchable or does not. If you would rather learn that systematically than piece it together from fragments, we run [AI video training](/services/obuchenie-ai-video/).' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Does Google Veo work in Russia in 2026?' },
       { type: 'p', text: 'Officially no. Russia is not on the supported country list for the Gemini app, for Flow, or for the API. A user on a Russian IP gets a message saying the service is unavailable in their country.' },
@@ -417,6 +423,7 @@ const PART_7 = [
       { label: 'Paid plans', value: 'from $12 a month billed yearly' },
     ],
     related: ['runway-gayd', 'kling-v-rossii-besplatno', 'kak-oplatit-neyroset-iz-rossii'],
+    partner: 'syntx',
     excerpt:
       'Runway is still one of the most visible video generators, but the road to it from Russia is not a straight one. Here is what actually opens, how many credits you get for free, what the plans really cost, and why searching for a Runway download is a dead end.',
     content: [
@@ -486,6 +493,7 @@ const PART_7 = [
       { type: 'p', text: 'Which model does what and who wins on picture quality is laid out in [the comparison of AI video models](/blog/sravnenie-neyrosetey-dlya-video/). The honest answer is this: the gap between models today is smaller than the gap between a good prompt and a bad one. If the result disappoints, work on how you state the task first and only then change services.' },
       { type: 'p', text: 'If you would rather not figure it out yourself but still need the videos, we run [training on AI video](/services/obuchenie-ai-video/) and produce the footage end to end.' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
 
       { type: 'h3', text: 'What kind of AI is Runway and what does it do?' },
@@ -537,6 +545,7 @@ const PART_7 = [
     dateModified: '2026-09-02',
     readingTime: '9 min',
     related: ['nano-banana-pro-gayd', 'nano-banana-vs-seedream', 'kak-ozhivit-foto-neyrosetyu'],
+    partner: 'syntx',
     excerpt:
       'Two very different jobs hide behind the phrase «free AI for photos»: drawing an image from scratch, and fixing a photo you already have. Here is what opens from Russia without a VPN or a foreign card, how much you actually get for free, and exactly where the free tier runs out.',
     content: [
@@ -617,6 +626,7 @@ const PART_7 = [
       ] },
       { type: 'quote', text: 'A free tier limits the number of attempts far more than it limits quality. And a good image almost never arrives on the first try. It arrives on the fifth.' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
 
       { type: 'h3', text: 'What is the best free AI for photos with no VPN?' },
@@ -654,6 +664,7 @@ const PART_7 = [
     dateModified: '2026-09-02',
     readingTime: '9 min',
     related: ['minimax-h3-hailuo-gayd', 'nano-banana-pro-gayd', 'kak-sdelat-ai-video'],
+    partner: 'syntx',
     excerpt: 'What a working prompt is actually made of, why a video prompt is a different animal from an image prompt, and how most failed generations break on the same two or three mistakes. Includes three full prompts with an explanation of why each one works.',
     content: [
       { type: 'p', text: 'A prompt is a text brief for a model. And almost every time a generation comes out nothing like the picture in your head, the model is not the problem. The brief was vague.' },
@@ -749,6 +760,7 @@ const PART_7 = [
       ] },
       { type: 'p', text: 'If you would rather learn this systematically than in fragments, we run [AI video training](/services/obuchenie-ai-video/) built around your own projects.' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
 
       { type: 'h3', text: 'What language should I write prompts in?' },
@@ -786,6 +798,7 @@ const PART_7 = [
     dateModified: '2026-09-02',
     readingTime: '8 min',
     related: ['minimax-h3-hailuo-gayd', 'kling-v-rossii-besplatno', 'kak-oplatit-neyroset-iz-rossii'],
+    partner: 'syntx',
     excerpt: 'If you produce content for a Russian-speaking audience, "does it work in Russian" is really three separate questions. Here is which tools have a Russian UI, which models actually parse Russian prompts, and why Cyrillic signage belongs in your editor rather than in the generator.',
     content: [
       { type: 'p', text: 'If you make visuals for a Russian-speaking market, sooner or later you ask whether a given tool "works in Russian". That question hides three completely different problems, and mixing them up is why people end up with the wrong tool.' },
@@ -859,6 +872,7 @@ const PART_7 = [
       ] },
       { type: 'p', text: 'If you would rather learn this as a system than assemble it from scattered guides, we run [AI video training](/services/obuchenie-ai-video/) covering prompting, model selection and assembling a finished piece.' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
 
       { type: 'h3', text: 'Do English prompts really produce better images?' },
@@ -901,6 +915,7 @@ const PART_7 = [
     dateModified: '2026-09-02',
     readingTime: '8 min',
     related: ['midjourney-gayd', 'nano-banana-pro-gayd', 'kak-oplatit-neyroset-iz-rossii'],
+    partner: 'syntx',
     excerpt:
       'Thousands of people every month search for a free Midjourney and for a way to download it. Both searches have a short, unwelcome answer. Here it is without the sugar coating: there is no free plan, there is nothing to download, and a Russian card will not go through.',
     content: [
@@ -967,6 +982,7 @@ const PART_7 = [
       { type: 'h2', text: 'So what should you actually do' },
       { type: 'p', text: 'By situation. Just curious and unwilling to spend: use the free models, starting with Nano Banana Pro. Need a handful of images for one specific project: an aggregator paid in rubles works out cheaper, since you pay per image and skip the card setup. Generating regularly and in volume: your own Standard subscription plus a foreign card, which is the lowest cost per image. Want a program to download and run offline: that option does not exist at any price.' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Can you use Midjourney for free?' },
       { type: 'p', text: 'No. The service has had no free plan and no trial since the spring of 2023. The minimum subscription is 10 dollars a month. Anything promising free Midjourney is either outdated information, a shared account, or a scam.' },
@@ -1002,6 +1018,7 @@ const PART_7 = [
     dateModified: '2026-09-02',
     readingTime: '9 min',
     related: ['seedance-besplatno', 'kling-v-rossii-besplatno', 'sravnenie-neyrosetey-dlya-video'],
+    partner: 'syntx',
     excerpt:
       'MiniMax H3 launched on 31 July 2026 and within a month drew more searches in the Russian-speaking web than half its competitors: 2K, sound generated together with the picture, and open weights you can actually download. Here is what the model really does, what is free, what it costs and who should run it at home.',
     content: [
@@ -1073,6 +1090,7 @@ const PART_7 = [
         'Change one thing per iteration. Change three and you will not know which one worked.',
       ] },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Are MiniMax and Hailuo the same thing?' },
       { type: 'p', text: 'MiniMax is the company and the model name (H3); Hailuo is the service and app that serve it to users. Hailuo 3.0 and MiniMax H3 are the same model.' },
@@ -1108,6 +1126,7 @@ const PART_7 = [
     dateModified: '2026-09-02',
     readingTime: '9 min',
     related: ['kling-gayd', 'kak-sdelat-ai-video', 'top-neyrosetey-video'],
+    partner: 'syntx',
     excerpt:
       'Animating a photo today is free, takes a minute and needs no VPN. We go through nine services, say honestly which ones are really free, and explain why half the people end up with a hero who no longer looks like themselves.',
     content: [
@@ -1158,6 +1177,7 @@ const PART_7 = [
       { type: 'image', src: '/blog-images/ozhivit-foto-scanner.jpg', alt: 'An old photograph being placed on a flatbed scanner', caption: 'Scan and clean an old photo first, animate it last: otherwise the model animates the scratches too', source: 'AIVFX AI generation (Seedream 5 Pro)' },
       { type: 'h2', text: 'Old and black-and-white photos: a different order' },
       { type: 'p', text: 'With old photos the mistake is almost always the same: animating them as they are. The model gets a blurred, scratched face and completes it as it sees fit, producing a similar but different person. The right order: restore first, then animate. Scan or reshoot under even light, run through face restoration aiming for sharp eyes and a clear outline, skip colourisation (it adds another layer of errors), and animate with minimal movement. For a family archive a smile and a blink are enough, and they move people more than "stood up and walked away".' },
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Can I animate a photo completely free and without registration?' },
       { type: 'p', text: 'Without registration, practically no: every service asks at least for a Yandex ID, Sber ID or Google sign-in. Completely free, yes: Alice AI, Kandinsky and the daily limits of Kling and PixVerse. The restriction everywhere is length and resolution, not the number of tries.' },
@@ -1190,6 +1210,7 @@ const PART_7 = [
     dateModified: '2026-09-02',
     readingTime: '7 min',
     related: ['minimax-h3-hailuo-gayd', 'seedance-besplatno', 'kling-v-rossii-besplatno'],
+    partner: 'syntx',
     excerpt:
       'Sora is still the most searched video model in the Russian-speaking web, over a hundred thousand queries a month. Yet the service no longer exists: OpenAI took the site and app offline on 26 April 2026 and switches off the API on 24 September. Here is what happened, what became of your clips, and which models cover the same jobs today.',
     content: [
@@ -1237,6 +1258,7 @@ const PART_7 = [
       ] },
       { type: 'quote', text: 'The rule after the Sora shutdown: no model should be the only one. Assemble a video from two or three models for different scenes, and losing any of them costs you a day, not a project.' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Is Sora shut down for good?' },
       { type: 'p', text: 'Yes. The site and app went offline on 26 April 2026, the API switches off on 24 September 2026. OpenAI talks about a future video model but has officially named neither it nor a date. Postponing projects to wait for it makes no sense.' },
@@ -1270,6 +1292,7 @@ const PART_7 = [
     dateModified: '2026-09-02',
     readingTime: '8 min',
     related: ['minimax-h3-hailuo-gayd', 'seedance-gayd', 'sora-2-v-rossii'],
+    partner: 'syntx',
     excerpt:
       'Four thousand people a month search "seedance free" and nearly three thousand "download seedance". Honestly: where free generations really exist, where no official partner offers them, and what to do when you need more than a couple of clips.',
     content: [
@@ -1315,6 +1338,7 @@ const PART_7 = [
         'Write in English. The model understands Russian but loses details.',
         'One reference image for the whole series keeps the hero consistent between scenes.',
       ] },
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Does Seedance 2.5 have an official site?' },
       { type: 'p', text: 'The model has no separate site. Officially it lives inside ByteDance services (Dreamina, Jimeng, Doubao) and at partners. Sites like "seedance.something" are aggregators, intermediaries or fakes; look at who takes the payment.' },
@@ -1345,6 +1369,7 @@ const PART_7 = [
     dateModified: '2026-09-02',
     readingTime: '9 min',
     related: ['kling-gayd', 'kak-ozhivit-foto-neyrosetyu', 'agregatory-ai-servisov'],
+    partner: 'syntx',
     excerpt:
       'Kling is the most popular video model among Russian-speaking users now that Sora is shut down, and unlike Sora it can actually be opened from Russia. The practical side: free credits, language, payment, limits, and where free ends.',
     content: [
@@ -1399,6 +1424,7 @@ const PART_7 = [
         'Static camera unless the movement is the point. Push-ins and pans are the main source of waste.',
         'Keep a list of successful prompts. In a month it saves more credits than any plan.',
       ] },
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Is Kling AI completely free?' },
       { type: 'p', text: 'No. Free is 66 credits a day with a watermark and a queue. The rest is by subscription or through an aggregator for roubles.' },
@@ -1431,6 +1457,7 @@ const PART_7 = [
     dateModified: '2026-09-02',
     readingTime: '10 min',
     related: ['nano-banana-vs-seedream', 'midjourney-gayd', 'agregatory-ai-servisov'],
+    partner: 'syntx',
     excerpt:
       'Nano Banana is the most searched image model in the Russian-speaking web: over fifty thousand queries a month. We break down its three versions, free limits, access from Russia, and share the prompts we use for product and advertising frames in the studio.',
     content: [
@@ -1488,6 +1515,7 @@ const PART_7 = [
       ] },
       { type: 'h2', text: 'What one image costs' },
       { type: 'p', text: 'Rough arithmetic for September 2026. Google AI Plus at 8 dollars gives 50 Pro images a day: pennies per frame with regular use, but it needs a foreign account and card. Aggregators for roubles usually charge from a dozen to a few dozen roubles per Pro image: dearer per piece, but no VPN and no account risk. The threshold where a subscription beats an aggregator is a few hundred images a month. Below that, take the aggregator and keep it simple.' },
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Is Nano Banana Pro available for free?' },
       { type: 'p', text: 'On the free Gemini tier, no: only Nano Banana 2 with a limit of about twenty generations a day. Pro opens with Google AI Plus. Russian aggregators sell Pro per image for roubles, sometimes with free starter tokens.' },
@@ -1507,7 +1535,7 @@ const PART_7 = [
     category: 'Guides',
     title: 'How to Pay for AI Tools from Russia in 2026: Three Methods and a Service-by-Service Breakdown',
     description:
-      'Three ways to pay for a foreign AI service from Russia in 2026, their cost and risks, and the situation with each: Kling, HeyGen, Higgsfield, Midjourney, Google.',
+      'Three ways to pay for a foreign AI service from Russia in 2026, their cost and risk, and the situation with each: Kling, HeyGen, Higgsfield, Midjourney, Google.',
     keywords:
       'pay for ai from russia, pay kling from russia, pay higgsfield from russia, pay heygen, midjourney russia payment, sora russia payment',
     cover: '/blog-images/payment-noir-exchange-booth.jpg',
@@ -1515,22 +1543,32 @@ const PART_7 = [
     coverCaption: 'Paying for an AI service from Russia in 2026 still looks like a scene from a noir film. The article covers three routes without fly-by-night middlemen.',
     coverSource: 'AIVFX AI generation (Seedream 5 Pro)',
     date: '2026-09-02',
-    dateModified: '2026-09-17',
-    readingTime: '8 min',
-    related: ['minimax-h3-hailuo-gayd', 'kling-v-rossii-besplatno', 'sora-2-v-rossii'],
+    dateModified: '2026-09-30',
+    readingTime: '9 min',
+    related: ['runway-v-rossii', 'kling-v-rossii-besplatno', 'sora-2-v-rossii'],
+    partner: 'syntx',
+    facts: [
+      { label: 'Ways to pay', value: 'Three: a foreign card, an intermediary, an aggregator' },
+      { label: 'Pay in roubles', value: 'Through SYNTX, with a Russian card', href: 'partner:syntx' },
+      { label: 'Intermediary markup', value: 'Usually 10-20 percent of the price' },
+      { label: 'Aggregator threshold', value: 'Up to a few dozen generations a month' },
+    ],
     excerpt:
       'Almost every strong AI model is foreign, and almost none accepts Russian cards. Three ways to pay, an honest comparison by price and risk, and a service-by-service pass: where what works as of September 2026.',
     content: [
-      { type: 'p', text: 'The situation is the same for almost every foreign AI service: the site opens (or opens through a VPN), and at the payment step a Russian card is declined. There are three ways around it, and each has a price, not only in roubles. Below is the overall picture and a breakdown by service. We sell none of these methods and give no links to intermediaries: they change every couple of months; the principles do not.' },
+      { type: 'p', text: 'The situation is the same for almost every foreign AI service: the site opens (or opens through a VPN), and at the payment step a Russian card is declined. There are three ways around it, and each has a price, not only in roubles. Below is the overall picture and a breakdown by service. We sell none of these methods, and the only intermediaries we name are two marketplaces where they are actually bought: individual sellers and services change every couple of months, the principles do not.' },
       { type: 'image', src: '/blog-images/oplata-desk.jpg', alt: 'Desk with a calculator, roubles, bank cards and a phone', caption: 'Before paying an intermediary, do the maths: commission, exchange rate and generation limits often eat the whole saving', source: 'AIVFX AI generation (Seedream 5 Pro)' },
       { type: 'h2', text: 'Three methods' },
       { type: 'h3', text: '1. A foreign or virtual card' },
       { type: 'p', text: 'A card from a bank in another country, or a virtual card with a foreign billing link. You pay the service price without markup and get a full account with all limits. Downsides: the card must be obtained and topped up with a fee; some services also need a foreign address at sign-up; jumping between Russian and foreign addresses can get the account blocked together with the paid subscription. For those who work with AI daily and are ready to set everything up once.' },
       { type: 'h3', text: '2. A payment intermediary' },
-      { type: 'p', text: 'A service that pays for the subscription with its own card while you pay it in roubles with a fee, usually 10 to 20 percent. The account stays yours. Downsides: you hand account access to strangers, and there are plenty of fly-by-night intermediaries. Check how long the service has existed and whether there are real reviews outside its own site.' },
+      { type: 'p', text: 'A seller or service that pays for the subscription with its own card while you pay it in roubles with a markup, usually 10 to 20 percent. The account stays yours. To be honest about where people really buy this: on the digital goods marketplaces [GGSel](https://ggsel.net/) and [Plati.market](https://plati.market/). Private sellers there activate a subscription on your account for anything from a month to a year, and the marketplace keeps the seller rating and handles disputes.' },
+      { type: 'p', text: 'Standalone payment services exist too. There are many of them and they keep changing, we have not tested them and so do not name any. The downsides are the same for every intermediary: you hand account access to strangers, renewal through a seller will not happen by itself, and there are plenty of fly-by-night operators. On a marketplace, look at the seller rating, the number of sales and the warranty period. With a standalone service, look at how long it has existed and whether there are real reviews outside its own site. And never buy access to somebody else\'s account instead of a subscription on your own: those get blocked.' },
       { type: 'h3', text: '3. An AI aggregator for roubles' },
-      { type: 'p', text: 'A Russian service that connected foreign models through official APIs and sells generations for roubles, no VPN, no foreign cards. You do not get an account in the service itself, but you get the model. Downsides: the price per generation is higher than inside a subscription; new model versions arrive with a delay; not every feature is available. The upsides win for anyone with modest volume. How to compare them is in the [aggregator breakdown](/blog/agregatory-ai-servisov/).' },
+      { type: 'p', text: 'A service that connected foreign models through official APIs and sells generations for roubles, no VPN, no foreign cards. We use [SYNTX](partner:syntx) ourselves: one subscription instead of several separate ones, payment with a Russian Mir card, about forty models. You do not get an account in the original service, but you get the model. Downsides: the price per generation is higher than inside a subscription; new model versions arrive with a delay; not every feature is available. The upsides win for anyone with modest volume. How to compare them is in the [aggregator breakdown](/blog/agregatory-ai-servisov/).' },
       { type: 'quote', text: 'Rule of thumb: up to a few dozen generations a month, an aggregator. Hundreds, your own card and subscription. An intermediary is the middle option when you need your own account but have no card.' },
+      { type: 'partner', id: 'syntx' },
+      { type: 'p', text: 'A note on the SYNTX link, since we recommend it: we hold an affiliate link, so we earn a commission on subscriptions. The price for you does not change, and SYNTX is an aggregator with its own models, not a payment service for other sites. It will not pay for Runway or HeyGen on your behalf, it gives you models inside itself.' },
       { type: 'h2', text: 'How to choose in a minute' },
       { type: 'ol', items: [
         'Count how many generations a month you really need. Not clips, generations: multiply the clips by three or four.',
@@ -1540,7 +1578,7 @@ const PART_7 = [
       ] },
       { type: 'h2', text: 'Checklist before paying an intermediary' },
       { type: 'ul', items: [
-        'The service is over a year old, with reviews on third-party sites, not only its own.',
+        'The service is over a year old, with reviews on third-party sites, not only its own. On a marketplace, check the seller rating, the number of sales and the warranty period.',
         'Support that answers before payment. If they are silent before, they will be silent after.',
         'The fee is stated up front in percent or roubles, not "we will clarify later".',
         'Pay for a month, not a year. Models change fast; intermediaries faster.',
@@ -1556,7 +1594,7 @@ const PART_7 = [
       { type: 'h3', text: 'Midjourney' },
       { type: 'p', text: 'Opens, no free tier, cards fail. A card or an intermediary for your own account; nearly every Russian aggregator has Midjourney. Note it is tied to Discord and its own site and is not officially sold via API, so aggregators usually offer a "wrapper" with limitations. [Midjourney guide](/blog/midjourney-gayd/).' },
       { type: 'h3', text: 'Runway' },
-      { type: 'p', text: 'The site opens, the checkout does not: the gateway declines cards by country of issue, and Mir is not accepted outside a handful of countries at all. The free plan is one-off, 125 credits at sign-up with no refill, so without paying you never get past the first tries. Annual pricing is 12 dollars for Standard, 28 for Pro and 76 for Max. All three methods work, but Runway is missing from some aggregator catalogues, unlike Kling or Midjourney, so check that the model is there before you pay for a subscription. Access, credits and prices are covered in [Runway from Russia](/blog/runway-v-rossii/).' },
+      { type: 'p', text: 'The site opens, the checkout does not: the gateway declines cards by country of issue, and Mir is not accepted outside a handful of countries at all. The free plan is one-off, 125 credits at sign-up with no refill, so without paying you never get past the first tries. Annual pricing is 12 dollars a month for Standard, 28 for Pro and 76 for Max. All three methods work. Among aggregators, the one we hold for access to models in roubles is [SYNTX](partner:syntx), but check that Runway is in the catalogue before you pay, as with any aggregator. Access, credits and prices are covered in [Runway from Russia](/blog/runway-v-rossii/).' },
       { type: 'h3', text: 'ChatGPT and other OpenAI services' },
       { type: 'p', text: 'The most closed case: OpenAI blocks Russian addresses; a foreign address is needed at sign-up, at payment and during work. OpenAI no longer has a video model: Sora was shut down on 26 April 2026 and its API ends on 24 September, so there is nothing to pay for under "Sora access" today. Details in [what happened to Sora](/blog/sora-2-v-rossii/).' },
       { type: 'h3', text: 'Google: Gemini, Nano Banana, Veo' },
@@ -1569,10 +1607,14 @@ const PART_7 = [
         'Do not buy an annual subscription to a model that may be replaced by another in six months. The market changes every few months.',
       ] },
       { type: 'h2', text: 'Frequently asked questions' },
+      { type: 'h3', text: 'Can I still pay for AI services from Russia in 2026?' },
+      { type: 'p', text: 'Yes, as of September 2026 there are three working routes: a foreign or virtual card, a payment intermediary, and an aggregator that sells foreign models for roubles. Each has its own cost and risk, described above. We do not give legal advice and cannot predict how long these routes will stay open or when any restrictions will change.' },
+      { type: 'h3', text: 'How much does it cost in roubles?' },
+      { type: 'p', text: 'Take the service price in dollars and multiply it by the exchange rate on the day you pay. Through an intermediary, add the usual markup of 10 to 20 percent: Runway Standard at 12 dollars a month on annual billing becomes 12 plus 10 to 20 percent, converted at that day\'s rate. With your own foreign card there is no markup, but you pay a fee to top the card up. An aggregator sells generations at its own prices, higher per generation than inside a subscription. We give no rouble figures because the rate and the prices keep moving.' },
       { type: 'h3', text: 'Which AI services can be paid with a Russian card?' },
       { type: 'p', text: 'Foreign ones, practically none. A Russian card pays for Russian services: Alice AI, Kandinsky, Shedevrum and the aggregators that sell foreign models for roubles.' },
       { type: 'h3', text: 'Is paying through an intermediary safe?' },
-      { type: 'p', text: 'As safe as the intermediary. You are handing over account access; pick services with a history, pay monthly rather than yearly, and change the password after payment.' },
+      { type: 'p', text: 'As safe as the intermediary. You are handing over account access; pick sellers with a history and a rating on a marketplace such as GGSel or Plati.market, pay monthly rather than yearly, and change the password after payment.' },
       { type: 'h3', text: 'Which is cheaper: a subscription or an aggregator?' },
       { type: 'p', text: 'Per generation, the subscription. Counting the card, VPN, fees and block risk, at low volume the aggregator. The line is a few dozen generations a month.' },
       { type: 'h3', text: 'Can I avoid paying at all?' },

@@ -16,6 +16,7 @@ const PART_6 = [
     dateModified: '2026-08-30',
     readingTime: '11 min',
     related: ['top-neyrosetey-video', 'sravnenie-neyrosetey-dlya-video', 'agregatory-ai-servisov'],
+    partner: 'syntx',
     excerpt:
       'In July 2026 Seedance 2.5 replaced 2.0 at no extra cost. The headline change is length: thirty seconds natively and up to three minutes in long mode. What that gives you in practice, and where the model still trips up.',
     content: [
@@ -60,6 +61,7 @@ const PART_6 = [
         '**Keep your good generations.** A frame from a successful take becomes a reference for the next one - that is how consistency accumulates.',
       ]},
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked' },
       { type: 'h3', text: 'Do I need to relearn anything after 2.0?' },
       { type: 'p', text: 'No. The same prompts work, the interface did not change, the model simply became the default. The difference only shows where you hit the length limit or start using area editing.' },
@@ -103,6 +105,7 @@ const PART_6 = [
     dateModified: '2026-09-04',
     readingTime: '12 min',
     related: ['seedance-gayd', 'top-neyrosetey-video', 'skolko-stoit-ai-video'],
+    partner: 'syntx',
     excerpt:
       'Subscribing to five models separately costs more and works worse than one platform containing them all. We look at Higgsfield, Flowith and Syntx: they solve three different problems, and confusing them is expensive.',
     content: [
@@ -154,6 +157,7 @@ const PART_6 = [
         '**Take the free tier and do one real task.** Not a demo one - your own. The difference usually emerges on the second.',
       ]},
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked' },
       { type: 'h3', text: 'Is quality worse through an aggregator than direct?' },
       { type: 'p', text: 'The generation itself is the same - the same model runs underneath. What can differ is the settings exposed: an intermediary sometimes withholds parameters and does not pick up new versions immediately. Easy to check - run the same prompt in both places.' },
@@ -191,6 +195,7 @@ const PART_6 = [
     dateModified: '2026-09-04',
     readingTime: '11 min',
     related: ['midjourney-gayd', 'top-neyrosetey-video', 'agregatory-ai-servisov'],
+    partner: 'syntx',
     excerpt:
       'The two leading image generators of 2026 solve different problems: one wins on photorealism and lettering, the other on edits, layers and price. Which to pick for a given job.',
     content: [
@@ -234,6 +239,7 @@ const PART_6 = [
         '**Understanding of your niche.** The model does not know how your product category is conventionally shot and will offer you the average.',
       ]},
 
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked' },
       { type: 'h3', text: 'Which model handles non-English text better?' },
       { type: 'p', text: 'By declared language support, Seedream: broader coverage and rendering in more than ten languages. But test on your own text - long words and specific typefaces break both about equally.' },

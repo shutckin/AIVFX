@@ -92,6 +92,7 @@ const PART_4 = [
     date: '2026-05-29',
     dateModified: '2026-09-04',
     readingTime: '11 min',
+    partner: 'syntx',
     excerpt: 'We break down Midjourney from scratch: where to run it in 2026, how to write prompts, which parameters keep a character and style consistent, how much the subscription costs, and how to turn a finished frame into a living AI video.',
     content: [
       { type: 'p', text: 'Midjourney is a neural network that draws images from a text description. You write in words what you want to see, and a few seconds later you get four image variants. Today it is one of the most powerful tools for AI art: it is used to make concepts, posters, covers, advertising frames, and - especially important for us at **AIVFX** - reference frames for AI video. In this guide we break down Midjourney from scratch: where to run it, how to write prompts, which settings a beginner really needs, and how to get a moving clip from a static picture.' },
@@ -175,6 +176,7 @@ const PART_4 = [
       ] },
       { type: 'p', text: 'The conclusion is simple: these tools are not competitors but a set for different tasks. Need an atmospheric scene for a spot - Midjourney. Need text on a picture - Flux. Need to edit a finished photo - Nano Banana. Want to chat and adjust the picture in words - GPT Image. In real work we combine them, and Midjourney most often stands at the start of the chain as a generator of reference frames.' },
       { type: 'p', text: 'Let us sum up. Midjourney in 2026 is a mature tool that even a complete beginner can master: you register on the site, write a description following the "subject - environment - light - style" structure, add --ar for the format and --cref for a consistent character, and over a few iterations you get a studio-level frame. And then this frame comes to life in Kling, Runway, or Veo - and you have a ready video fragment in your hands. The "picture → motion" combination is the very bridge that turns image generation into full-fledged video production. Free access and paying from Russia are covered in a [separate article](/blog/midjourney-besplatno-iz-rossii/).' },
+      { type: 'partner', id: 'syntx' },
       { type: 'cta' }
     ],
   },
@@ -191,6 +193,7 @@ const PART_4 = [
     date: '2026-05-29',
     dateModified: '2026-09-04',
     readingTime: '13 min',
+    partner: 'syntx',
     excerpt: 'A big review of 15 neural networks for creating video in 2026 - from generative models like Kling and Veo to AI avatars, images, and sound. We break down what to choose for which task.',
     content: [
       { type: 'p', text: 'Just a couple of years ago, the phrase "a neural network made this video" brought a smile: mangled hands, melting faces, three-second cuts. In 2026 everything is different. Generative models shoot photorealistic scenes with sound, AI avatars read a script in 175 languages, and entire advertising spots are assembled in an evening instead of two weeks of shooting. The market has grown so much that it is easy to get lost in it: there are more than a dozen "top" services today, and each is tailored to its own task.' },
@@ -269,6 +272,7 @@ const PART_4 = [
       { type: 'h2', text: 'Conclusion' },
       { type: 'p', text: 'A universal "best neural network for video" does not exist in 2026 - and that is good news. The market has matured to a level where there is a specialized tool for every task: one thing for advertising, another for training, a third for social media. The shutdown of Sora only confirmed the trend: not the loudest survive, but the most useful and economically sustainable services. Veo, Kling, Runway, and Seedance share the top of the generative models, HeyGen and Synthesia rule the avatars, and the combination with Nano Banana and voiceover turns disparate tools into a full-fledged production.' },
       { type: 'p', text: 'The main difficulty for business is not choosing a single neural network, but **skillfully assembling a pipeline from them** and not drowning in subscriptions, credits, and formats. At the **AIVFX** studio we use this entire stack daily: generative models for scenes, avatars for presentations, Nano Banana for references, and professional voiceover - and we assemble all of it into finished spots tailored to the client\'s task. If you need not to figure out fifteen services but to get a result - we know which tool to switch on at the right moment. Which of these you can actually try for free and from Russia is covered [separately](/blog/neyroset-dlya-video-besplatno/).' },
+      { type: 'partner', id: 'syntx' },
       { type: 'cta' }
     ],
   },

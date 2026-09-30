@@ -66,6 +66,7 @@ const PART_9 = [
       { type: 'h2', text: 'One subscription instead of five' },
       { type: 'p', text: 'ChatGPT is rarely the only AI subscription anyone is running. Most people paying for it are also paying for an image model, a video model, and often a separate voice or music model on top, each with its own monthly charge and its own place for a card to fail. Four subscriptions becomes five fast, and each one is a fresh roll of the same checkout dice described above.' },
       { type: 'p', text: 'We route generation for client work through [SYNTX](partner:syntx) for exactly this reason: one subscription and one card instead of four or five separate ones, billed once, on a card that actually clears. Check the catalog before you pay, since what is listed there shifts over time, and confirm whichever model you actually need, ChatGPT included, is on it before committing.' },
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'What actually changed with ChatGPT on September 10, 2026?' },
       { type: 'p', text: 'OpenAI paused new subscriptions and upgrades to the $200 Pro tier. Existing Pro-200 subscriptions and any Pro-100 subscription, new or old, keep working exactly as they did before. No return date for new Pro-200 sign-ups has been announced.' },

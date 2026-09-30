@@ -13,6 +13,7 @@ const PART_3 = [
     date: '2026-05-29',
     dateModified: '2026-09-04',
     readingTime: '11 min',
+    partner: 'syntx',
     excerpt: 'We break down Google Veo 3.1 piece by piece: how the model differs from competitors, how it generates video with sound and speech in one pass, how much it costs, and which production tasks it fits.',
     content: [
       { type: 'p', text: 'If you have ever tried to assemble an ad spot or a scene with a talking character out of AI video, you know the main pain point: the picture is generated separately, the sound is recorded separately, the lips do not match the speech, and synchronization takes more time than the generation itself. **Google Veo 3.1** breaks this pattern - the model creates video and sound at the same time, in a single pass. In this guide, we at AIVFX studio will break down in plain terms what this tool is, how it works in 2026, how to get access to it, how much it costs, and where it genuinely beats Kling and Runway.' },
@@ -78,6 +79,7 @@ const PART_3 = [
         '**Vertical content** - Shorts, Reels, TikTok natively in the 9:16 format without loss of composition.'
       ]},
       { type: 'p', text: 'At AIVFX studio we use Veo 3.1 exactly where a talking person or an expensive-looking ad shot is needed, and we bring in Kling for long cinematic scenes. This combined approach delivers the best result for reasonable money: each tool works where it is stronger. How to reach Veo from Russia and what it costs is covered in a [separate article](/blog/veo-v-rossii/).' },
+      { type: 'partner', id: 'syntx' },
       { type: 'cta' }
     ],
   },
@@ -93,6 +95,7 @@ const PART_3 = [
     date: '2026-05-29',
     dateModified: '2026-09-04',
     readingTime: '11 min',
+    partner: 'syntx',
     excerpt: 'We break down step by step how to assemble an ad video with AI in 2026: from the offer and script to generating scenes in Kling, Runway, and Veo, voiceover, editing, and A/B tests.',
     content: [
       { type: 'p', text: 'Just a couple of years ago, an ad video meant a shoot day, a film crew, studio rental, and weeks of post-production. Today you can assemble it in a few days on your own - AI generates video from a text description or from a picture. But "you can assemble it" does not mean "it will turn out well": the market is flooded with clips that instantly give away raw AI generation. The difference between garbage and a video that sells is in the process. In this guide we will walk through the whole path step by step: from the brief to publishing and A/B tests. Without technical jargon, so that a marketer, an entrepreneur, or a beginner can repeat it.' },
@@ -147,6 +150,7 @@ const PART_3 = [
       { type: 'h2', text: 'When to Hand the Video Over Turnkey' },
       { type: 'p', text: 'This guide shows that assembling an ad video with AI on your own is realistic. But between "realistic" and "you will get a result that sells" lies experience: a sense of editing rhythm, the discipline of selecting takes, an understanding of which engine to use for a specific scene, and dozens of small things that come only with practice. If you need a predictable result by a deadline rather than a weekend experiment - this is work for a studio.' },
       { type: 'p', text: '**AIVFX** is an AI video production studio that makes turnkey ad videos: from script and storyboard to the final edit with sound, graphics, and versions for A/B tests. We assemble a stack of AI tools to match your task and take the entire process on ourselves - you get a finished video that sells, on schedule, without raw AI generation in the frame.' },
+      { type: 'partner', id: 'syntx' },
       { type: 'cta' }
     ],
   },

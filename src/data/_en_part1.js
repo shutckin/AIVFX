@@ -15,6 +15,7 @@ const PART_1 = [
     date: '2026-05-29',
     dateModified: '2026-09-04',
     readingTime: '13 min',
+    partner: 'syntx',
     excerpt:
       'We build a digital twin in HeyGen from scratch: recording, training, voice, translation into 175 languages. Real pricing, limits, and tips - all explained step by step.',
     content: [
@@ -105,6 +106,7 @@ const PART_1 = [
       { type: 'p', text: 'An AI avatar perfectly solves the "talking head" task: training, reviews, news, sales videos. But a full-fledged ad also involves scenes, B-roll, graphics, editing, and sound. That is why in real projects the HeyGen avatar is combined with generative video (Kling, Runway, Veo) for background scenes and with post-production. The avatar talks - the generative models show.' },
       { type: 'p', text: 'If you want not just a talking twin but a full-fledged turnkey ad, that is already the work of a studio that brings together the avatar, scenes, graphics, and sound into a single whole.' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'cta' },
     ],
   },
@@ -124,6 +126,7 @@ const PART_1 = [
     date: '2026-05-12',
     dateModified: '2026-09-04',
     readingTime: '9 min',
+    partner: 'syntx',
     excerpt:
       'A complete breakdown of the AI-video creation process: from the first idea to the final clip. No fluff - just real steps, tools, and timelines.',
     content: [
@@ -170,6 +173,7 @@ const PART_1 = [
       { type: 'h2', text: 'Where AI video really pays off for business' },
       { type: 'p', text: 'AI video is not a replacement for everything but a tool for specific tasks: product clips, ads for social media, visualizing what is expensive or impossible to shoot (space, historical scenes, fantasy locations), quick A/B tests of different creatives. If you need a lot of content, regularly and fast - this is your format. How a prompt is assembled part by part is covered in a [separate guide](/blog/promty-dlya-neyrosetey/).' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'cta' },
     ],
   },
@@ -189,6 +193,7 @@ const PART_1 = [
     date: '2026-05-20',
     dateModified: '2026-09-04',
     readingTime: '11 min',
+    partner: 'syntx',
     excerpt:
       'Which neural network for video is best in 2026? We break down Runway, Kling, Veo, Seedance, and MiniMax H3 by real criteria - without ads or hype.',
     content: [
@@ -243,6 +248,7 @@ const PART_1 = [
       { type: 'h2', text: 'So which one is actually the best?' },
       { type: 'p', text: 'The right question is not "which neural network is the best" but "which model will better solve my specific task." Business cares about the result - a finished clip that sells. The viewer is indifferent to which tools it was assembled with. That is why studios keep the entire arsenal at hand: for one scene they take Kling, for another Runway, and they add sound via Veo. It is precisely this combination that produces a picture indistinguishable from classic production.' },
 
+      { type: 'partner', id: 'syntx' },
       { type: 'cta' },
     ],
   },

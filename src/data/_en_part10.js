@@ -75,6 +75,7 @@ const PART_10 = [
       { type: 'h2', text: 'One subscription instead of five' },
       { type: 'p', text: 'None of the above touches what the subscription itself costs or how to pay for it if a card gets declined at checkout, a separate and common problem we cover in detail in [the pricing article](/blog/chatgpt-v-rossii/). The short version: ChatGPT is rarely the only AI subscription anyone runs, and a separate image model, video model or voice model on top means several charges instead of one, each with its own chance of failing at checkout.' },
       { type: 'p', text: 'We route generation for client work through [SYNTX](partner:syntx) for that reason: one subscription and one card instead of four or five. Check the catalog before you pay, since what is listed there shifts over time, and confirm the model you actually need, ChatGPT included, is on it before committing.' },
+      { type: 'partner', id: 'syntx' },
       { type: 'h2', text: 'Frequently asked questions' },
       { type: 'h3', text: 'Is the official ChatGPT app actually free to download?' },
       { type: 'p', text: 'Yes, on both iPhone and Android, published directly by OpenAI. Installing it costs nothing, and whatever plan is already active, Free through Pro, works inside the app the same way it does on the website.' },
