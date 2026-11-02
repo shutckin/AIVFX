@@ -107,7 +107,7 @@ const DevelopersVideo = () => {
           <div className="dv-trio">
             {DEV_FRAMES.trio.map((f) => (
               <figure className="dv-frame" key={f.src}>
-                <Pic src={f.src} alt={f.alt} width={1920} height={1080} sizes="(max-width: 600px) 100vw, 33vw" />
+                <Pic src={f.src} alt={f.alt} width={1200} height={1500} sizes="(max-width: 600px) 100vw, 33vw" />
               </figure>
             ))}
           </div>

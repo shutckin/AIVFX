@@ -264,7 +264,7 @@
 @media (max-width: 600px) {
   .dv-works, .dv-grid, .dv-steps { grid-template-columns: 1fr; }
   .dv-trio { grid-template-columns: 1fr; }
-  .dv-trio .dv-frame img { aspect-ratio: 16 / 10; }
+  .dv-trio .dv-frame img { aspect-ratio: 4 / 5; }
   .dv-frame--wide img { aspect-ratio: 4 / 3; }
   .dv-work--vertical { max-width: 260px; }
   .dv-cta { text-align: left; }
