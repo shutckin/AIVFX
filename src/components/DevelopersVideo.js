@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SecHead from './SecHead';
-import LazyVideo from './LazyVideo';
 import Pic from './Pic';
 import {
   DEV_PAGE, DEV_WORKS, DEV_FRAMES, DEV_SCENES, DEV_PRICES, DEV_LAW, DEV_STEPS,
@@ -12,42 +11,78 @@ import './developers-video.css';
 // Только русская (см. isRuOnly в i18n.js). Палитра - янтарная, как у
 // всего направления AI-видео (.vp-page).
 
-// Карточка ролика: до клика крутится трёхсекундное превью, по клику
-// на его месте открывается полный ролик с Kinescope. Плеер не грузится
-// заранее: четыре iframe сразу съели бы загрузку страницы.
-const WorkCard = ({ item }) => {
-  const [playing, setPlaying] = useState(false);
+// Карточка ролика. Все четыре одной пропорции 4:5 со статичным кадром
+// из 4K-версии: три горизонтальных и один вертикальный ролик в своих
+// родных размерах смотрелись разнобоем. Сам ролик открывается в окне
+// поверх страницы в родном формате.
+const WorkCard = ({ item, onPlay }) => (
+  <article className="dv-work">
+    <button
+      type="button"
+      className="dv-work-play"
+      onClick={(e) => onPlay(item, e.currentTarget)}
+      aria-label={`${DEV_PAGE.watch} «${item.title}»`}
+    >
+      <Pic src={item.poster} alt="" width={1200} height={1500} sizes="(max-width: 600px) 100vw, 25vw" />
+      <span className="dv-work-btn" aria-hidden="true">▶</span>
+      <span className="dv-work-dur">{item.duration}</span>
+    </button>
+    <h3 className="dv-work-title">{item.title}</h3>
+    <p className="dv-work-desc">{item.desc}</p>
+  </article>
+);
+
+// Окно с плеером Kinescope. Закрывается крестиком, клавишей Esc и кликом
+// мимо ролика, после закрытия фокус возвращается на карточку.
+const PlayerModal = ({ item, onClose }) => {
+  const closeRef = useRef(null);
+
+  useEffect(() => {
+    closeRef.current?.focus();
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    const { overflow } = document.body.style;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = overflow;
+    };
+  }, [onClose]);
 
   return (
-    <article className={`dv-work${item.vertical ? ' dv-work--vertical' : ''}`}>
-      <div className="dv-work-media">
-        {playing ? (
-          <iframe
-            src={`${item.embed}?autoplay=1`}
-            title={item.title}
-            allow="autoplay; fullscreen; picture-in-picture; encrypted-media;"
-            allowFullScreen
-          />
-        ) : (
-          <button
-            type="button"
-            className="dv-work-play"
-            onClick={() => setPlaying(true)}
-            aria-label={`${DEV_PAGE.watch} «${item.title}»`}
-          >
-            <LazyVideo src={item.preview} title={item.title} />
-            <span className="dv-work-btn" aria-hidden="true">▶</span>
-            <span className="dv-work-dur">{item.duration}</span>
-          </button>
-        )}
+    <div className="dv-modal" role="dialog" aria-modal="true" aria-label={item.title} onClick={onClose}>
+      <div
+        className={`dv-modal-player${item.vertical ? ' dv-modal-player--vertical' : ''}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <iframe
+          src={`${item.embed}?autoplay=1`}
+          title={item.title}
+          allow="autoplay; fullscreen; picture-in-picture; encrypted-media;"
+          allowFullScreen
+        />
       </div>
-      <h3 className="dv-work-title">{item.title}</h3>
-      <p className="dv-work-desc">{item.desc}</p>
-    </article>
+      <button ref={closeRef} type="button" className="dv-modal-close" onClick={onClose} aria-label={DEV_PAGE.close}>
+        ✕
+      </button>
+    </div>
   );
 };
 
 const DevelopersVideo = () => {
+  const [active, setActive] = useState(null);
+  const triggerRef = useRef(null);
+
+  const openPlayer = (item, trigger) => {
+    triggerRef.current = trigger;
+    setActive(item);
+  };
+  // Стабильная ссылка: эффект окна не перевешивает обработчики на каждый рендер
+  const closePlayer = useRef(() => {
+    setActive(null);
+    triggerRef.current?.focus();
+  }).current;
+
   // SEO: заголовок и описание страницы
   useEffect(() => {
     document.title = DEV_PAGE.seoTitle;
@@ -88,9 +123,10 @@ const DevelopersVideo = () => {
           <SecHead num={DEV_WORKS.head.num} title={DEV_WORKS.head.title} titleIt={DEV_WORKS.head.titleIt} />
           <p className="dv-note">{DEV_WORKS.note}</p>
           <div className="dv-works">
-            {DEV_WORKS.items.map((item) => <WorkCard key={item.embed} item={item} />)}
+            {DEV_WORKS.items.map((item) => <WorkCard key={item.embed} item={item} onPlay={openPlayer} />)}
           </div>
         </section>
+        {active && <PlayerModal item={active} onClose={closePlayer} />}
 
         <section className="dv-section">
           <SecHead num={DEV_SCENES.head.num} title={DEV_SCENES.head.title} titleIt={DEV_SCENES.head.titleIt} />

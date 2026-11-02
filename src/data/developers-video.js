@@ -24,6 +24,7 @@ export const DEV_PAGE = {
   ctaSub: 'Пришлите рендеры и название ЖК, вернёмся с идеей сценария.',
   ctaBtn: 'Оставить заявку',
   watch: 'Смотреть ролик',
+  close: 'Закрыть ролик',
   nav: 'Навигация',
 };
 
@@ -35,7 +36,7 @@ export const DEV_WORKS = {
   items: [
     {
       embed: 'https://kinescope.io/embed/7aGKrdefGeqZMuofczXAh7',
-      preview: '/portfolio-previews/31f1a366-06e6-4310-9955-ffb672c4fe76.mp4',
+      poster: '/case-media/zhk-poster-lobbi.jpg',
       duration: '0:36',
       vertical: false,
       title: 'Паркинг, лобби и двор',
@@ -43,7 +44,7 @@ export const DEV_WORKS = {
     },
     {
       embed: 'https://kinescope.io/embed/tH72ac6hCacQzPPN75uoBg',
-      preview: '/portfolio-previews/e063f2c5-c589-430f-9b4c-647ad704f975.mp4',
+      poster: '/case-media/zhk-poster-sport.jpg',
       duration: '0:36',
       vertical: false,
       title: 'Спорт и детские площадки',
@@ -51,7 +52,7 @@ export const DEV_WORKS = {
     },
     {
       embed: 'https://kinescope.io/embed/jmmKYqAdBeZyUwH6MUp2Lb',
-      preview: '/portfolio-previews/949c29f8-5717-4622-8830-5b8b536ef0de.mp4',
+      poster: '/case-media/zhk-poster-priroda.jpg',
       duration: '0:34',
       vertical: false,
       title: 'Природа рядом',
@@ -59,7 +60,7 @@ export const DEV_WORKS = {
     },
     {
       embed: 'https://kinescope.io/embed/xgRcjWRENHLeczjQWRErVp',
-      preview: '/portfolio-previews/fd41c5ce-85f2-4174-b403-1258f384925d.mp4',
+      poster: '/case-media/zhk-poster-vertikal.jpg',
       duration: '0:40',
       vertical: true,
       title: 'Вертикальный для соцсетей',
@@ -75,8 +76,8 @@ export const DEV_WORKS = {
 export const DEV_FRAMES = {
   trio: [
     { src: '/case-media/zhk-fasad.jpg', alt: 'Жилой дом с волнистыми балконами в зелени двора' },
-    { src: '/case-media/zhk-konsierzh.jpg', alt: 'Консьерж улыбается за стойкой в лобби жилого комплекса' },
-    { src: '/case-media/zhk-dvor-sverhu.jpg', alt: 'Двор жилого комплекса сверху на закате: детские площадки и дорожки между домами' },
+    { src: '/case-media/zhk-konsierzh-2.jpg', alt: 'Консьерж улыбается за стойкой в лобби жилого комплекса' },
+    { src: '/case-media/zhk-dvor-sverhu-2.jpg', alt: 'Двор жилого комплекса сверху на закате: детские площадки и дорожки между домами' },
   ],
   wide: { src: '/case-media/zhk-vecher.jpg', alt: 'Жилой комплекс вечером: башни с подсветкой и освещённые первые этажи' },
   family: { src: '/case-media/zhk-semya-dvor.jpg', alt: 'Мама с детьми идёт по двору жилого комплекса мимо детского сада' },
