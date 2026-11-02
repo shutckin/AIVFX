@@ -38,16 +38,16 @@ export const DEV_WORKS = {
       preview: '/portfolio-previews/31f1a366-06e6-4310-9955-ffb672c4fe76.mp4',
       duration: '0:36',
       vertical: false,
-      title: 'Холл, лифт и паркинг',
-      desc: 'Входная группа, лифт, подземный паркинг. То, что покупатель будет видеть каждый день.',
+      title: 'Паркинг, лобби и двор',
+      desc: 'Подземный паркинг, лобби с консьержем, двор с террасами. Бизнес-класс глазами жителя.',
     },
     {
       embed: 'https://kinescope.io/embed/tH72ac6hCacQzPPN75uoBg',
       preview: '/portfolio-previews/e063f2c5-c589-430f-9b4c-647ad704f975.mp4',
       duration: '0:36',
       vertical: false,
-      title: 'Двор и спорт',
-      desc: 'Жители на площадке во дворе. Сцены жизни, которые до сдачи дома не снять.',
+      title: 'Спорт и детские площадки',
+      desc: 'Футбол, йога, турники, горки. Сцены жизни во дворе, которые до сдачи дома не снять.',
     },
     {
       embed: 'https://kinescope.io/embed/jmmKYqAdBeZyUwH6MUp2Lb',
@@ -55,7 +55,7 @@ export const DEV_WORKS = {
       duration: '0:34',
       vertical: false,
       title: 'Природа рядом',
-      desc: 'Утренний лес в шаге от домов. Окружение комплекса как аргумент для покупки.',
+      desc: 'Лес, озеро, прогулки с детьми. Окружение комплекса как аргумент для покупки.',
     },
     {
       embed: 'https://kinescope.io/embed/xgRcjWRENHLeczjQWRErVp',
@@ -63,9 +63,22 @@ export const DEV_WORKS = {
       duration: '0:40',
       vertical: true,
       title: 'Вертикальный для соцсетей',
-      desc: 'Формат 9:16 для Reels, Shorts и VK Клипов.',
+      desc: 'Ведущая, карта района, фасады и интерьеры в формате 9:16.',
     },
   ],
+};
+
+// Статичные кадры из этих же роликов (1920 px, public/case-media).
+// Разбавляют текстовые блоки: страница про картинку, а не про списки.
+export const DEV_FRAMES = {
+  trio: [
+    { src: '/case-media/zhk-sad.jpg', alt: 'Две жительницы гуляют по саду во дворе жилого комплекса на закате' },
+    { src: '/case-media/zhk-gorka.jpg', alt: 'Ребёнок смеётся, скатываясь с горки на детской площадке во дворе' },
+    { src: '/case-media/zhk-sap.jpg', alt: 'Семья катается на сап-бордах по озеру рядом с жилым комплексом' },
+  ],
+  wide: { src: '/case-media/zhk-vecher.jpg', alt: 'Жилой комплекс вечером: башни с подсветкой и освещённые первые этажи' },
+  family: { src: '/case-media/zhk-semya-dvor.jpg', alt: 'Мама с детьми идёт по двору жилого комплекса мимо детского сада' },
+  caption: 'Кадры из роликов выше. Всё сгенерировано нейросетями.',
 };
 
 export const DEV_SCENES = {

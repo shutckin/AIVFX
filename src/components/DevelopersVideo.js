@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import SecHead from './SecHead';
 import LazyVideo from './LazyVideo';
+import Pic from './Pic';
 import {
-  DEV_PAGE, DEV_WORKS, DEV_SCENES, DEV_PRICES, DEV_LAW, DEV_STEPS,
+  DEV_PAGE, DEV_WORKS, DEV_FRAMES, DEV_SCENES, DEV_PRICES, DEV_LAW, DEV_STEPS,
 } from '../data/developers-video';
 import './video-production.css';
 import './developers-video.css';
@@ -102,7 +103,20 @@ const DevelopersVideo = () => {
               </div>
             ))}
           </div>
+          {/* Три кадра из роликов: сразу видно, что значит «сцены жизни» */}
+          <div className="dv-trio">
+            {DEV_FRAMES.trio.map((f) => (
+              <figure className="dv-frame" key={f.src}>
+                <Pic src={f.src} alt={f.alt} width={1920} height={1080} sizes="(max-width: 600px) 100vw, 33vw" />
+              </figure>
+            ))}
+          </div>
+          <p className="dv-note">{DEV_FRAMES.caption}</p>
         </section>
+
+        <figure className="dv-frame dv-frame--wide">
+          <Pic src={DEV_FRAMES.wide.src} alt={DEV_FRAMES.wide.alt} width={1920} height={1080} sizes="100vw" />
+        </figure>
 
         <section className="dv-section">
           <SecHead num={DEV_PRICES.head.num} title={DEV_PRICES.head.title} titleIt={DEV_PRICES.head.titleIt} />
@@ -129,6 +143,10 @@ const DevelopersVideo = () => {
             {DEV_LAW.more} <span aria-hidden="true">→</span>
           </a>
         </section>
+
+        <figure className="dv-frame dv-frame--wide">
+          <Pic src={DEV_FRAMES.family.src} alt={DEV_FRAMES.family.alt} width={1920} height={1080} sizes="100vw" />
+        </figure>
 
         <section className="dv-section">
           <SecHead num={DEV_STEPS.head.num} title={DEV_STEPS.head.title} titleIt={DEV_STEPS.head.titleIt} />

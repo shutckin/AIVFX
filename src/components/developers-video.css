@@ -31,10 +31,41 @@
 }
 .dv-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
-/* ── Секции ── */
+/* ── Секции ──
+   Без разделительных линий: у заголовка секции своя черта снизу, и вместе
+   с чертой секции сверху получались двойные полосы. Блоки разделяет воздух
+   и кадры из роликов. */
 .dv-section {
   padding: clamp(48px, 6vw, 88px) 0;
-  border-top: 1px solid var(--line);
+}
+.dv-page .sec-head {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: clamp(20px, 2.4vw, 32px);
+}
+
+/* ── Статичные кадры из роликов ── */
+.dv-frame { margin: 0; }
+.dv-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-lg);
+}
+.dv-frame--wide img {
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+}
+.dv-trio {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 20px);
+  margin-top: clamp(40px, 5vw, 64px);
+}
+.dv-trio .dv-frame img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--r-md);
 }
 .dv-note {
   color: var(--muted);
@@ -117,7 +148,7 @@
   gap: clamp(20px, 2vw, 32px);
   margin-top: 32px;
 }
-.dv-cell { border-top: 1px solid var(--line-2); padding-top: 18px; }
+.dv-cell { padding-top: 4px; }
 .dv-cell-num { color: var(--accent); font-size: 14px; font-variant-numeric: tabular-nums; }
 .dv-cell-t { font-size: 20px; font-weight: 500; margin: 10px 0 8px; color: var(--fg); }
 .dv-cell-d { color: var(--fg-2); font-size: 15px; line-height: 1.55; margin: 0; }
@@ -201,7 +232,7 @@
   gap: clamp(20px, 2vw, 32px);
   counter-reset: dv-step;
 }
-.dv-step { counter-increment: dv-step; border-top: 1px solid var(--line-2); padding-top: 18px; }
+.dv-step { counter-increment: dv-step; padding-top: 4px; }
 .dv-step::before {
   content: counter(dv-step, decimal-leading-zero);
   color: var(--accent);
@@ -232,6 +263,9 @@
 }
 @media (max-width: 600px) {
   .dv-works, .dv-grid, .dv-steps { grid-template-columns: 1fr; }
+  .dv-trio { grid-template-columns: 1fr; }
+  .dv-trio .dv-frame img { aspect-ratio: 16 / 10; }
+  .dv-frame--wide img { aspect-ratio: 4 / 3; }
   .dv-work--vertical { max-width: 260px; }
   .dv-cta { text-align: left; }
 }
