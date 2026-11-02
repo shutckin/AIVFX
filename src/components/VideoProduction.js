@@ -15,6 +15,7 @@ import {
   STATS_EN, COMPARE_OLD_EN, COMPARE_NEW_EN, TESTIMONIALS_EN, CLIENTS_EN,
 } from '../data/content-en';
 import { localizedProjects } from '../data/projects';
+import { DEV_PROMO } from '../data/developers-video';
 import './video-production.css';
 import './training.css'; // врезка «хотите делать сами»
 
@@ -284,6 +285,18 @@ const VideoProduction = () => {
           <a className="vp2-works-link" href={worksHref}>
             {en ? 'See all works ' : 'Смотреть все работы '}<span aria-hidden="true">→</span>
           </a>
+          {/* Вход на страницу для застройщиков. Только по-русски: у той
+              страницы нет английской версии (закон о рекламе, ЕИСЖС). */}
+          {!en && (
+            <a className="vp-training vp-dev-promo" href={DEV_PROMO.href}>
+              <span className="vp-training-kicker mono">{DEV_PROMO.kicker}</span>
+              <span className="vp-training-title">{DEV_PROMO.title}</span>
+              <span className="vp-training-desc">{DEV_PROMO.desc}</span>
+              <span className="vp-training-more mono">
+                {DEV_PROMO.more}<span className="vp-training-arrow">↗</span>
+              </span>
+            </a>
+          )}
         </div>
       </section>
 
