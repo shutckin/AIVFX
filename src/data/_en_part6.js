@@ -6,30 +6,31 @@ const PART_6 = [
     category: 'Models & comparisons',
     title: 'Seedance 2.5: a Guide to the ByteDance Model and What Changed Since 2.0',
     description:
-      'A breakdown of Seedance 2.5: thirty-second clips and long video up to three minutes, fifty reference images, spot editing of a finished scene, sound and 4K.',
+      'A breakdown of Seedance 2.5: up to 30 seconds per generation with extensions, spot editing of a finished scene, sound generated with the picture.',
     keywords:
       'seedance 2.5, seedance guide, seedance 2.0 differences, bytedance video model, how to use seedance, seedance long video',
     cover: '/blog-images/seedance-kpop-backstage.jpg',
     coverPrompt: 'backstage before a K-pop show: a young idol with lavender hair in front of a mirror framed by warm bulbs, a stylist adjusts his collar, racks of stage costumes behind, candid documentary moment',
     coverCaption: 'An anchor frame for Seedance: two people, a live gesture and a lot of small motion behind them. Scenes like this show whether a model keeps hands and faces stable in motion.',
     date: '2026-08-30',
-    dateModified: '2026-08-30',
+    dateModified: '2026-11-02',
     readingTime: '11 min',
-    related: ['top-neyrosetey-video', 'sravnenie-neyrosetey-dlya-video', 'agregatory-ai-servisov'],
+    related: ['seedance-besplatno', 'sravnenie-neyrosetey-dlya-video', 'agregatory-ai-servisov'],
     partner: 'syntx',
     excerpt:
-      'In July 2026 Seedance 2.5 replaced 2.0 at no extra cost. The headline change is length: thirty seconds natively and up to three minutes in long mode. What that gives you in practice, and where the model still trips up.',
+      'In late July 2026 Seedance 2.5 replaced 2.0 as the default model. The headline change is length: up to thirty seconds per generation plus two extensions. What that gives you in practice, and where the model still trips up.',
     content: [
-      { type: 'p', text: 'Seedance is a video model from ByteDance, the same people behind TikTok. Version 2.0 arrived in February 2026 and quickly climbed the rankings; in July it was succeeded by 2.5. The switch was quiet: the same subscription, the same rates, the default model simply became the new one.' },
+      { type: 'p', text: 'Seedance is a video model from ByteDance, the same people behind TikTok. Version 2.0 arrived in February 2026 and quickly climbed the rankings; in late July it was succeeded by 2.5. At the sellers the switch was quiet: the default model simply became the new one.' },
+{ type: 'p', text: 'If your question is not "what can it do" but "where to try it free, is there an unlimited plan, what it costs and why it cannot be downloaded", that is in a separate article: [Seedance 2.5 free and unlimited](/blog/seedance-besplatno/).' },
       { type: 'p', text: 'Let us look at what actually changed, because the list of new features looks impressive while in practice two items on it do the work.' },
 
       { type: 'h2', text: 'The main change is length' },
       { type: 'p', text: 'Version 2.0 produced fifteen seconds. That is exactly the length at which almost any meaningful scene ends: the character walked in, looked around, and the clip was over. You had to generate in pieces and stitch them, and stitching generated footage is hard - light, faces and texture drift between takes.' },
-      { type: 'p', text: 'In 2.5 the native length grew to thirty seconds, and a separate long-video mode reaches three minutes. Thirty seconds is already a complete scene: approach, action, reaction. Three minutes is formally a whole film, but with a caveat we will come back to.' },
+      { type: 'p', text: 'In 2.5 a single generation runs up to thirty seconds, and according to ByteDance’s official page a clip can be extended twice more. Thirty seconds is already a complete scene: approach, action, reaction. With extensions it is formally a whole film, but with a caveat we will come back to. A longer mode of up to three minutes is mentioned only in third-party reviews; ByteDance itself does not name it.' },
 
-      { type: 'h2', text: 'Fifty reference frames instead of twelve' },
-      { type: 'p', text: 'The second change that genuinely alters how you work. Reference frames are the images from which the model understands what your character, object and world look like. The more of them, the more stable a character stays from scene to scene.' },
-      { type: 'p', text: 'With twelve you could fix the general type, but details drifted: the shade of clothing changed, an object shifted shape, the glasses frame morphed. Fifty references let you show the subject from every side and in different light, and the model stops filling gaps by invention.' },
+      { type: 'h2', text: 'Reference frames' },
+      { type: 'p', text: 'The second change that genuinely alters how you work. Reference frames are the images and videos from which the model understands what your character, object and world look like. ByteDance says 2.5 understands reference videos more precisely. Third-party reviews cite a jump from 12 to 50 references, but the official model page gives no such number, so check the limit with your seller.' },
+      { type: 'p', text: 'With a few frames you can fix the general type, but details drift: the shade of clothing changes, an object shifts shape, the glasses frame morphs. The fuller the reference set, the better the subject is shown from every side and in different light, and the less the model fills gaps by invention.' },
       { type: 'quote', text: 'The practical takeaway: if you have a recognisable subject - a product, a car, a person - prepare twenty frames from different angles rather than three. It is dull work, and it is exactly what separates a result you can show a client from a pile of vaguely similar pictures.' },
 
       { type: 'h2', text: 'Editing instead of regenerating' },
@@ -37,24 +38,24 @@ const PART_6 = [
       { type: 'p', text: 'In 2.5 you can mark a moment on the timeline, select an area and redo only that. Everything else stays untouched. It is the same principle as in a photo editor: you correct a fragment rather than reshoot the frame.' },
 
       { type: 'h2', text: 'Sound and resolution' },
-      { type: 'p', text: 'Native stereo sound and output up to 4K were added. The audio is generated together with the picture rather than laid under it, so footsteps, impacts and ambience land in time with the image. For clips without dialogue that is enough; for speech it is still wiser to record voice separately and watch synchronisation by hand.' },
+      { type: 'p', text: 'ByteDance describes 2.5 as a joint audio and video generation model: the audio is generated together with the picture rather than laid under it, so footsteps, impacts and ambience land in time with the image. The official page names no resolution; as of 2 November 2026 sellers offer Seedance 2.5 at 480p, 720p and 1080p, and we found 4K nowhere. For clips without dialogue the sound is enough; for speech it is still wiser to record voice separately and watch synchronisation by hand.' },
 
       { type: 'h2', text: 'Where the model struggles' },
       { type: 'p', text: 'Honestly about the weak spots, because reviews usually skip them.' },
       { type: 'ul', items: [
-        '**Length is not free.** A three-minute clip burns through credits many times faster than a short one, and over that distance quality holds up worse: details and movement logic drift more often towards the end.',
+        '**Length is not free.** Credits are charged per second, so a long clip with extensions burns through them many times faster than a short one. Over that distance quality holds up worse: details and movement logic drift more often towards the end.',
         '**Long video is not an edited film.** The model produces a continuous scene, not a sequence of shots with cuts. Direction and rhythm remain your job.',
         '**Text in frame.** Like almost every video model, Seedance renders lettering badly. Signs, labels and titles are better added in post.',
         '**Hands and fine motor work.** The classic weakness of this generation: a close-up of someone manipulating an object remains a lottery.',
       ]},
 
       { type: 'h2', text: 'What it costs in time and credits' },
-      { type: 'p', text: 'Rates did not change with 2.5, but consumption changed a great deal, and that matters more than the price list. Credits are spent in proportion to length and resolution, so one three-minute clip in 4K eats as much as a dozen short sketches.' },
-      { type: 'p', text: 'Hence a practical rule: run drafts short and at normal resolution, and turn on length and 4K only for the final take once the scene is approved. It sounds obvious, and it is exactly where people run out of credits in the first week.' },
+      { type: 'p', text: 'Every seller has its own prices; as of 2 November 2026 they are collected in [the Seedance 2.5 pricing and unlimited article](/blog/seedance-besplatno/). Consumption matters more than the price list: credits are spent in proportion to length and resolution. At Higgsfield, for example, an 8-second clip costs 56 credits at 720p and 128 at 1080p (Higgsfield blog, 20.10.2026), so one step up in resolution more than doubles the price.' },
+      { type: 'p', text: 'Hence a practical rule: run drafts short and at 480p or 720p, and turn on length and 1080p only for the final take once the scene is approved. It sounds obvious, and it is exactly where people run out of credits in the first week.' },
 
       { type: 'h2', text: 'How to start if you have not used it before' },
       { type: 'ol', items: [
-        '**Start with fifteen seconds, not three minutes.** A short scene renders faster and is cheaper to redo, and your feel for the model comes from iteration.',
+        '**Start with a short scene, not the maximum length.** A short scene renders faster and is cheaper to redo, and your feel for the model comes from iteration.',
         '**Collect reference frames first.** Twenty images of the subject from different sides do more than twenty attempts to describe it in words.',
         '**Write camera movement as a separate sentence.** Models handle the split better: what is in frame, and how the camera moves.',
         '**Do not rewrite the whole prompt after a failure.** Change one thing at a time, otherwise you cannot tell what worked.',
@@ -65,12 +66,12 @@ const PART_6 = [
       { type: 'h2', text: 'Frequently asked' },
       { type: 'h3', text: 'Do I need to relearn anything after 2.0?' },
       { type: 'p', text: 'No. The same prompts work, the interface did not change, the model simply became the default. The difference only shows where you hit the length limit or start using area editing.' },
-      { type: 'h3', text: 'Is three minutes really one continuous clip?' },
-      { type: 'p', text: 'Yes, it is a continuous scene rather than an edited sequence. And that is also its limitation: a real film is usually made of shots at different sizes, while the model gives you one. The editing is still yours.' },
+      { type: 'h3', text: 'Is a clip with extensions really one continuous scene?' },
+      { type: 'p', text: 'Yes, an extension continues the same scene rather than building an edited sequence. And that is also its limitation: a real film is usually made of shots at different sizes, while the model gives you one. The editing is still yours.' },
       { type: 'h3', text: 'Can I get the same character across different scenes?' },
-      { type: 'p', text: 'With fifty reference frames it is noticeably more reliable than before, but there is no guarantee. A working technique: take a good frame from the previous generation and add it to the references of the next. That way the character is passed along a chain.' },
+      { type: 'p', text: 'With a good set of reference frames it is noticeably more reliable than before, but there is no guarantee. A working technique: take a good frame from the previous generation and add it to the references of the next. That way the character is passed along a chain.' },
       { type: 'h3', text: 'Is it good enough for advertising a client will see?' },
-      { type: 'p', text: 'It is, if you accept the reject rate. Out of ten takes usually one or two go into the work, and that is the cost to budget for - not the time of a single generation. How the budget for such a clip is calculated in full is covered in [the piece on AI video pricing](/blog/skolko-stoit-ai-video/).' },
+      { type: 'p', text: 'It is, if you accept the reject rate. A noticeable share of takes ends up rejected, and that is the cost to budget for - not the time of a single generation. How the budget for such a clip is calculated in full is covered in [the piece on AI video pricing](/blog/skolko-stoit-ai-video/).' },
 
       { type: 'h2', text: 'Seedance or something else' },
       { type: 'p', text: 'Briefly on choosing; a detailed comparison lives in [the separate model breakdown](/blog/sravnenie-neyrosetey-dlya-video/).' },

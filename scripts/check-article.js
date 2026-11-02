@@ -121,6 +121,10 @@ try {
   [...posts.matchAll(/slug: '([a-z0-9-]+)'/g)].forEach((m) => known.add('/blog/' + m[1] + '/'));
   const sys = fs.readFileSync(path.join(repo, 'src/data/systems-content.js'), 'utf8');
   [...sys.matchAll(/slug: '([a-z0-9-]+)'/g)].forEach((m) => known.add('/services/' + m[1] + '/'));
+  // Отраслевые страницы (ai-dlya-klinik и др.) записаны в systems-content.js
+  // ключами, а не slug, поэтому добираем все живые адреса из карты сайта.
+  const sitemap = fs.readFileSync(path.join(repo, 'public/sitemap.xml'), 'utf8');
+  [...sitemap.matchAll(/<loc>https:\/\/aivfx\.ru(\/[^<]*)<\/loc>/g)].forEach((m) => known.add(m[1]));
 } catch (e) { warn('не смог прочитать список существующих страниц'); }
 known.add('/works/');
 known.add('/#contact');
