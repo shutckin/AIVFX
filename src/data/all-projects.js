@@ -138,7 +138,7 @@ export const ALL_PROJECTS = [
     id: 13,
     kinescopeId: 'fd41c5ce-85f2-4174-b403-1258f384925d',
     title: 'AI ролик для застройщика #1',
-    tags: ['ADS', 'AI', 'Съемка', 'Real Estate', 'Reels'],
+    tags: ['ADS', 'AI', 'Real Estate', 'Reels'],
     orientation: 'vertical',
     featured: false,
     duration: '0:40',

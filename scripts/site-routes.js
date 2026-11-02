@@ -96,6 +96,8 @@ const BILINGUAL = [
 const RU_ONLY = [
   '/privacy',
   '/consent',
+  // Страница для застройщиков: закон о рекламе и ЕИСЖС - российская специфика
+  '/video-production/zastroyshchikam',
   ...RU_ONLY_SERVICES.map((s) => `/services/${s}`),
   ...BLOG_SLUGS.filter((s) => !translated(s)).map((s) => `/blog/${s}`),
 ];

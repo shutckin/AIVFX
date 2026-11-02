@@ -62,4 +62,5 @@ export const isRuOnly = (logicalPath) => (
   /^\/services\/obuchenie-/.test(logicalPath)
   || logicalPath === '/privacy'
   || logicalPath === '/consent'
+  || logicalPath === '/video-production/zastroyshchikam'
 );

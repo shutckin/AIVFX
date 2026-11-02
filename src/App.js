@@ -31,6 +31,7 @@ const loadIntegrations    = () => import('./components/Integrations');
 // ── Новые страницы ──
 const loadServicePage     = () => import('./components/ServicePage');
 const loadVideoProduction = () => import('./components/VideoProduction');
+const loadDevelopersVideo = () => import('./components/DevelopersVideo');
 
 // ── Конверсионные элементы ──
 const loadCTABreak   = () => import('./components/CTABreak');
@@ -56,6 +57,7 @@ const FaqSection      = lazy(loadFaqSection);
 const Integrations    = lazy(loadIntegrations);
 const ServicePage     = lazy(loadServicePage);
 const VideoProduction = lazy(loadVideoProduction);
+const DevelopersVideo = lazy(loadDevelopersVideo);
 const CTABreak        = lazy(loadCTABreak);
 const ChatWidget      = lazy(loadChatWidget);
 
@@ -215,6 +217,7 @@ const getPageFromUrl = () => {
   if (path === '/consent') return 'consent';
   if (path === '/blog' || path.startsWith('/blog/')) return 'blog';
   if (path === '/video-production') return 'video';
+  if (path === '/video-production/zastroyshchikam') return 'developers';
   if (path.startsWith('/services/')) return 'service';
   return 'main';
 };
@@ -271,6 +274,8 @@ export const preloadRouteChunks = () => {
     chunks.push(loadServicePage());
   } else if (page === 'video') {
     chunks.push(loadVideoProduction());
+  } else if (page === 'developers') {
+    chunks.push(loadDevelopersVideo());
   } else if (page === 'works') {
     chunks.push(loadFullPortfolio());
   } else if (page === 'blog') {
@@ -391,6 +396,7 @@ function App() {
   const showBlogPage      = page === 'blog';
   const showServicePage   = page === 'service';
   const showVideoPage     = page === 'video';
+  const showDevelopers    = page === 'developers';
 
   // Синхронизируем состояние с кнопками браузера "назад"/"вперёд"
   useEffect(() => {
@@ -516,6 +522,13 @@ function App() {
             {/* vp-theme: янтарная палитра направления «AI-контент» - вместе с футером */}
             <div className="vp-theme">
               <main><VideoProduction /></main>
+              <Footer />
+            </div>
+          </Suspense>
+        ) : showDevelopers ? (
+          <Suspense fallback={<SectionFallback />}>
+            <div className="vp-theme">
+              <main><DevelopersVideo /></main>
               <Footer />
             </div>
           </Suspense>
