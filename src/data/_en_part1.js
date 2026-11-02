@@ -31,7 +31,7 @@ const PART_1 = [
       { type: 'ul', items: [
         '**HeyGen** is the most versatile and popular. The best balance of quality, price, and features (translation with lip-sync, Avatar V, automation). Ideal for marketing and content.',
         '**Synthesia** is the corporate standard for training videos and internal communications at large companies. More expensive, more "business-like."',
-        '**D-ID** is the cheapest way into talking avatars and embeddable agents. Facial motion is weaker than the leaders, but the barrier to entry is minimal. If the job is specifically to bring one portrait to life, Hedra with its Character-3 model is stronger today.',
+        '**D-ID** is the cheapest way into talking avatars and embeddable agents. Facial motion is weaker than the leaders, but the barrier to entry is minimal.',
       ]},
       { type: 'p', text: 'For most tasks - from advertising to YouTube - we recommend starting with HeyGen. We will focus on it from here on.' },
 
