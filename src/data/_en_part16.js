@@ -35,6 +35,8 @@ const PART_16 = [
       { type: 'partner', id: 'syntx' },
       { type: 'p', text: 'A note on the SYNTX link, since we recommend it: we hold an affiliate link, so we earn a commission on subscriptions. The price for you does not change. SYNTX gives you models inside its own interface; it does not pay for Kling, Z.ai or Tencent Cloud accounts on your behalf.' },
 
+      { type: 'image', src: '/blog-images/kitay-chaynaya-karta.jpg', alt: 'In a tea house with red lanterns one young man looks puzzled at his bank card while his friend calmly pays with a phone', caption: 'The service opens fine, then the card fails at checkout. With Chinese AI tools that is the usual story.' },
+
       { type: 'h2', text: 'Why Chinese services decline Russian cards' },
       { type: 'p', text: 'The decline comes from the payment gateway, not from the developer\'s country. International versions of Chinese AI tools are sold through foreign payment providers in dollars, and to them a Russian card looks exactly as it does to an American service. Visa and Mastercard cards issued by Russian banks have not worked abroad since March 2022, and Mir is accepted in only a handful of countries. So the fact that a site opens without a VPN says nothing about whether the payment will go through.' },
       { type: 'p', text: 'The practical takeaway: a VPN does not get you past the checkout. It helps you reach the site, but the card is declined by the country of the issuing bank, not by your IP address.' },
