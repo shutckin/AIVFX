@@ -591,6 +591,13 @@ export const SERVICE_PAGES = {
       ru: 'Автоматизируем рутинные операции: CRM, документы, отчёты, распределение заявок, напоминания, согласования, уведомления и синхронизацию данных между сервисами.',
       en: 'We automate routine operations: CRM upkeep, documents, reports, lead distribution, reminders, approvals, notifications and data sync between tools.',
     },
+    seoTitle: { ru: 'Автоматизация бизнес-процессов на n8n и Make: CRM, документы, отчёты', en: 'Business Process Automation on n8n and Make: CRM, Documents, Reports' },
+    // Строка под подзаголовком: только инструменты, которые уже есть на сайте
+    tools: { ru: 'Собираем на n8n и Make, подключаем Notion, Битрикс24, amoCRM и Telegram', en: 'Built on n8n and Make, connected to Notion, Bitrix24, amoCRM and Telegram' },
+    heroActions: {
+      primary: { ru: 'Обсудить задачу', en: 'Discuss your case' },
+      secondary: { ru: 'Смотреть примеры', en: 'See examples' },
+    },
     pains: {
       title: { ru: 'Когда это нужно', en: 'When you need this' },
       items: [
@@ -607,15 +614,49 @@ export const SERVICE_PAGES = {
       { ru: 'Задача поставлена аккаунт-менеджеру', en: 'Task assigned to the account manager' },
       { ru: 'Отчёт за день собран в 19:00', en: 'Daily report compiled at 7 pm' },
     ],
-    features: {
-      title: { ru: 'Что делает система', en: 'What the system does' },
+    // Вместо шести одинаковых карточек «что делает система» - цепочки
+    // «событие → что происходит само». Так видно, что автоматизация
+    // привязана к конкретному моменту в работе, а не к абстракции.
+    recipes: {
+      title: { ru: 'Что автоматизируем чаще всего', en: 'What we automate most often' },
+      lead: { ru: 'Каждая автоматизация начинается с события в вашей работе. Дальше система делает шаги сама, а человек получает результат.', en: 'Every automation starts with an event in your work. The system then takes the steps itself, and a person gets the result.' },
       items: [
-        { t: { ru: 'Порядок в CRM', en: 'CRM hygiene' }, d: { ru: 'Карточки создаются, обновляются и двигаются по воронке без ручного ввода.', en: 'Records are created, updated and moved along the pipeline without manual entry.' } },
-        { t: { ru: 'Документы и отчёты', en: 'Documents & reports' }, d: { ru: 'Договоры, счета и регулярные отчёты формируются автоматически из ваших данных.', en: 'Contracts, invoices and recurring reports are generated automatically from your data.' } },
-        { t: { ru: 'Напоминания и согласования', en: 'Reminders & approvals' }, d: { ru: 'Система сама следит за дедлайнами и двигает согласования дальше.', en: 'The system tracks deadlines and pushes approvals forward on its own.' } },
-        { t: { ru: 'Синхронизация сервисов', en: 'Tool-to-tool sync' }, d: { ru: 'CRM, таблицы, календари и мессенджеры обмениваются данными без людей-курьеров.', en: 'CRM, spreadsheets, calendars and messengers exchange data without human couriers.' } },
-        { t: { ru: 'Уведомления по делу', en: 'Signal-only notifications' }, d: { ru: 'Команда получает только важные события, а не поток шума.', en: 'The team gets only the events that matter - not a stream of noise.' } },
-        { t: { ru: 'Повторные продажи', en: 'Repeat sales triggers' }, d: { ru: 'Система напоминает клиентам о продлении и возвращает их к покупке.', en: 'The system reminds customers about renewals and brings them back to buy.' } },
+        { when: { ru: 'Заявка пришла с сайта или из Telegram', en: 'An inquiry arrives from the site or Telegram' }, then: [{ ru: 'карточка в CRM', en: 'a CRM record' }, { ru: 'ответ клиенту', en: 'a reply to the client' }, { ru: 'уведомление менеджеру с выжимкой', en: 'a summary for the manager' }] },
+        { when: { ru: 'Сделка закрыта в CRM', en: 'A deal is closed in the CRM' }, then: [{ ru: 'договор по шаблону', en: 'a contract from the template' }, { ru: 'счёт клиенту', en: 'an invoice to the client' }, { ru: 'задача аккаунт-менеджеру', en: 'a task for the account manager' }] },
+        { when: { ru: 'Каждый день в 19:00', en: 'Every day at 19:00' }, then: [{ ru: 'отчёт собран из CRM и таблиц', en: 'a report compiled from the CRM and sheets' }, { ru: 'отправлен руководителю в Telegram', en: 'sent to the owner in Telegram' }] },
+        { when: { ru: 'Срок согласования вышел', en: 'An approval deadline passes' }, then: [{ ru: 'напоминание ответственному', en: 'a reminder to the owner' }, { ru: 'через сутки эскалация выше', en: 'escalation a day later' }] },
+        { when: { ru: 'Изменилась строка в таблице', en: 'A row changes in a spreadsheet' }, then: [{ ru: 'обновление в CRM', en: 'the CRM is updated' }, { ru: 'событие в календаре', en: 'a calendar event' }, { ru: 'без ручного переноса', en: 'no manual copying' }] },
+        { when: { ru: 'Договор заканчивается через 30 дней', en: 'A contract ends in 30 days' }, then: [{ ru: 'письмо клиенту о продлении', en: 'a renewal email to the client' }, { ru: 'задача менеджеру', en: 'a task for the manager' }] },
+      ],
+    },
+    // Живые примеры берутся из кейсов главной (CASES_SYS) по id:
+    // цифры там измерены, дублировать их здесь нельзя.
+    examples: {
+      title: { ru: 'Два живых примера', en: 'Two live examples' },
+      lead: { ru: 'Оба контура работают каждый день. Цифры измерены, а не обещаны.', en: 'Both systems run every day. The numbers are measured, not promised.' },
+      items: [
+        { caseId: 'own-crm', note: { ru: 'Так выглядит карточка, которую ассистент заводит сам: задача, ниша, боль и вердикт по квалификации уже заполнены, когда менеджер открывает заявку.', en: 'This is the record the assistant creates on its own: task, niche, pain and qualification verdict are already filled in when a manager opens the inquiry.' } },
+        { caseId: 'eastride', image: '/case-media/eastride-home.jpg', imageAlt: { ru: 'Главная страница EastRide: платформа аренды байков, которую обслуживают автоматизации', en: 'EastRide home page: a bike rental platform run by automations' }, note: { ru: 'Заявки партнёрам, публикации в соцсетях по расписанию и уведомления идут без операторов. Команда занимается партнёрами, а не рутиной.', en: 'Partner inquiries, scheduled social posts and notifications run without operators. The team works with partners, not routine.' } },
+      ],
+    },
+    // Цены - только из public/pricing.md (с 02.09.2026)
+    prices: {
+      title: { ru: 'Сколько стоит', en: 'What it costs' },
+      note: { ru: 'Цены с 2 сентября 2026 года. «От» - нижняя граница, итог зависит от числа процессов.', en: 'Prices valid from 2 September 2026. «From» is the lower bound; the total depends on the number of processes.' },
+      items: [
+        { t: { ru: 'Аудит процессов и карта автоматизации', en: 'Process audit and automation map' }, price: { ru: '25 000 ₽', en: '25 000 ₽' }, term: { ru: '3-5 рабочих дней', en: '3-5 working days' }, d: { ru: 'Разбираем, как приходят заявки, ведутся клиенты и повторяется рутина. На выходе документ с планом и оценкой внедрения.', en: 'We map how inquiries arrive, how clients are handled and where routine repeats. You get a document with a plan and an estimate.' } },
+        { t: { ru: 'Автоматизация бизнес-процессов', en: 'Business process automation' }, price: { ru: 'от 100 000 ₽', en: 'from 100 000 ₽' }, term: { ru: 'зависит от числа процессов', en: 'depends on the number of processes' }, d: { ru: 'Сценарии на n8n и Make: документы и счета собираются сами, отчёты приходят по расписанию, уведомления уходят команде и клиентам.', en: 'Scenarios on n8n and Make: documents and invoices assemble themselves, reports arrive on schedule, notifications go to the team and clients.' } },
+        { t: { ru: 'Сопровождение и доработка', en: 'Support and improvements' }, price: { ru: 'от 30 000 ₽ в месяц', en: 'from 30 000 ₽ per month' }, term: { ru: 'зависит от числа систем', en: 'depends on the number of systems' }, d: { ru: 'Мониторинг, правки сценариев под новые услуги и цены, отчёт раз в месяц.', en: 'Monitoring, scenario updates for new services and prices, a monthly report.' } },
+        { t: { ru: 'Комплексное внедрение', en: 'Full implementation' }, price: { ru: 'от 400 000 ₽', en: 'from 400 000 ₽' }, term: { ru: 'по смете после аудита', en: 'estimated after the audit' }, d: { ru: 'Обработка заявок, AI-ассистент для клиентов и команды, автоматизация внутренних процессов. Один проект, один ответственный, поэтапный запуск.', en: 'Lead handling, an AI assistant for clients and the team, internal process automation. One project, one owner, staged launch.' } },
+      ],
+    },
+    steps: {
+      title: { ru: 'Как проходит внедрение', en: 'How the rollout goes' },
+      items: [
+        { t: { ru: 'Аудит процессов', en: 'Process audit' }, d: { ru: 'За 3-5 рабочих дней разбираем, где рутина повторяется и что стоит автоматизировать первым. Отдаём карту с планом и оценкой.', en: 'In 3-5 working days we find where routine repeats and what to automate first. You get a map with a plan and an estimate.' } },
+        { t: { ru: 'Описание сценариев', en: 'Scenario description' }, d: { ru: 'Для каждого процесса фиксируем, что его запускает, какие данные нужны и кто принимает решения. Без этого сценарий ненадёжен.', en: 'For each process we fix what triggers it, which data it needs and who decides. Without this, a scenario is unreliable.' } },
+        { t: { ru: 'Сборка и прогоны', en: 'Build and test runs' }, d: { ru: 'Собираем сценарии на n8n или Make, подключаем ваши сервисы и гоняем на реальных заявках и документах.', en: 'We build the scenarios on n8n or Make, connect your tools and run them on real inquiries and documents.' } },
+        { t: { ru: 'Запуск и сопровождение', en: 'Launch and support' }, d: { ru: 'Включаем по одному процессу, следим за сбоями и правим под новые услуги и цены.', en: 'We switch processes on one at a time, watch for failures and adjust for new services and prices.' } },
       ],
     },
   },

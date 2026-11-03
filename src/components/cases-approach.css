@@ -497,99 +497,12 @@
   min-width: 0;
 }
 
-/* Карточка сделки */
-.cs2-deal {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 20px;
-  background: var(--bg);
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-sm);
-  min-width: 0;
-}
-
-.cs2-deal-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 11px;
-  letter-spacing: 0.02em;
-}
-
-.cs2-deal-stage {
-  color: var(--accent);
-  border: 1px solid var(--accent-soft);
-  border-radius: 999px;
-  padding: 3px 10px;
-}
-
-.cs2-deal-source { color: var(--muted); }
-
-.cs2-deal-title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 19px;
-  line-height: 1.25;
-  color: var(--fg);
-  text-wrap: balance;
-}
-
-.cs2-deal-note {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 14px 16px;
-  background: var(--bg-2);
-  border-left: 2px solid var(--accent);
-  border-radius: 0 var(--r-sm) var(--r-sm) 0;
-}
-
-.cs2-deal-note-label {
-  font-size: 10.5px;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-}
-
-.cs2-deal-rows {
-  display: grid;
-  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
-  gap: 6px 14px;
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.45;
-}
-
-.cs2-deal-rows dt { color: var(--muted); font-size: 12.5px; padding-top: 1px; }
-.cs2-deal-rows dd { margin: 0; color: var(--fg-2); }
-.cs2-deal-rows dd.is-good { color: var(--accent); }
-
-.cs2-deal-log {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin: 0;
-  padding: 12px 0 0;
-  list-style: none;
-  border-top: 1px solid var(--line);
-  font-size: 12px;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.cs2-deal-log li { display: flex; gap: 10px; }
-.cs2-deal-log li span { color: var(--accent); }
-
 @media (max-width: 1024px) {
   .cs2-own { grid-template-columns: 1fr; gap: 28px; }
 }
 
 @media (max-width: 560px) {
   .cs2-own { padding: 22px; }
-  .cs2-deal { padding: 16px; }
-  .cs2-deal-rows { grid-template-columns: 1fr; gap: 2px; }
-  .cs2-deal-rows dt { padding-top: 8px; }
 }
 
 @media (max-width: 1024px) {

@@ -5,6 +5,7 @@ import { CASES_SYS } from '../data/systems-content';
 import { useCountUp } from '../hooks/useCountUp';
 import './cases-approach.css';
 import Pic from './Pic';
+import DealCard from './DealCard';
 
 // ── Секция «Кейсы» ───────────────────────────────────────────────────────
 // Флагман EastRide - живой продукт с реальными скриншотами в браузерных
@@ -46,37 +47,6 @@ const BrowserFrame = ({ src, alt, width, height, className }) => (
       sizes="(max-width: 768px) 100vw, 640px"
     />
   </figure>
-);
-
-// Карточка сделки из CRM, нарисованная разметкой. Не скриншот: так она
-// не зависит от срока демо-портала, читается на телефоне и не тащит в
-// кадр адрес портала и чужие данные.
-const DealCard = ({ card, L }) => (
-  <div className="cs2-deal" aria-label={L === 'en' ? 'CRM deal record' : 'Карточка сделки в CRM'}>
-    <div className="cs2-deal-head">
-      <span className="cs2-deal-stage mono">{pick(L, card.stage)}</span>
-      <span className="cs2-deal-source mono">{pick(L, card.source)}</span>
-    </div>
-    <h4 className="cs2-deal-title">{pick(L, card.title)}</h4>
-
-    <div className="cs2-deal-note">
-      <span className="cs2-deal-note-label mono">{pick(L, card.noteLabel)}</span>
-      <dl className="cs2-deal-rows">
-        {card.rows.map((row, i) => (
-          <React.Fragment key={i}>
-            <dt className="mono">{pick(L, row.k)}</dt>
-            <dd className={row.good ? 'is-good' : undefined}>{pick(L, row.v)}</dd>
-          </React.Fragment>
-        ))}
-      </dl>
-    </div>
-
-    <ul className="cs2-deal-log mono">
-      {card.log.map((row, i) => (
-        <li key={i}><span>{row.t}</span>{L === 'en' ? row.en : row.ru}</li>
-      ))}
-    </ul>
-  </div>
 );
 
 const Cases = () => {

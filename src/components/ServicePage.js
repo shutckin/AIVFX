@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { SERVICE_PAGES, SERVICE_CTA } from '../data/systems-content';
+import { SERVICE_PAGES, SERVICE_CTA, CASES_SYS } from '../data/systems-content';
 import { SERVICE_GUIDES, GUIDE_UI } from '../data/service-guides';
 import { BLOG_POSTS } from '../data/blog-posts';
 import { BLOG_POSTS_EN } from '../data/blog-posts-en';
 import { useLocale, pick, localizedHref, isRuOnly } from '../i18n';
 import LangSwitch from './LangSwitch';
+import Pic from './Pic';
+import DealCard from './DealCard';
 import './services-systems.css';
 
 const SITE = 'https://aivfx.ru';
@@ -157,6 +159,15 @@ const ServicePage = ({ slug }) => {
           <span className="kicker kicker-accent">{pick(L, page.kicker)}</span>
           <h1 className="sp-title">{pick(L, page.title)}</h1>
           <p className="sp-sub">{pick(L, page.sub)}</p>
+          {page.tools && <p className="sp-tools">{pick(L, page.tools)}</p>}
+          {page.heroActions && (
+            <div className="sp-hero-actions">
+              <a className="btn btn-primary" href={`${localizedHref('/', L)}#contact`}>
+                {pick(L, page.heroActions.primary)}<span className="btn-arrow">↗</span>
+              </a>
+              <a className="btn btn-ghost" href="#sp-examples">{pick(L, page.heroActions.secondary)}</a>
+            </div>
+          )}
         </header>
 
         {/* Боли + панель-доказательство */}
@@ -196,6 +207,7 @@ const ServicePage = ({ slug }) => {
         </div>
 
         {/* Возможности системы */}
+        {page.features && (
         <section className="sp-features" aria-labelledby={`sp-features-${slug}`}>
           <h2 id={`sp-features-${slug}`} className="sp-block-title mono">
             {pick(L, page.features.title)}
@@ -209,6 +221,104 @@ const ServicePage = ({ slug }) => {
             ))}
           </div>
         </section>
+        )}
+
+        {/* Цепочки «событие → что происходит само». Подпись страницы
+            автоматизации: каждая строка начинается с момента в работе. */}
+        {page.recipes && (
+          <section className="sp-recipes" aria-labelledby={`sp-recipes-${slug}`}>
+            <h2 id={`sp-recipes-${slug}`} className="sp-block-title mono">{pick(L, page.recipes.title)}</h2>
+            <p className="sp-lead">{pick(L, page.recipes.lead)}</p>
+            <ol className="sp-recipe-list">
+              {page.recipes.items.map((r, i) => (
+                <li key={i} className="sp-recipe">
+                  <span className="sp-recipe-when">{pick(L, r.when)}</span>
+                  <span className="sp-recipe-chain">
+                    {r.then.map((step, j) => (
+                      <span key={j} className="sp-recipe-step">
+                        <span className="sp-recipe-arrow" aria-hidden="true">→</span>
+                        {pick(L, step)}
+                      </span>
+                    ))}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {/* Живые примеры из кейсов главной: карточка заявки студии и EastRide */}
+        {page.examples && (
+          <section className="sp-examples" id="sp-examples" aria-labelledby={`sp-examples-${slug}`}>
+            <h2 id={`sp-examples-${slug}`} className="sp-block-title mono">{pick(L, page.examples.title)}</h2>
+            <p className="sp-lead">{pick(L, page.examples.lead)}</p>
+            <div className="sp-example-list">
+              {page.examples.items.map((ex) => {
+                const item = CASES_SYS.items.find((c) => c.id === ex.caseId);
+                if (!item) return null;
+                return (
+                  <article key={ex.caseId} className="sp-example">
+                    <div className="sp-example-text">
+                      <span className="sp-example-badge">{pick(L, item.badge)}</span>
+                      <h3 className="sp-example-title">{pick(L, item.industry)}</h3>
+                      <p className="sp-example-desc">{pick(L, item.solution)}</p>
+                      <p className="sp-example-note">{pick(L, ex.note)}</p>
+                      <dl className="sp-example-metrics">
+                        {item.metrics.map((m, j) => (
+                          <div key={j} className="sp-example-metric">
+                            <dt>{L === 'en' && m.vEn ? m.vEn : m.v}</dt>
+                            <dd>{pick(L, m.l)}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </div>
+                    <div className="sp-example-media">
+                      {item.card && <DealCard card={item.card} L={L} />}
+                      {ex.image && (
+                        <figure className="sp-example-shot">
+                          <Pic src={ex.image} alt={pick(L, ex.imageAlt)} width={1280} height={800} sizes="(max-width: 1024px) 100vw, 560px" />
+                        </figure>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {/* Цены из pricing.md */}
+        {page.prices && (
+          <section className="sp-prices" aria-labelledby={`sp-prices-${slug}`}>
+            <h2 id={`sp-prices-${slug}`} className="sp-block-title mono">{pick(L, page.prices.title)}</h2>
+            <div className="sp-price-grid">
+              {page.prices.items.map((pr, i) => (
+                <div key={i} className="sp-price">
+                  <h3 className="sp-price-t">{pick(L, pr.t)}</h3>
+                  <span className="sp-price-v">{pick(L, pr.price)}</span>
+                  <span className="sp-price-term">{pick(L, pr.term)}</span>
+                  <p className="sp-price-d">{pick(L, pr.d)}</p>
+                </div>
+              ))}
+            </div>
+            <p className="sp-note">{pick(L, page.prices.note)}</p>
+          </section>
+        )}
+
+        {/* Шаги внедрения */}
+        {page.steps && (
+          <section className="sp-steps" aria-labelledby={`sp-steps-${slug}`}>
+            <h2 id={`sp-steps-${slug}`} className="sp-block-title mono">{pick(L, page.steps.title)}</h2>
+            <ol className="sp-step-list">
+              {page.steps.items.map((st, i) => (
+                <li key={i} className="sp-step">
+                  <h3 className="sp-step-t">{pick(L, st.t)}</h3>
+                  <p className="sp-step-d">{pick(L, st.d)}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
 
         {/* ── Развёрнутый гайд ──
             Страница услуги перестаёт быть карточкой и становится материалом:
