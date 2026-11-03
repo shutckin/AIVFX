@@ -428,10 +428,11 @@ function App() {
   const hideConsent = () => navigate('main', '/');
   const showAllPortfolio = () => navigate('works', '/works/');
   const hideAllPortfolio = () => {
-    navigate('main', '/');
-    // После возврата на главную - прокрутить к секции "Работы"
+    // Каталог работ относится к AI-контенту: возвращаемся на его страницу
+    // и прокручиваем к ленте работ (раньше вёл на главную AI-систем)
+    navigate('video', '/video-production/');
     setTimeout(() => {
-      const el = document.getElementById('portfolio');
+      const el = document.getElementById('works');
       if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
     }, 50);
   };

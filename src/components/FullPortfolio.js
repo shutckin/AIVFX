@@ -177,9 +177,9 @@ const FullPortfolio = ({ onBack }) => {
     <div className="fp-page">
       <div className="fp-header">
         <div className="shell fp-header-inner">
-          <button onClick={onBack} className="fp3-back" aria-label={en ? 'Back to home' : 'Назад на главную'}>
+          <button onClick={onBack} className="fp3-back" aria-label={en ? 'Back to AI video' : 'Назад к AI-видео'}>
             <span aria-hidden="true">←</span>
-            <span>{en ? 'Back to home' : 'Назад на главную'}</span>
+            <span>{en ? 'Back to AI video' : 'Назад к AI-видео'}</span>
           </button>
           <span className="fp3-wordmark">AIVFX</span>
           <LangSwitch locale={en ? 'en' : 'ru'} />

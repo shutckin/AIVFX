@@ -61,7 +61,7 @@
 
 /* Featured-карточка: без свечения и теней */
 .fp-page .fp-featured .thumb-wrap {
-  border-color: rgba(61, 110, 247, 0.35);
+  border-color: rgba(240, 165, 0, 0.35);
   box-shadow: none;
 }
 

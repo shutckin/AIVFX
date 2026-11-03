@@ -82,13 +82,14 @@
   --r-lg: 16px;
   color: var(--fg);
 }
-/* Кобальт тёмной темы: только портфолио. У .vp-theme свой янтарь. */
+/* Портфолио работ - часть направления AI-контент, поэтому акцент тот же
+   янтарный, что у .vp-theme (video-production.css), а не синий. */
 .theme-dark {
-  --accent: #3d6ef7;
-  --accent-glow: rgba(61, 110, 247, 0.32);
-  --accent-soft: rgba(61, 110, 247, 0.12);
-  --primary: #3d6ef7;
-  --accent-2: #6a94ff;
+  --accent: #f0a500;
+  --accent-glow: rgba(240, 165, 0, 0.30);
+  --accent-soft: rgba(240, 165, 0, 0.13);
+  --primary: #f0a500;
+  --accent-2: #ffc247;
 }
 html.page-dark,
 html.page-dark body { background: #0b0b0d; }
@@ -2018,7 +2019,7 @@ html:not(.page-dark) .sec-title { font-size: clamp(30px, 3.4vw, 46px); line-heig
 }
 .fp-featured .thumb-wrap {
   aspect-ratio: 16/9;
-  border: 1px solid rgba(61, 110, 247, 0.25);
+  border: 1px solid rgba(240, 165, 0, 0.25); /* янтарь раздела AI-контент */
   box-shadow: 0 20px 48px rgba(0,0,0,0.4);
 }
 .fp-featured .info h3 {

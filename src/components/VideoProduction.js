@@ -169,8 +169,9 @@ const VideoProduction = () => {
           со страницы уходим переключением направления, а не шагом назад. */}
       <VpHeader contactHref={contactHref} en={en} locale={L} />
 
-      {/* Первый экран - во всю ширину и высоту окна: отрывок из ролика
-          Porsche 911 (работа студии), затемнение и текст поверх */}
+      {/* Первый экран - во всю ширину и высоту окна: заставка EastRide
+          (с 03.11.2026 вместо ролика Porsche 2024 года), затемнение и текст
+          поверх. Исходник: tripride/public/heroes/hero-loop.mp4 */}
       <header className="hero vp-hero-full" id="hero">
         <video
           className="hero-video"
@@ -179,10 +180,10 @@ const VideoProduction = () => {
           loop
           playsInline
           preload="auto"
-          poster="/fixed/hero-porsche-poster.jpg"
+          poster="/fixed/hero-eastride-poster.jpg"
           ref={(el) => { if (el) { el.muted = true; el.play().catch(() => {}); } }}
         >
-          <source src="/fixed/hero-porsche.mp4" type="video/mp4" />
+          <source src="/fixed/hero-eastride.mp4" type="video/mp4" />
         </video>
         <div className="hero-video-overlay" />
 
