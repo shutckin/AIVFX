@@ -1,5 +1,5 @@
 // Работы для бегущей витрины на странице AI-контента.
-// Не путать с all-projects.js - там полный каталог из 38 работ для /works/.
+// Не путать с all-projects.js - там полный каталог работ для /works/.
 //
 // Состав и порядок выбраны вручную. Раньше здесь лежал весь список из 21
 // работы, лента дублировалась и в ней оказывалось 42 ролика разом: браузер
@@ -8,6 +8,16 @@
 // подгрузиться до того, как карточка попадёт в кадр.
 
 export const PROJECTS = [
+  {
+    // Заставка eastride.cc, полностью на нейросетях (03.11.2026)
+    id: 99,
+    title: 'EastRide - заставка сайта',
+    cat: 'Путешествия',
+    tech: 'AI',
+    duration: '0:19',
+    poster: '/portfolio-previews/eastride-intro.webp',
+    preview: '/portfolio-previews/eastride-intro.mp4',
+  },
   {
     id: 2,
     kinescopeId: 'f265af3f-9df2-4b53-bccc-ce7291060780',
@@ -119,11 +129,13 @@ const CAT_EN = {
   'Социальное': 'Social',
   'Архитектура': 'Architecture',
   'Медицина': 'Healthcare',
+  'Путешествия': 'Travel',
 }
 
 // Английские названия проектов по id (только там, где русское - описательное).
 // Бренды (NL Sets, Rolex, CINQUE, Dyson и т.п.) остаются как есть.
 const TITLE_EN = {
+  99: 'EastRide - website intro',
   2: 'The Legend of the Kraken',
   4: 'Tourism image film',
   5: 'Chevrolet × NL - to the horizon',

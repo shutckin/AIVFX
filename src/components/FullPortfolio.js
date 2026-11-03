@@ -80,13 +80,25 @@ const ProjectModal = ({ project, onClose }) => {
           }}
         >✕</button>
         <div style={{ aspectRatio: isVertical ? '9/16' : '16/9', background: 'black', position: 'relative' }}>
-          <iframe
-            src={`${project.embed}?autoplay=1`}
-            title={project.title}
-            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write;"
-            allowFullScreen
-            style={{ width: '100%', height: '100%', border: 0 }}
-          />
+          {/* Работа без ролика в Kinescope играет свой видеофайл */}
+          {project.video ? (
+            <video
+              src={project.video}
+              title={project.title}
+              autoPlay
+              controls
+              playsInline
+              style={{ width: '100%', height: '100%', display: 'block' }}
+            />
+          ) : (
+            <iframe
+              src={`${project.embed}?autoplay=1`}
+              title={project.title}
+              allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write;"
+              allowFullScreen
+              style={{ width: '100%', height: '100%', border: 0 }}
+            />
+          )}
         </div>
         <div style={{ padding: 'clamp(24px, 3vw, 40px)', display: 'flex', flexDirection: 'column', gap: 14 }}>
           <div style={{

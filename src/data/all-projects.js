@@ -2,6 +2,19 @@
 // Auto-generated from Kinescope API
 
 export const ALL_PROJECTS = [
+  // Заставка главной eastride.cc (03.11.2026): полностью сгенерирована
+  // нейросетями, без съёмки (подтвердил Артем). Ролика в Kinescope нет,
+  // поэтому вместо embed - видеофайл с сайта, модалка играет его сама.
+  {
+    id: 100,
+    title: 'EastRide - заставка сайта',
+    tags: ['AI'],
+    orientation: 'horizontal',
+    featured: true,
+    duration: '0:19',
+    preview: '/portfolio-previews/eastride-intro.mp4',
+    video: '/fixed/hero-eastride.mp4',
+  },
   {
     id: 1,
     kinescopeId: '07c606f9-1f2f-490f-9357-a5b1c50cdcdf',
@@ -107,7 +120,9 @@ export const ALL_PROJECTS = [
     title: 'Porsche 911 - лесная охота',
     tags: ['ADS', 'AI'],
     orientation: 'horizontal',
-    featured: true,
+    // Из избранного убран 03.11.2026: место отдано заставке EastRide,
+    // ролик 2024 года, нейросети тогда работали заметно слабее
+    featured: false,
     duration: '0:57',
     preview: '/portfolio-previews/63d3bba0-6b46-485c-9225-3d3ffed18ffe.mp4',
     embed: 'https://kinescope.io/embed/djYgZtKb2MZPDSJ8Z3zuHu',
