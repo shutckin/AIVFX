@@ -1147,5 +1147,6 @@ export const SERVICE_GUIDES = {
 // Общие подписи вокруг гайда
 export const GUIDE_UI = {
   toc: { ru: 'В этом материале', en: 'In this guide' },
+  fold: { ru: 'Разобраться подробнее', en: 'Dig deeper' },
   faqTitle: { ru: 'Частые вопросы', en: 'Frequently asked questions' },
 };

@@ -887,3 +887,38 @@
   .sp-price-grid, .sp-step-list { grid-template-columns: 1fr; }
   .sp-example { padding: 20px; }
 }
+
+/* Свёрнутый гайд: заголовки разделов и вопросы раскрываются по клику */
+.sg-fold { padding-top: clamp(48px, 6vw, 80px); }
+.sg-fold-list { display: grid; gap: 6px; max-width: 860px; }
+.sg-fold-item {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-2);
+}
+.sg-fold-sum {
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 48px 16px 20px;
+  position: relative;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--fg);
+}
+.sg-fold-sum::-webkit-details-marker { display: none; }
+.sg-fold-sum::after {
+  content: '+';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-2);
+  font-size: 20px;
+  line-height: 1;
+}
+.sg-fold-item[open] .sg-fold-sum::after { content: '−'; }
+.sg-fold-sum:hover { color: var(--accent-2); }
+.sg-fold-sum:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--r-md); }
+.sg-fold-body { padding: 0 20px 20px; }
+.sg-fold-body > :first-child { margin-top: 0; }
+.sp-prices .sp-price-v { margin-top: 2px; }

@@ -159,7 +159,6 @@ const ServicePage = ({ slug }) => {
           <span className="kicker kicker-accent">{pick(L, page.kicker)}</span>
           <h1 className="sp-title">{pick(L, page.title)}</h1>
           <p className="sp-sub">{pick(L, page.sub)}</p>
-          {page.tools && <p className="sp-tools">{pick(L, page.tools)}</p>}
           {page.heroActions && (
             <div className="sp-hero-actions">
               <a className="btn btn-primary" href={`${localizedHref('/', L)}#contact`}>
@@ -228,7 +227,7 @@ const ServicePage = ({ slug }) => {
         {page.recipes && (
           <section className="sp-recipes" aria-labelledby={`sp-recipes-${slug}`}>
             <h2 id={`sp-recipes-${slug}`} className="sp-block-title mono">{pick(L, page.recipes.title)}</h2>
-            <p className="sp-lead">{pick(L, page.recipes.lead)}</p>
+            {page.recipes.lead && <p className="sp-lead">{pick(L, page.recipes.lead)}</p>}
             <ol className="sp-recipe-list">
               {page.recipes.items.map((r, i) => (
                 <li key={i} className="sp-recipe">
@@ -251,7 +250,7 @@ const ServicePage = ({ slug }) => {
         {page.examples && (
           <section className="sp-examples" id="sp-examples" aria-labelledby={`sp-examples-${slug}`}>
             <h2 id={`sp-examples-${slug}`} className="sp-block-title mono">{pick(L, page.examples.title)}</h2>
-            <p className="sp-lead">{pick(L, page.examples.lead)}</p>
+            {page.examples.lead && <p className="sp-lead">{pick(L, page.examples.lead)}</p>}
             <div className="sp-example-list">
               {page.examples.items.map((ex) => {
                 const item = CASES_SYS.items.find((c) => c.id === ex.caseId);
@@ -261,8 +260,7 @@ const ServicePage = ({ slug }) => {
                     <div className="sp-example-text">
                       <span className="sp-example-badge">{pick(L, item.badge)}</span>
                       <h3 className="sp-example-title">{pick(L, item.industry)}</h3>
-                      <p className="sp-example-desc">{pick(L, item.solution)}</p>
-                      <p className="sp-example-note">{pick(L, ex.note)}</p>
+                      <p className="sp-example-desc">{pick(L, ex.note)}</p>
                       <dl className="sp-example-metrics">
                         {item.metrics.map((m, j) => (
                           <div key={j} className="sp-example-metric">
@@ -297,11 +295,11 @@ const ServicePage = ({ slug }) => {
                   <h3 className="sp-price-t">{pick(L, pr.t)}</h3>
                   <span className="sp-price-v">{pick(L, pr.price)}</span>
                   <span className="sp-price-term">{pick(L, pr.term)}</span>
-                  <p className="sp-price-d">{pick(L, pr.d)}</p>
+                  {pr.d && <p className="sp-price-d">{pick(L, pr.d)}</p>}
                 </div>
               ))}
             </div>
-            <p className="sp-note">{pick(L, page.prices.note)}</p>
+            {page.prices.note && <p className="sp-note">{pick(L, page.prices.note)}</p>}
           </section>
         )}
 
@@ -323,7 +321,33 @@ const ServicePage = ({ slug }) => {
         {/* ── Развёрнутый гайд ──
             Страница услуги перестаёт быть карточкой и становится материалом:
             слева липкое оглавление, справа текст с подзаголовками и FAQ. */}
-        {guide && (
+        {/* Свёрнутый гайд: на странице видны только заголовки разделов и
+            вопросы, текст раскрывается по клику. Для поиска он весь в HTML. */}
+        {guide && page.compactGuide && (
+          <section className="sg-fold" aria-labelledby={`sg-fold-${slug}`}>
+            <h2 id={`sg-fold-${slug}`} className="sp-block-title mono">{pick(L, GUIDE_UI.fold)}</h2>
+            <div className="sg-fold-list">
+              {guide.sections.map((sec) => (
+                <details className="sg-fold-item" id={sec.id} key={sec.id}>
+                  <summary className="sg-fold-sum">{pick(L, sec.h)}</summary>
+                  <div className="sg-fold-body">
+                    {sec.blocks.map((block, i) => (
+                      <GuideBlock block={block} L={L} key={i} />
+                    ))}
+                  </div>
+                </details>
+              ))}
+              {(guide.faq || []).map((item, i) => (
+                <details className="sg-fold-item" key={`faq-${i}`}>
+                  <summary className="sg-fold-sum">{pick(L, item.q)}</summary>
+                  <div className="sg-fold-body"><p className="sg-p">{pick(L, item.a)}</p></div>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {guide && !page.compactGuide && (
           <div className="sg-wrap">
             <aside className="sg-toc" aria-label={pick(L, GUIDE_UI.toc)}>
               <div className="sg-toc-in">
