@@ -44,3 +44,33 @@
   .mode-toggle { padding: 3px; gap: 2px; }
   .mode-opt { padding: 7px 11px; font-size: 12px; gap: 6px; }
 }
+
+/* ── Светлая шапка «AI-системы» ───────────────────────────────────────
+   Сегментированная таблетка из макета: светло-серая дорожка, активный
+   пункт - белая таблетка с лёгкой тенью. Только внутри .sys-header:
+   на странице AI-контента тумблер остаётся прежним. */
+.sys-header .mode-toggle {
+  gap: 0;
+  padding: 3px;
+  border: none;
+  border-radius: 999px;
+  background: var(--bg-3);
+}
+.sys-header .mode-opt {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--fg-2);
+}
+.sys-header .mode-opt:hover { color: var(--fg); }
+.sys-header .mode-opt.active {
+  background: var(--bg-2);
+  color: var(--fg);
+  box-shadow: 0 1px 2px rgba(16, 24, 43, 0.08);
+}
+
+@media (max-width: 560px) {
+  .sys-header .mode-opt { padding: 6px 11px; font-size: 12px; letter-spacing: 0; }
+}

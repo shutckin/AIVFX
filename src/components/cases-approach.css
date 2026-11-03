@@ -1,290 +1,259 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   Секции «Кейсы» (cs-/cs2-), «Подход» (ap-) и «Стек» (ig-)
+   Секции «Кейсы» (cs-), «Подход» (ap-) и «Стек» (ig-)
    Общий файл трёх компонентов: Cases.js, Approach.js, Integrations.js
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* ── Ритм секций ──────────────────────────────────────────────────────────
-   Глобальный .section даёт до 160px сверху и снизу — между секциями
-   возникали провалы 300-450px. Для этих трёх секций отступы ужаты:
-   конец секции через ~64-96px после последнего контента. */
+   Глобальный .section даёт до 160px сверху и снизу - между секциями
+   возникали провалы 300-450px. Для этих трёх секций отступы ужаты. */
 #approach.section,
 #cases.section,
 #stack.section {
   padding: clamp(64px, 7vw, 104px) 0 clamp(56px, 6vw, 88px);
 }
 
-/* ── Cases ─────────────────────────────────────────────────────────────── */
+/* ── Кейсы: «Работает у нас самих» (светлый макет 03.11.2026) ─────────────
+   Два живых контура: тёмно-синий блок заявок студии с белой карточкой
+   заявки справа и белая карточка EastRide со скриншотом под ним.
+   Секция живёт только на светлой главной, поэтому светло-синий акцент
+   внутри тёмно-синего блока задан прямо здесь и наружу не выходит. */
 
-/* Сетка: флагман на всю ширину сверху, два демо-кейса в ряд под ним */
-.cs-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-top: 56px;
+#cases {
+  --cs-navy-accent: #9db6ff; /* светло-синий на тёмно-синем фоне */
+  --cs-on-navy: rgba(255, 255, 255, 0.72);
+  --cs-on-navy-dim: rgba(255, 255, 255, 0.55);
 }
 
-/* ── Флагман EastRide: текст слева, стопка скриншотов справа ── */
-
-.cs2-flagship {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  gap: 48px;
-  align-items: center;
-  padding: 44px 48px;
-  background: var(--bg-2);
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-lg);
-}
-
-.cs2-left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 24px;
-  min-width: 0;
-}
-
-.cs2-badge {
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-  background: var(--accent-soft);
-  border-radius: var(--r-sm);
-  padding: 6px 12px;
-}
-
-.cs2-title {
-  margin: 0;
-  font-size: clamp(1.625rem, 1.4rem + 0.9vw, 2rem);
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--fg);
-}
-
-.cs2-block {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.cs2-block-label {
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-}
-
-.cs2-block-text {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.65;
+/* Подзаголовок под заголовком секции */
+.cs-sub {
+  max-width: 560px;
+  margin: 0 0 clamp(24px, 3vw, 32px);
+  font-size: 16px;
+  line-height: 1.5;
   color: var(--fg-2);
 }
 
-/* ── Метрики с накруткой ── */
-
-.cs2-metrics {
+/* ── Тёмно-синий блок: заявки студии ── */
+.cs-live {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-  width: 100%;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+  padding: 48px;
+  background: var(--navy);
+  color: #ffffff;
+  border-radius: 28px;
 }
 
-.cs2-metric {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
+.cs-badge {
+  display: block;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--accent);
 }
+.cs-live .cs-badge { color: var(--cs-navy-accent); }
 
-/* Единый стиль чисел: значения белые (var(--fg)), подписи muted —
-   и в демо-карточках, и у флагмана */
-.cs2-metric-value {
+.cs-title {
+  margin: 10px 0 12px;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 1.35rem + 0.6vw, 1.75rem);
-  font-weight: 300;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  color: var(--fg);
+  font-size: clamp(26px, 2.6vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.cs-text {
+  margin: 0 0 24px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+.cs-live .cs-text { color: var(--cs-on-navy); }
+
+/* Три цифры с подписями */
+.cs-nums {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  gap: 16px 36px;
+  margin: 0;
+}
+
+.cs-num { margin: 0; min-width: 0; }
+
+.cs-num-value {
+  display: block;
   white-space: nowrap;
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   font-variant-numeric: tabular-nums;
 }
 
-.cs2-metric--lg .cs2-metric-value {
-  font-size: clamp(2.125rem, 1.9rem + 0.9vw, 2.5rem);
-}
-
-.cs2-metric-label {
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+.cs-num-label {
+  display: block;
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.35;
   color: var(--muted);
-  line-height: 1.5;
+}
+.cs-live .cs-num-label { color: var(--cs-on-navy-dim); }
+
+/* Карточка заявки (компонент DealCard) внутри тёмно-синего блока:
+   белая, со скруглением и мягкой тенью, как в макете. Переопределения
+   ограничены .cs-live, страницу автоматизации они не трогают. */
+.cs-live .cs2-deal {
+  gap: 0;
+  padding: 22px;
+  background: var(--bg-2);
+  color: var(--fg);
+  border: 0;
+  border-radius: 18px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
 }
 
-.cs2-link {
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+.cs-live .cs2-deal-head {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.cs-live .cs2-deal-stage {
+  padding: 3px 10px;
+  border: 0;
+  background: var(--accent-soft);
   color: var(--accent);
-  text-decoration: none;
+}
+
+.cs-live .cs2-deal-title {
+  margin: 12px 0 14px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.cs-live .cs2-deal-note {
+  gap: 8px;
+  padding: 14px 16px;
+  background: var(--bg);
+  border-left: 0;
+  border-radius: 12px;
+}
+
+.cs-live .cs2-deal-note-label {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.cs-live .cs2-deal-rows dt { font-size: 14px; padding-top: 0; }
+.cs-live .cs2-deal-rows dd { color: var(--fg); }
+.cs-live .cs2-deal-rows dd.is-good { color: var(--accent); font-weight: 500; }
+
+.cs-live .cs2-deal-log {
+  gap: 4px;
+  margin-top: 14px;
+  padding: 0;
+  border-top: 0;
+  font-size: 13px;
+  color: var(--fg-2);
+}
+.cs-live .cs2-deal-log li span { font-weight: 500; }
+
+/* ── EastRide: скриншот слева, текст и цифры справа ── */
+.cs-er {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.cs-er-shot {
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+.cs-er-shot picture { display: block; height: 100%; }
+
+.cs-er-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.5s ease;
+}
+
+.cs-er-shot:hover img { transform: scale(1.015); }
+
+.cs-er-shot:focus-visible,
+.cs-er-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.cs-er-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 28px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+.cs-er-text .cs-title {
+  margin: 8px 0;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+}
+
+.cs-er-text .cs-text { margin: 0; }
+.cs-er-text .cs-num-value { font-size: 28px; color: var(--fg); }
+
+.cs-er-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--accent);
   transition: color 0.2s ease;
 }
 
-.cs2-link:hover {
-  color: var(--fg);
+.cs-er-link:hover { color: var(--fg); }
+
+@media (max-width: 900px) {
+  .cs-live,
+  .cs-er { grid-template-columns: 1fr; }
+
+  .cs-live {
+    gap: 28px;
+    padding: 24px;
+    border-radius: var(--r-lg);
+  }
+
+  .cs-er-text { padding: 22px; }
 }
 
-/* ── Стопка скриншотов в браузерных рамках ── */
+@media (max-width: 560px) {
+  /* На телефоне три цифры делят ширину поровну */
+  .cs-nums {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px 16px;
+  }
 
-.cs2-shots {
-  position: relative;
-  min-width: 0;
-  /* запас снизу под смещённый второй скрин */
-  padding-bottom: 17%;
+  .cs-num-value { font-size: 26px; }
+  .cs-er-text .cs-num-value { font-size: 24px; }
+
+  .cs-live .cs2-deal { padding: 18px; }
 }
 
-.cs2-frame {
-  margin: 0;
-  background: var(--bg-3);
-  border: 1px solid var(--line-2);
-  border-radius: 12px;
-  overflow: hidden;
-  /* Единственная допустимая тень: мягкая, чтобы рамка «лежала» на фоне */
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-}
-
-.cs2-frame-bar {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--line);
-}
-
-.cs2-frame-dot {
-  flex-shrink: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--line-2);
-}
-
-.cs2-frame-url {
-  margin-left: 10px;
-  padding: 3px 14px;
-  font-size: 0.6rem;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-  background: var(--bg);
-  border-radius: 999px;
-}
-
-.cs2-frame img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  object-position: top;
-}
-
-.cs2-shot--main {
-  width: 85%;
-}
-
-.cs2-shot--overlay {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 55%;
-  transition: transform 0.2s ease;
-}
-
-.cs2-shots:hover .cs2-shot--overlay {
-  transform: translateY(-4px);
-}
-
-/* ── Демо-кейсы: компактно, «было → стало» + цифры ── */
-
-.cs2-demo {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  padding: 28px;
-  background: var(--bg-2);
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-lg);
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.cs2-demo:hover {
-  border-color: var(--accent-soft);
-  transform: translateY(-2px);
-}
-
-/* Заголовочная строка демо-карточки: индустрия + бейдж «Демо-сценарий»
-   рядом, а не мелко в углу */
-.cs2-demo-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.cs2-demo-industry {
-  margin: 0;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-}
-
-/* «Было → стало» одной связкой */
-.cs2-flow {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
-
-.cs2-flow-was {
-  color: var(--muted);
-}
-
-/* mono-лейбл «→ РЕШЕНИЕ» между «было» и «стало» */
-.cs2-flow-arrow {
-  color: var(--accent);
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-
-.cs2-flow-now {
-  color: var(--fg-2);
-}
-
-.cs2-metrics--demo {
-  margin-top: auto;
-}
-
-/* Сноска честности: просто текст с левым бордером — без глифов */
-.cs-demo-note {
-  max-width: 720px;
-  margin: 32px 0 0;
-  padding-left: 14px;
-  border-left: 2px solid var(--line-2);
-  font-size: 0.78rem;
-  line-height: 1.65;
-  color: var(--muted);
+@media (prefers-reduced-motion: reduce) {
+  .cs-er-shot img,
+  .cs-er-link { transition: none; }
+  .cs-er-shot:hover img { transform: none; }
 }
 
 /* ── Approach ──────────────────────────────────────────────────────────── */
@@ -471,102 +440,31 @@
   color: var(--muted);
 }
 
-/* ── Респонсив ─────────────────────────────────────────────────────────── */
 
-/* ── Второй живой кейс: контур студии ─────────────────────────────────
-   Шире демо-карточек, но легче флагмана: слева текст, справа карточка
-   сделки, нарисованная разметкой. Скриншот тут был бы хуже: демо-портал
-   Битрикса конечен, а в кадр лезут адрес и посторонние данные. */
-
-.cs2-own {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-  gap: 40px;
-  align-items: start;
-  padding: 32px;
-  background: var(--bg-2);
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-lg);
-}
-
-.cs2-own-text {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  min-width: 0;
-}
-
+/* ── Респонсив: Подход и Стек ──────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .cs2-own { grid-template-columns: 1fr; gap: 28px; }
-}
-
-@media (max-width: 560px) {
-  .cs2-own { padding: 22px; }
-}
-
-@media (max-width: 1024px) {
-  .cs-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  /* Флагман в одну колонку: текст сверху, скрины под ним */
-  .cs2-flagship {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 32px 28px;
-  }
-
-  /* ≤1024: возвращаем одну колонку шагов */
   .ap-timeline {
     grid-template-columns: 1fr;
     grid-template-rows: none;
     grid-auto-flow: row;
     max-width: 880px;
   }
-
   .ap-step {
     grid-template-columns: 96px 32px 1fr;
     gap: 0 24px;
     padding-bottom: 56px;
   }
-
-  /* в одной колонке линия после шага 03 снова нужна */
-  .ap-step:nth-child(3) .ap-line {
-    display: block;
-  }
-
-  /* ≤1024: планшет — две карточки в ряд, паддинг ужат */
-  .ig-card {
-    padding: 26px 26px;
-  }
+  .ap-step:nth-child(3) .ap-line { display: block; }
+  .ig-card { padding: 26px 26px; }
 }
 
 @media (max-width: 768px) {
-  .cs-grid {
-    margin-top: 44px;
-  }
-
-  .cs2-flagship {
-    padding: 26px 22px;
-  }
-
-  .cs2-demo {
-    padding: 26px 22px;
-  }
-
-  .ap-timeline {
-    margin-top: 48px;
-  }
-
-  /* Mobile-таймлайн: номер меньше, линия сохраняется */
+  .ap-timeline { margin-top: 48px; }
   .ap-step {
     grid-template-columns: 28px 1fr;
     gap: 0 18px;
     padding-bottom: 44px;
   }
-
   .ap-num {
     grid-column: 2;
     grid-row: 1;
@@ -576,93 +474,17 @@
     text-align: left;
     margin-bottom: 10px;
   }
-
-  .ap-rail {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-  }
-
-  .ap-node {
-    width: 10px;
-    height: 10px;
-    margin-top: 4px;
-  }
-
-  .ap-line {
-    top: 16px;
-  }
-
-  .ap-body {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .ap-title {
-    margin-bottom: 8px;
-  }
-
-  /* Интеграции: одна колонка карточек */
-  .ig-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    margin-top: 44px;
-  }
-
-  .ig-note {
-    margin-top: 26px;
-  }
+  .ap-rail { grid-column: 1; grid-row: 1 / span 2; }
+  .ap-node { width: 10px; height: 10px; margin-top: 4px; }
+  .ap-line { top: 16px; }
+  .ap-body { grid-column: 2; grid-row: 2; }
+  .ap-title { margin-bottom: 8px; }
+  .ig-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 44px; }
+  .ig-note { margin-top: 26px; }
 }
 
 @media (max-width: 560px) {
-  .cs2-flagship {
-    padding: 22px 18px;
-  }
-
-  .cs2-demo {
-    padding: 22px 18px;
-  }
-
-  /* Один скрин во всю ширину, второй скрыт */
-  .cs2-shots {
-    padding-bottom: 0;
-  }
-
-  .cs2-shot--main {
-    width: 100%;
-  }
-
-  .cs2-shot--overlay {
-    display: none;
-  }
-
-  /* Метрики переносятся в строки «цифра — подпись» */
-  .cs2-metrics {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .cs2-metric {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: baseline;
-    gap: 12px;
-  }
-
-  .cs2-metric-value,
-  .cs2-metric--lg .cs2-metric-value {
-    font-size: 1.4rem;
-  }
-
-  .ap-step {
-    padding-bottom: 36px;
-  }
-
-  .ig-card {
-    padding: 22px 20px;
-  }
-
-  .ig-chip {
-    padding: 7px 11px;
-    font-size: 0.6875rem;
-  }
+  .ap-step { padding-bottom: 36px; }
+  .ig-card { padding: 22px 20px; }
+  .ig-chip { padding: 7px 11px; font-size: 0.6875rem; }
 }

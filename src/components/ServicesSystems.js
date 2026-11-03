@@ -4,10 +4,10 @@ import { SERVICES_SYS } from '../data/systems-content';
 import { useLocale, pick, localizedHref } from '../i18n';
 import './services-systems.css';
 
-// Секция «Услуги»: три крупные карточки-направления. Номера S/01 и ряды
-// чипов с англоязычными терминами убраны - они дробили карточку на мелочь
-// и мешали прочитать главное: название направления и что оно даёт.
-// Каждая карточка - обычная ссылка на /services/<slug>/ (полная перезагрузка, prerender).
+// Секция «Услуги»: три белые карточки-направления (светлая тема).
+// Сверху фото, ниже серый номер, название, короткое описание и синяя
+// ссылка «Подробнее →». Вся карточка - обычная ссылка на /services/<slug>/
+// (полная перезагрузка, prerender).
 const ServicesSystems = () => {
   const L = useLocale();
   const { head, items, more } = SERVICES_SYS;
@@ -19,22 +19,38 @@ const ServicesSystems = () => {
           num={pick(L, head.num)}
           title={pick(L, head.title)}
           titleIt={pick(L, head.titleIt)}
-          side={pick(L, head.side)}
-          sideTitle={head.sideTitle}
+          sub={head.sub ? pick(L, head.sub) : null}
         />
 
         <div className="ss-grid">
-          {items.map((item) => (
+          {items.map((item, i) => (
             <a
               key={item.slug}
               href={localizedHref(`/services/${item.slug}/`, L)}
               className="ss-card reveal"
             >
-              <h3 className="ss-title">{pick(L, item.title)}</h3>
-              <p className="ss-desc">{pick(L, item.desc)}</p>
-              <span className="ss-more mono">
-                {pick(L, more)}
-                <span className="ss-more-arrow">↗</span>
+              {item.image && (
+                <span className="ss-media">
+                  <img
+                    src={item.image}
+                    alt={pick(L, item.imageAlt)}
+                    width={1400}
+                    height={1047}
+                    loading="lazy"
+                    decoding="async"
+                    style={{ objectPosition: item.imagePos || '50% 50%' }}
+                  />
+                </span>
+              )}
+              <span className="ss-body">
+                {/* Номер считаем по порядку: 01, 02, 03 */}
+                <span className="ss-num">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="ss-title">{pick(L, item.title)}</h3>
+                <p className="ss-desc">{pick(L, item.desc)}</p>
+                <span className="ss-more">
+                  {pick(L, more)}
+                  <span className="ss-more-arrow" aria-hidden="true">→</span>
+                </span>
               </span>
             </a>
           ))}

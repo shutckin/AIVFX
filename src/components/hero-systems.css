@@ -1,813 +1,339 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   HERO — AI SYSTEMS (новое позиционирование)
-   hs- — раскладка/левая колонка, hp- — телефон с чат-демо справа.
+   ПЕРВЫЙ ЭКРАН ГЛАВНОЙ (AI-системы), светлая тема по утверждённому макету
+   outreach/svetlaya-tema/mock-home.html.
+   hs- - раскладка и левая колонка, hp- - телефон с перепиской справа.
+   Все классы со своими префиксами, на страницу видео ничего не протекает.
    ═══════════════════════════════════════════════════════════════════════ */
 
 .hs-hero {
+  position: relative;
+  /* Сверху место под фиксированную шапку сайта */
+  padding: clamp(96px, 9vw, 116px) 0 clamp(32px, 4vw, 48px);
   background: var(--bg);
 }
 
-/* ── Фон: тонкая сетка + мягкое свечение сверху-справа ────────────────── */
-.hs-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 48px 48px;
-  opacity: 0.45;
-  mask-image: radial-gradient(ellipse 90% 80% at 55% 35%, black 30%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 55% 35%, black 30%, transparent 100%);
-}
-.hs-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(720px 560px at 82% 8%, var(--accent-glow) 0%, transparent 65%),
-    radial-gradient(480px 420px at 8% 90%, var(--accent-soft) 0%, transparent 70%);
-  opacity: 0.55;
-}
-
-/* ── Раскладка ────────────────────────────────────────────────────────── */
-.hs-hero-inner {
-  position: relative;
-  z-index: 2;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding-bottom: clamp(40px, 6vw, 80px);
-}
-
-.hs-hero-grid {
+.hs-grid {
   display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
-  gap: clamp(40px, 5vw, 88px);
+  /* Текстовая колонка шире: заголовок ложится в 3-4 строки, а не в 6 */
+  grid-template-columns: 1.3fr 1fr;
+  gap: 48px;
   align-items: center;
-  width: 100%;
 }
 
 /* ── Левая колонка ────────────────────────────────────────────────────── */
 .hs-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(20px, 2.4vw, 30px);
+  min-width: 0;
 }
 
-.hs-kicker {
+/* Маленькая плашка над заголовком */
+.hs-kick {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 14px;
-  border: 1px solid var(--line-2);
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(61, 110, 247, 0.06);
+  background: var(--bg-2);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--fg-2);
+}
+.hs-kick-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
 }
 
 .hs-headline {
-  font-size: clamp(38px, 4.8vw, 76px);
-  letter-spacing: -0.035em;
+  margin: 0 0 22px;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.3vw, 58px);
+  font-weight: var(--head-w);
   line-height: 1.02;
-  margin: 0;
+  letter-spacing: -0.035em;
   color: var(--fg);
 }
-.hs-headline .ln { display: block; }
-.hs-headline .accent {
-  font-style: normal;
-  font-weight: 500;
-  color: var(--accent);
-}
+.hs-h-accent { color: var(--accent); }
+.hs-h-tail { color: var(--head-2); }
 
 .hs-sub {
-  font-size: clamp(15px, 1.35vw, 18px);
-  line-height: 1.6;
+  max-width: 460px;
+  margin: 0 0 28px;
+  font-size: 18px;
+  line-height: 1.5;
   color: var(--fg-2);
-  max-width: 46ch;
-  margin: 0;
 }
 
 .hs-actions {
   display: flex;
-  gap: 12px;
   flex-wrap: wrap;
-  margin-top: 6px;
+  gap: 10px;
 }
-
 
 .hs-offer {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 10px;
-  margin: 0;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1.6;
+  margin: 22px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--fg-2);
 }
-.hs-offer::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
-  transform: translateY(-1px);
+.hs-offer b {
+  font-weight: 500;
+  color: var(--fg);
 }
-
 
 /* ═══════════════════════════════════════════════════════════════════════
-   ПРАВАЯ КОЛОНКА — ТЕЛЕФОН С ЧАТ-ДЕМО (hp-)
-   Один общий CSS-цикл 16s: все элементы анимируются keyframe-процентами
-   одного периода, поэтому петля всегда синхронна.
-   Тайминги (сек → % от 16s):
-     0.5  msg1 client   →  3.1%
-     2.0  typing №1 in  → 12.5%   (0.9s «печатает…»)
-     2.9  msg2 ai       → 18.1%
-     5.4  msg3 client   → 33.8%
-     6.9  typing №2 in  → 43.1%
-     7.8  msg4 ai       → 48.8%
-    10.3  msg5 system   → 64.4%
-    14.5–15.5 общий fade-out ленты → 90.6–96.9%
+   ПРАВАЯ КОЛОНКА - СВЕТЛЫЙ ТЕЛЕФОН С ПЕРЕПИСКОЙ (hp-)
    ═══════════════════════════════════════════════════════════════════════ */
 
-.hp-visual {
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  perspective: 1400px;
-}
-
-/* Сцена: не вращается сама, но держит переменные наклона и пропускает 3D вниз.
-   --ry / --rx — итоговые углы (базовый наклон + доворот курсором из JS),
-   --sx — сдвиг тени в противоход развороту. Значения ниже — состояние покоя. */
+/* Сцена держит перспективу, сама не вращается */
 .hp-stage {
-  --ry: -8deg;
-  --rx: 3deg;
-  --sx: 14px;
-  /* --fit: подгонка под высоту окна (медиазапросы ниже)
-     --near: реакция на близость курсора (пишет JS)
-     Перемножаем, чтобы одно не затирало другое. */
-  --fit: 1;
-  --near: 1;
   position: relative;
-  flex-shrink: 0;
-  transform: scale(calc(var(--fit) * var(--near)));
-  transition: transform 0.45s cubic-bezier(0.32, 0.72, 0, 1);
+  min-width: 0;
+  height: 600px;
+  display: grid;
+  place-items: center;
+  perspective: 1200px;
+}
+
+/* Вращается этот слой: наклон пишет Hero.js, плавность - переход ниже */
+.hp-tilt {
+  position: relative;
   transform-style: preserve-3d;
+  transition: transform 0.25s ease-out;
+  will-change: transform;
 }
 
-/* Пока курсор ведёт телефон, кадры идут каждые 16 мс и своя доводка
-   уже есть в JS: плавность перехода здесь только мешала бы */
-.hp-stage[style*="--near"] { transition: none; }
-
-/* Аппарат стал выше, и на невысоких окнах низ уходил за сгиб.
-   Ужимаем сцену целиком: пропорции и толщина рамки сохраняются,
-   потому что масштабируется всё вместе, а не отдельные размеры. */
-@media (min-width: 769px) {
-  @media (max-height: 900px) { .hp-stage { --fit: 0.93; } }
-  @media (max-height: 820px) { .hp-stage { --fit: 0.85; } }
-  @media (max-height: 740px) { .hp-stage { --fit: 0.77; } }
-  @media (max-height: 670px) { .hp-stage { --fit: 0.68; } }
-}
-
-/* Эллиптическая тень-подложка: единственное место на сайте с glow/тенью */
-.hp-shadow {
-  position: absolute;
-  left: 50%;
-  bottom: -34px;
-  width: 84%;
-  height: 62px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 44%, transparent 74%);
-  filter: blur(30px);
-  opacity: 0.62;
-  transform: translateX(-50%) translateX(var(--sx));
-  pointer-events: none;
-}
-
-/* ── Корпус телефона ──
-   Раньше это была плоская серая коробка с тонким бордером — читалась как
-   заглушка. Теперь настоящий флагманский аппарат: титановый кант (градиент
-   с бликами на гранях), чёрная фаска под ним, стеклянный экран, боковые
-   кнопки и блик по стеклу. Всё на CSS, без картинок. */
+/* Корпус: белый с лёгким переливом к серому, мягкая тень снизу */
 .hp-phone {
   position: relative;
-  z-index: 1;
-  /* Пропорция ближе к нынешним аппаратам (примерно 19,5:9), рамка уже */
-  width: 318px;
-  height: 672px;
-  padding: 8px;
-  border-radius: 46px;
-  /* Тёмный титан. Сам металл намеренно приглушён: он подложка,
-     а не герой. Ярким на нём остаётся только бегущий свет. */
-  background:
-    linear-gradient(158deg,
-      #6f757e 0%,
-      #4c5158 12%,
-      #303439 30%,
-      #202225 50%,
-      #303439 70%,
-      #52575f 88%,
-      #767c85 100%);
+  width: 320px;
+  padding: 11px;
+  border-radius: 42px;
+  background: linear-gradient(160deg, var(--bg-2), var(--bg-3));
   box-shadow:
-    /* внешняя микро-фаска */
-    0 0 0 1px rgba(0, 0, 0, 0.6),
-    /* еле заметные рёбра: раньше они забивали собой перелив */
-    inset 0 1px 1px rgba(255, 255, 255, 0.22),
-    inset 0 -1px 1px rgba(255, 255, 255, 0.10),
-    /* объём корпуса */
-    0 34px 70px -24px rgba(0, 0, 0, 0.9),
-    0 8px 22px -10px rgba(0, 0, 0, 0.7);
-  flex-shrink: 0;
-  transform: rotateY(var(--ry)) rotateX(var(--rx)) translateZ(0);
-  transform-style: preserve-3d;
+    0 50px 90px -40px rgba(16, 24, 43, 0.5),
+    0 0 0 1px var(--line);
 }
 
-/* Чёрная фаска между титаном и стеклом — за счёт неё кант читается как металл */
-.hp-phone::before {
-  content: "";
-  position: absolute;
-  inset: 6px;
-  border-radius: 40px;
-  background: #050506;
-  pointer-events: none;
-}
-
-/* Боковые кнопки: качелька громкости слева, кнопка питания справа.
-   Живут за корпусом (translateZ отрицательный), поэтому при довороте
-   телефона уходят за ребро — как настоящие. */
-.hp-btn-vol,
-.hp-btn-pwr {
-  position: absolute;
-  width: 3px;
-  border-radius: 3px;
-  background: linear-gradient(180deg, #b9c0c9 0%, #6e747d 40%, #3a3e44 100%);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
-  transform: translateZ(-6px);
-  pointer-events: none;
-}
-.hp-btn-vol { left: -3px; top: 142px; height: 58px; }
-.hp-btn-vol + .hp-btn-vol { top: 212px; height: 58px; }
-.hp-btn-pwr { right: -3px; top: 188px; height: 88px; }
-
-/* Экран.
-   overflow: hidden здесь нельзя — он «схлопнул» бы 3D-слои внутри экрана,
-   поэтому углы скругляют сами крайние элементы (шапка и футбар). */
+/* Экран */
 .hp-screen {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 38px;
-  background: #0a0a0c;
-  transform: translateZ(12px);
-  transform-style: preserve-3d;
+  min-height: 520px;
+  border-radius: 32px;
+  overflow: hidden;
+  background: #f6f7f9;
 }
 
-/* Внутренний кант стекла */
-.hp-screen::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  border-radius: 38px;
-  pointer-events: none;
-  box-shadow: inset 0 0 0 1px rgba(226, 238, 255, 0.10);
-}
-
-/* ── Свет по грани корпуса ──
-   Единственный «живой» свет на телефоне. Никакой плёнки поверх экрана:
-   светится только ребро, как у настоящего металла под лампой.
-
-   Как сделано: элемент во всю площадь с прозрачной рамкой, градиент
-   залит в border-box, а маска вырезает всё, кроме самой рамки. Позиция
-   градиента ездит от --lx/--ly, которые пишет JS из положения курсора. */
-.hp-phone::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 46px;
-  border: 3px solid transparent;
-  pointer-events: none;
-  /* Свет доведён до едва заметного: рамка должна лишь угадываться
-     как металл под лампой. Любая заметная яркость здесь перетягивает
-     взгляд с экрана, ради которого телефон в макете и стоит. */
-  opacity: 0.12;
-  /* Перелив: холодный край, белое ядро, тёплый край. Именно смена
-     оттенка вдоль полосы читается как движущийся по металлу свет. */
-  background:
-    linear-gradient(
-      118deg,
-      transparent 18%,
-      rgba(150, 190, 255, 0.45) 33%,
-      rgba(226, 240, 255, 0.98) 42%,
-      rgba(255, 255, 255, 1) 48%,
-      rgba(255, 226, 186, 0.85) 55%,
-      rgba(255, 190, 120, 0.35) 64%,
-      transparent 80%) border-box;
-  background-size: 300% 300%;
-  background-position:
-    calc(50% + var(--lx, 0) * 1%)
-    calc(50% + var(--ly, 0) * 1%);
-  /* Оставляем только рамку: заливку внутри вырезаем маской */
-  -webkit-mask:
-    linear-gradient(#000 0 0) padding-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) padding-box exclude,
-    linear-gradient(#000 0 0);
-}
-
-/* Там, где курсора нет, свет по грани ходит сам */
-@media (max-width: 768px), (hover: none), (pointer: coarse) {
-  .hp-phone::after {
-    animation: hp-edge-sweep 9s ease-in-out infinite alternate;
-  }
-}
-
-@keyframes hp-edge-sweep {
-  from { background-position: 8% 26%; }
-  to   { background-position: 92% 74%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hp-phone::after { animation: none; }
-}
-
-/* Островок фронтальной камеры */
-.hp-notch {
-  position: relative;
-  z-index: 6;
-  width: 92px;
-  height: 26px;
-  margin: 11px auto 4px;
-  border-radius: 999px;
-  background: #000;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-  flex-shrink: 0;
-}
-/* Глазок камеры в островке */
-.hp-notch::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  width: 8px;
-  height: 8px;
-  margin-top: -4px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #2b3b52 0%, #0b0f16 60%, #000 100%);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
-}
-
-/* ── Шапка чата ───────────────────────────────────────────────────────── */
-.hp-chat-head {
-  position: relative;
-  z-index: 2;
+/* Шапка чата */
+.hp-top {
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 10px 16px 14px;
+  gap: 10px;
+  padding: 14px 14px 12px;
   border-bottom: 1px solid var(--line);
-  background: transparent;
-  flex-shrink: 0;
-  transform: translateZ(20px);
+  background: var(--bg-2);
 }
 .hp-avatar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--accent);
+  color: #fff;
   font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-weight: 600;
   flex-shrink: 0;
 }
-.hp-head-text {
+.hp-head {
   display: flex;
   flex-direction: column;
-  gap: 2px;
   min-width: 0;
 }
 .hp-name {
-  font-size: 12.5px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--fg);
-  white-space: nowrap;
 }
-.hp-head-status {
-  font-size: 10px;
-  color: var(--muted);
-  white-space: nowrap;
-}
-.hp-online-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #5fd4a8;
-  margin-left: auto;
-  flex-shrink: 0;
+.hp-status {
+  font-size: 11px;
+  color: #16a34a;
 }
 
-/* ── Лента сообщений ──────────────────────────────────────────────────── */
-.hp-thread {
-  flex: 1;
+/* Лента сообщений */
+.hp-msgs {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 10px;
-  /* Нижний отступ больше бокового: у экрана радиус 39px, и последняя
-     реплика иначе заезжает на скруглённый угол */
-  padding: 16px 14px 30px;
-  animation: hp-cycle 16s linear infinite;
-  transform-style: preserve-3d;
+  gap: 8px;
+  padding: 14px 12px;
+  font-size: 12.5px;
+  line-height: 1.4;
 }
 
-/* Реплики разной глубины — при довороте телефона они реально расходятся.
-   translateZ живёт на обёртке, чтобы не конфликтовать с keyframes появления. */
-.hp-msg { display: flex; }
+.hp-m {
+  max-width: 84%;
+  padding: 8px 11px;
+  border-radius: 14px;
+  background: var(--bg-2);
+  color: var(--fg);
+  box-shadow: 0 1px 1px rgba(16, 24, 43, 0.05);
+  /* Появление по очереди: см. цикл ниже */
+  opacity: 0;
+  transform: translateY(8px);
+  animation: 8.8s ease infinite both;
+}
 .hp-client {
-  justify-content: flex-start;
-  transform: translateZ(8px);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
 }
 .hp-ai {
-  justify-content: flex-end;
-  position: relative;
-  transform: translateZ(18px);
-}
-.hp-system {
-  justify-content: center;
-  transform: translateZ(12px);
-}
-
-/* Появление реплики: масштаб + fade + сдвиг снизу, каскад по keyframes */
-.hp-entry {
-  opacity: 0;
-  transform: translateY(8px) scale(0.96);
-  animation-duration: 16s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  animation-iteration-count: infinite;
-}
-.hp-d0 .hp-entry { animation-name: hp-in-0; }
-.hp-d1 .hp-entry { animation-name: hp-in-1; }
-.hp-d2 .hp-entry { animation-name: hp-in-2; }
-.hp-d3 .hp-entry { animation-name: hp-in-3; }
-.hp-d4 .hp-entry { animation-name: hp-in-4; }
-
-/* Пузыри */
-.hp-bubble {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  max-width: 82%;
-  padding: 9px 12px 7px;
-  font-size: 12.5px;
-  line-height: 1.45;
-}
-.hp-client .hp-bubble {
-  background: var(--bg-3);
-  color: var(--fg);
-  border-radius: 14px 14px 14px 4px;
-}
-.hp-ai .hp-bubble {
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
   background: var(--accent);
   color: #fff;
-  border-radius: 14px 14px 4px 14px;
 }
 .hp-time {
+  display: block;
+  margin-top: 2px;
+  text-align: right;
   font-size: 10px;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  align-self: flex-end;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
 }
-.hp-ai .hp-time { color: rgba(255, 255, 255, 0.65); }
 
-/* Системная строка */
-.hp-sysrow {
-  display: inline-flex;
+/* Служебная строка: «сделка создана в CRM» */
+.hp-sys {
+  align-self: center;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 5px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  font-size: 10px;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-  text-align: center;
-}
-.hp-sys-check {
-  color: #5fd4a8;
+  gap: 6px;
+  padding: 4px 0;
+  background: transparent;
+  box-shadow: none;
   font-size: 11px;
-}
-
-/* «Печатает…» — появляется на месте будущего ai-пузыря на ~0.9s */
-.hp-typing {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 11px 14px;
-  background: var(--accent);
-  border-radius: 14px 14px 4px 14px;
-  opacity: 0;
-  animation-duration: 16s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  animation-iteration-count: infinite;
-}
-.hp-d1 .hp-typing { animation-name: hp-typing-1; }
-.hp-d3 .hp-typing { animation-name: hp-typing-2; }
-.hp-typing i {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
-  animation: hp-dot 0.9s ease-in-out infinite;
-}
-.hp-typing i:nth-child(2) { animation-delay: 0.15s; }
-.hp-typing i:nth-child(3) { animation-delay: 0.3s; }
-
-
-/* ── Плавающие бейджи-«доказательства» вокруг телефона ──────────────────
-   Самый дальний от корпуса слой (46px) — при повороте уходят заметнее всех.
-   Обёртка отвечает за глубину и каскадное появление, внутренняя карточка —
-   за «дыхание», чтобы две анимации не спорили за один transform. */
-.hp-badge {
-  position: absolute;
-  z-index: 2;
-  opacity: 0;
-  transform: translateZ(46px);
-  pointer-events: none;
-  animation-duration: 16s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  animation-iteration-count: infinite;
-}
-/* Бейджи вынесены ЗА корпус (над верхним и под нижним углом) — внутри
-   они перекрывали текст переписки, ради которой телефон и стоит. */
-.hp-badge-crm {
-  top: -24px;
-  left: -26px;
-  animation-name: hp-badge-crm-in;
-}
-.hp-badge-speed {
-  bottom: -24px;
-  right: -26px;
-  animation-name: hp-badge-speed-in;
-}
-
-.hp-badge-in {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 12px;
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-md, 10px);
-  background: rgba(19, 20, 23, 0.72);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1;
   color: var(--fg-2);
-  white-space: nowrap;
 }
-
-.hp-badge-dot {
+.hp-sys-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
+  background: #16a34a;
   flex-shrink: 0;
 }
-.hp-dot-ok { background: #5fd4a8; }
-.hp-dot-accent { background: var(--accent); }
 
-/* ── Keyframes цикла ──────────────────────────────────────────────────── */
+/* ── Цикл переписки ──
+   Как в макете: реплики приходят раз в 1,1 секунды, вся переписка
+   держится 3,5 секунды, гаснет и через полсекунды начинается заново.
+   Один период 8,8 с на всех, поэтому петля всегда синхронна.
+   Секунды → проценты периода: появление 0,4 / 1,5 / 2,6 / 3,7 / 4,8 с,
+   каждое длится 0,35 с; общее угасание 8,3-8,65 с. */
+.hp-d0 { animation-name: hp-in-0; }
+.hp-d1 { animation-name: hp-in-1; }
+.hp-d2 { animation-name: hp-in-2; }
+.hp-d3 { animation-name: hp-in-3; }
+.hp-d4 { animation-name: hp-in-4; }
+
 @keyframes hp-in-0 {
-  0%, 3.1% { opacity: 0; transform: translateY(8px) scale(0.96); }
-  5.6%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+  0%, 4.55% { opacity: 0; transform: translateY(8px); }
+  8.52%, 94.32% { opacity: 1; transform: none; }
+  98.3%, 100% { opacity: 0; transform: none; }
 }
 @keyframes hp-in-1 {
-  0%, 18.1% { opacity: 0; transform: translateY(8px) scale(0.96); }
-  20.6%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+  0%, 17.05% { opacity: 0; transform: translateY(8px); }
+  21.02%, 94.32% { opacity: 1; transform: none; }
+  98.3%, 100% { opacity: 0; transform: none; }
 }
 @keyframes hp-in-2 {
-  0%, 33.8% { opacity: 0; transform: translateY(8px) scale(0.96); }
-  36.3%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+  0%, 29.55% { opacity: 0; transform: translateY(8px); }
+  33.52%, 94.32% { opacity: 1; transform: none; }
+  98.3%, 100% { opacity: 0; transform: none; }
 }
 @keyframes hp-in-3 {
-  0%, 48.8% { opacity: 0; transform: translateY(8px) scale(0.96); }
-  51.3%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+  0%, 42.05% { opacity: 0; transform: translateY(8px); }
+  46.02%, 94.32% { opacity: 1; transform: none; }
+  98.3%, 100% { opacity: 0; transform: none; }
 }
 @keyframes hp-in-4 {
-  0%, 64.4% { opacity: 0; transform: translateY(8px) scale(0.96); }
-  66.9%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+  0%, 54.55% { opacity: 0; transform: translateY(8px); }
+  58.52%, 94.32% { opacity: 1; transform: none; }
+  98.3%, 100% { opacity: 0; transform: none; }
 }
 
-@keyframes hp-typing-1 {
-  0%, 12.5% { opacity: 0; transform: translateY(6px); }
-  14.1% { opacity: 1; transform: translateY(0); }
-  17.2% { opacity: 1; transform: translateY(0); }
-  18.4%, 100% { opacity: 0; transform: translateY(0); }
+/* ── Две плашки рядом с телефоном ──
+   Стоят чуть ближе к зрителю, чем корпус, поэтому при наклоне
+   немного смещаются относительно него. */
+.hp-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-2);
+  box-shadow: 0 18px 40px -22px rgba(16, 24, 43, 0.4);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--fg);
+  white-space: nowrap;
+  transform: translateZ(40px);
 }
-@keyframes hp-typing-2 {
-  0%, 43.1% { opacity: 0; transform: translateY(6px); }
-  44.7% { opacity: 1; transform: translateY(0); }
-  47.8% { opacity: 1; transform: translateY(0); }
-  49%, 100% { opacity: 0; transform: translateY(0); }
+.hp-badge-crm { left: -150px; top: -26px; }
+.hp-badge-speed { right: -84px; bottom: 56px; }
+.hp-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.hp-dot-ok { background: #16a34a; }
+
+/* ── Адаптив ──────────────────────────────────────────────────────────── */
+
+/* Узкий ноутбук: колонка уже, плашки прижимаем к корпусу,
+   чтобы левая не заезжала на текст */
+@media (max-width: 1180px) {
+  .hs-grid { gap: 40px; }
+  .hp-badge-crm { left: -72px; }
+  .hp-badge-speed { right: -32px; }
 }
 
-/* Общий fade всей ленты в конце цикла */
-@keyframes hp-cycle {
-  0%, 90.6% { opacity: 1; }
-  96.9%, 100% { opacity: 0; }
-}
-
-@keyframes hp-dot {
-  0%, 100% { transform: translateY(0); opacity: 0.55; }
-  40% { transform: translateY(-3px); opacity: 1; }
-}
-
-/* Бейджи входят в том же цикле: «Ответ 4 сек» — вместе с первым ответом ИИ
-   (20.6%), «CRM · сделка создана» — вместе с системной строкой (66.9%).
-   Анимируем только opacity, иначе слетит translateZ глубины. */
-@keyframes hp-badge-speed-in {
-  0%, 18.1% { opacity: 0; }
-  20.6%, 90.6% { opacity: 1; }
-  96.9%, 100% { opacity: 0; }
-}
-@keyframes hp-badge-crm-in {
-  0%, 64.4% { opacity: 0; }
-  66.9%, 90.6% { opacity: 1; }
-  96.9%, 100% { opacity: 0; }
-}
-
-/* Еле заметное «дыхание» карточек */
-@keyframes hp-badge-float {
-  0%, 100% { transform: translateY(-3px); }
-  50% { transform: translateY(3px); }
-}
-
-/* ── Мелкие доводки Stats ─────────────────────────────────────────────── */
-/* Полоса выровнена по верху, лейблы с одинаковой шириной строки —
-   4-й длинный лейбл не оставляет «пустой подвал» у соседних ячеек. */
-.hs-stat {
-  justify-content: flex-start;
-  gap: 12px;
-  padding-top: clamp(28px, 3.4vw, 44px);
-  padding-bottom: clamp(28px, 3.4vw, 44px);
-}
-.hs-stat .stat-label {
-  line-height: 1.65;
-  max-width: 24ch;
-}
-
-/* ── Респонсив ────────────────────────────────────────────────────────── */
-@media (max-width: 1024px) {
-  .hs-hero-grid {
-    grid-template-columns: 1fr 0.95fr;
-    gap: 36px;
-  }
-  .hs-headline { font-size: clamp(34px, 4.4vw, 56px); }
-  .hp-phone {
-    width: 300px;
-    height: 600px;
-    border-radius: 40px;
-  }
-  .hp-screen { border-radius: 30px; }
-  .hp-screen::before { border-radius: 29px 29px 0 0; }
-  .hp-chat-head { border-radius: 29px 29px 0 0; }
-    /* Колонка уже — бейджи прижимаем ближе к корпусу */
-  .hp-badge-crm { left: -16px; }
-  .hp-badge-speed { right: -14px; }
-}
-
-@media (max-width: 768px) {
-  /* Мобильный — вертикальная история: текст → телефон по центру */
-  .hs-hero-inner {
-    align-items: flex-start;
-    padding-top: 16px;
-  }
-  .hs-hero-grid {
+/* Планшет и телефон: текст сверху, телефон под ним, плашки убираем */
+@media (max-width: 900px) {
+  .hs-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 8px;
   }
-  .hs-headline { font-size: clamp(34px, 8.4vw, 52px); }
-  .hs-sub { max-width: none; }
-  .hp-phone {
-    width: 292px;
-    height: 616px;
-    border-radius: 42px;
-    padding: 7px;
-  }
-  .hp-phone::before { inset: 5px; border-radius: 37px; }
-  .hp-phone::after { border-radius: 42px; border-width: 2px; }
-  .hp-screen,
-  .hp-screen::before,
-  .hp-screen::after { border-radius: 35px; }
-  .hp-btn-vol { top: 130px; height: 52px; }
-  .hp-btn-vol + .hp-btn-vol { top: 194px; }
-  .hp-btn-pwr { top: 172px; height: 80px; }
-  /* Тач: параллакс не вешается (см. Hero.js), остаётся лёгкий статичный наклон */
   .hp-stage {
-    --ry: -4deg;
-    --rx: 0deg;
-    --sx: 7px;
+    height: auto;
+    padding: 12px 0 24px;
   }
-  .hp-visual { perspective: 1100px; }
-  /* На узком экране лента короче — возвращаем страховочную обрезку */
-  .hp-thread { overflow: hidden; }
-  .hp-shadow { opacity: 0.4; }
-  .hs-bg {
-    mask-image: radial-gradient(ellipse 120% 70% at 50% 20%, black 25%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 120% 70% at 50% 20%, black 25%, transparent 100%);
-  }
+  .hp-phone { width: 290px; }
+  /* Экран по высоте переписки: без пустого «подвала» под последней репликой */
+  .hp-screen { min-height: 0; }
+  .hp-msgs { padding-bottom: 18px; }
+  .hp-badge { display: none; }
 }
 
 @media (max-width: 560px) {
-  .hs-headline { font-size: clamp(30px, 9.6vw, 40px); letter-spacing: -0.03em; }
-  .hs-kicker {
-    font-size: 9px;
-    padding: 7px 12px;
-    letter-spacing: 0.02em;
-  }
+  .hs-sub { font-size: 16px; }
   .hs-actions {
-    width: 100%;
     flex-direction: column;
     align-items: stretch;
   }
   .hs-actions .btn { justify-content: center; }
-  .hs-sub { font-size: 14px; }
-  /* На узком экране строка-крючок переносилась на две строки капсом и
-     читалась как шум. Делаем её обычным предложением. */
-  .hs-offer {
-    font-size: 12.5px;
-    letter-spacing: 0;
-    text-transform: none;
-    color: var(--fg-2);
-  }
-  .hp-phone {
-    width: 262px;
-    height: 552px;
-    border-radius: 38px;
-    padding: 6px;
-  }
-  .hp-phone::before { inset: 4px; border-radius: 34px; }
-  .hp-phone::after { border-radius: 38px; border-width: 2px; }
-  .hp-screen,
-  .hp-screen::before,
-  .hp-screen::after { border-radius: 32px; }
-  .hp-btn-vol { top: 116px; height: 46px; }
-  .hp-btn-vol + .hp-btn-vol { top: 174px; }
-  .hp-btn-pwr { top: 154px; height: 72px; }
-  /* Места по бокам нет — бейджи убираем */
-  .hp-badge { display: none; }
-  .hp-notch { width: 78px; height: 22px; margin-top: 9px; }
-  .hp-notch::after { width: 7px; height: 7px; margin-top: -3.5px; right: 10px; }
-  .hp-chat-head { padding: 8px 14px 12px; }
-  .hp-avatar { width: 30px; height: 30px; font-size: 11px; }
-  .hp-thread {
-    gap: 8px;
-    padding: 12px 12px 24px;
-  }
-  .hp-bubble {
-    font-size: 11.5px;
-    padding: 8px 10px 6px;
-    max-width: 86%;
-  }
-  .hp-sysrow {
-    font-size: 9px;
-    letter-spacing: 0.02em;
-  }
-  .hp-typing { padding: 10px 12px; }
-  }
+}
 
-/* ── Доступность: всё видно сразу, без цикла ──────────────────────────── */
+/* ── Без анимации: вся переписка видна сразу, телефон стоит прямо ─────── */
 @media (prefers-reduced-motion: reduce) {
-  .hp-thread { animation: none; opacity: 1; overflow: hidden; }
-  .hp-entry {
+  .hp-tilt { transition: none; }
+  .hp-m {
     animation: none;
     opacity: 1;
     transform: none;
   }
-  .hp-typing { display: none; }
-  .hp-typing i { animation: none; }
-  /* Параллакс вообще не включается (слушатель не вешается в Hero.js) —
-     базовый наклон остаётся статичным, бейджи просто видны. */
-  .hp-badge {
-    animation: none;
-    opacity: 1;
-  }
-  .hp-badge-in { animation: none; }
 }

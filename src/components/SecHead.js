@@ -8,7 +8,9 @@ import React from 'react';
 // визуального шума: глаз не понимал, куда смотреть. Столбец убран целиком,
 // props side/sideTitle оставлены в сигнатуре осознанно - вызовы их всё ещё
 // передают, но компонент их игнорирует.
-const SecHead = ({ num, title, titleIt }) => (
+// sub - короткий серый подзаголовок прямо под заголовком (светлая тема,
+// как в макете mock-home): одна мысль, зачем читать секцию.
+const SecHead = ({ num, title, titleIt, sub }) => (
   <div className="sec-head reveal">
     {num && <span className="sec-num">{num}</span>}
     <h2 className="sec-title">
@@ -17,6 +19,7 @@ const SecHead = ({ num, title, titleIt }) => (
       {titleIt ? `${title} ` : title}
       {titleIt && <span className="it">{titleIt}</span>}
     </h2>
+    {sub && <p className="sec-sub">{sub}</p>}
   </div>
 );
 

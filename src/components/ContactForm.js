@@ -80,7 +80,9 @@ const ContactForm = ({ videoContext = false }) => {
   };
 
   return (
-    <section className="section" id="contact">
+    // contact-sys: светлое оформление формы на AI-системах. На странице
+    // AI-контента (videoContext) секция остаётся в прежнем тёмном виде.
+    <section className={`section${videoContext ? '' : ' contact-sys'}`} id="contact">
       <div className="shell">
         <SecHead
           num={pick(L, CONTENT.head.num)}
@@ -277,7 +279,7 @@ const ContactForm = ({ videoContext = false }) => {
             </div>
 
             <div className="contact-block">
-              <span className="lab">EMAIL</span>
+              <span className="lab">Email</span>
               <a href="mailto:info@aivfx.ru" className="val">info@aivfx.ru</a>
             </div>
 

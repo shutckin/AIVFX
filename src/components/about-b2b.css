@@ -50,281 +50,223 @@
   .header .mode-opt::before { width: 5px; height: 5px; }
 }
 
+/* ── Светлая шапка «AI-системы» (макет mock-home) ─────────────────────
+   Полупрозрачная светлая плашка с размытием и тонкой линией снизу видна
+   всегда, а не только после прокрутки: на светлой странице прозрачная
+   шапка сливалась бы с первым экраном. Все правила висят на .sys-header,
+   поэтому шапка страницы AI-контента (.vp-header) их не получает. */
+.sys-header,
+.sys-header.scrolled {
+  height: 64px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: rgba(242, 243, 246, 0.86);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+  gap: 28px;
+}
+
+.sys-header .logo-wm {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Пункты меню прижаты вправо, к кнопке: так в макете */
+.sys-header .nav-loose {
+  justify-content: flex-end;
+  gap: 4px;
+}
+.sys-header .nav-loose .nav-link {
+  padding: 8px 10px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--fg-2);
+}
+.sys-header .nav-loose .nav-link:hover,
+.sys-header .nav-loose .nav-link.active {
+  color: var(--fg);
+  background: none;
+}
+.sys-header .nav-loose .nav-link.active::after { display: none; }
+
+/* Язык: обычные буквы без разрядки */
+.sys-header .lang-switch { letter-spacing: 0; font-size: 13px; }
+
+/* «Связаться»: тёмно-синяя таблетка высотой 40, как в макете */
+.sys-header .ab-header-cta {
+  height: 40px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.sys-header .ab-header-cta:hover { transform: none; }
+
+/* Бургер на светлом: линии потолще, чтобы не терялись */
+.sys-header .mobile-menu-btn span { height: 1.5px; border-radius: 2px; }
+
+@media (max-width: 1100px) {
+  .sys-header,
+  .sys-header.scrolled { gap: 16px; }
+  .sys-header .nav-loose .nav-link { padding: 8px 7px; font-size: 13px; }
+}
+
+/* Узкие экраны: правило выше для .header.scrolled ставит почти чёрный фон,
+   светлой шапке он не нужен - перебиваем тем же светлым */
+@media (max-width: 960px) {
+  .sys-header,
+  .sys-header.scrolled {
+    height: 56px;
+    gap: 12px;
+    background: rgba(242, 243, 246, 0.94);
+  }
+}
+
 
 /* ══════════════════════════════════════════════════════════════════════
-   AboutUs — секция «О нас».
-   Иерархия сверху вниз: трастбар брендов → [текст | основатель] →
-   строка «для кого» → заметка о видео → FAQ.
+   AboutUs - секция «О нас» по макету светлой главной.
+   [белая карточка: текст + чипы] | [тёмно-синий основатель / белые бренды]
    ══════════════════════════════════════════════════════════════════════ */
 
-/* Полоса-фон секции: отделяем «О нас» от соседних секций */
-#about.section {
-  background: var(--bg-2);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-/* ── 1. Трастбар брендов: первое, что видит глаз в секции ────────────── */
-.ab-trustbar {
-  margin-top: clamp(28px, 4vw, 44px);
-  padding: clamp(22px, 3vw, 34px) 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  text-align: center;
-}
-
-.ab-brands-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-  margin: 0 0 clamp(16px, 2vw, 24px);
-}
-
-.ab-brands-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: baseline;
-  gap: clamp(18px, 2.4vw, 34px) clamp(28px, 3.5vw, 56px);
-}
-
-/* Вордмарки: крупно, приглушённо; читаемость набирают на hover */
-.ab-brand {
-  font-family: 'Onest', var(--font-display), sans-serif;
-  font-size: clamp(22px, 2.4vw, 34px);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 0.04em;
-  color: rgba(216, 234, 255, 0.42);
-  white-space: nowrap;
-  transition: color 0.25s ease;
-}
-
-.ab-brand:hover { color: var(--fg-2, var(--fg)); }
-
-/* Мобильный: 2–3 вордмарка в ряд */
-@media (max-width: 600px) {
-  .ab-brands-row { gap: 14px 22px; }
-  .ab-brand { font-size: 19px; letter-spacing: 0.05em; }
-}
-
-/* ── 2. Текст о студии | 3. карточка основателя ──────────────────────── */
 .ab-grid {
   display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-  gap: clamp(32px, 5vw, 72px);
-  align-items: start;
-  margin-top: clamp(40px, 5vw, 64px);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
 }
 
-@media (max-width: 960px) {
-  .ab-grid { grid-template-columns: 1fr; }
+.ab-card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
 }
 
-.ab-text {
-  max-width: 620px;
-}
+/* ── Текст о студии ── */
+.ab-text { padding: 30px; }
 
 .ab-text p {
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--fg-2, var(--fg));
-  margin: 0 0 1.15em;
+  max-width: 560px;
+  margin: 0 0 14px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--fg-2);
 }
 
-.ab-text p:last-child { margin-bottom: 0; }
+/* Чипы «для кого»: светлая заливка и тонкий контур */
+.ab-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ab-chip {
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--fg);
+}
 
-/* Карточка основателя */
+/* ── Правый столбик ── */
+.ab-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Основатель: тёмно-синяя карточка, белый текст */
 .ab-founder {
   display: flex;
-  align-items: flex-start;
-  gap: 18px;
-  background: var(--bg-3);
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-lg);
+  flex-direction: column;
+  gap: 16px;
   padding: 26px;
+  border-radius: var(--r-lg);
+  background: var(--navy);
+  color: #fff;
+}
+.ab-founder-who {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-/* Слот под фото: круг с инициалами, позже заменится на изображение */
+/* Круг под фото; если файла нет - видны инициалы */
 .ab-founder-photo {
   position: relative;
   flex-shrink: 0;
-  width: 72px;
-  height: 72px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   overflow: hidden;
-  background: var(--bg-2);
-  border: 1px solid var(--line-2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--fg-2, var(--fg));
+  color: rgba(255, 255, 255, 0.8);
 }
-
-/* Фото перекрывает инициалы; если файла нет — onError его прячет */
 .ab-founder-photo img {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 22%;
-  z-index: 1;
 }
-
 .ab-founder-initials { position: relative; }
 
 .ab-founder-name {
+  margin: 0;
   font-size: 16px;
   font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--fg);
-  margin: 0;
+  color: #fff;
 }
-
 .ab-founder-role {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-  margin: 4px 0 14px;
-}
-
-.ab-founder-line {
-  border-left: 2px solid var(--accent);
-  padding-left: 14px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--fg-2, var(--fg));
-  margin: 0;
-}
-
-/* ── 4. «Для кого» — компактная строка, без карточки ─────────────────── */
-.ab-audience {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 18px;
-  margin-top: clamp(28px, 3.5vw, 44px);
-  padding-top: clamp(20px, 2.5vw, 26px);
-  border-top: 1px solid var(--line);
-}
-
-.ab-audience-title {
-  flex-shrink: 0;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-  margin: 0;
-}
-
-.ab-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 10px;
-}
-
-.ab-chip {
-  display: inline-block;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 5px 13px;
+  margin: 2px 0 0;
   font-size: 13px;
-  line-height: 1.4;
-  color: var(--fg-2, var(--fg));
-  transition: border-color 0.25s ease, color 0.25s ease;
+  color: rgba(255, 255, 255, 0.6);
 }
-
-.ab-chip:hover {
-  border-color: var(--accent);
-  color: var(--fg);
-}
-
-/* ── 5. Заметка о видео-направлении: одной компактной строкой ────────── */
-.ab-video-note {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 16px;
-  margin-top: clamp(22px, 2.5vw, 30px);
-  border-left: 2px solid var(--accent);
-  padding-left: 18px;
-}
-
-.ab-video-note p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--fg-2, var(--fg));
+.ab-founder-line {
   margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
 }
 
-.ab-video-link {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: opacity 0.25s ease;
-}
-
-.ab-video-link:hover { opacity: 0.75; }
-
-/* ── 6. FAQ — отдельный смысловой блок ───────────────────────────────── */
-.ab-faq {
-  margin-top: clamp(56px, 7vw, 88px);
-}
-
-/* Лейбл и заголовок в одну строку, без переноса */
-.ab-faq-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px 14px;
-  margin-bottom: clamp(18px, 2vw, 26px);
-}
-
-.ab-faq-kicker {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+/* Бренды: обычным серым текстом, без логотипов */
+.ab-brands { flex: 1; padding: 22px; }
+.ab-brands-label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 13px;
   color: var(--muted);
 }
-
-.ab-faq-title {
-  font-family: var(--font-display);
-  font-size: clamp(22px, 2.2vw, 30px);
+.ab-brands-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+}
+.ab-brand {
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  color: var(--fg);
+  letter-spacing: 0.02em;
+  color: var(--fg-2);
   white-space: nowrap;
-  margin: 0;
 }
 
-/* Длина строки вопроса: не растягиваем на всю ширину секции */
-
-
-/* Индикатор: у открытого — акцентный контур и цвет, без заливки */
-#about .faq-item.open .ic {
-  background: transparent;
-  color: var(--accent);
-  border-color: var(--accent);
-}
-
-@media (max-width: 600px) {
-  .ab-faq-title { white-space: normal; font-size: 20px; }
+@media (max-width: 900px) {
+  .ab-grid { grid-template-columns: 1fr; }
+  .ab-text { padding: 22px; }
+  .ab-text p { font-size: 15px; }
+  .ab-founder { padding: 22px; }
 }
 
 /* ── ContactForm: инлайн-блок ошибки отправки ────────────────────────── */
@@ -429,11 +371,12 @@
   z-index: 9990;
   max-width: 1100px;
   margin: 0 auto;
-  background: rgba(10, 9, 8, 0.96);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--line-2);
+  /* Светлая плашка: белая карточка с мягкой тенью. На тёмных страницах
+     фон и переменные возвращаются ниже и в index.css (html.page-dark) */
+  background: var(--bg-2);
+  border: 1px solid var(--line);
   border-radius: var(--r-md, 10px);
+  box-shadow: 0 18px 40px -22px rgba(16, 24, 43, 0.4);
   padding: 12px 16px;
   display: flex;
   align-items: center;
@@ -467,6 +410,14 @@
 }
 
 .cookie-banner-accept { flex-shrink: 0; }
+
+html.page-dark .cookie-banner {
+  background: rgba(10, 9, 8, 0.96);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-color: var(--line-2);
+  box-shadow: none;
+}
 
 /* Короткий текст показываем только на мобиле */
 .cookie-banner-short { display: none; }

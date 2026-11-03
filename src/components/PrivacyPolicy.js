@@ -3,14 +3,14 @@ import LangSwitch from './LangSwitch';
 
 const PrivacyPolicy = ({ onBack }) => {
   return (
-    <div className="min-h-screen legal-page sm:pt-20">
-      <div className="container mx-auto px-4 py-6 sm:py-12 max-w-4xl">
-        <div className="mb-6 page-topbar">
+    <div className="legal-page">
+      <div className="legal-wrap">
+        <div className="page-topbar legal-topbar">
           <button
             onClick={onBack}
-            className="flex items-center text-white/80 hover:text-white transition-colors"
+            className="legal-back"
           >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="legal-back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             Назад на главную
@@ -18,19 +18,19 @@ const PrivacyPolicy = ({ onBack }) => {
           <LangSwitch locale="ru" />
         </div>
         
-        <div className="card">
-          <div className="p-5 sm:p-8 lg:p-12">
-            <h1 className="text-2xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 text-center break-words">
+        <div className="legal-card">
+          <div className="legal-card-in">
+            <h1 className="legal-title break-words">
               Политика конфиденциальности AIVFX
             </h1>
             
-            <div className="text-white/80 space-y-6 leading-relaxed">
-              <p className="text-sm text-white/60 mb-8">
+            <div className="legal-body">
+              <p className="legal-meta">
                 Дата вступления в силу: 1 января 2026 г. URL политики: https://aivfx.ru/policy
               </p>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">1. Общие положения</h2>
+                <h2 className="legal-h2">1. Общие положения</h2>
                 <p className="mb-4">
                   1.1. Настоящая Политика обработки персональных данных (далее - Политика) разработана в соответствии с Федеральным законом от 27.07.2006 № 152‑ФЗ «О персональных данных» и регулирует порядок сбора, хранения, обработки и защиты персональных данных пользователей на сайте https://aivfx.ru (далее - Сайт).
                 </p>
@@ -46,7 +46,7 @@ const PrivacyPolicy = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">2. Основные термины и определения</h2>
+                <h2 className="legal-h2">2. Основные термины и определения</h2>
                 <ul className="list-disc pl-6 space-y-2">
                   <li><strong>Персональные данные</strong> - любая информация, относящаяся к прямо или косвенно определённому физическому лицу (субъекту данных).</li>
                   <li><strong>Обработка персональных данных</strong> - любое действие или совокупность действий с персональными данными, включая сбор, запись, хранение, уточнение (обновление, изменение), использование, передачу, блокирование, удаление и уничтожение.</li>
@@ -56,7 +56,7 @@ const PrivacyPolicy = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">3. Принципы и условия обработки персональных данных</h2>
+                <h2 className="legal-h2">3. Принципы и условия обработки персональных данных</h2>
                 <p className="mb-4">3.1. Оператор обрабатывает персональные данные на основе следующих принципов:</p>
                 <ul className="list-disc pl-6 space-y-2 mb-4">
                   <li>законности и справедливости;</li>
@@ -75,7 +75,7 @@ const PrivacyPolicy = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">4. Права и обязанности Оператора</h2>
+                <h2 className="legal-h2">4. Права и обязанности Оператора</h2>
                 <p className="mb-4">4.1. Оператор имеет право:</p>
                 <ul className="list-disc pl-6 space-y-2 mb-4">
                   <li>запрашивать и получать от субъектов персональных данных достоверные сведения и документы;</li>
@@ -90,7 +90,7 @@ const PrivacyPolicy = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">5. Права субъектов персональных данных</h2>
+                <h2 className="legal-h2">5. Права субъектов персональных данных</h2>
                 <p className="mb-4">Субъект персональных данных имеет право:</p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>получать информацию об обработке своих персональных данных;</li>
@@ -101,7 +101,7 @@ const PrivacyPolicy = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">6. Операции с персональными данными</h2>
+                <h2 className="legal-h2">6. Операции с персональными данными</h2>
                 <p className="mb-4">Оператор может выполнять следующие действия с персональными данными:</p>
                 <ul className="list-disc pl-6 space-y-2 mb-4">
                   <li>сбор, систематизация, накопление, хранение;</li>
@@ -112,7 +112,7 @@ const PrivacyPolicy = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">7. Сроки хранения персональных данных</h2>
+                <h2 className="legal-h2">7. Сроки хранения персональных данных</h2>
                 <p className="mb-4">
                   7.1. Персональные данные хранятся не дольше, чем этого требуют цели их обработки, кроме случаев, когда законодательством РФ предусмотрен более длительный срок хранения.
                 </p>
@@ -122,7 +122,7 @@ const PrivacyPolicy = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">8. Трансграничная передача персональных данных</h2>
+                <h2 className="legal-h2">8. Трансграничная передача персональных данных</h2>
                 <p className="mb-4">
                   8.1. Трансграничная передача персональных данных разрешается при соблюдении требований законодательства РФ (п. 2 ст. 12 ФЗ‑152) и только при условии, что иностранным государством установлен адекватный уровень защиты прав субъектов данных.
                 </p>
@@ -132,7 +132,7 @@ const PrivacyPolicy = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">9. Конфиденциальность и безопасность</h2>
+                <h2 className="legal-h2">9. Конфиденциальность и безопасность</h2>
                 <p className="mb-4">
                   9.1. Все сотрудники и иные лица, получившие доступ к персональным данным, обязаны соблюдать конфиденциальность.
                 </p>
@@ -146,7 +146,7 @@ const PrivacyPolicy = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">10. Заключительные положения</h2>
+                <h2 className="legal-h2">10. Заключительные положения</h2>
                 <p className="mb-4">10.1. Все вопросы и обращения, связанные с обработкой персональных данных, можно направлять по адресу:</p>
                 <ul className="list-disc pl-6 space-y-2 mb-4">
                   <li>E‑mail: info@aivfx.ru</li>
@@ -159,8 +159,8 @@ const PrivacyPolicy = ({ onBack }) => {
                 </p>
               </section>
 
-              <div className="mt-8 p-6 bg-white/5 rounded-lg border border-white/10">
-                <p className="text-center text-white/90 font-medium">
+              <div className="legal-note">
+                <p className="legal-note-strong">
                   Настоящая Политика обеспечивает соблюдение требований Федерального закона № 152‑ФЗ «О персональных данных» и рекомендаций Роскомнадзора по публичному раскрытию политики обработки данных.
                 </p>
               </div>

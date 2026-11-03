@@ -1,157 +1,52 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNotification } from '../App';
 import { useLocale, pick } from '../i18n';
-import { HERO_SYS, HERO_CHAT, TICKER_SYS } from '../data/systems-content';
+import { HERO_SYS, HERO_CHAT } from '../data/systems-content';
 import './hero-systems.css';
 
-/* ── Параллакс телефона по курсору ──────────────────────────────────────
-   Базовый наклон (телефон «в перспективе» в покое) задан в CSS,
-   курсор добавляет к нему доворот в пределах ±MAX. */
-const BASE_RY = -8;   // deg - базовый разворот по вертикальной оси
-const BASE_RX = 3;    // deg - базовый наклон по горизонтальной оси
-const MAX_RY = 9;     // deg - максимальный доворот курсором влево/вправо
-const MAX_RX = 6;     // deg - максимальный доворот курсором вверх/вниз
-const SHADOW_PX = 14; // px - насколько тень уезжает против наклона
-// Ход светового пятна по грани корпуса, в процентах от подложки градиента.
-// Подложка втрое больше рамки, поэтому такой размах даёт полный проход
-// светового блика от одного ребра до другого.
-const GLARE_X = 42;
-const GLARE_Y = 26;
+/* ── Наклон телефона за курсором ────────────────────────────────────────
+   Как в утверждённом макете: курсор над первым экраном слегка поворачивает
+   телефон (до 12° по горизонтали и 8° по вертикали), курсор ушёл - телефон
+   плавно вернулся прямо. Плавность даёт CSS-переход на .hp-tilt.
+   Работает только на настоящей мыши и если человек не просил убрать анимацию. */
+const TILT_Y = 12; // градусов - поворот влево/вправо
+const TILT_X = 8;  // градусов - наклон вверх/вниз
 
-// Телефон живее реагирует на подход курсора: чем ближе, тем крупнее.
-// Разброс маленький, иначе выглядит как рывок, а не как объём.
-const NEAR_MAX = 1.05;
-const NEAR_MIN = 0.95;
-const LERP = 0.08;    // коэффициент сглаживания: телефон «догоняет» курсор
-const EPS = 0.01;     // порог, ниже которого считаем, что доводка закончена
-
-const clamp = (v) => (v < -1 ? -1 : v > 1 ? 1 : v);
-
-// Параллакс включаем только на настоящей мыши и при разрешённой анимации
-const useTiltAllowed = () => {
-  const [allowed, setAllowed] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return undefined;
-
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const fine = window.matchMedia('(min-width: 769px) and (hover: hover) and (pointer: fine)');
-    const sync = () => setAllowed(fine.matches && !reduce.matches);
-
-    sync();
-    reduce.addEventListener('change', sync);
-    fine.addEventListener('change', sync);
-    return () => {
-      reduce.removeEventListener('change', sync);
-      fine.removeEventListener('change', sync);
-    };
-  }, []);
-
-  return allowed;
-};
-
-/* Слушаем mousemove на секции hero (а не на window - чтобы не считать зря),
-   складываем координаты в переменные и один раз за кадр (rAF) лерпим
-   текущие углы к целевым. Пишем результат в CSS-переменные --ry/--rx/--sx. */
-const usePointerTilt = (sectionRef, stageRef, allowed) => {
+const usePointerTilt = (sectionRef, stageRef, tiltRef) => {
   useEffect(() => {
     const section = sectionRef.current;
     const stage = stageRef.current;
-    if (!allowed || !section || !stage) return undefined;
+    const tilt = tiltRef.current;
+    if (!section || !stage || !tilt || !window.matchMedia) return undefined;
 
-    let targetRy = 0;
-    let targetRx = 0;
-    let ry = 0;
-    let rx = 0;
-    let targetScale = 1;
-    let scale = 1;
-    let pointerX = 0;
-    let pointerY = 0;
-    let pointerDirty = false;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (reduce || !mouse) return undefined;
+
     let raf = 0;
+    let px = 0;
+    let py = 0;
 
-    const write = () => {
-      const totalRy = BASE_RY + ry;
-      const totalRx = BASE_RX + rx;
-
-      stage.style.setProperty('--ry', `${totalRy.toFixed(2)}deg`);
-      stage.style.setProperty('--rx', `${totalRx.toFixed(2)}deg`);
-      // Тень уезжает в противоход развороту, читается как объём
-      stage.style.setProperty('--sx', `${(-totalRy / MAX_RY * SHADOW_PX).toFixed(2)}px`);
-
-      // Блик на стекле. Стекло не поворачивается вместе с корпусом:
-      // источник света остаётся на месте, поэтому отражение съезжает
-      // в ту же сторону, куда наклонили телефон, но заметно быстрее.
-      // Значения без единиц, единицы добавляет CSS.
-      stage.style.setProperty('--lx', (totalRy / MAX_RY * GLARE_X).toFixed(2));
-      stage.style.setProperty('--ly', (-totalRx / MAX_RX * GLARE_Y).toFixed(2));
-
-      // Приближение курсора к телефону
-      stage.style.setProperty('--near', scale.toFixed(4));
-    };
-
-    const frame = () => {
+    // Пересчёт не чаще одного раза за кадр
+    const apply = () => {
       raf = 0;
-
-      // Пересчёт цели делаем только когда пришла новая позиция курсора
-      if (pointerDirty) {
-        pointerDirty = false;
-        const r = section.getBoundingClientRect();
-        if (r.width > 0 && r.height > 0) {
-          const nx = clamp(((pointerX - r.left) / r.width - 0.5) * 2);
-          const ny = clamp(((pointerY - r.top) / r.height - 0.5) * 2);
-          targetRy = nx * MAX_RY;
-          targetRx = -ny * MAX_RX;
-
-          // Насколько курсор близко к самому телефону: 0 - прямо на нём,
-          // 1 - в дальнем углу секции
-          const p = stage.getBoundingClientRect();
-          const dist = Math.hypot(
-            pointerX - (p.left + p.width / 2),
-            pointerY - (p.top + p.height / 2)
-          );
-          const reach = Math.hypot(r.width, r.height) / 2;
-          const t = reach > 0 ? Math.min(1, dist / reach) : 1;
-          targetScale = NEAR_MAX - (NEAR_MAX - NEAR_MIN) * t;
-        }
-      }
-
-      const dy = targetRy - ry;
-      const dx = targetRx - rx;
-      const ds = targetScale - scale;
-      const settled = Math.abs(dy) < EPS && Math.abs(dx) < EPS && Math.abs(ds) < EPS / 100;
-
-      if (settled) {
-        ry = targetRy;
-        rx = targetRx;
-        scale = targetScale;
-      } else {
-        ry += dy * LERP;
-        rx += dx * LERP;
-        scale += ds * LERP;
-      }
-
-      write();
-      if (!settled) raf = requestAnimationFrame(frame);
-    };
-
-    const schedule = () => {
-      if (!raf) raf = requestAnimationFrame(frame);
+      const r = stage.getBoundingClientRect();
+      const nx = (px - (r.left + r.width / 2)) / (window.innerWidth / 2);
+      const ny = (py - (r.top + r.height / 2)) / (window.innerHeight / 2);
+      tilt.style.transform =
+        `rotateY(${(nx * TILT_Y).toFixed(2)}deg) rotateX(${(-ny * TILT_X).toFixed(2)}deg)`;
     };
 
     const onMove = (e) => {
-      pointerX = e.clientX;
-      pointerY = e.clientY;
-      pointerDirty = true;
-      schedule();
+      px = e.clientX;
+      py = e.clientY;
+      if (!raf) raf = requestAnimationFrame(apply);
     };
 
     const onLeave = () => {
-      targetRy = 0;
-      targetRx = 0;
-      targetScale = 1;
-      pointerDirty = false;
-      schedule();
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      tilt.style.transform = '';
     };
 
     section.addEventListener('mousemove', onMove, { passive: true });
@@ -161,206 +56,118 @@ const usePointerTilt = (sectionRef, stageRef, allowed) => {
       section.removeEventListener('mousemove', onMove);
       section.removeEventListener('mouseleave', onLeave);
       if (raf) cancelAnimationFrame(raf);
-      // Возвращаем управление CSS - базовый наклон снова из стилей
-      stage.style.removeProperty('--ry');
-      stage.style.removeProperty('--rx');
-      stage.style.removeProperty('--sx');
-      stage.style.removeProperty('--lx');
-      stage.style.removeProperty('--ly');
-      stage.style.removeProperty('--near');
+      tilt.style.transform = '';
     };
-  }, [sectionRef, stageRef, allowed]);
+  }, [sectionRef, stageRef, tiltRef]);
 };
 
-/* ── Лента сервисов, привязанная к скроллу ──────────────────────────────
-   Раньше лента ехала бесконечной CSS-анимацией и в покое читалась как
-   мигающая гирлянда. Теперь сдвиг считается из scrollY: листаешь - лента
-   едет, остановился - замерла. Позиция берётся по модулю половины ширины
-   трека (содержимое продублировано), поэтому стык не виден.  */
-const TICKER_SPEED = 0.42; // px сдвига ленты на 1px скролла страницы
-
-const useScrollTicker = (trackRef) => {
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return undefined;
-
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return undefined;
-    }
-
-    let half = 0;
-    let raf = 0;
-
-    const measure = () => {
-      // Внутри трека контент лежит дважды - половина и есть длина петли
-      half = track.scrollWidth / 2;
-    };
-
-    const apply = () => {
-      raf = 0;
-      if (!half) return;
-      const shift = (window.scrollY * TICKER_SPEED) % half;
-      track.style.transform = `translate3d(${-shift}px, 0, 0)`;
-    };
-
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(apply);
-    };
-
-    const onResize = () => {
-      measure();
-      onScroll();
-    };
-
-    measure();
-    apply();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onResize);
-      if (raf) cancelAnimationFrame(raf);
-      track.style.transform = '';
-    };
-  }, [trackRef]);
-};
-
-// Телефон с самопечатающимся чат-диалогом - главное продающее демо продукта
-const HeroPhoneDemo = ({ sectionRef }) => {
+// Светлый телефон с перепиской ассистента. Реплики появляются по очереди
+// (цикл целиком на CSS, см. hero-systems.css), рядом две плашки-итога.
+const HeroPhone = ({ sectionRef }) => {
   const L = useLocale();
   const stageRef = useRef(null);
-  const tiltAllowed = useTiltAllowed();
+  const tiltRef = useRef(null);
+  const ph = HERO_SYS.phone;
 
-  usePointerTilt(sectionRef, stageRef, tiltAllowed);
+  usePointerTilt(sectionRef, stageRef, tiltRef);
 
   return (
-    <div className="hp-visual reveal" aria-hidden="true">
-      <div className="hp-stage" ref={stageRef}>
-        <span className="hp-shadow" />
-
+    <div className="hp-stage reveal" ref={stageRef} aria-hidden="true">
+      <div className="hp-tilt" ref={tiltRef}>
         <div className="hp-phone">
-          {/* Боковые кнопки корпуса */}
-          <span className="hp-btn-vol" />
-          <span className="hp-btn-vol" />
-          <span className="hp-btn-pwr" />
-
           <div className="hp-screen">
-            <div className="hp-notch" />
-
-            <div className="hp-chat-head">
+            <div className="hp-top">
               <span className="hp-avatar">AI</span>
-              <span className="hp-head-text">
-                <span className="hp-name">AIVFX Assistant</span>
-                <span className="hp-head-status">
-                  {pick(L, { ru: 'online · отвечает мгновенно', en: 'online · replies instantly' })}
-                </span>
+              <span className="hp-head">
+                <b className="hp-name">{pick(L, ph.name)}</b>
+                <span className="hp-status">{pick(L, ph.status)}</span>
               </span>
-              <i className="hp-online-dot" />
             </div>
 
-            <div className="hp-thread">
+            <div className="hp-msgs">
               {HERO_CHAT.map((m, i) => (
-                <div key={i} className={`hp-msg hp-${m.from} hp-d${i}`}>
-                  {m.from === 'ai' && (
-                    <span className="hp-typing">
-                      <i />
-                      <i />
-                      <i />
-                    </span>
-                  )}
-                  {m.from === 'system' ? (
-                    <span className="hp-sysrow hp-entry">
-                      <span className="hp-sys-check">✓</span>
-                      {pick(L, m.text)}
-                    </span>
-                  ) : (
-                    <span className="hp-bubble hp-entry">
-                      {pick(L, m.text)}
-                      <span className="hp-time mono">{m.t}</span>
-                    </span>
-                  )}
-                </div>
+                m.from === 'system' ? (
+                  <div key={i} className={`hp-m hp-sys hp-d${i}`}>
+                    <i className="hp-sys-dot" />
+                    <span>{pick(L, m.text)}</span>
+                  </div>
+                ) : (
+                  <div key={i} className={`hp-m hp-${m.from} hp-d${i}`}>
+                    <span>{pick(L, m.text)}</span>
+                    <small className="hp-time">{m.t}</small>
+                  </div>
+                )
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Плавающие «доказательства» - живут глубже экрана, при повороте расходятся */}
-          <span className="hp-badge hp-badge-crm">
-            <span className="hp-badge-in mono">
-              <i className="hp-badge-dot hp-dot-ok" />
-              {pick(L, { ru: 'CRM · сделка создана', en: 'CRM · deal created' })}
-            </span>
-          </span>
-
-          <span className="hp-badge hp-badge-speed">
-            <span className="hp-badge-in mono">
-              <i className="hp-badge-dot hp-dot-accent" />
-              {pick(L, { ru: 'Ответ 4 сек', en: 'Reply in 4s' })}
-            </span>
-          </span>
+        <div className="hp-badge hp-badge-crm">
+          <i className="hp-badge-dot hp-dot-ok" />
+          <span>{pick(L, ph.badgeCrm)}</span>
+        </div>
+        <div className="hp-badge hp-badge-speed">
+          <i className="hp-badge-dot" />
+          <span>{pick(L, ph.badgeSpeed)}</span>
         </div>
       </div>
     </div>
   );
 };
 
+// Заголовок: начало обычным цветом, фраза-акцент синим, всё после неё серым.
+// Пробел между фразами живёт внутри текста фразы: отдельный текстовый узел
+// с пробелом ломал гидратацию предзарендеренной страницы (#418).
+const phraseClass = (i) => {
+  if (i === HERO_SYS.accentLineIndex) return 'hs-h-accent';
+  if (i > HERO_SYS.accentLineIndex) return 'hs-h-tail';
+  return undefined;
+};
+
 const Hero = () => {
   const { scrollToSection } = useNotification();
   const L = useLocale();
   const titleLines = pick(L, HERO_SYS.titleLines);
+  const [offerStrong, offerRest] = pick(L, HERO_SYS.offer);
   const sectionRef = useRef(null);
-  const tickerRef = useRef(null);
-
-  useScrollTicker(tickerRef);
 
   return (
-    <section className="hero hs-hero" id="hero" ref={sectionRef}>
-      <div className="hs-bg" aria-hidden="true" />
-      <span className="corner tl" />
-      <span className="corner tr" />
+    <section className="hs-hero" id="hero" ref={sectionRef}>
+      <div className="shell hs-grid">
+        <div className="hs-copy reveal">
+          <span className="hs-kick">
+            <i className="hs-kick-dot" />
+            <span>{pick(L, HERO_SYS.kicker)}</span>
+          </span>
 
-      <div className="shell hs-hero-inner">
-        <div className="hs-hero-grid">
-          <div className="hs-copy reveal">
-            <span className="kicker kicker-accent hs-kicker">{pick(L, HERO_SYS.kicker)}</span>
+          <h1 className="hs-headline">
+            {titleLines.map((line, i) => (
+              <span key={i} className={phraseClass(i)}>
+                {i < titleLines.length - 1 ? `${line} ` : line}
+              </span>
+            ))}
+          </h1>
 
-            <h1 className="hs-headline display">
-              {titleLines.map((line, i) => (
-                <span className="ln" key={i}>
-                  {i === HERO_SYS.accentLineIndex
-                    ? <span className="accent">{line}</span>
-                    : line}
-                </span>
-              ))}
-            </h1>
+          <p className="hs-sub">{pick(L, HERO_SYS.sub)}</p>
 
-            <p className="hs-sub">{pick(L, HERO_SYS.sub)}</p>
-
-            <div className="hs-actions">
-              <button className="btn btn-primary" onClick={() => scrollToSection('contact')}>
-                {pick(L, HERO_SYS.cta1)}
-                <span className="btn-arrow">↗</span>
-              </button>
-              <button className="btn btn-ghost" onClick={() => scrollToSection('services')}>
-                {pick(L, HERO_SYS.cta2)}
-              </button>
-            </div>
-
-            {/* Один крючок под CTA - обещание ответа за 24 часа */}
-            <p className="hs-offer">{pick(L, HERO_SYS.offer)}</p>
+          <div className="hs-actions">
+            <button className="btn btn-primary" onClick={() => scrollToSection('contact')}>
+              {pick(L, HERO_SYS.cta1)}
+              <span className="btn-arrow">↗</span>
+            </button>
+            <button className="btn btn-ghost" onClick={() => scrollToSection('services')}>
+              {pick(L, HERO_SYS.cta2)}
+            </button>
           </div>
 
-          <HeroPhoneDemo sectionRef={sectionRef} />
+          {/* Один крючок под кнопками - обещание ответа за 24 часа */}
+          <p className="hs-offer">
+            <b>{offerStrong}</b>
+            <span>{` ${offerRest}`}</span>
+          </p>
         </div>
-      </div>
 
-      <div className="hero-ticker">
-        <div className="hero-ticker-track" ref={tickerRef}>
-          {[...TICKER_SYS, ...TICKER_SYS].map((t, i) => (
-            <span key={i}>{t}</span>
-          ))}
-        </div>
+        <HeroPhone sectionRef={sectionRef} />
       </div>
     </section>
   );

@@ -3,14 +3,14 @@ import LangSwitch from './LangSwitch';
 
 const Consent = ({ onBack }) => {
   return (
-    <div className="min-h-screen legal-page sm:pt-20">
-      <div className="container mx-auto px-4 py-6 sm:py-12 max-w-4xl">
-        <div className="mb-6 page-topbar">
+    <div className="legal-page">
+      <div className="legal-wrap">
+        <div className="page-topbar legal-topbar">
           <button
             onClick={onBack}
-            className="flex items-center text-white/80 hover:text-white transition-colors"
+            className="legal-back"
           >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="legal-back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             Назад на главную
@@ -18,14 +18,14 @@ const Consent = ({ onBack }) => {
           <LangSwitch locale="ru" />
         </div>
 
-        <div className="card">
-          <div className="p-5 sm:p-8 lg:p-12">
-            <h1 className="text-2xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 text-center break-words">
+        <div className="legal-card">
+          <div className="legal-card-in">
+            <h1 className="legal-title break-words">
               Согласие на обработку персональных данных
             </h1>
 
-            <div className="text-white/80 space-y-6 leading-relaxed">
-              <p className="text-sm text-white/60 mb-8">
+            <div className="legal-body">
+              <p className="legal-meta">
                 Дата вступления в силу: 1 мая 2026 г. URL согласия: https://aivfx.ru/consent/
               </p>
 
@@ -36,7 +36,7 @@ const Consent = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">1. Перечень персональных данных, на обработку которых даётся согласие</h2>
+                <h2 className="legal-h2">1. Перечень персональных данных, на обработку которых даётся согласие</h2>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>фамилия, имя, отчество (при указании);</li>
                   <li>номер контактного телефона;</li>
@@ -48,7 +48,7 @@ const Consent = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">2. Цели обработки персональных данных</h2>
+                <h2 className="legal-h2">2. Цели обработки персональных данных</h2>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>идентификация субъекта данных при обращении через формы Сайта;</li>
                   <li>обработка заявок и обратная связь по проектам в сфере AI‑видео и VFX;</li>
@@ -60,7 +60,7 @@ const Consent = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">3. Перечень действий с персональными данными</h2>
+                <h2 className="legal-h2">3. Перечень действий с персональными данными</h2>
                 <p className="mb-4">
                   Согласие даётся на совершение следующих действий с персональными данными: сбор, запись, систематизация, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передача (предоставление, доступ), обезличивание, блокирование, удаление и уничтожение.
                 </p>
@@ -70,7 +70,7 @@ const Consent = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">4. Способы хранения и передачи</h2>
+                <h2 className="legal-h2">4. Способы хранения и передачи</h2>
                 <p className="mb-4">
                   Персональные данные хранятся на серверах, расположенных на территории Российской Федерации. Передача данных через мессенджер Telegram осуществляется исключительно в служебных целях для оперативного получения и обработки заявок оператором.
                 </p>
@@ -80,7 +80,7 @@ const Consent = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">5. Срок действия согласия и порядок его отзыва</h2>
+                <h2 className="legal-h2">5. Срок действия согласия и порядок его отзыва</h2>
                 <p className="mb-4">
                   Настоящее согласие действует с момента его предоставления и до момента его отзыва субъектом персональных данных или до достижения целей обработки, в зависимости от того, что наступит раньше.
                 </p>
@@ -90,7 +90,7 @@ const Consent = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">6. Права субъекта персональных данных</h2>
+                <h2 className="legal-h2">6. Права субъекта персональных данных</h2>
                 <p className="mb-4">Я подтверждаю, что мне известны и понятны мои права, предусмотренные ФЗ‑152, в том числе:</p>
                 <ul className="list-disc pl-6 space-y-2">
                   <li>получать информацию, касающуюся обработки моих персональных данных;</li>
@@ -101,7 +101,7 @@ const Consent = ({ onBack }) => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-4">7. Подтверждение согласия</h2>
+                <h2 className="legal-h2">7. Подтверждение согласия</h2>
                 <p className="mb-4">
                   Проставлением отметки в чек‑боксе «Я согласен(на) на обработку персональных данных» под формой обратной связи и нажатием кнопки отправки формы я подтверждаю, что ознакомлен(а) с настоящим Согласием и Политикой обработки персональных данных, размещённой по адресу <a href="/privacy/" className="underline" style={{ color: "var(--accent-2)" }}>https://aivfx.ru/privacy/</a>, и принимаю их условия в полном объёме.
                 </p>
@@ -111,7 +111,7 @@ const Consent = ({ onBack }) => {
               </section>
 
               <section>
-                <p className="text-sm text-white/60 italic">
+                <p className="legal-meta legal-meta--note">
                   Настоящее согласие соответствует требованиям ст. 9 Федерального закона от 27.07.2006 № 152‑ФЗ «О персональных данных» и Приказа Роскомнадзора от 24.02.2021 № 18 «Об утверждении требований к содержанию согласия на обработку персональных данных, разрешённых субъектом для распространения».
                 </p>
               </section>

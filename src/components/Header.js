@@ -7,7 +7,7 @@ import LangSwitch from './LangSwitch';
 import './about-b2b.css';
 
 // Секции для scroll-spy (порядок = порядок на странице)
-const SPY_SECTIONS = ['hero', 'services', 'training', 'cases', 'approach', 'about', 'contact'];
+const SPY_SECTIONS = ['hero', 'services', 'training', 'cases', 'about', 'contact'];
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -35,9 +35,16 @@ const Header = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Пункт меню: на главной прокручиваем к секции. На других страницах
+  // (например, на страницах услуг) такой секции нет - тогда уходим на
+  // главную нужного языка с якорем, а там App сам докрутит до секции.
   const handleNav = (id) => {
-    scrollToSection(id);
     setMobileOpen(false);
+    if (typeof document !== 'undefined' && document.getElementById(id)) {
+      scrollToSection(id);
+      return;
+    }
+    window.location.assign(`${localizedHref('/', locale)}#${id}`);
   };
 
   // Пока меню открыто, страница под ним не должна прокручиваться: иначе
@@ -64,7 +71,10 @@ const Header = () => {
 
   return (
     <>
-      <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+      {/* sys-header: светлая шапка направления «AI-системы». Базовый класс
+          .header общий со страницей AI-контента, поэтому всё светлое
+          оформление висит только на этом модификаторе. */}
+      <header className={`header sys-header ${scrolled ? 'scrolled' : ''}`}>
         <div className="logo" onClick={() => handleNav('hero')}>
           <span className="logo-wm">AIVFX</span>
         </div>

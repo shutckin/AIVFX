@@ -23,7 +23,7 @@
   font-weight: 500;
   letter-spacing: -0.01em;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 12px 30px -10px rgba(16, 24, 43, 0.45);
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
@@ -42,7 +42,7 @@
 
 .chat-launcher.is-visible:hover {
   transform: translateY(-1px);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 16px 34px -10px rgba(16, 24, 43, 0.5);
 }
 
 .chat-launcher.is-visible:focus-visible {
@@ -81,7 +81,7 @@
   border: 1px solid var(--line-2);
   border-radius: var(--r-lg);
   overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 30px 70px -30px rgba(16, 24, 43, 0.45);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -341,7 +341,7 @@
   margin: 2px 0 0;
   font-size: 12px;
   line-height: 1.45;
-  color: #e08a8a;
+  color: #c2410c;
 }
 
 /* ── Чипы-подсказки ──────────────────────────────────────── */
@@ -484,7 +484,11 @@
     right: 9px;
   }
 
+  /* На телефоне панель во весь экран и выше шапки сайта (z-index 1000)
+     и мобильного меню (1200): иначе шапка закрывала верх чата вместе
+     с кнопкой закрытия */
   .chat-panel {
+    z-index: 1300;
     inset: 0;
     width: auto;
     height: auto;
@@ -498,6 +502,15 @@
   .chat-head { padding-top: max(14px, env(safe-area-inset-top)); }
   .chat-composer { padding-bottom: max(10px, env(safe-area-inset-bottom)); }
 }
+
+/* ── Тёмные страницы (AI-контент, портфолио) ─────────────────────────────
+   Виджет живёт вне тёмной обёртки страницы, поэтому на тёмных страницах
+   тёмные переменные ему возвращает html.page-dark (см. index.css), а здесь
+   - прежние глубокие тени и цвет ошибки, рассчитанные на тёмный фон. */
+html.page-dark .chat-launcher { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.38); }
+html.page-dark .chat-launcher.is-visible:hover { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45); }
+html.page-dark .chat-panel { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
+html.page-dark .chat-lead-error { color: #e08a8a; }
 
 /* ── Уважение к prefers-reduced-motion ───────────────────── */
 

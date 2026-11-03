@@ -13,7 +13,6 @@ export const NAV_SYS = [
   // нет намеренно, занятия ведутся по-русски
   { id: 'training', label: { ru: 'Обучение' }, ruOnly: true },
   { id: 'cases', label: { ru: 'Кейсы', en: 'Cases' } },
-  { id: 'approach', label: { ru: 'Подход', en: 'Approach' } },
   { id: 'about', label: { ru: 'О нас', en: 'About' } },
 ];
 // Кнопка «Блог» и CTA «Связаться» добавляются в Header отдельно.
@@ -21,20 +20,28 @@ export const NAV_SYS = [
 // ── Hero ───────────────────────────────────────────────────────────────
 export const HERO_SYS = {
   kicker: { ru: 'AI-системы для бизнеса', en: 'AI systems for business' },
-  // Заголовок построчно: [строка1, строка2-акцент, строка3]
+  // Заголовок тремя фразами, идут одной строкой подряд:
+  // [начало, фраза синим (accentLineIndex), хвост серым - всё, что после синей]
   titleLines: {
-    ru: ['AI-системы, которые', 'возвращают клиентов', 'и экономят часы работы'],
-    en: ['AI systems that', 'win customers back', 'and save hours of work'],
+    ru: ['AI-системы, которые', 'возвращают клиентов.', 'И экономят часы работы.'],
+    en: ['AI systems that', 'win customers back.', 'And save hours of work.'],
   },
-  accentLineIndex: 1, // какая строка подсвечивается акцентом
+  accentLineIndex: 1, // какая фраза подсвечивается синим
   sub: {
-    ru: 'Для клиник, недвижимости и сервисного бизнеса с потоком заявок: система отвечает клиенту за секунды, доводит до записи и фиксирует каждое обращение в CRM - 24/7.',
-    en: 'For clinics, real estate and service businesses with inquiry flow: the system replies in seconds, drives bookings and logs every lead in the CRM - 24/7.',
+    ru: 'Для клиник, недвижимости и сервисного бизнеса с потоком заявок: система отвечает клиенту за секунды, доводит до записи и фиксирует каждое обращение в CRM.',
+    en: 'For clinics, real estate and service businesses with inquiry flow: the system replies in seconds, drives bookings and logs every lead in the CRM.',
   },
-  // Оффер под кнопками - главный крючок
+  // Оффер под кнопками - главный крючок: [жирная часть, обычная часть]
   offer: {
-    ru: 'Ответ с архитектурой решения - в течение 24 часов',
-    en: 'A solution architecture in reply - within 24 hours',
+    ru: ['Ответ с архитектурой решения', 'в течение 24 часов'],
+    en: ['A solution architecture in reply', 'within 24 hours'],
+  },
+  // Шапка чата в телефоне и две плашки рядом с ним
+  phone: {
+    name: { ru: 'Ассистент клиники', en: 'Clinic assistant' },
+    status: { ru: 'онлайн · отвечает сразу', en: 'online · replies instantly' },
+    badgeCrm: { ru: 'CRM · сделка создана', en: 'CRM · deal created' },
+    badgeSpeed: { ru: 'Ответ 4 сек', en: 'Reply in 4s' },
   },
   // Строка-отличие от чат-бот агентств
   diff: {
@@ -49,10 +56,10 @@ export const HERO_SYS = {
 // from: 'client' | 'ai' | 'system'. t - время сообщения.
 export const HERO_CHAT = [
   { from: 'client', t: '21:47', text: { ru: 'Здравствуйте! Сколько стоит имплантация под ключ?', en: 'Hi! How much is a full dental implant?' } },
-  { from: 'ai', t: '21:47', text: { ru: 'Добрый вечер! От 45 000 ₽ за зуб - зависит от снимка. Могу записать вас на бесплатную консультацию - удобно завтра в 12:00 или 18:30?', en: 'Good evening! From $600 per tooth - it depends on your scan. I can book you a free consultation - tomorrow at 12:00 or 6:30 pm?' } },
+  { from: 'ai', t: '21:47', text: { ru: 'Добрый вечер! От 45 000 ₽ за зуб, зависит от снимка. Могу записать на бесплатную консультацию: завтра в 12:00 или 18:30?', en: 'Good evening! From $600 per tooth, it depends on your scan. I can book you a free consultation: tomorrow at 12:00 or 6:30 pm?' } },
   { from: 'client', t: '21:48', text: { ru: 'Давайте в 18:30', en: '6:30 pm works' } },
-  { from: 'ai', t: '21:48', text: { ru: 'Записал: завтра, 18:30, доктор Соколова. Пришлю напоминание за 2 часа 👌', en: 'Booked: tomorrow, 6:30 pm, Dr. Sokolova. I will remind you 2 hours before 👌' } },
-  { from: 'system', t: '21:48', text: { ru: 'Сделка создана в CRM · Менеджер уведомлён', en: 'Deal created in CRM · Manager notified' } },
+  { from: 'ai', t: '21:48', text: { ru: 'Записал: завтра, 18:30. Пришлю напоминание за 2 часа', en: 'Booked: tomorrow, 6:30 pm. I will remind you 2 hours before' } },
+  { from: 'system', t: '21:48', text: { ru: 'Сделка создана в CRM · менеджер уведомлён', en: 'Deal created in CRM · manager notified' } },
 ];
 
 // Живая лента событий в hero-визуале («интерфейсное доказательство»)
@@ -77,50 +84,62 @@ export const PROBLEMS_SYS = {
   head: {
     num: { ru: 'Проблема', en: 'Problem' },
     title: { ru: 'Ваш бизнес уже получает заявки.', en: 'Your business already gets inquiries.' },
-    titleIt: { ru: 'Вопрос - сколько из них теряется', en: 'The question is how many get lost' },
+    titleIt: { ru: 'Вопрос, сколько из них теряется', en: 'The question is how many get lost' },
     side: {
       ru: 'Чаще всего дело не в маркетинге, а в том, что происходит с обращением после того, как клиент написал.',
-      en: 'Most of the time the issue is not marketing - it is what happens to an inquiry after the customer reaches out.',
+      en: 'Most of the time the issue is not marketing, it is what happens to an inquiry after the customer reaches out.',
     },
     sideTitle: 'Reality check',
   },
-  // ui - тип мини-интерфейса в bento-плитке: chat | task | pipe | copy | churn
+  // Большая карточка-фото слева: первая боль (items[0]) пишется поверх снимка.
+  // pos - точка кадрирования (object-position), чтобы флорист не обрезался.
+  photo: {
+    src: '/systems/gen-cvety.jpg',
+    width: 1400,
+    height: 1047,
+    pos: '46% 50%',
+    alt: {
+      ru: 'Флористка вечером в цветочной мастерской смотрит в телефон',
+      en: 'A florist in her flower workshop checks her phone in the evening',
+    },
+  },
+  // time - короткая оранжевая метка над заголовком карточки
   items: [
     {
-      time: '21:47',
-      ui: 'chat',
-      text: { ru: 'Написал вечером - ответ утром', en: 'Wrote at night - answered in the morning' },
+      time: { ru: '21:47', en: '21:47' },
+      text: { ru: 'Написал вечером, ответ утром', en: 'Wrote at night, answered in the morning' },
       tag: { ru: 'упущенное время', en: 'lost time' },
     },
     {
-      time: 'Day 3',
-      ui: 'task',
+      time: { ru: 'День 3', en: 'Day 3' },
       text: { ru: 'Follow-up забыт', en: 'Follow-up forgotten' },
       tag: { ru: 'человеческий фактор', en: 'human factor' },
     },
     {
-      time: '-',
-      ui: 'pipe',
+      time: { ru: 'WhatsApp → ?', en: 'WhatsApp → ?' },
       text: { ru: 'Заявка потерялась между WhatsApp и CRM', en: 'Lead lost between WhatsApp and the CRM' },
       tag: { ru: 'разрыв каналов', en: 'channel gap' },
     },
     {
-      time: '2:30/д',
-      timeEn: '2:30/day',
-      ui: 'copy',
+      time: { ru: '2:30 в день', en: '2:30 a day' },
       text: { ru: 'Данные переносят вручную', en: 'Data is copied by hand' },
       tag: { ru: 'ручная работа', en: 'manual work' },
     },
     {
-      time: '✕',
-      ui: 'churn',
+      time: { ru: 'Ушёл', en: 'Gone' },
       text: { ru: 'Ушедших клиентов никто не возвращает', en: 'Nobody wins lapsed customers back' },
       tag: { ru: 'потерянная выручка', en: 'lost revenue' },
     },
   ],
+  // outro - фраза целиком (её же читает сборщик контекста ассистента),
+  // outroIt - хвост этой фразы, который на тёмной плашке подсвечен голубым.
   outro: {
     ru: 'AIVFX соединяет каналы, CRM и людей в одну систему, где ни одно обращение не проваливается в щели.',
     en: 'AIVFX connects channels, CRM and people into one system where no inquiry falls through the cracks.',
+  },
+  outroIt: {
+    ru: 'где ни одно обращение не проваливается в щели.',
+    en: 'where no inquiry falls through the cracks.',
   },
 };
 
@@ -182,11 +201,20 @@ export const SERVICES_SYS = {
       en: 'Not a catalog of dozens of services - three directions that cover the customer journey from inquiry to repeat sale.',
     },
     sideTitle: 'What we build',
+    // Подзаголовок под заголовком секции (светлая тема, текст из макета)
+    sub: {
+      ru: 'Три направления, которые закрывают путь клиента от заявки до повторной продажи.',
+      en: 'Three directions that cover the customer journey from inquiry to repeat sale.',
+    },
   },
   items: [
     {
       slug: 'ai-sales-automation',
       num: 'S/01',
+      // Фото карточки на главной: файл, точка кадрирования и подпись
+      image: '/systems/gen-masterskaya.jpg',
+      imagePos: '55% 45%',
+      imageAlt: { ru: 'Мастер в столярной мастерской смотрит в телефон', en: 'A craftsman in a woodworking shop checking his phone' },
       title: { ru: 'AI для заявок и продаж', en: 'AI for leads & sales' },
       desc: {
         ru: 'Принимает обращения из всех каналов, квалифицирует клиентов, обновляет CRM, распределяет лиды и запускает follow-up.',
@@ -197,6 +225,9 @@ export const SERVICES_SYS = {
     {
       slug: 'ai-assistants',
       num: 'S/02',
+      image: '/systems/gen-klinika.jpg',
+      imagePos: '70% 45%',
+      imageAlt: { ru: 'Администратор клиники вечером у стойки, на экране открыт чат', en: 'A clinic receptionist at the front desk in the evening, a chat open on screen' },
       title: { ru: 'AI-ассистенты', en: 'AI assistants' },
       desc: {
         ru: 'Работают с клиентами и сотрудниками через сайт, WhatsApp, Telegram и другие интерфейсы - от консультаций до базы знаний компании.',
@@ -207,6 +238,9 @@ export const SERVICES_SYS = {
     {
       slug: 'business-process-automation',
       num: 'S/03',
+      image: '/systems/hero-technician.jpg',
+      imagePos: '36% 50%',
+      imageAlt: { ru: 'Специалист работает за своим местом в лаборатории', en: 'A technician working at her bench in a lab' },
       title: { ru: 'Автоматизация процессов', en: 'Process automation' },
       desc: {
         ru: 'Убирает ручную работу с CRM, документами, отчётами, уведомлениями и внутренними операциями.',
@@ -385,6 +419,8 @@ export const SERVICE_PAGES = {
     alsoSee: ['ai-sales-automation', 'ai-assistants'],
     readMore: ['pochemu-teryayutsya-zayavki', 'skolko-stoit-ai-assistent', 'chat-bot-ili-ai-assistent'],
     kicker: { ru: 'Решение / для клиник и медцентров', en: 'Solution / for clinics' },
+    // Фото справа от заголовка: клиника, подходит по смыслу напрямую
+    heroPhoto: { src: '/systems/hero-clinic.jpg', pos: '45% 50%', w: 1400, h: 787, alt: { ru: 'Сотрудница клиники за компьютером', en: 'A clinic employee at a computer' } },
     title: { ru: 'AI-ассистент для клиники: запись и вопросы пациентов без потерь', en: 'AI assistant for clinics: bookings and patient questions without losses' },
     sub: {
       ru: 'AI-ассистент для клиники: отвечает пациентам круглосуточно, записывает на приём, объясняет подготовку и цены, а всё медицинское передаёт человеку.',
@@ -505,6 +541,8 @@ export const SERVICE_PAGES = {
     // слов дал бы соседство, а не пользу читателю.
     readMore: ['pochemu-teryayutsya-zayavki', 'ai-kvalifikaciya-lidov', 'skolko-stoit-ai-assistent'],
     kicker: { ru: 'Услуга / AI для заявок и продаж', en: 'Service / AI for leads & sales' },
+    // Фото справа от заголовка первого экрана (то же, что у карточки на главной)
+    heroPhoto: { src: '/systems/gen-masterskaya.jpg', pos: '55% 45%', w: 1400, h: 1047, alt: { ru: 'Мастер в столярной мастерской смотрит в телефон', en: 'A craftsman in a woodworking shop checking his phone' } },
     title: { ru: 'Ни одна заявка больше не теряется', en: 'No lead ever gets lost again' },
     seoTitle: { ru: 'AI для заявок и продаж: приём, квалификация, CRM, follow-up', en: 'AI for Leads & Sales: Intake, Qualification, CRM, Follow-up' },
     sub: {
@@ -547,6 +585,8 @@ export const SERVICE_PAGES = {
     // слов дал бы соседство, а не пользу читателю.
     readMore: ['chat-bot-ili-ai-assistent', 'skolko-stoit-ai-assistent', 'ai-assistent-i-crm'],
     kicker: { ru: 'Услуга / AI-ассистенты', en: 'Service / AI assistants' },
+    // Фото справа от заголовка первого экрана (то же, что у карточки на главной)
+    heroPhoto: { src: '/systems/gen-klinika.jpg', pos: '70% 45%', w: 1400, h: 1047, alt: { ru: 'Администратор клиники вечером у стойки, на экране открыт чат', en: 'A clinic receptionist at the front desk in the evening, a chat open on screen' } },
     title: { ru: 'Ассистент, который знает ваш бизнес', en: 'An assistant that knows your business' },
     sub: {
       ru: 'AI-ассистенты для клиентов и сотрудников: консультант на сайте, ассистент в WhatsApp и Telegram, внутренний помощник с доступом к базе знаний компании.',
@@ -597,8 +637,57 @@ export const SERVICE_PAGES = {
       primary: { ru: 'Обсудить задачу', en: 'Discuss your case' },
       secondary: { ru: 'Смотреть примеры', en: 'See examples' },
     },
+    // Строка инструментов под кнопками первого экрана
+    heroTools: { ru: 'n8n и Make · Notion, Битрикс24, amoCRM, Telegram', en: 'n8n and Make · Notion, Bitrix24, amoCRM, Telegram' },
+    // Коллаж из трёх фото на первом экране (одобренный макет светлой темы).
+    // Первое фото крупное, у каждого подпись «что происходит само».
+    heroPhotos: [
+      {
+        src: '/systems/hero-technician.jpg', pos: '36% 50%', w: 1400, h: 787,
+        alt: { ru: 'Специалист работает за своим местом в лаборатории', en: 'A technician working at her bench in a lab' },
+        t: { ru: 'Мастер занят работой', en: 'The specialist is busy working' },
+        s: { ru: 'заявки и напоминания идут сами', en: 'inquiries and reminders run on their own' },
+      },
+      {
+        src: '/systems/hero-chat.jpg', pos: '50% 55%', w: 788, h: 1400,
+        alt: { ru: 'Переписка с клиентом в мессенджере на телефоне', en: 'A chat with a customer in a messenger on a phone' },
+        t: { ru: 'Клиент написал вечером', en: 'A customer wrote in the evening' },
+        s: { ru: 'ответ сразу, карточка в CRM', en: 'an instant reply, a record in the CRM' },
+      },
+      {
+        src: '/systems/hero-clinic.jpg', pos: '45% 50%', w: 1400, h: 787,
+        alt: { ru: 'Сотрудница клиники за компьютером', en: 'A clinic employee at a computer' },
+        t: { ru: 'Запись на завтра', en: 'A booking for tomorrow' },
+        s: { ru: 'напоминание пациенту', en: 'a reminder to the patient' },
+      },
+    ],
+    // Схема «сейчас руками / после само» слева от списка болей.
+    // Картинка-иллюстрация, а не данные: фамилии и номера условные.
+    painsGraphic: {
+      before: {
+        cap: { ru: 'Сейчас: руками', en: 'Now: by hand' },
+        head: [{ ru: 'Клиент', en: 'Client' }, { ru: 'Телефон', en: 'Phone' }, { ru: 'Статус', en: 'Status' }],
+        rows: [
+          { name: { ru: 'Иванова', en: 'Ivanova' }, phone: '+7 916 …', status: { ru: 'не внесён', en: 'not entered' }, warn: true },
+          { name: { ru: 'Петров', en: 'Petrov' }, phone: '+7 903 …', status: { ru: 'не внесён', en: 'not entered' }, warn: true },
+          { name: { ru: 'Смирнов', en: 'Smirnov' }, phone: '+7 925 …', status: { ru: 'в работе', en: 'in progress' } },
+          { name: { ru: 'Козлова', en: 'Kozlova' }, phone: '+7 977 …', status: { ru: 'копирую…', en: 'copying…' }, warn: true, sel: true },
+        ],
+        note: { ru: 'каждую строку переносят руками', en: 'every row is copied by hand' },
+      },
+      after: {
+        cap: { ru: 'После: само', en: 'After: on its own' },
+        cards: [
+          { b: { ru: 'Козлова', en: 'Kozlova' }, s: { ru: 'карточка в CRM сразу', en: 'a CRM record right away' } },
+          { b: { ru: 'Счёт №214', en: 'Invoice #214' }, s: { ru: 'отправлен клиенту', en: 'sent to the client' } },
+          { b: { ru: 'Отчёт за день', en: 'Daily report' }, s: { ru: 'в Telegram в 19:00', en: 'in Telegram at 19:00' } },
+        ],
+        note: { ru: 'ноль ручных переносов', en: 'zero manual copying' },
+      },
+    },
     pains: {
       title: { ru: 'Когда это нужно', en: 'When you need this' },
+      lead: { ru: 'Если узнали хотя бы два пункта, автоматизация окупится быстро.', en: 'If at least two of these sound familiar, automation pays off quickly.' },
       items: [
         { ru: 'Данные переносят руками между CRM и таблицами', en: 'Data is copied by hand between the CRM, spreadsheets and chats' },
         { ru: 'Отчёт собирается полдня и сразу устаревает', en: 'Reports take half a day to compile and are stale on arrival' },
@@ -619,18 +708,27 @@ export const SERVICE_PAGES = {
     recipes: {
       title: { ru: 'Что автоматизируем чаще всего', en: 'What we automate most often' },
       items: [
-        { when: { ru: 'Заявка пришла с сайта или из Telegram', en: 'An inquiry arrives from the site or Telegram' }, then: [{ ru: 'карточка в CRM', en: 'a CRM record' }, { ru: 'ответ клиенту', en: 'a reply to the client' }, { ru: 'уведомление менеджеру с выжимкой', en: 'a summary for the manager' }] },
-        { when: { ru: 'Сделка закрыта в CRM', en: 'A deal is closed in the CRM' }, then: [{ ru: 'договор по шаблону', en: 'a contract from the template' }, { ru: 'счёт клиенту', en: 'an invoice to the client' }, { ru: 'задача аккаунт-менеджеру', en: 'a task for the account manager' }] },
-        { when: { ru: 'Каждый день в 19:00', en: 'Every day at 19:00' }, then: [{ ru: 'отчёт собран из CRM и таблиц', en: 'a report compiled from the CRM and sheets' }, { ru: 'отправлен руководителю в Telegram', en: 'sent to the owner in Telegram' }] },
-        { when: { ru: 'Срок согласования вышел', en: 'An approval deadline passes' }, then: [{ ru: 'напоминание ответственному', en: 'a reminder to the owner' }, { ru: 'через сутки эскалация выше', en: 'escalation a day later' }] },
-        { when: { ru: 'Изменилась строка в таблице', en: 'A row changes in a spreadsheet' }, then: [{ ru: 'обновление в CRM', en: 'the CRM is updated' }, { ru: 'событие в календаре', en: 'a calendar event' }, { ru: 'без ручного переноса', en: 'no manual copying' }] },
-        { when: { ru: 'Договор заканчивается через 30 дней', en: 'A contract ends in 30 days' }, then: [{ ru: 'письмо клиенту о продлении', en: 'a renewal email to the client' }, { ru: 'задача менеджеру', en: 'a task for the manager' }] },
+        { cat: { ru: 'Заявки', en: 'Inquiries' }, when: { ru: 'Заявка пришла с сайта или из Telegram', en: 'An inquiry arrives from the site or Telegram' }, then: [{ ru: 'карточка в CRM', en: 'a CRM record' }, { ru: 'ответ клиенту', en: 'a reply to the client' }, { ru: 'уведомление менеджеру с выжимкой', en: 'a summary for the manager' }] },
+        // flow: эта цепочка рисуется крупной тёмной схемой (шаги с пояснениями)
+        {
+          cat: { ru: 'Продажи', en: 'Sales' },
+          flow: [
+            { t: { ru: 'сразу', en: 'right away' }, s: { ru: 'данные клиента подставлены', en: 'client details filled in' } },
+            { t: { ru: 'следом', en: 'next' }, s: { ru: 'на почту и в Telegram', en: 'by email and Telegram' } },
+            { t: { ru: 'следом', en: 'next' }, s: { ru: 'проверить оплату через 3 дня', en: 'check the payment in 3 days' } },
+          ],
+          when: { ru: 'Сделка закрыта в CRM', en: 'A deal is closed in the CRM' }, then: [{ ru: 'договор по шаблону', en: 'a contract from the template' }, { ru: 'счёт клиенту', en: 'an invoice to the client' }, { ru: 'задача аккаунт-менеджеру', en: 'a task for the account manager' }] },
+        { cat: { ru: 'Отчёты', en: 'Reports' }, when: { ru: 'Каждый день в 19:00', en: 'Every day at 19:00' }, then: [{ ru: 'отчёт собран из CRM и таблиц', en: 'a report compiled from the CRM and sheets' }, { ru: 'отправлен руководителю в Telegram', en: 'sent to the owner in Telegram' }] },
+        { cat: { ru: 'Согласования', en: 'Approvals' }, when: { ru: 'Срок согласования вышел', en: 'An approval deadline passes' }, then: [{ ru: 'напоминание ответственному', en: 'a reminder to the owner' }, { ru: 'через сутки эскалация выше', en: 'escalation a day later' }] },
+        { cat: { ru: 'Данные', en: 'Data' }, when: { ru: 'Изменилась строка в таблице', en: 'A row changes in a spreadsheet' }, then: [{ ru: 'обновление в CRM', en: 'the CRM is updated' }, { ru: 'событие в календаре', en: 'a calendar event' }, { ru: 'без ручного переноса', en: 'no manual copying' }] },
+        { cat: { ru: 'Договоры', en: 'Contracts' }, when: { ru: 'Договор заканчивается через 30 дней', en: 'A contract ends in 30 days' }, then: [{ ru: 'письмо клиенту о продлении', en: 'a renewal email to the client' }, { ru: 'задача менеджеру', en: 'a task for the manager' }] },
       ],
     },
     // Живые примеры берутся из кейсов главной (CASES_SYS) по id:
     // цифры там измерены, дублировать их здесь нельзя.
     examples: {
       title: { ru: 'Два живых примера', en: 'Two live examples' },
+      lead: { ru: 'Два живых контура. Цифры измерены, а не обещаны.', en: 'Two live setups. The numbers are measured, not promised.' },
       items: [
         { caseId: 'own-crm', note: { ru: 'Заявки с сайта и из Telegram ложатся в Notion, ассистент отвечает первым и заводит карточку сам.', en: 'Inquiries from the site and Telegram land in Notion; the assistant replies first and creates the record itself.' } },
         { caseId: 'eastride', image: '/case-media/eastride-home.jpg', imageAlt: { ru: 'Главная страница EastRide: платформа аренды байков, которую обслуживают автоматизации', en: 'EastRide home page: a bike rental platform run by automations' }, note: { ru: 'Заявки партнёрам, публикации и уведомления идут без операторов.', en: 'Partner inquiries, publications and notifications run without operators.' } },
@@ -639,6 +737,7 @@ export const SERVICE_PAGES = {
     // Цены - только из public/pricing.md (с 02.09.2026)
     prices: {
       title: { ru: 'Сколько стоит', en: 'What it costs' },
+      lead: { ru: 'Начинаем с аудита: за неделю понятно, что автоматизировать первым.', en: 'We start with an audit: within a week it is clear what to automate first.' },
       items: [
         { t: { ru: 'Аудит процессов и карта автоматизации', en: 'Process audit and automation map' }, price: { ru: '25 000 ₽', en: '25 000 ₽' }, term: { ru: '3-5 рабочих дней', en: '3-5 working days' } },
         { t: { ru: 'Автоматизация бизнес-процессов', en: 'Business process automation' }, price: { ru: 'от 100 000 ₽', en: 'from 100 000 ₽' }, term: { ru: 'зависит от числа процессов', en: 'depends on the number of processes' } },
@@ -720,8 +819,13 @@ export const TRAINING_SYS = {
 export const CASES_SYS = {
   head: {
     num: { ru: 'Кейсы', en: 'Cases' },
-    title: { ru: 'Проблема → система', en: 'Problem → system' },
-    titleIt: { ru: '→ результат', en: '→ result' },
+    title: { ru: 'Работает у нас самих.', en: 'We run it ourselves.' },
+    titleIt: { ru: 'Каждый день.', en: 'Every day.' },
+    // Подзаголовок под заголовком секции на главной (светлый макет 03.11)
+    sub: {
+      ru: 'Два живых контура. Цифры измерены, а не обещаны.',
+      en: 'Two live loops. The numbers are measured, not promised.',
+    },
     side: {
       ru: 'Каждый проект строится вокруг измеримого результата, а не вокруг технологии ради технологии.',
       en: 'Every project is built around a measurable result - not around technology for its own sake.',
@@ -740,6 +844,22 @@ export const CASES_SYS = {
       flagship: true,
       badge: { ru: 'Наш продукт · работает вживую', en: 'Our product · live' },
       industry: { ru: 'EastRide - travel-платформа', en: 'EastRide - travel platform' },
+      // Короткая версия для компактной карточки на главной: заголовок,
+      // одна фраза и скриншот. Полные problem/solution ниже остаются для
+      // ассистента и страниц услуг.
+      title: { ru: 'EastRide', en: 'EastRide' },
+      summary: {
+        ru: 'Маркетплейс аренды байков и мото-туров по Азии без штата операторов: заявки, партнёры, контент и соцсети на автоматике.',
+        en: 'A bike-rental and moto-tour marketplace across Asia with no operator staff: inquiries, partners, content and social media run on automation.',
+      },
+      link: 'https://eastride.cc',
+      shot: {
+        src: '/case-media/eastride-home.jpg',
+        alt: {
+          ru: 'Главная страница EastRide - живая travel-платформа для райдеров в Азии',
+          en: 'EastRide home page - live travel platform for riders in Asia',
+        },
+      },
       problem: {
         ru: 'Запустить маркетплейс аренды байков и мото-туров по Азии командой без штата: сотни карточек техники, партнёры в 13 городах, заявки, контент и соцсети - всё требовало бы отдела операторов.',
         en: 'Launch a bike-rental and moto-tour marketplace across Asia without hiring a staff: hundreds of vehicle listings, partners in 13 cities, inquiries, content and social media - all of it would normally take a team of operators.',
@@ -749,9 +869,10 @@ export const CASES_SYS = {
         en: 'We built the entire infrastructure with AI tooling: the eastride.cc platform, a partner Telegram bot with a dashboard, a CRM loop, instant inquiry notifications, scheduled content generation and auto-publishing, SEO automation.',
       },
       metrics: [
-        { v: '180+', l: { ru: 'байков в каталоге', en: 'bikes in the catalog' } },
-        { v: '13', l: { ru: 'городов Азии', en: 'cities across Asia' } },
-        { v: '24/7', l: { ru: 'работа без операторов', en: 'runs without operators' } },
+        // s - короткая подпись для главной, l - полная для страниц услуг
+        { v: '180+', l: { ru: 'байков в каталоге', en: 'bikes in the catalog' }, s: { ru: 'байков', en: 'bikes' } },
+        { v: '13', l: { ru: 'городов Азии', en: 'cities across Asia' }, s: { ru: 'городов', en: 'cities' } },
+        { v: '24/7', l: { ru: 'работа без операторов', en: 'runs without operators' }, s: { ru: 'без операторов', en: 'no operators' } },
       ],
     },
     {
@@ -763,6 +884,12 @@ export const CASES_SYS = {
       wide: true,
       badge: { ru: 'Наш процесс · работает вживую', en: 'Our own process · live' },
       industry: { ru: 'AIVFX - заявки собственной студии', en: 'AIVFX - the studio own inquiries' },
+      // Короткая версия для тёмно-синего блока на главной
+      title: { ru: 'Заявки студии AIVFX', en: 'AIVFX studio inquiries' },
+      summary: {
+        ru: 'Заявки с сайта и из Telegram ложатся в Notion, ассистент отвечает первым и заводит карточку сам.',
+        en: 'Inquiries from the site and Telegram land in Notion; the assistant replies first and creates the record itself.',
+      },
       problem: {
         ru: 'Студия продавала клиентам внедрение CRM, а собственные заявки жили в почте и мессенджерах. Вечернее обращение ждало утра, контекст разговора терялся между каналами, а карточку в CRM всё равно надо было заполнять руками.',
         en: 'The studio was selling CRM implementation while its own inquiries lived in email and messengers. An evening message waited until morning, context was lost between channels, and the CRM record still had to be filled in by hand.',
@@ -772,9 +899,9 @@ export const CASES_SYS = {
         en: 'We built the loop without paying for a CRM: inquiries from the website and Telegram land in a Notion database, the assistant replies first, creates the record, pulls the task, niche and pain out of the conversation, sets a qualification verdict and hands the chat to a human together with a ready summary and a link to the record. Running it costs zero per month.',
       },
       metrics: [
-        { v: '4 мин', vEn: '4 min', l: { ru: 'от сообщения до готовой сделки', en: 'from message to a filled deal' } },
-        { v: '24/7', l: { ru: 'приём заявок без операторов', en: 'intake without operators' } },
-        { v: '0', l: { ru: 'ручного ввода в CRM', en: 'manual CRM data entry' } },
+        { v: '4 мин', vEn: '4 min', l: { ru: 'от сообщения до готовой сделки', en: 'from message to a filled deal' }, s: { ru: 'до готовой сделки', en: 'to a filled deal' } },
+        { v: '24/7', l: { ru: 'приём заявок без операторов', en: 'intake without operators' }, s: { ru: 'без операторов', en: 'no operators' } },
+        { v: '0', l: { ru: 'ручного ввода в CRM', en: 'manual CRM data entry' }, s: { ru: 'ручного ввода', en: 'manual entry' } },
       ],
       // Карточка заявки: не скриншот, а тот же формат, что ассистент
       // пишет в Notion. Рисуем разметкой, чтобы не тащить в кадр адрес
@@ -943,22 +1070,19 @@ export const ABOUT_SYS = {
     num: { ru: 'О нас', en: 'About' },
     title: { ru: 'Инженерная студия,', en: 'An engineering studio' },
     titleIt: { ru: 'а не агентство чат-ботов', en: 'not a chatbot agency' },
-    side: {
-      ru: 'AIVFX проектирует системы под процесс конкретной компании - от архитектуры до внедрения и поддержки.',
-      en: 'AIVFX designs systems around a specific company’s process - from architecture to deployment and support.',
-    },
-    sideTitle: 'AIVFX AI systems',
   },
+  // Два коротких абзаца из утверждённого макета светлой главной
   paragraphs: [
     {
-      ru: 'Мы начинали как AI-продакшн: генеративное видео, VFX и автоматизированные контент-конвейеры для брендов. Именно там мы научились главному - собирать из AI-моделей, API и интеграций рабочие системы, которые крутятся каждый день без присмотра.',
-      en: 'We started as an AI production studio: generative video, VFX and automated content pipelines for brands. That is where we learned the key skill - assembling AI models, APIs and integrations into working systems that run every day without supervision.',
+      ru: 'Мы начинали как AI-продакшн: генеративное видео, VFX и контент-конвейеры для брендов. Там научились главному: собирать из моделей, API и интеграций системы, которые работают каждый день без присмотра.',
+      en: 'We started as an AI production studio: generative video, VFX and content pipelines for brands. That is where we learned the key skill: assembling models, APIs and integrations into systems that run every day without supervision.',
     },
     {
-      ru: 'Сегодня главный фокус AIVFX - AI-системы и автоматизации для бизнеса: приём и квалификация заявок, ассистенты, процессы. Для кого это? Клиники, недвижимость, юридические и сервисные компании, образовательные проекты - любой бизнес с потоком обращений и отделом продаж.',
-      en: 'Today the main focus of AIVFX is AI systems and automation for business: lead intake and qualification, assistants, processes. Who is it for? Clinics, real estate, legal and service companies, education projects - any business with an inquiry flow and a sales team.',
+      ru: 'Сегодня главный фокус AIVFX: приём и квалификация заявок, ассистенты, автоматизация процессов.',
+      en: 'Today the main focus of AIVFX is lead intake and qualification, assistants and process automation.',
     },
   ],
+  // «Для кого» - чипы в карточке с текстом
   audience: {
     title: { ru: 'Для кого', en: 'Who it’s for' },
     items: [
@@ -966,29 +1090,22 @@ export const ABOUT_SYS = {
       { ru: 'Недвижимость', en: 'Real estate' },
       { ru: 'Юридические компании', en: 'Legal firms' },
       { ru: 'Сервисные компании', en: 'Service companies' },
-      { ru: 'Образовательные проекты', en: 'Education projects' },
-      { ru: 'Отделы продаж с потоком заявок', en: 'Sales teams with inquiry flow' },
+      { ru: 'Образование', en: 'Education' },
+      { ru: 'Отделы продаж', en: 'Sales teams' },
     ],
   },
   // Честный перенос доверия: бренды из видео-направления
   brands: {
-    label: { ru: 'Выросли из AI-продакшна - делали работы для', en: 'We grew out of AI production - with work for' },
+    label: { ru: 'Выросли из AI-продакшна, делали работы для', en: 'We grew out of AI production, with work for' },
     items: ['AUDI', 'PORSCHE', 'DYSON', 'DANUBE', 'NL INT.', 'WHITEWILL', 'CINQUE', 'DEHANCER'],
   },
   founder: {
     name: { ru: 'Артем Шуткин', en: 'Artem Shutkin' },
     role: { ru: 'Основатель AIVFX', en: 'Founder, AIVFX' },
     line: {
-      ru: 'Каждый проект веду лично - от разбора процесса до запуска и сопровождения. Мне важно, чтобы система реально работала в вашем бизнесе, а не красиво выглядела в презентации.',
-      en: 'I run every project personally - from process mapping to launch and support. What matters to me is a system that actually works in your business, not one that just looks good in a deck.',
+      ru: 'Каждый проект веду лично, от разбора процесса до запуска. Мне важно, чтобы система работала в вашем бизнесе, а не красиво выглядела в презентации.',
+      en: 'I run every project personally, from process mapping to launch. What matters to me is a system that works in your business, not one that just looks good in a deck.',
     },
-  },
-  videoNote: {
-    text: {
-      ru: 'Второе направление студии - AI-видеопродакшн: реклама, продуктовые ролики и контент.',
-      en: 'The studio’s second direction is AI video production: ads, product videos and content.',
-    },
-    link: { ru: 'Смотреть направление AI-видео →', en: 'Explore AI video →' },
   },
 };
 

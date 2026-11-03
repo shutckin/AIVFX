@@ -1150,3 +1150,19 @@ export const GUIDE_UI = {
   fold: { ru: 'Разобраться подробнее', en: 'Dig deeper' },
   faqTitle: { ru: 'Частые вопросы', en: 'Frequently asked questions' },
 };
+
+// Служебные подписи страницы услуги и карточки сделки.
+// Раньше жили прямо в разметке через «L === 'en' ? … : …», теперь здесь,
+// рядом с остальными текстами, на двух языках.
+export const SERVICE_UI = {
+  back: { ru: 'На главную', en: 'Back to home' },
+  navLabel: { ru: 'Навигация', en: 'Breadcrumb' },
+  crumbHome: { ru: 'Главная', en: 'Home' },
+  crumbServices: { ru: 'Услуги', en: 'Services' },
+  example: { ru: 'Пример', en: 'Example' },
+  proofTitle: { ru: 'Одно обращение по шагам', en: 'One inquiry, step by step' },
+  related: { ru: 'Смежные решения', en: 'Related solutions' },
+  readOn: { ru: 'Почитать по теме', en: 'Read on the topic' },
+  dealAria: { ru: 'Карточка сделки в CRM', en: 'CRM deal record' },
+  graphicAria: { ru: 'Схема: ручной перенос данных и то же самое после автоматизации', en: 'Diagram: manual data copying and the same after automation' },
+};

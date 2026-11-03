@@ -6,7 +6,58 @@
    AIVFX — cinematic redesign
    =========================================================== */
 
+/* Светлая тема (с 03.11.2026) - направление «AI-системы», блог, служебные
+   страницы. Язык макета mock-home: светло-серый фон, белые карточки,
+   тёмно-синий текст, один синий акцент. Тёмная палитра осталась только у
+   направления «AI-контент» и портфолио работ: см. .theme-dark ниже. */
 :root {
+  --bg: #f2f3f6;
+  --bg-2: #ffffff;
+  --bg-3: #e9ebf0;
+  --fg: #10182b;
+  --fg-2: #4a5468;
+  --muted: #8a92a3;
+  --muted-2: #b3b9c5;
+  --line: rgba(16, 24, 43, 0.08);
+  --line-2: rgba(16, 24, 43, 0.16);
+  --accent: #2f5fe0;
+  --accent-glow: rgba(47, 95, 224, 0.18);
+  --accent-soft: rgba(47, 95, 224, 0.08);
+  --primary: #2f5fe0;
+  --accent-2: #2f5fe0;
+  /* «Светлая карточка» тёмной темы на светлом фоне становится тёмной:
+     главная кнопка и акцентные плашки - тёмно-синие с белым текстом. */
+  --light-card: #10182b;
+  --light-card-text: #ffffff;
+  --navy: #10182b;
+  --head-2: #9aa1b0; /* вторая, серая фраза заголовка */
+  --surface-shadow: 0 1px 2px rgba(16, 24, 43, 0.04);
+  /* Форма элементов: кнопки-пилюли, заголовки весом 600 (как в макете) */
+  --btn-r: 999px;
+  --head-w: 600;
+  --head-ls: -0.035em;
+  --light-card-hover: #1f2a44;
+  --ghost-bg: #ffffff;
+  --ghost-hover: rgba(16, 24, 43, 0.32);
+
+  --font-display: "Onest", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Onest", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "Onest", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Ширина контента светлых страниц как в макете; тёмным вернули 1440 */
+  --maxw: 1240px;
+  --gutter: clamp(20px, 4vw, 56px);
+
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+}
+
+/* Тёмная палитра: страница AI-контента, «для застройщиков» и портфолио.
+   Акценты (янтарь) .vp-theme задаёт отдельно в video-production.css. */
+.theme-dark,
+.vp-theme,
+.vp-page {
   --bg: #0b0b0d;
   --bg-2: #131417;
   --bg-3: #1b1d21;
@@ -16,25 +67,31 @@
   --muted-2: #4a5158;
   --line: rgba(216, 234, 255, 0.10);
   --line-2: rgba(216, 234, 255, 0.18);
+  --light-card: #e9eef5;
+  --light-card-text: #0b0b0d;
+  --head-2: var(--accent);
+  --btn-r: 10px;
+  --head-w: 500;
+  --head-ls: -0.045em;
+  --maxw: 1440px;
+  --light-card-hover: #ffffff;
+  --ghost-bg: transparent;
+  --ghost-hover: rgba(216, 234, 255, 0.35);
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  color: var(--fg);
+}
+/* Кобальт тёмной темы: только портфолио. У .vp-theme свой янтарь. */
+.theme-dark {
   --accent: #3d6ef7;
   --accent-glow: rgba(61, 110, 247, 0.32);
   --accent-soft: rgba(61, 110, 247, 0.12);
   --primary: #3d6ef7;
-  --accent-2: #6a94ff; /* осветлённый кобальт для мелкого текста (контраст) */
-  --light-card: #e9eef5;
-  --light-card-text: #0b0b0d;
-
-  --font-display: "Onest", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: "Onest", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "Onest", -apple-system, BlinkMacSystemFont, sans-serif;
-
-  --maxw: 1440px;
-  --gutter: clamp(20px, 4vw, 56px);
-
-  --r-sm: 6px;
-  --r-md: 10px;
-  --r-lg: 16px;
+  --accent-2: #6a94ff;
 }
+html.page-dark,
+html.page-dark body { background: #0b0b0d; }
 
 * { box-sizing: border-box; }
 
@@ -72,6 +129,8 @@ img, video { display: block; max-width: 100%; }
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+/* Зерно только на тёмных страницах: на светлом фоне оно даёт грязь. */
+html:not(.page-dark) .grain { display: none; }
 
 .shell { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
 .section { position: relative; padding: clamp(64px, 8vw, 112px) 0; }
@@ -115,7 +174,7 @@ img, video { display: block; max-width: 100%; }
   align-items: center;
   gap: 10px;
   padding: 14px 22px;
-  border-radius: 10px;
+  border-radius: var(--btn-r);
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 600;
@@ -128,9 +187,9 @@ img, video { display: block; max-width: 100%; }
   color: inherit;
 }
 .btn-primary { background: var(--light-card); color: var(--light-card-text); }
-.btn-primary:hover { background: #ffffff; transform: translateY(-1px); }
-.btn-ghost { background: transparent; color: var(--fg); border-color: var(--line-2); }
-.btn-ghost:hover { background: rgba(216,234,255,0.05); border-color: rgba(216,234,255,0.35); }
+.btn-primary:hover { background: var(--light-card-hover); transform: translateY(-1px); }
+.btn-ghost { background: var(--ghost-bg); color: var(--fg); border-color: var(--line-2); }
+.btn-ghost:hover { background: var(--ghost-bg); border-color: var(--ghost-hover); }
 
 /* Стрелка отделена от текста через gap у .btn — пробела в разметке быть
    не должно: React делал из него отдельный текстовый узел, а предзарендеренный
@@ -561,6 +620,23 @@ img, video { display: block; max-width: 100%; }
 }
 
 /* Section headers */
+/* Светлая тема: заголовок секции без надстрочной метки и без линии,
+   под ним короткий серый подзаголовок (.sec-sub), как в макете mock-home.
+   Тёмные страницы видео-направления сохраняют прежний вид. */
+html:not(.page-dark) .sec-num { display: none; }
+html:not(.page-dark) .sec-head {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+html:not(.page-dark) .sec-title { font-size: clamp(30px, 3.4vw, 46px); line-height: 1.08; }
+.sec-sub {
+  margin: 12px 0 0;
+  max-width: 600px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--fg-2);
+}
 /* Заголовок секции: метка сверху, крупный заголовок под ней.
    Без правого столбца с мелким текстом — он только рассеивал внимание. */
 .sec-head {
@@ -570,12 +646,6 @@ img, video { display: block; max-width: 100%; }
   margin-bottom: clamp(32px, 4vw, 56px);
 }
 
-/* Заголовок секции уже закрыт линией снизу. Если следующий блок рисует
-   свою линию сверху во всю ширину, получаются две параллельные черты
-   с пустой полосой между ними — читается как ошибка вёрстки.
-   Гасим верхнюю границу у таких соседей и подтягиваем их к заголовку. */
-.sec-head + .ab-trustbar { border-top: 0; }
-.sec-head + .ab-trustbar { margin-top: 0; padding-top: 0; }
 .sec-num {
   display: block;
   font-family: var(--font-mono);
@@ -588,15 +658,15 @@ img, video { display: block; max-width: 100%; }
 .sec-title {
   font-family: var(--font-display);
   font-size: clamp(36px, 5vw, 72px);
-  font-weight: 500;
-  letter-spacing: -0.045em;
+  font-weight: var(--head-w);
+  letter-spacing: var(--head-ls);
   line-height: 0.95;
   margin: 0;
 }
 .sec-title .it {
   font-style: normal;
-  font-weight: 500;
-  color: var(--accent);
+  font-weight: var(--head-w);
+  color: var(--head-2);
 }
 
 /* Services */
@@ -1464,6 +1534,164 @@ img, video { display: block; max-width: 100%; }
 }
 .hours-row:first-child { border-top: none; }
 
+/* ── Светлая форма заявки (AI-системы) ─────────────────────────────────
+   Белая карточка с полями в тонкой рамке и тёмно-синяя карточка сбоку.
+   Всё под .contact-sys: та же форма на странице AI-контента остаётся
+   тёмной и выглядит как раньше. */
+.contact-sys .contact-grid {
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+.contact-sys .contact-form {
+  gap: 20px;
+  padding: 32px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+.contact-sys .contact-grid-fields { gap: 16px; }
+.contact-sys .field label {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--fg-2);
+}
+.contact-sys .field input,
+.contact-sys .field textarea {
+  padding: 12px 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.contact-sys .field input:focus,
+.contact-sys .field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.contact-sys .field input::placeholder,
+.contact-sys .field textarea::placeholder { color: var(--muted); }
+.contact-sys .field textarea { min-height: 120px; resize: vertical; }
+.contact-sys .field-error { color: #c2410c; letter-spacing: 0; }
+.contact-sys .field-hint { letter-spacing: 0; font-size: 13px; }
+
+/* Телефон: рамка у всей строки, а у самого поля её нет */
+.contact-sys .phone-row {
+  padding: 0 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.contact-sys .phone-row:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.contact-sys .phone-row--error { border-color: #c2410c; }
+.contact-sys .phone-row input,
+.contact-sys .phone-row input:focus {
+  padding: 12px 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.contact-sys .phone-country-view { padding: 12px 0; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+
+/* Чипы канала и бюджета: светлые таблетки, выбранная - тёмно-синяя */
+.contact-sys .budget-chip {
+  padding: 7px 14px;
+  background: var(--bg);
+  border-color: var(--line);
+  font-size: 13px;
+  letter-spacing: 0;
+  color: var(--fg);
+}
+.contact-sys .budget-chip:hover { border-color: var(--line-2); }
+.contact-sys .budget-chip.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
+  font-weight: 500;
+}
+.contact-sys .consent-row input[type="checkbox"]:checked::after { border-color: #ffffff; }
+/* Ссылки-кнопки в тексте согласия при переносе не центрируются */
+.contact-sys .consent-link { text-align: left; }
+
+/* Пока нет согласия, кнопка отправки видимо неактивна */
+.contact-sys .contact-form .btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Боковая карточка: тёмно-синяя, весь текст светлый */
+.contact-sys .contact-side.contact-aside-light {
+  gap: 24px;
+  padding: 28px;
+  background: var(--navy);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--r-lg);
+}
+.contact-sys .contact-aside-light h3 {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #ffffff;
+}
+.contact-sys .contact-aside-light .contact-aside-accent { color: #9db6ff; font-weight: 600; }
+.contact-sys .contact-aside-light .contact-aside-note { color: rgba(255, 255, 255, 0.72); }
+.contact-sys .contact-aside-light .lab {
+  font-size: 13px;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.55);
+}
+.contact-sys .contact-aside-light .val { color: #ffffff; }
+.contact-sys .contact-aside-light .val:hover { color: #9db6ff; }
+.contact-sys .contact-aside-light .hours-row {
+  font-size: 13px;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.82);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.contact-sys .contact-aside-light .hours-row:first-child { border-top: none; }
+.contact-sys .contact-aside-light .hours-closed { color: rgba(255, 255, 255, 0.5); }
+/* Telegram: белая таблетка с тёмно-синим текстом */
+.contact-sys .contact-aside-light .btn-primary {
+  background: #ffffff;
+  color: var(--navy);
+  border-color: #ffffff;
+}
+.contact-sys .contact-aside-light .btn-primary:hover {
+  background: var(--bg-3);
+  border-color: var(--bg-3);
+}
+.contact-sys .contact-aside-light .btn-primary .btn-arrow { background: rgba(16, 24, 43, 0.08); }
+.contact-sys .contact-aside-light .soc-row--light .soc-link {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+.contact-sys .contact-aside-light .soc-row--light .soc-link:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: var(--navy);
+}
+
+/* Ошибка отправки на светлом фоне: тёмно-оранжевый вместо розового */
+.contact-sys .contact-error { border-color: rgba(194, 65, 12, 0.3); }
+.contact-sys .contact-error-text { color: #c2410c; }
+
+@media (max-width: 1100px) {
+  .contact-sys .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .contact-sys .contact-form,
+  .contact-sys .contact-side.contact-aside-light { padding: 20px; }
+}
+
 /* Footer */
 .footer {
   border-top: 1px solid var(--line);
@@ -1541,6 +1769,41 @@ img, video { display: block; max-width: 100%; }
   text-transform: inherit;
   cursor: pointer;
 }
+/* Строка «Est. 2024» под описанием студии */
+.footer-col p.footer-est { margin-top: 12px; font-size: 13px; color: var(--muted); }
+/* В тёмном подвале AI-контента подпись остаётся прежней */
+.vp-theme .footer-col p.footer-est {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ── Светлый подвал (AI-системы, услуги) ──────────────────────────────
+   Подвал светлых страниц лежит прямо в .app, тёмный - внутри .vp-theme,
+   поэтому «.app > .footer» задевает только светлый. Белая полоса с
+   линией сверху, спокойные подписи, без гигантского водяного знака. */
+.app > .footer {
+  padding: 56px 0 28px;
+  background: var(--bg-2);
+}
+.app > .footer .footer-mega { display: none; }
+.app > .footer .footer-cols { padding-bottom: 36px; }
+.app > .footer .footer-col h5 {
+  margin-bottom: 16px;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+.app > .footer .footer-col a:hover,
+.app > .footer .footer-col button:hover { color: var(--fg); }
+.app > .footer .footer-bot {
+  font-size: 13px;
+  letter-spacing: 0;
+}
+.app > .footer .footer-bot button:hover { color: var(--fg); }
+/* Значки соцсетей в рамке: общее правило «.footer-col a» снимало её,
+   и значки висели со сдвигом без видимой границы */
+.app > .footer .soc-link { border: 1px solid var(--line-2); }
+.app > .footer .soc-link:hover { border-color: var(--accent); }
 
 /* Появление секций при скролле.
    Контент виден ПО УМОЛЧАНИЮ: прячем его только когда точно знаем, что
@@ -2215,8 +2478,109 @@ picture { display: contents; }
 }
 .page-topbar > .lang-switch { margin-left: auto; margin-right: 0; }
 
-/* Юридические страницы — фирменный фон вместо старого градиента */
-.legal-page { background: var(--bg); }
+/* ── Юридические страницы (политика, согласие) ─────────────────────────
+   Страница для чтения: светло-серый фон, текст на белой карточке, тёмный
+   текст и синие ссылки. Раньше здесь были классы «белый текст» из
+   тёмной темы, и на светлом фоне текст пропадал. */
+.legal-page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+}
+.legal-wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: clamp(24px, 5vw, 64px) 16px clamp(48px, 6vw, 80px);
+}
+.legal-topbar { margin-bottom: 20px; }
+.legal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 14px;
+  color: var(--fg-2);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.legal-back:hover { color: var(--fg); }
+.legal-back-icon { width: 18px; height: 18px; }
+.legal-card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+.legal-card-in { padding: clamp(20px, 4vw, 48px); }
+.legal-title {
+  margin: 0 0 12px;
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--fg);
+}
+.legal-meta { margin: 0 0 32px; font-size: 14px; color: var(--muted); }
+.legal-meta--note { margin: 0; }
+.legal-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--fg-2);
+}
+.legal-body > * + * { margin-top: 24px; }
+.legal-h2 {
+  margin: 0 0 14px;
+  font-size: clamp(19px, 2.2vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--fg);
+}
+.legal-body strong { font-weight: 600; color: var(--fg); }
+.legal-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.legal-body li::marker { color: var(--muted); }
+.legal-note {
+  margin-top: 32px;
+  padding: 20px 22px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+.legal-note-strong { margin: 0; text-align: center; font-weight: 500; color: var(--fg); }
+
+/* ── Плавающие виджеты на тёмных страницах ─────────────────────────────
+   Чат и плашка cookies рисуются вне обёртки .vp-theme / .theme-dark, то
+   есть берут светлые переменные :root. На тёмных страницах (AI-контент,
+   застройщики, портфолио) App ставит на <html> класс page-dark - по нему
+   возвращаем виджетам прежнюю тёмную палитру с кобальтовым акцентом,
+   чтобы эти страницы выглядели как до светлой темы. */
+html.page-dark .chat-launcher,
+html.page-dark .chat-panel,
+html.page-dark .cookie-banner {
+  --bg: #0b0b0d;
+  --bg-2: #131417;
+  --bg-3: #1b1d21;
+  --fg: #d8eaff;
+  --fg-2: #a9b7c9;
+  --muted: #6c757f;
+  --muted-2: #4a5158;
+  --line: rgba(216, 234, 255, 0.10);
+  --line-2: rgba(216, 234, 255, 0.18);
+  --light-card: #e9eef5;
+  --light-card-text: #0b0b0d;
+  --light-card-hover: #ffffff;
+  --accent: #3d6ef7;
+  --accent-glow: rgba(61, 110, 247, 0.32);
+  --accent-soft: rgba(61, 110, 247, 0.12);
+  --primary: #3d6ef7;
+  --accent-2: #6a94ff;
+  --btn-r: 10px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+}
 
 /* ── Доступность: единый видимый фокус ── */
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible {

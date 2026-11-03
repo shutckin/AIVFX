@@ -7,54 +7,43 @@ import './cases-approach.css';
 import Pic from './Pic';
 import DealCard from './DealCard';
 
-// ── Секция «Кейсы» ───────────────────────────────────────────────────────
-// Флагман EastRide - живой продукт с реальными скриншотами в браузерных
-// рамках и метриками с анимацией накрутки. Ниже - два компактных
-// сценария «было → стало». Плашки «демо-сценарий» на карточках нет: она
-// читалась как «здесь черновик» и сбивала. Честность держит сноска под сеткой.
+// ── Секция «Работает у нас самих» ────────────────────────────────────────
+// Компактная версия по светлому макету (03.11.2026): два живых контура.
+// Сверху тёмно-синий блок «Заявки студии AIVFX» с карточкой заявки,
+// под ним белая карточка EastRide со скриншотом. Длинные тексты
+// «проблема / решение» и демо-сценарии на главной не показываем: они
+// остаются в данных для ассистента и страниц услуг.
 
-// Первое предложение из текста (для компактных демо-карточек)
-const firstSentence = (text) => {
-  const s = String(text).split('. ')[0];
-  return s.endsWith('.') || s.endsWith('!') || s.endsWith('?') ? s : `${s}.`;
-};
-
-// Метрика с накруткой: значение анимируется при попадании в viewport
-const CountMetric = ({ value, label, size }) => {
+// Цифра с накруткой: значение анимируется при попадании в экран
+// (при prefers-reduced-motion сразу финальное, это делает useCountUp)
+const CountNum = ({ value, label }) => {
   const [ref, display] = useCountUp(value);
   return (
-    <div className={`cs2-metric${size === 'lg' ? ' cs2-metric--lg' : ''}`}>
-      <span className="cs2-metric-value" ref={ref}>{display}</span>
-      <span className="cs2-metric-label mono">{label}</span>
+    <div className="cs-num">
+      <dt className="cs-num-value" ref={ref}>{display}</dt>
+      <dd className="cs-num-label">{label}</dd>
     </div>
   );
 };
 
-// Скриншот в макете браузерного окна: полоска с точками + пилюля-адрес
-const BrowserFrame = ({ src, alt, width, height, className }) => (
-  <figure className={`cs2-frame${className ? ` ${className}` : ''}`}>
-    <div className="cs2-frame-bar" aria-hidden="true">
-      <span className="cs2-frame-dot" />
-      <span className="cs2-frame-dot" />
-      <span className="cs2-frame-dot" />
-      <span className="cs2-frame-url mono">eastride.cc</span>
-    </div>
-    <Pic
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      sizes="(max-width: 768px) 100vw, 640px"
-    />
-  </figure>
+// Ряд из трёх цифр кейса. Берём короткую подпись (s), если она есть.
+const Nums = ({ metrics, L }) => (
+  <dl className="cs-nums">
+    {metrics.map((m, i) => (
+      <CountNum
+        key={i}
+        value={L === 'en' && m.vEn ? m.vEn : m.v}
+        label={pick(L, m.s || m.l)}
+      />
+    ))}
+  </dl>
 );
 
 const Cases = () => {
   const L = useLocale();
-  const { head, items, demoNote } = CASES_SYS;
-  const flagship = items.find((item) => item.flagship);
-  const wides = items.filter((item) => item.wide);
-  const demos = items.filter((item) => item.isDemo);
+  const { head, items } = CASES_SYS;
+  const studio = items.find((item) => item.id === 'own-crm');
+  const eastride = items.find((item) => item.id === 'eastride');
 
   return (
     <section className="section" id="cases">
@@ -63,142 +52,61 @@ const Cases = () => {
           num={pick(L, head.num)}
           title={pick(L, head.title)}
           titleIt={pick(L, head.titleIt)}
-          side={pick(L, head.side)}
-          sideTitle={head.sideTitle}
+          sub={head.sub ? pick(L, head.sub) : null}
         />
 
-        <div className="cs-grid">
-          {/* ── Флагман: EastRide, живой продукт ── */}
-          {flagship && (
-            <article className="cs2-flagship reveal" key={flagship.id}>
-              <div className="cs2-left">
-                <span className="cs2-badge mono">{pick(L, flagship.badge)}</span>
-                <h3 className="cs2-title display">{pick(L, flagship.industry)}</h3>
+        {/* ── Тёмно-синий блок: заявки студии ── */}
+        {studio && (
+          <article className="cs-live reveal">
+            <div className="cs-live-text">
+              <span className="cs-badge">{pick(L, studio.badge)}</span>
+              <h3 className="cs-title">{pick(L, studio.title || studio.industry)}</h3>
+              <p className="cs-text">{pick(L, studio.summary || studio.solution)}</p>
+              <Nums metrics={studio.metrics} L={L} />
+            </div>
+            {studio.card && <DealCard card={studio.card} L={L} />}
+          </article>
+        )}
 
-                <div className="cs2-block">
-                  <span className="cs2-block-label mono">
-                    {L === 'en' ? 'Problem' : 'Проблема'}
-                  </span>
-                  <p className="cs2-block-text">{pick(L, flagship.problem)}</p>
-                </div>
-
-                <div className="cs2-block">
-                  <span className="cs2-block-label mono">
-                    {L === 'en' ? 'Solution' : 'Решение'}
-                  </span>
-                  <p className="cs2-block-text">{pick(L, flagship.solution)}</p>
-                </div>
-
-                <div className="cs2-metrics">
-                  {flagship.metrics.map((m, j) => (
-                    <CountMetric
-                      key={j}
-                      size="lg"
-                      value={L === 'en' && m.vEn ? m.vEn : m.v}
-                      label={pick(L, m.l)}
-                    />
-                  ))}
-                </div>
-
-                <a
-                  className="cs2-link mono"
-                  href="https://eastride.cc"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  eastride.cc ↗
-                </a>
-              </div>
-
-              <div className="cs2-shots">
-                <BrowserFrame
-                  className="cs2-shot--main"
-                  src="/case-media/eastride-home.jpg"
-                  alt={L === 'en'
-                    ? 'EastRide home page - live travel platform for riders in Asia'
-                    : 'Главная страница EastRide - живая travel-платформа для райдеров в Азии'}
+        {/* ── EastRide: скриншот и текст ── */}
+        {eastride && (
+          <article className="cs-er reveal">
+            {eastride.shot && (
+              <a
+                className="cs-er-shot"
+                href={eastride.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Pic
+                  src={eastride.shot.src}
+                  alt={pick(L, eastride.shot.alt)}
                   width={1280}
                   height={800}
+                  sizes="(max-width: 900px) 100vw, 680px"
                 />
-                <BrowserFrame
-                  className="cs2-shot--overlay"
-                  src="/case-media/eastride-catalog.jpg"
-                  alt={L === 'en'
-                    ? 'EastRide bike catalog - 180+ vehicles across 13 cities'
-                    : 'Каталог байков EastRide - 180+ единиц техники в 13 городах'}
-                  width={1280}
-                  height={800}
-                />
+              </a>
+            )}
+            <div className="cs-er-text">
+              <div>
+                <span className="cs-badge">{pick(L, eastride.badge)}</span>
+                <h3 className="cs-title">{pick(L, eastride.title || eastride.industry)}</h3>
+                <p className="cs-text">{pick(L, eastride.summary || eastride.solution)}</p>
+                {eastride.link && (
+                  <a
+                    className="cs-er-link"
+                    href={eastride.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {`${eastride.link.replace(/^https?:\/\//, '')} ↗`}
+                  </a>
+                )}
               </div>
-            </article>
-          )}
-
-          {/* ── Второй живой кейс: контур студии, шире демо-карточек ── */}
-          {wides.map((item) => (
-            <article className="cs2-own reveal" key={item.id}>
-              <div className="cs2-own-text">
-                <span className="cs2-badge mono">{pick(L, item.badge)}</span>
-                <h3 className="cs2-title display">{pick(L, item.industry)}</h3>
-
-                <div className="cs2-block">
-                  <span className="cs2-block-label mono">
-                    {L === 'en' ? 'Problem' : 'Проблема'}
-                  </span>
-                  <p className="cs2-block-text">{pick(L, item.problem)}</p>
-                </div>
-
-                <div className="cs2-block">
-                  <span className="cs2-block-label mono">
-                    {L === 'en' ? 'Solution' : 'Решение'}
-                  </span>
-                  <p className="cs2-block-text">{pick(L, item.solution)}</p>
-                </div>
-
-                <div className="cs2-metrics">
-                  {item.metrics.map((m, j) => (
-                    <CountMetric
-                      key={j}
-                      size="lg"
-                      value={L === 'en' && m.vEn ? m.vEn : m.v}
-                      label={pick(L, m.l)}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {item.card && <DealCard card={item.card} L={L} />}
-            </article>
-          ))}
-
-          {/* ── Демо-сценарии: компактно, «было → стало» + цифры ── */}
-          {demos.map((item) => (
-            <article className="cs2-demo reveal" key={item.id}>
-              <div className="cs2-demo-top">
-                <h3 className="cs2-demo-industry mono">{pick(L, item.industry)}</h3>
-              </div>
-
-              <p className="cs2-flow">
-                <span className="cs2-flow-was">{firstSentence(pick(L, item.problem))}</span>
-                <span className="cs2-flow-arrow mono">
-                  {L === 'en' ? '→ Solution' : '→ Решение'}
-                </span>
-                <span className="cs2-flow-now">{firstSentence(pick(L, item.solution))}</span>
-              </p>
-
-              <div className="cs2-metrics cs2-metrics--demo">
-                {item.metrics.map((m, j) => (
-                  <CountMetric
-                    key={j}
-                    value={L === 'en' && m.vEn ? m.vEn : m.v}
-                    label={pick(L, m.l)}
-                  />
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <p className="cs-demo-note reveal">{pick(L, demoNote)}</p>
+              <Nums metrics={eastride.metrics} L={L} />
+            </div>
+          </article>
+        )}
       </div>
     </section>
   );

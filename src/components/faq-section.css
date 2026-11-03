@@ -1,127 +1,59 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   СЕКЦИЯ «ЧАСТЫЕ ВОПРОСЫ» (faq-band)
+   СЕКЦИЯ «ЧАСТЫЕ ВОПРОСЫ» (faq-band) - макет светлой главной
 
-   Раньше FAQ повторял ритм всех остальных секций: заголовок во всю
-   ширину, под ним список тонких строк. На странице, где таких секций
-   подряд шесть, он просто терялся.
-
-   Здесь ритм сломан намеренно: секция стоит на своей полосе фона,
-   заголовок уехал в левую колонку и держится при прокрутке, а вопросы
-   стали карточками с глубиной вместо волосяных линий.
-
-   Всё заскоплено внутрь .faq-band: базовые .faq-item из index.css
-   продолжает использовать страница видеопродакшна, её вид не меняется.
+   Заголовок сверху, под ним две колонки белых скруглённых строк с синим
+   «+». Всё заскоплено внутрь .faq-band: базовые .faq-item из index.css
+   использует страница видеопродакшна, её вид не меняется.
    ═══════════════════════════════════════════════════════════════════════ */
 
-.faq-band {
-  background: var(--bg-2);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-/* Заголовок слева, вопросы справа. Колонка заголовка уже: длинный
-   список вопросов — главное в секции, ему и больше места. */
-.faq-band .faq-grid {
+/* Две колонки строк. align-items: start - раскрытый ответ не растягивает
+   соседнюю строку в своём ряду */
+.faq-band .faq-cards {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
-  gap: clamp(32px, 5vw, 88px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
   align-items: start;
 }
 
-.faq-aside {
-  position: sticky;
-  top: 120px;
-}
-
-.faq-kicker {
-  display: block;
-  font-size: 12px;
-  letter-spacing: 0.02em;
-  color: var(--accent-2);
-  margin-bottom: clamp(14px, 1.6vw, 22px);
-}
-
-.faq-heading {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(30px, 3.4vw, 52px);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  color: var(--fg);
-}
-.faq-heading .it { color: var(--accent); }
-
-/* Подпись под заголовком: закрывает вопрос «а если моего тут нет» */
-.faq-aside-note {
-  margin: clamp(20px, 2.4vw, 30px) 0 0;
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--fg-2);
-}
-.faq-aside-link {
-  display: inline-block;
-  margin-top: 14px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.25s ease;
-}
-.faq-aside-link:hover { border-bottom-color: var(--accent); }
-
-/* ── Вопросы карточками ── */
-.faq-band .faq-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .faq-card {
-  /* Фон темнее полосы секции: карточка проваливается внутрь, а не
-     всплывает над ней. На тёмной теме это читается честнее подсветки. */
-  background: var(--bg);
+  background: var(--bg-2);
   border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 0 clamp(18px, 2vw, 26px);
-  cursor: pointer;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  border-radius: var(--r-md);
+  transition: border-color 0.25s ease;
 }
 .faq-card:hover { border-color: var(--line-2); }
 
-.faq-card--open {
-  border-color: rgba(84, 122, 255, 0.42);
-  background: var(--bg-3);
-}
-
+/* Строка-вопрос - кнопка во всю ширину карточки */
 .faq-card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: clamp(17px, 1.9vw, 22px) 0;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 18px;
+  background: none;
+  border: none;
+  border-radius: inherit;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
 }
 
 .faq-card-q {
-  font-family: var(--font-display);
-  font-size: clamp(16px, 1.3vw, 19px);
+  font-size: 16px;
   font-weight: 500;
-  letter-spacing: -0.015em;
-  line-height: 1.3;
+  line-height: 1.35;
   color: var(--fg);
-  transition: color 0.25s ease;
 }
-.faq-card:hover .faq-card-q,
-.faq-card--open .faq-card-q { color: var(--accent); }
 
-/* Знак: плюс складывается в минус поворотом одной перекладины */
+/* Синий «+», при раскрытии становится минусом: вертикальная
+   перекладина поворачивается и ложится на горизонтальную */
 .faq-card-sign {
   position: relative;
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 .faq-card-sign::before,
 .faq-card-sign::after {
@@ -129,42 +61,35 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 12px;
+  width: 13px;
   height: 1.5px;
   border-radius: 2px;
-  background: var(--fg-2);
+  background: var(--accent);
   transform: translate(-50%, -50%);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .faq-card-sign::after { transform: translate(-50%, -50%) rotate(90deg); }
-.faq-card--open .faq-card-sign::before,
-.faq-card--open .faq-card-sign::after { background: var(--accent); }
 .faq-card--open .faq-card-sign::after { transform: translate(-50%, -50%) rotate(0deg); }
 
-/* Ответ раскрывается по сетке: так высота анимируется без замера в JS
-   и без прыжка в конце, чем страдает вариант с max-height */
+/* Ответ раскрывается по сетке: высота анимируется без замера в JS */
 .faq-card-body {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .faq-card--open .faq-card-body { grid-template-rows: 1fr; }
-
 .faq-card-body > div { overflow: hidden; }
 
 .faq-card-body p {
   margin: 0;
-  padding: 0 0 clamp(18px, 2vw, 24px);
-  max-width: 62ch;
+  padding: 0 18px 18px;
   font-size: 15px;
-  line-height: 1.65;
+  line-height: 1.6;
   color: var(--fg-2);
 }
 
-/* ── Узкие экраны: колонки складываются ── */
 @media (max-width: 900px) {
-  .faq-band .faq-grid { grid-template-columns: 1fr; gap: clamp(26px, 5vw, 40px); }
-  .faq-aside { position: static; }
+  .faq-band .faq-cards { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {

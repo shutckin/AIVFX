@@ -1,5 +1,4 @@
 import React from 'react';
-import SecHead from './SecHead';
 import { TRAINING_SYS } from '../data/systems-content';
 import { useLocale, pick } from '../i18n';
 import './training.css';
@@ -10,8 +9,10 @@ import './training.css';
 // обучения были связаны только подвалом и мелкими ссылками внизу
 // страниц услуг. Человек листал главную и не видел их вообще.
 //
-// Две карточки, а не три: это не четвёртая «система», а другой способ
-// работать - для тех, кому внедрение сейчас избыточно.
+// Светлая тема (по макету): слева синяя карточка с заголовком и вводным
+// абзацем, справа белые строки-ссылки на страницы обучения. Это не
+// четвёртая «система», а другой способ работать - поэтому без фото и
+// без общего заголовка секции, заголовок живёт внутри синей карточки.
 //
 // На английской версии секция не выводится: занятия ведутся голосом и
 // по-русски, английских версий этих страниц нет намеренно. Показывать
@@ -20,34 +21,34 @@ const Training = () => {
   const L = useLocale();
   if (L === 'en') return null;
 
-  const { head, items, more, lead } = TRAINING_SYS;
+  const { head, items, lead } = TRAINING_SYS;
 
   return (
     <section className="section tr-section" id="training">
       <div className="shell">
-        <SecHead
-          num={pick(L, head.num)}
-          title={pick(L, head.title)}
-          titleIt={pick(L, head.titleIt)}
-        />
+        <div className="tr-layout">
+          <div className="tr-intro reveal">
+            <h2 className="tr-intro-title">
+              {/* Пробел вклеен в выражение: два соседних текстовых узла
+                  ломают гидратацию предзарендеренной страницы */}
+              {`${pick(L, head.title)} ${pick(L, head.titleIt)}`}
+            </h2>
+            <p className="tr-intro-lead">{pick(L, lead)}</p>
+          </div>
 
-        <p className="tr-lead">{pick(L, lead)}</p>
-
-        <div className="tr-grid">
-          {items.map((item) => (
-            <a
-              key={item.slug}
-              href={`/services/${item.slug}/`}
-              className="tr-card reveal"
-            >
-              <h3 className="tr-title">{pick(L, item.title)}</h3>
-              <p className="tr-desc">{pick(L, item.desc)}</p>
-              <span className="tr-more mono">
-                {pick(L, more)}
-                <span className="tr-more-arrow">↗</span>
-              </span>
-            </a>
-          ))}
+          <div className="tr-list">
+            {items.map((item) => (
+              <a
+                key={item.slug}
+                href={`/services/${item.slug}/`}
+                className="tr-row reveal"
+              >
+                <h3 className="tr-row-title">{pick(L, item.title)}</h3>
+                <p className="tr-row-desc">{pick(L, item.desc)}</p>
+                <span className="tr-row-arrow" aria-hidden="true">→</span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>

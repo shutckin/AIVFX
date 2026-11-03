@@ -5,7 +5,6 @@ import { FAQ_SYS } from './data/systems-content';
 
 import Header from './components/Header';
 import Hero from './components/Hero';
-import Stats from './components/Stats';
 
 // Ленивые чанки объявлены парами «фабрика импорта + lazy-компонент».
 // Фабрика нужна, чтобы прогреть чанк до гидратации - см. preloadRouteChunks.
@@ -20,21 +19,17 @@ const loadCookieBanner   = () => import('./components/CookieBanner');
 
 // ── Новые секции главной (AI Systems) ──
 const loadProblems        = () => import('./components/Problems');
-const loadSystemFlow      = () => import('./components/SystemFlow');
 const loadServicesSystems = () => import('./components/ServicesSystems');
 const loadCases           = () => import('./components/Cases');
 const loadTraining        = () => import('./components/Training');
-const loadApproach        = () => import('./components/Approach');
 const loadFaqSection      = () => import('./components/FaqSection');
-const loadIntegrations    = () => import('./components/Integrations');
 
 // ── Новые страницы ──
 const loadServicePage     = () => import('./components/ServicePage');
 const loadVideoProduction = () => import('./components/VideoProduction');
 const loadDevelopersVideo = () => import('./components/DevelopersVideo');
 
-// ── Конверсионные элементы ──
-const loadCTABreak   = () => import('./components/CTABreak');
+// ── Демо-ассистент ──
 // Демо-ассистент: сайт сам показывает продукт, который студия продаёт.
 // Заменяет плавающую Telegram-кнопку - Telegram живёт внутри чата.
 const loadChatWidget = () => import('./components/ChatWidget');
@@ -48,17 +43,13 @@ const Consent         = lazy(loadConsent);
 const Blog            = lazy(loadBlog);
 const CookieBanner    = lazy(loadCookieBanner);
 const Problems        = lazy(loadProblems);
-const SystemFlow      = lazy(loadSystemFlow);
 const ServicesSystems = lazy(loadServicesSystems);
 const Cases           = lazy(loadCases);
 const Training        = lazy(loadTraining);
-const Approach        = lazy(loadApproach);
 const FaqSection      = lazy(loadFaqSection);
-const Integrations    = lazy(loadIntegrations);
 const ServicePage     = lazy(loadServicePage);
 const VideoProduction = lazy(loadVideoProduction);
 const DevelopersVideo = lazy(loadDevelopersVideo);
-const CTABreak        = lazy(loadCTABreak);
 const ChatWidget      = lazy(loadChatWidget);
 
 const SectionFallback = () => (
@@ -265,8 +256,8 @@ export const preloadRouteChunks = () => {
 
   if (page === 'main') {
     chunks.push(
-      loadProblems(), loadSystemFlow(), loadCTABreak(), loadServicesSystems(),
-      loadTraining(), loadCases(), loadApproach(), loadIntegrations(), loadAboutUs(),
+      loadProblems(), loadServicesSystems(),
+      loadTraining(), loadCases(), loadAboutUs(),
       loadFaqSection(),
       loadContactForm()
     );
@@ -397,6 +388,12 @@ function App() {
   const showServicePage   = page === 'service';
   const showVideoPage     = page === 'video';
   const showDevelopers    = page === 'developers';
+  // Тёмные страницы (AI-контент, застройщики, портфолио): помечаем <html>,
+  // чтобы фон за пределами страницы и зерно были тёмными, а не светлыми.
+  const isDarkPage = showVideoPage || showDevelopers || showFullPortfolio;
+  useEffect(() => {
+    document.documentElement.classList.toggle('page-dark', isDarkPage);
+  }, [isDarkPage]);
 
   // Синхронизируем состояние с кнопками браузера "назад"/"вперёд"
   useEffect(() => {
@@ -515,7 +512,7 @@ function App() {
           </Suspense>
         ) : showFullPortfolio ? (
           <Suspense fallback={<SectionFallback />}>
-            <main><FullPortfolio onBack={hideAllPortfolio} /></main>
+            <div className="theme-dark"><main><FullPortfolio onBack={hideAllPortfolio} /></main></div>
           </Suspense>
         ) : showVideoPage ? (
           <Suspense fallback={<SectionFallback />}>
@@ -534,6 +531,9 @@ function App() {
           </Suspense>
         ) : showServicePage ? (
           <Suspense fallback={<SectionFallback />}>
+            {/* Общая шапка и на страницах услуг, как в макете mock-auto:
+                человек видит меню и кнопку «Связаться», а не только «назад» */}
+            <Header />
             <main><ServicePage slug={serviceSlug} /></main>
             <Footer />
           </Suspense>
@@ -567,19 +567,17 @@ function App() {
             </a>
             <Header />
             <main>
+              {/* Главная сокращена 03.11.2026 по просьбе Артема: только то,
+                  что продаёт. Убраны цифры-обещания, схема каналов, полосы-
+                  призывы, шаги подхода и интеграции: короче и плотнее, как
+                  страница автоматизации. Компоненты остались в проекте. */}
               <Hero />
-              <Stats />
               <Suspense fallback={<SectionFallback />}><Problems /></Suspense>
-              <Suspense fallback={<SectionFallback />}><SystemFlow /></Suspense>
-              <Suspense fallback={null}><CTABreak /></Suspense>
               <Suspense fallback={<SectionFallback />}><ServicesSystems /></Suspense>
               {/* Обучение идёт сразу за услугами: человек только что прочитал,
                   что мы строим системы, и здесь узнаёт про второй путь. */}
               <Suspense fallback={null}><Training /></Suspense>
               <Suspense fallback={<SectionFallback />}><Cases /></Suspense>
-              <Suspense fallback={null}><CTABreak variant="light" /></Suspense>
-              <Suspense fallback={<SectionFallback />}><Approach /></Suspense>
-              <Suspense fallback={<SectionFallback />}><Integrations /></Suspense>
               <Suspense fallback={<SectionFallback />}><AboutUs /></Suspense>
               <Suspense fallback={<SectionFallback />}><FaqSection /></Suspense>
               <Suspense fallback={<SectionFallback />}><ContactForm /></Suspense>

@@ -1,643 +1,152 @@
-/* ═══════════════════════════════════════════════════════════════════════
-   AIVFX — секция «Проблема»: bento-сетка с мини-интерфейсами
-   Префикс классов: pbx-
-   Цветовой код:
-     алый rgba(255, 107, 107, ·) — сигнал проблемы (просрочка, разрыв, обрыв)
-     var(--fg-2)                 — нейтральные данные
-     var(--accent-2)             — «правильное» состояние, живой источник
-   Цвет точечный: иконки, бейджи, точки, линии графика. Никаких заливок.
-   ═══════════════════════════════════════════════════════════════════════ */
-
-/* ── Грид ─────────────────────────────────────────────────────────────── */
+/* ── Секция «Проблема», светлая тема (по утверждённому макету mock-home) ──
+   Сетка: слева карточка-фото на две строки, справа 2×2 белые карточки.
+   Цвета через токены темы; два «тёплых» и «голубой» цвета заданы локально
+   на сетке и плашке: секция живёт только на светлой главной. */
 
 .pbx-grid {
+  /* тёплая метка времени: на белом и поверх фото */
+  --pbx-warm: #c2410c;
+  --pbx-warm-on-photo: #ffb38a;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 16px;
-  margin-top: clamp(40px, 5vw, 64px);
+  grid-template-columns: 1.3fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 12px;
 }
 
-/* Desktop: 2 широкие плитки в первом ряду, 3 во втором */
-.pbx-tile:nth-child(1),
-.pbx-tile:nth-child(2) { grid-column: span 3; }
-.pbx-tile:nth-child(n + 3) { grid-column: span 2; }
-
-.pbx-tile {
-  position: relative;
+.pbx-card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: clamp(22px, 2.2vw, 26px);
-  background: var(--bg-2);
-  border: 1px solid var(--line);
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 170px;
+  padding: 22px;
   border-radius: var(--r-lg);
-  overflow: hidden;
-  /* border/background — быстрый hover; opacity/transform — reveal из index.css.
-     Задаём весь shorthand сами, т.к. он перекрывает transition у .reveal. */
-  transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-              background 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.9s cubic-bezier(0.32, 0.72, 0, 1),
-              transform 0.9s cubic-bezier(0.32, 0.72, 0, 1);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
 }
 
-/* Полоска-индикатор сверху: «это проблема» */
-.pbx-tile::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(255, 107, 107, 0.35);
-  opacity: 0.75;
-  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
+.pbx-tm {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--pbx-warm);
+  font-variant-numeric: tabular-nums;
 }
 
-.pbx-tile:hover {
-  border-color: var(--line-2);
-  background: var(--bg-3);
-}
-
-.pbx-tile:hover::before { opacity: 1; }
-
-/* Мини-интерфейс тоже оживает: рамка «экрана» становится заметнее */
-.pbx-tile:hover .pbx-ui { border-color: var(--line-2); }
-
-/* Stagger появления плиток: задержка только на opacity/transform (reveal),
-   hover (border/background) остаётся мгновенным */
-.pbx-grid .pbx-tile:nth-child(2) { transition-delay: 0s, 0s, 0.07s, 0.07s; }
-.pbx-grid .pbx-tile:nth-child(3) { transition-delay: 0s, 0s, 0.12s, 0.12s; }
-.pbx-grid .pbx-tile:nth-child(4) { transition-delay: 0s, 0s, 0.19s, 0.19s; }
-.pbx-grid .pbx-tile:nth-child(5) { transition-delay: 0s, 0s, 0.26s, 0.26s; }
-
-/* Панч-заголовок и тег */
-.pbx-text {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(18px, 1.6vw, 20px);
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: var(--fg);
-}
-
-/* ── Мини-интерфейс: «экран внутри карточки» ─────────────────────────── */
-
-/* Ступень фона на шаг темнее карточки (--bg внутри --bg-2) + своя рамка */
-.pbx-ui {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  /* Растёт на всю свободную высоту плитки: «экраны» в одном ряду
-     выравниваются по нижнему краю, ряд читается как один интерфейс */
-  flex: 1 0 auto;
-  gap: 11px;
-  min-height: 148px;
-  padding: 13px 14px 14px;
-  background: var(--bg);
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-md);
-  overflow: hidden;
-  user-select: none;
-  transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Шапка-контекст: точка + UPPERCASE-лейбл, чтобы за секунду понять экран */
-.pbx-head {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-}
-
-.pbx-head-dot {
-  flex: none;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-}
-
-.pbx-head-live .pbx-head-dot {
-  background: var(--accent-2);
-  box-shadow: 0 0 0 3px rgba(106, 148, 255, 0.14);
-}
-
-.pbx-head-alert .pbx-head-dot {
-  background: rgba(255, 107, 107, 0.9);
-  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.14);
-}
-
-/* Тело мини-интерфейса */
 .pbx-body {
-  position: relative;
-  flex: 1;
-  min-width: 0;
   display: flex;
-}
-
-/* Мелкие моно-подписи внутри мини-UI */
-.pbx-ui .pbx-cap {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-}
-
-.pbx-ui .pbx-cap-alert { color: rgba(255, 107, 107, 0.85); }
-
-/* ── chat: ночная заявка ждёт утра ───────────────────────────────────── */
-
-.pbx-chat {
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 9px;
+  gap: 6px;
 }
 
-.pbx-chat-bubble {
-  max-width: 88%;
-  padding: 9px 12px 8px;
-  background: var(--bg-3);
-  border: 1px solid var(--line);
-  border-radius: 2px 10px 10px 10px;
-}
-
-/* Настоящая реплика клиента, а не серые полоски-заглушки */
-.pbx-chat-msg {
+.pbx-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 12px;
-  line-height: 1.35;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
   color: var(--fg);
 }
 
-.pbx-chat-meta {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 6px;
-  margin-top: 5px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.02em;
+.pbx-tg {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
   color: var(--muted);
 }
 
-/* Галочки серые: доставлено, но не прочитано */
-.pbx-chat-checks { display: inline-flex; color: var(--muted-2); }
-
-/* Пузырь-призрак «печатает» — ответ появится только утром */
-.pbx-chat-ghost {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.pbx-chat-ghost-bubble {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 9px 12px;
-  border: 1px dashed var(--line-2);
-  border-radius: 2px 10px 10px 10px;
-}
-
-.pbx-chat-ghost-bubble i {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--fg-2);
-  animation: pbx-dots 1.6s ease-in-out infinite;
-}
-
-.pbx-chat-ghost-bubble i:nth-child(2) { animation-delay: 0.2s; }
-.pbx-chat-ghost-bubble i:nth-child(3) { animation-delay: 0.4s; }
-
-/* На hover «печатает» ускоряется — плитка еле заметно оживает */
-.pbx-tile:hover .pbx-chat-ghost-bubble i { animation-duration: 0.85s; }
-
-@keyframes pbx-dots {
-  0%, 60%, 100% { opacity: 0.28; }
-  30% { opacity: 1; }
-}
-
-/* ── task: просроченный follow-up ────────────────────────────────────── */
-
-.pbx-task {
-  flex-direction: column;
-  justify-content: center;
-  gap: 7px;
-}
-
-.pbx-task-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 10px;
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-}
-
-/* Просроченная строка — единственная с алой рамкой и левым маркером */
-.pbx-task-row-main {
+/* ── Карточка-фото: снимок во всю карточку + затемнение снизу под текст ── */
+.pbx-card--photo {
   position: relative;
-  border-color: rgba(255, 107, 107, 0.28);
+  grid-row: span 2;
+  min-height: 360px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
   background: var(--bg-3);
 }
 
-.pbx-task-row-main::before {
-  content: '';
+.pbx-photo {
   position: absolute;
-  top: 7px;
-  bottom: 7px;
-  left: -1px;
-  width: 2px;
-  border-radius: 2px;
-  background: rgba(255, 107, 107, 0.8);
-}
-
-/* Соседние строки чуть приглушены — глубина трекера */
-.pbx-task-row-done { opacity: 0.5; }
-.pbx-task-row-next { opacity: 0.62; }
-
-.pbx-task-check {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 14px;
-  height: 14px;
-  border: 1.5px solid var(--line-2);
-  border-radius: 3px;
-}
-
-/* Выполненная задача — кобальтовая галочка: «правильное» состояние */
-.pbx-task-check-done {
-  color: var(--accent-2);
-  border-color: rgba(106, 148, 255, 0.45);
-  background: var(--accent-soft);
-}
-
-.pbx-task-label {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0;
-  color: var(--fg-2);
-}
-
-.pbx-task-row-done .pbx-task-label {
-  text-decoration: line-through;
-  text-decoration-color: rgba(216, 234, 255, 0.35);
-}
-
-.pbx-task-row-main .pbx-task-label { color: var(--fg); }
-
-.pbx-task-date {
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-}
-
-/* Бейдж просрочки */
-.pbx-task-badge {
-  flex: none;
-  padding: 3px 7px;
-  font-family: var(--font-mono);
-  font-size: 8.5px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: rgba(255, 107, 107, 0.95);
-  border: 1px solid rgba(255, 107, 107, 0.4);
-  border-radius: 100px;
-  white-space: nowrap;
-}
-
-/* ── pipe: разрыв WhatsApp → CRM ─────────────────────────────────────── */
-
-.pbx-pipe {
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-}
-
-.pbx-pipe-node {
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-}
-
-.pbx-pipe-chip {
-  padding: 8px 12px;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--fg);
-  background: var(--bg-3);
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-sm);
-  white-space: nowrap;
-}
-
-/* Приёмник мёртв — рамка алая, текст приглушён */
-.pbx-pipe-chip-dead {
-  color: var(--fg-2);
-  border-color: rgba(255, 107, 107, 0.25);
-  border-style: dashed;
-}
-
-.pbx-pipe-sub {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
-.pbx-pipe-sub-ok { color: var(--accent-2); }
-.pbx-pipe-sub-alert { color: rgba(255, 107, 107, 0.85); }
-
-.pbx-pipe-line {
-  position: relative;
-  flex: 1;
-  height: 1px;
-  min-width: 14px;
-  margin-bottom: 20px; /* компенсируем подпись под чипами */
-  background-image: linear-gradient(90deg, var(--line-2) 55%, transparent 0);
-  background-size: 8px 1px;
-  background-repeat: repeat-x;
-}
-
-/* Правый отрезок мёртвый — почти невидим */
-.pbx-pipe-line-dead { opacity: 0.4; }
-
-.pbx-pipe-break {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  margin: 0 6px 20px;
-  color: rgba(255, 107, 107, 0.9);
-}
-
-/* ── copy: ручной перенос Excel → CRM ────────────────────────────────── */
-
-.pbx-copy {
-  flex-direction: row;
-  align-items: stretch;
-  gap: 9px;
-}
-
-.pbx-copy-win {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-  padding: 9px 10px;
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-}
-
-.pbx-copy-win .pbx-cap { margin-bottom: 2px; font-size: 8.5px; }
-
-/* Слева — реальные строки данных */
-.pbx-copy-row {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0;
-  color: var(--fg-2);
-}
-
-/* Справа — пустые строки: данные не доехали. Вот здесь пустота уместна. */
-.pbx-copy-win-dst { border-style: dashed; border-color: rgba(255, 107, 107, 0.18); }
-
-.pbx-copy-empty {
-  height: 14px;
-  border-bottom: 1px dashed var(--line-2);
-}
-
-.pbx-copy-mid {
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  color: var(--muted);
-}
-
-.pbx-copy-mid .pbx-cap { font-size: 8.5px; white-space: nowrap; }
-
-/* Строка, «переносимая» вручную — subtle цикл 3s */
-.pbx-copy-carrier {
-  position: absolute;
-  top: 58%;
-  left: 12%;
-  width: 15%;
-  height: 5px;
-  border-radius: 3px;
-  background: rgba(216, 234, 255, 0.4);
-  opacity: 0;
-  animation: pbx-carry 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  pointer-events: none;
-}
-
-@keyframes pbx-carry {
-  0% { transform: translateX(0); opacity: 0; }
-  12% { opacity: 0.9; }
-  72% { opacity: 0.9; }
-  88%, 100% { transform: translateX(340%); opacity: 0; }
-}
-
-/* ── churn: обрыв выручки ────────────────────────────────────────────── */
-
-.pbx-churn {
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-}
-
-/* Растягиваем по ширине; штрихи держим на non-scaling-stroke (в JSX) */
-.pbx-churn-plot {
-  position: relative;
-  display: block;
-  flex: none;
-  width: 100%;
-  height: 62px;
-}
-
-.pbx-churn-svg {
-  display: block;
+  inset: 0;
   width: 100%;
   height: 100%;
+  max-width: none;
+  object-fit: cover;
 }
 
-/* Линия «дорисовывается» один раз при появлении в viewport.
-   База 0 — если .in почему-то не придёт, график всё равно виден. */
-.pbx-churn-line,
-.pbx-churn-drop {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-
-.pbx-tile.reveal:not(.in) .pbx-churn-line,
-.pbx-tile.reveal:not(.in) .pbx-churn-drop { stroke-dashoffset: 1; }
-
-.pbx-tile.reveal.in .pbx-churn-line {
-  animation: pbx-draw 0.9s cubic-bezier(0.32, 0.72, 0, 1) 0.3s forwards;
-}
-
-.pbx-tile.reveal.in .pbx-churn-drop {
-  animation: pbx-draw 0.5s cubic-bezier(0.5, 0, 0.9, 0.5) 1.15s forwards;
-}
-
-@keyframes pbx-draw {
-  from { stroke-dashoffset: 1; }
-  to { stroke-dashoffset: 0; }
-}
-
-/* Точка обрыва с ореолом — HTML, чтобы не искажалась растяжением SVG */
-.pbx-churn-dot {
+.pbx-card--photo::after {
+  content: '';
   position: absolute;
-  left: 89%;      /* x = 178 / 200 */
-  top: 91.7%;     /* y = 66 / 72  */
-  width: 7px;
-  height: 7px;
-  margin: -3.5px 0 0 -3.5px;
-  border-radius: 50%;
-  background: rgba(255, 107, 107, 0.95);
-  box-shadow: 0 0 0 5px rgba(255, 107, 107, 0.16), 0 0 12px rgba(255, 107, 107, 0.5);
-  opacity: 0;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 14, 24, 0.85), rgba(10, 14, 24, 0) 60%);
   pointer-events: none;
 }
 
-.pbx-tile.reveal.in .pbx-churn-dot {
-  animation: pbx-pop 0.4s cubic-bezier(0.32, 0.72, 0, 1) 1.6s forwards;
-}
-
-@keyframes pbx-pop {
-  from { opacity: 0; transform: scale(0.4); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.pbx-churn-label {
+.pbx-photo-in {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding: 24px;
   display: flex;
-  justify-content: flex-end;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: rgba(255, 107, 107, 0.9);
+  flex-direction: column;
+  gap: 8px;
 }
 
-/* ── Outro ───────────────────────────────────────────────────────────── */
+.pbx-card--photo .pbx-tm { color: var(--pbx-warm-on-photo); }
+.pbx-card--photo .pbx-title { color: #ffffff; }
+.pbx-card--photo .pbx-tg { color: rgba(255, 255, 255, 0.7); }
 
+/* ── Плашка-вывод под сеткой ── */
 .pbx-outro {
-  margin-top: clamp(28px, 3.5vw, 48px);
-  padding: clamp(24px, 3vw, 40px) clamp(24px, 3.4vw, 48px);
-  background: linear-gradient(90deg, var(--accent-soft), transparent 70%);
-  border-left: 2px solid var(--accent);
-  border-radius: 0 var(--r-lg) var(--r-lg) 0;
-}
-
-.pbx-outro p {
-  margin: 0;
-  max-width: 860px;
+  margin: 16px 0 0;
+  padding: 26px 28px;
+  border-radius: var(--r-lg);
+  background: var(--navy);
+  color: #ffffff;
   font-family: var(--font-display);
-  font-size: clamp(18px, 2vw, 26px);
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: -0.015em;
-  color: var(--fg);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
 }
 
-/* ── Респонсив ───────────────────────────────────────────────────────── */
+.pbx-outro-it { color: #9db6ff; }
 
+/* ── Планшет: фото во всю ширину сверху, карточки 2×2 под ним ── */
 @media (max-width: 1024px) {
-  .pbx-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-  .pbx-tile:nth-child(n) { grid-column: auto; }
-  .pbx-tile:nth-child(5) { grid-column: 1 / -1; }
+  .pbx-grid { grid-template-columns: 1fr 1fr; }
+
+  .pbx-card--photo {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    min-height: 320px;
+  }
 }
 
-@media (max-width: 768px) {
+/* ── Телефон: всё в одну колонку ── */
+@media (max-width: 640px) {
   .pbx-grid { grid-template-columns: 1fr; }
-  .pbx-tile:nth-child(5) { grid-column: auto; }
-  .pbx-grid .pbx-tile:nth-child(n) { transition-delay: 0s; }
 
-  .pbx-ui { min-height: 132px; padding: 12px 12px 13px; }
-  .pbx-chat-bubble { max-width: 92%; }
-  .pbx-task-label { font-size: 11px; }
-  .pbx-pipe-chip { padding: 7px 9px; font-size: 9.5px; letter-spacing: 0.02em; }
-  .pbx-pipe-break { width: 22px; margin: 0 3px 20px; }
-  .pbx-copy-mid .pbx-cap { display: none; }
-  .pbx-outro { border-radius: 0 var(--r-md) var(--r-md) 0; }
-}
+  .pbx-card {
+    min-height: 0;
+    gap: 18px;
+    padding: 20px;
+  }
 
-@media (max-width: 560px) {
-  .pbx-head { font-size: 10px; letter-spacing: 0.02em; }
-  .pbx-chat-msg { font-size: 11.5px; }
-  .pbx-copy-row { font-size: 10px; }
-  .pbx-task-date { display: none; }
-  .pbx-pipe-sub { font-size: 8.5px; }
-  /* Ужимаем бейдж, иначе «Follow-up — Иван, КП» обрезается многоточием */
-  .pbx-task-badge { padding: 3px 5px; letter-spacing: 0.03em; }
-  .pbx-task-row { padding: 9px 8px; gap: 7px; }
-}
+  /* Строго после .pbx-card: иначе min-height: 0 перебивает высоту фото.
+     При высоте меньше 300px текст поверх фото закрывает лицо флористки. */
+  .pbx-card--photo {
+    min-height: 300px;
+    padding: 0;
+  }
 
-/* Самые узкие экраны: поджимаем данные, чтобы строки не уходили в многоточие */
-@media (max-width: 400px) {
-  .pbx-copy { gap: 7px; }
-  .pbx-copy-win { padding: 8px 5px; }
-  .pbx-copy-row { font-size: 9.5px; }
-  .pbx-task-label { font-size: 10.5px; }
-  .pbx-task-badge { font-size: 8px; }
-}
+  .pbx-title { font-size: 18px; }
 
-/* ── Reduced motion ──────────────────────────────────────────────────── */
+  .pbx-photo-in { padding: 20px; }
 
-@media (prefers-reduced-motion: reduce) {
-  .pbx-tile,
-  .pbx-tile:hover,
-  .pbx-ui { transition: none; }
-  .pbx-grid .pbx-tile:nth-child(n) { transition-delay: 0s; }
-
-  .pbx-chat-ghost-bubble i,
-  .pbx-tile:hover .pbx-chat-ghost-bubble i { animation: none; opacity: 0.6; }
-  .pbx-task-badge { animation: none; opacity: 1; }
-  .pbx-pipe-dot { animation: none; transform: translateX(100%); }
-  .pbx-pipe-dot::after { animation: none; opacity: 1; background: rgba(255, 107, 107, 0.9); }
-  .pbx-copy-carrier { animation: none; opacity: 0.5; transform: translateX(170%); }
-
-  /* График показываем сразу, без «дорисовки» */
-  .pbx-churn-line,
-  .pbx-churn-drop,
-  .pbx-tile.reveal:not(.in) .pbx-churn-line,
-  .pbx-tile.reveal:not(.in) .pbx-churn-drop { animation: none; stroke-dashoffset: 0; }
-  .pbx-churn-dot,
-  .pbx-tile.reveal.in .pbx-churn-dot { animation: none; opacity: 1; transform: none; }
+  .pbx-outro {
+    padding: 22px 20px;
+    font-size: 17px;
+  }
 }
