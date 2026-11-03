@@ -25,8 +25,8 @@ const TagBadges = ({ tags }) => {
     <div className="badges">
       {visible.map((t) => {
         const label =
-          t === 'Съемка' ? (en ? 'SHOOTING' : 'СЪЁМКА') :
-          t === 'Real Estate' ? (en ? 'REAL ESTATE' : 'ЖК') :
+          t === 'Съемка' ? (en ? 'Shooting' : 'Съёмка') :
+          t === 'Real Estate' ? (en ? 'Real estate' : 'ЖК') :
           t.toUpperCase();
         const cls = t === 'AI' ? 'tag-ai' : t === 'VFX' ? 'tag-vfx' : 'tag-generic';
         return <span key={t} className={`tag ${cls}`}>{label}</span>;
@@ -188,7 +188,7 @@ const FullPortfolio = ({ onBack }) => {
 
       <div className="shell fp-content">
         <div className="fp-title-block">
-          <div className="sec-num">{en ? 'ALL WORKS' : 'ВСЕ РАБОТЫ'}</div>
+          <div className="sec-num">{en ? 'All works' : 'Все работы'}</div>
           <h1 className="sec-title">
             {en ? 'Full ' : 'Полный '}<span className="it">{en ? 'catalog' : 'каталог'}</span>
           </h1>

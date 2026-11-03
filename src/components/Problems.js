@@ -59,17 +59,17 @@ const UiTask = ({ L }) => (
         </svg>
       </span>
       <span className="pbx-task-label">{L === 'en' ? 'Send invoice - Acme' : 'Счёт - ООО «Вектор»'}</span>
-      <span className="pbx-task-date">{L === 'en' ? 'Mon' : 'ПН'}</span>
+      <span className="pbx-task-date">{L === 'en' ? 'Mon' : 'Пн'}</span>
     </div>
     <div className="pbx-task-row pbx-task-row-main">
       <span className="pbx-task-check" />
       <span className="pbx-task-label">{L === 'en' ? 'Follow-up - John, quote' : 'Follow-up - Иван, КП'}</span>
-      <span className="pbx-task-badge">OVERDUE · 3 DAYS</span>
+      <span className="pbx-task-badge">{L === 'en' ? 'Overdue · 3 days' : 'Просрочено · 3 дня'}</span>
     </div>
     <div className="pbx-task-row pbx-task-row-next">
       <span className="pbx-task-check" />
       <span className="pbx-task-label">{L === 'en' ? 'Call back - Northwind' : 'Перезвонить - Мосстрой'}</span>
-      <span className="pbx-task-date">{L === 'en' ? 'Fri' : 'ПТ'}</span>
+      <span className="pbx-task-date">{L === 'en' ? 'Fri' : 'Пт'}</span>
     </div>
   </UiFrame>
 );

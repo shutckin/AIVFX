@@ -12,12 +12,12 @@
 .blogx-top { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
 .blogx-top button, .blogx-top a { background: none; border: 0; padding: 0; font: inherit; color: var(--muted); cursor: pointer; }
 .blogx-top button:hover, .blogx-top a:hover { color: var(--fg); }
-.blogx-wm { font-weight: 700; letter-spacing: 0.04em; color: var(--fg); font-size: 14px; }
+.blogx-wm { font-weight: 600; letter-spacing: 0.04em; color: var(--fg); font-size: 14px; }
 .blogx-top .art-theme { margin-left: auto; }
 
 /* Заголовок страницы */
 .blogx-head { padding: 26px 0 22px; max-width: 760px; }
-.blogx-head h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.04; font-weight: 700; letter-spacing: -0.03em; margin: 0 0 14px; color: var(--fg); }
+.blogx-head h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.04; font-weight: 600; letter-spacing: -0.03em; margin: 0 0 14px; color: var(--fg); }
 .blogx-head p { font-size: 18px; line-height: 1.55; color: var(--fg-2); margin: 0; }
 
 /* ── Панель управления: поиск, категории, сортировка ─────────────────── */

@@ -73,9 +73,8 @@
   gap: 8px;
   margin-top: auto;
   padding-top: 22px;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
   color: var(--fg-2);
   transition: color 0.3s ease;
 }
@@ -112,9 +111,8 @@
 }
 
 .sp-back {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
   color: var(--muted);
   text-decoration: none;
   transition: color 0.3s ease;
@@ -146,9 +144,8 @@
 
 /* заголовки внутренних блоков */
 .sp-block-title {
-  font-size: 0.74rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
   color: var(--muted);
   margin: 0 0 26px;
 }
@@ -218,28 +215,9 @@
   border-bottom: 1px solid var(--line);
 }
 
-.sp-proof-dots {
-  display: inline-flex;
-  gap: 6px;
-}
-
-.sp-proof-dots i {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--line-2);
-}
-
-.sp-proof-dots i:first-child {
-  background: var(--accent);
-  opacity: 0.7;
-}
-
 .sp-proof-name {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--muted);
+  font-size: 0.8rem;
+  color: var(--fg-2);
 }
 
 .sp-proof-body {
@@ -463,9 +441,8 @@
 }
 
 .sg-toc-title {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.02em;
   color: var(--accent-2);
 }
 
@@ -497,8 +474,8 @@
   left: 0;
   top: 8px;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.08em;
+  font-size: 12px;
+  letter-spacing: 0.02em;
   color: var(--muted);
   transition: color 0.2s ease;
 }
@@ -509,9 +486,8 @@
 .sg-readtime {
   padding-top: 14px;
   border-top: 1px solid var(--line);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.02em;
   color: var(--muted);
 }
 
@@ -602,7 +578,7 @@
   display: grid;
   place-items: center;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   color: var(--accent-2);
 }
 
@@ -681,9 +657,8 @@
 }
 .sp-readmore-cat {
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.02em;
   color: var(--accent-2);
 }
 .sp-readmore-title {
@@ -696,7 +671,7 @@
 .sp-readmore-time {
   margin-top: auto;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
 }
 

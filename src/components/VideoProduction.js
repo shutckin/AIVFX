@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SecHead from './SecHead';
 import ModeToggle from './ModeToggle';
 import ProcessFlow from './ProcessFlow';
@@ -27,53 +27,6 @@ import './training.css'; // врезка «хотите делать сами»
 // v5: вместо иконок-карточек услуг - витрина реальных кадров (VIDEO_SHOWCASE),
 // плюс два новых блока: таймлайн процесса и список того, что клиент получает.
 
-// ── Hero-визуал: робот ──
-// Это то самое видео из старого hero (коммит 2d2b20a): /fixed/aivid.mp4 -
-// 3D-голова красного робота, светящаяся на чёрном. Раньше оно лежало фоном
-// во всю ширину, теперь это художественный объект в правой колонке: круглая
-// маска с мягко растворяющимся краем, тёплое свечение под ним и тонкое кольцо.
-//
-// Параллакс: слушатель на секции hero (не на window), passive, троттлинг через
-// requestAnimationFrame, лерп 0.08, диапазон ±6deg. Не вешается вовсе при
-// prefers-reduced-motion и на тач-устройствах (нет hover / точного курсора).
-
-// Сцена робота - точь-в-точь как в первой версии сайта: SVG-кольца, halo,
-// сканирующая линия и HUD-подписи поверх фонового видео с 3D-роботом.
-const RobotStage = () => {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const onMove = (e) => {
-      if (!ref.current) return;
-      const x = (e.clientX / window.innerWidth - 0.5) * 16;
-      const y = (e.clientY / window.innerHeight - 0.5) * 16;
-      ref.current.style.setProperty('--mx', x + 'px');
-      ref.current.style.setProperty('--my', y + 'px');
-    };
-    window.addEventListener('mousemove', onMove, { passive: true });
-    return () => window.removeEventListener('mousemove', onMove);
-  }, []);
-
-  return (
-    <div className="robot-stage" ref={ref} aria-hidden="true">
-      <div className="robot-halo" />
-      <div className="robot-scan" />
-      <div className="robot-glow" />
-      <svg className="robot-rings" viewBox="0 0 600 600">
-        <circle cx="300" cy="300" r="220" className="r1" />
-        <circle cx="300" cy="300" r="270" className="r2" />
-        <circle cx="300" cy="300" r="150" className="r3" />
-      </svg>
-      <div className="robot-hud hud-bl">
-        <span className="hud-dot" />
-        <span>LAT +55.75°  LON +37.61°</span>
-      </div>
-      <div className="robot-hud hud-br">
-        <span>© AIVFX SYSTEMS</span>
-      </div>
-    </div>
-  );
-};
 // Шапка страницы - та же, что на главной: логотип прижат к левому краю
 // экрана, тумблер направлений сразу за ним, CTA - к правому краю. Раньше
 // шапка жила внутри .shell и «висела» посреди экрана, не попадая в углы.
@@ -216,8 +169,8 @@ const VideoProduction = () => {
           со страницы уходим переключением направления, а не шагом назад. */}
       <VpHeader contactHref={contactHref} en={en} locale={L} />
 
-      {/* Первый экран - во всю ширину и высоту окна: видео с 3D-роботом,
-          градиентный overlay, кольца-HUD и текст поверх */}
+      {/* Первый экран - во всю ширину и высоту окна: отрывок из ролика
+          Porsche 911 (работа студии), затемнение и текст поверх */}
       <header className="hero vp-hero-full" id="hero">
         <video
           className="hero-video"
@@ -226,17 +179,16 @@ const VideoProduction = () => {
           loop
           playsInline
           preload="auto"
-          poster="/fixed/aivid-poster.jpg"
+          poster="/fixed/hero-porsche-poster.jpg"
           ref={(el) => { if (el) { el.muted = true; el.play().catch(() => {}); } }}
         >
-          <source src="/fixed/aivid.mp4" type="video/mp4" />
+          <source src="/fixed/hero-porsche.mp4" type="video/mp4" />
         </video>
         <div className="hero-video-overlay" />
-        <RobotStage />
 
         <div className="shell hero-inner">
           <span className="kicker vp-hero-kicker">
-            {en ? 'AI VIDEO & VFX FOR BRANDS' : 'AI-ВИДЕО И VFX ДЛЯ БРЕНДОВ'}
+            {en ? 'AI video & VFX for brands' : 'AI-видео и VFX для брендов'}
           </span>
 
           <h1 className="hero-headline display">
@@ -263,7 +215,7 @@ const VideoProduction = () => {
       <section className="vp2-works" id="works" aria-label={en ? 'Selected works' : 'Избранные работы'}>
         <div className="shell">
           <SecHead
-            num={en ? 'WORKS' : 'РАБОТЫ'}
+            num={en ? 'Works' : 'Работы'}
             title={en ? 'What we have' : 'Что мы уже'}
             titleIt={en ? 'already shot' : 'сняли'}
           />
@@ -400,13 +352,13 @@ const VideoProduction = () => {
       <section className="section">
         <div className="shell">
           <SecHead
-            num={en ? 'WHY AI' : 'ПОЧЕМУ AI'}
+            num={en ? 'Why AI' : 'Почему AI'}
             title={en ? 'The old world' : 'Старый мир'}
             titleIt={en ? 'vs the new' : 'против нового'}
             side={en
               ? 'Classic production against an AI pipeline: same cinematic image, a fraction of the time and budget.'
               : 'Классический продакшн против AI-пайплайна: та же кинематографичная картинка за долю времени и бюджета.'}
-            sideTitle="COMPARE"
+            sideTitle="Compare"
           />
           <div className="vp3-compare reveal">
             <div className="vp3-compare-col vp3-compare-old">
@@ -495,7 +447,7 @@ const VideoProduction = () => {
               <div key={i} className={`vp3-format ${f.popular ? 'popular' : ''}`}>
                 {f.popular && (
                   <span className="vp3-format-badge">
-                    {en ? 'MOST POPULAR' : 'ЧАЩЕ ВСЕГО'}
+                    {en ? 'Most popular' : 'Чаще всего'}
                   </span>
                 )}
                 <span className="vp3-format-timing">{pick(L, f.timing)}</span>
@@ -520,13 +472,13 @@ const VideoProduction = () => {
       <section className="section vp-band">
         <div className="shell">
           <SecHead
-            num={en ? 'CLIENTS' : 'КЛИЕНТЫ'}
+            num={en ? 'Clients' : 'Клиенты'}
             title={en ? 'Brands that' : 'Нам доверяют'}
             titleIt={en ? 'trust us' : 'свои бренды'}
             side={en
               ? 'From German automotive giants to Gulf developers - we work with those who need speed without compromise.'
               : 'От немецких автоконцернов до арабских девелоперов - мы работаем с теми, кому важна скорость без компромиссов.'}
-            sideTitle="TRUST"
+            sideTitle="Trust"
           />
           <div className="vp3-testi-grid reveal">
             {TESTIMONIALS_L.map((t) => (

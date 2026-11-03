@@ -82,9 +82,8 @@
   gap: 8px;
   margin-top: auto;
   padding-top: 22px;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
   color: var(--fg-2);
   transition: color 0.3s ease;
 }
@@ -157,8 +156,8 @@
 
 .vp-training-kicker {
   grid-area: kicker;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
   color: var(--accent);
 }
 
@@ -184,9 +183,8 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
   color: var(--fg-2);
   white-space: nowrap;
   transition: color 0.3s ease;

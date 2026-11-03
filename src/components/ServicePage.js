@@ -175,13 +175,10 @@ const ServicePage = ({ slug }) => {
             </ul>
           </section>
 
-          {/* Окно системы: живой лог вместо абстракций */}
-          <aside className="sp-proof" aria-label="System log">
+          {/* Как это выглядит: шаги одного обращения вместо абстракций */}
+          <aside className="sp-proof" aria-label={L === 'en' ? 'Example' : 'Пример'}>
             <div className="sp-proof-head">
-              <span className="sp-proof-dots" aria-hidden="true">
-                <i /><i /><i />
-              </span>
-              <span className="sp-proof-name mono">SYSTEM LOG</span>
+              <span className="sp-proof-name">{L === 'en' ? 'One inquiry, step by step' : 'Одно обращение по шагам'}</span>
             </div>
             <div className="sp-proof-body">
               {page.proof.map((line, i) => (
@@ -190,7 +187,7 @@ const ServicePage = ({ slug }) => {
                   className={`sp-proof-line${i === page.proof.length - 1 ? ' sp-proof-line--last' : ''}`}
                   style={{ animationDelay: `${0.15 + i * 0.18}s` }}
                 >
-                  <span className="sp-proof-ix">{`${String(i + 1).padStart(2, '0')} ▸`}</span>
+                  <span className="sp-proof-ix">{String(i + 1).padStart(2, '0')}</span>
                   <span>{pick(L, line)}</span>
                 </div>
               ))}

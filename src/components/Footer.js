@@ -16,14 +16,14 @@ const Footer = () => {
         <div className="footer-mega">AIVFX</div>
         <div className="footer-cols">
           <div className="footer-col">
-            <h5>{en ? 'STUDIO' : 'СТУДИЯ'}</h5>
+            <h5>{en ? 'Studio' : 'Студия'}</h5>
             <p>{pick(locale, FOOTER_SYS.desc)}</p>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', color: 'var(--muted)', textTransform: 'uppercase' }}>
-              {en ? 'EST. 2024 · AI SYSTEMS & CONTENT' : 'EST. 2024 · AI-СИСТЕМЫ И КОНТЕНТ'}
+              {en ? 'Est. 2024 · AI systems & content' : 'Est. 2024 · AI-системы и контент'}
             </p>
           </div>
           <div className="footer-col">
-            <h5>{en ? 'NAVIGATION' : 'НАВИГАЦИЯ'}</h5>
+            <h5>{en ? 'Navigation' : 'Навигация'}</h5>
             <ul>
               <li><button type="button" onClick={() => scrollToSection('hero')}>{en ? 'Home' : 'Главная'}</button></li>
               {/* Русскоязычные пункты на английской версии скрываем:
@@ -61,7 +61,7 @@ const Footer = () => {
             </ul>
           </div>
           <div className="footer-col">
-            <h5>{en ? 'CONTACT' : 'КОНТАКТЫ'}</h5>
+            <h5>{en ? 'Contact' : 'Контакты'}</h5>
             <ul>
               <li><a href="mailto:info@aivfx.ru">info@aivfx.ru</a></li>
             </ul>
@@ -69,7 +69,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer-bot">
-          <span>{en ? '© 2026 AIVFX. ALL RIGHTS RESERVED.' : '© 2026 AIVFX. ВСЕ ПРАВА ЗАЩИЩЕНЫ.'}</span>
+          <span>{en ? '© 2026 AIVFX. All rights reserved' : '© 2026 AIVFX. Все права защищены'}</span>
           <div className="right">
             <button type="button" onClick={showPrivacy}>{en ? 'Privacy Policy' : 'Политика конфиденциальности'}</button>
             <button type="button" onClick={showConsent}>{en ? 'Personal Data Consent' : 'Согласие на обработку ПД'}</button>

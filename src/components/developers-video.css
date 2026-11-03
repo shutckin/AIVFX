@@ -97,9 +97,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
 }
-.dv-work-play:hover img { transform: scale(1.03); }
 .dv-work-btn {
   position: absolute;
   left: 50%;

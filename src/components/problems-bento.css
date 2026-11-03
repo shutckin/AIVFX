@@ -48,10 +48,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg,
-    rgba(255, 107, 107, 0.5),
-    rgba(255, 107, 107, 0.14) 45%,
-    transparent 78%);
+  background: rgba(255, 107, 107, 0.35);
   opacity: 0.75;
   transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
@@ -115,8 +112,7 @@
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--muted);
 }
 
@@ -149,8 +145,7 @@
 .pbx-ui .pbx-cap {
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--muted);
 }
 
@@ -190,7 +185,7 @@
   margin-top: 5px;
   font-family: var(--font-mono);
   font-size: 10px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
   color: var(--muted);
 }
 
@@ -313,30 +308,22 @@
   flex: none;
   font-family: var(--font-mono);
   font-size: 9.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--muted);
 }
 
-/* Бейдж просрочки еле заметно мигает */
+/* Бейдж просрочки */
 .pbx-task-badge {
   flex: none;
   padding: 3px 7px;
   font-family: var(--font-mono);
   font-size: 8.5px;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: rgba(255, 107, 107, 0.95);
   border: 1px solid rgba(255, 107, 107, 0.4);
   border-radius: 100px;
   white-space: nowrap;
-  animation: pbx-blink 2.5s ease-in-out infinite;
-}
-
-@keyframes pbx-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
 }
 
 /* ── pipe: разрыв WhatsApp → CRM ─────────────────────────────────────── */
@@ -362,8 +349,7 @@
   font-family: var(--font-mono);
   font-size: 10.5px;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--fg);
   background: var(--bg-3);
   border: 1px solid var(--line-2);
@@ -381,8 +367,7 @@
 .pbx-pipe-sub {
   font-family: var(--font-mono);
   font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   white-space: nowrap;
 }
 
@@ -402,43 +387,6 @@
 
 /* Правый отрезок мёртвый — почти невидим */
 .pbx-pipe-line-dead { opacity: 0.4; }
-
-/* Точка бежит по линии и врезается в разрыв.
-   Обёртка тянется во всю ширину линии, поэтому translateX(100%)
-   = ровно длина отрезка (compositor-friendly, без анимации left). */
-.pbx-pipe-dot {
-  position: absolute;
-  inset: 0;
-  animation: pbx-run 3s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-
-.pbx-pipe-dot::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 5px;
-  height: 5px;
-  margin: -2.5px 0 0 -2.5px;
-  border-radius: 50%;
-  background: var(--accent-2);
-  box-shadow: 0 0 7px rgba(106, 148, 255, 0.55);
-  animation: pbx-hit 3s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-
-@keyframes pbx-run {
-  0%   { transform: translateX(0); }
-  55%  { transform: translateX(100%); }
-  100% { transform: translateX(100%); }
-}
-
-@keyframes pbx-hit {
-  0%       { opacity: 0; transform: scale(1); }
-  10%, 52% { opacity: 1; transform: scale(1); }
-  60%      { opacity: 1; transform: scale(2.1); background: rgba(255, 107, 107, 0.9); }
-  70%      { opacity: 0; transform: scale(2.4); background: rgba(255, 107, 107, 0.9); }
-  100%     { opacity: 0; transform: scale(1); }
-}
 
 .pbx-pipe-break {
   flex: none;
@@ -603,8 +551,7 @@
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: rgba(255, 107, 107, 0.9);
 }
 
@@ -645,14 +592,14 @@
   .pbx-ui { min-height: 132px; padding: 12px 12px 13px; }
   .pbx-chat-bubble { max-width: 92%; }
   .pbx-task-label { font-size: 11px; }
-  .pbx-pipe-chip { padding: 7px 9px; font-size: 9.5px; letter-spacing: 0.08em; }
+  .pbx-pipe-chip { padding: 7px 9px; font-size: 9.5px; letter-spacing: 0.02em; }
   .pbx-pipe-break { width: 22px; margin: 0 3px 20px; }
   .pbx-copy-mid .pbx-cap { display: none; }
   .pbx-outro { border-radius: 0 var(--r-md) var(--r-md) 0; }
 }
 
 @media (max-width: 560px) {
-  .pbx-head { font-size: 10px; letter-spacing: 0.12em; }
+  .pbx-head { font-size: 10px; letter-spacing: 0.02em; }
   .pbx-chat-msg { font-size: 11.5px; }
   .pbx-copy-row { font-size: 10px; }
   .pbx-task-date { display: none; }

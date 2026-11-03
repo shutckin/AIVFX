@@ -94,11 +94,11 @@ const ContactForm = ({ videoContext = false }) => {
           <form className="contact-form reveal" onSubmit={submit}>
             <div className="contact-grid-fields">
               <div className="field">
-                <label htmlFor="name">{`${en ? 'NAME' : 'ИМЯ'} `}<span className="req">*</span></label>
+                <label htmlFor="name">{`${en ? 'Name' : 'Имя'} `}<span className="req">*</span></label>
                 <input id="name" required value={form.name} onChange={(e) => handle('name', e.target.value)} placeholder={en ? 'Your name' : 'Ваше имя'} />
               </div>
               <div className="field">
-                <label htmlFor="email">{'EMAIL '}<span className="req">*</span></label>
+                <label htmlFor="email">{'Email '}<span className="req">*</span></label>
                 <input
                   id="email"
                   type="email"
@@ -132,19 +132,19 @@ const ContactForm = ({ videoContext = false }) => {
               <PhoneField
                 id="phone"
                 locale={L}
-                label={en ? 'PHONE' : 'ТЕЛЕФОН'}
+                label={en ? 'Phone' : 'Телефон'}
                 value={form.phone}
                 onChange={(v, full) => setForm((f) => ({ ...f, phone: v, phoneFull: full }))}
                 onValidityChange={setPhoneValid}
               />
               <div className="field">
-                <label htmlFor="company">{en ? 'COMPANY' : 'КОМПАНИЯ'}</label>
+                <label htmlFor="company">{en ? 'Company' : 'Компания'}</label>
                 <input id="company" value={form.company} onChange={(e) => handle('company', e.target.value)} placeholder={en ? 'Company name' : 'Название компании'} />
               </div>
             </div>
 
             <div className="field">
-              <label>{en ? 'PREFERRED CONTACT' : 'КАК УДОБНЕЕ СВЯЗАТЬСЯ'}</label>
+              <label>{en ? 'Preferred contact' : 'Как удобнее связаться'}</label>
               <div className="budget-options" role="group" aria-label={en ? 'Preferred contact channel' : 'Канал связи'}>
                 {CONTACT_OPTIONS.map((c) => (
                   <button
@@ -165,7 +165,7 @@ const ContactForm = ({ videoContext = false }) => {
 
             {!videoContext && (
               <div className="field">
-                <label>{en ? 'BUDGET' : 'БЮДЖЕТ'}</label>
+                <label>{en ? 'Budget' : 'Бюджет'}</label>
                 <div className="budget-options">
                   {BUDGETS_L.map((b) => (
                     <button
@@ -282,16 +282,16 @@ const ContactForm = ({ videoContext = false }) => {
             </div>
 
             <div className="contact-block">
-              <span className="lab">{en ? 'SOCIALS' : 'СОЦСЕТИ'}</span>
+              <span className="lab">{en ? 'Socials' : 'Соцсети'}</span>
               <SocialLinks tone="light" />
             </div>
 
             <div className="contact-block">
-              <span className="lab">{en ? 'WORKING HOURS' : 'ВРЕМЯ РАБОТЫ'}</span>
+              <span className="lab">{en ? 'Working hours' : 'Время работы'}</span>
               <div className="hours">
-                <div className="hours-row"><span>{en ? 'MON - FRI' : 'ПН - ПТ'}</span><span>09:00 - 18:00</span></div>
-                <div className="hours-row"><span>{en ? 'SAT' : 'СБ'}</span><span>10:00 - 16:00</span></div>
-                <div className="hours-row"><span>{en ? 'SUN' : 'ВС'}</span><span className="hours-closed">{en ? 'CLOSED' : 'ВЫХОДНОЙ'}</span></div>
+                <div className="hours-row"><span>{en ? 'Mon - Fri' : 'Пн - Пт'}</span><span>09:00 - 18:00</span></div>
+                <div className="hours-row"><span>{en ? 'Sat' : 'Сб'}</span><span>10:00 - 16:00</span></div>
+                <div className="hours-row"><span>{en ? 'Sun' : 'Вс'}</span><span className="hours-closed">{en ? 'Closed' : 'Выходной'}</span></div>
               </div>
             </div>
           </div>

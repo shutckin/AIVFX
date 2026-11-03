@@ -104,8 +104,7 @@
   margin: 0;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   line-height: 1.6;
   color: var(--fg-2);
 }
@@ -391,7 +390,7 @@
   color: var(--accent);
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   flex-shrink: 0;
 }
 .hp-head-text {
@@ -502,8 +501,7 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--muted);
   text-align: center;
 }
@@ -580,14 +578,11 @@
   -webkit-backdrop-filter: blur(10px);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   line-height: 1;
   color: var(--fg-2);
   white-space: nowrap;
-  animation: hp-badge-float 4s ease-in-out infinite;
 }
-.hp-badge-speed .hp-badge-in { animation-delay: -2s; }
 
 .hp-badge-dot {
   width: 6px;
@@ -745,7 +740,7 @@
   .hs-kicker {
     font-size: 9px;
     padding: 7px 12px;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.02em;
   }
   .hs-actions {
     width: 100%;
@@ -793,7 +788,7 @@
   }
   .hp-sysrow {
     font-size: 9px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.02em;
   }
   .hp-typing { padding: 10px 12px; }
   }

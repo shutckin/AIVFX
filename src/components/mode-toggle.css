@@ -1,8 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════════
    Тумблер направлений студии «AI-системы | AI-контент»
    Заметный сегментированный переключатель: два мира студии видны сразу.
-   Активный сегмент — светлая плашка; у каждого направления свой цвет точки:
-   кобальт для систем, янтарь для контента.
+   Активный сегмент - светлая плашка.
    ═══════════════════════════════════════════════════════════════════════ */
 
 .mode-toggle {
@@ -21,51 +20,27 @@
   gap: 8px;
   padding: 9px 18px;
   border-radius: 9px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
   color: var(--fg-2);
   white-space: nowrap;
   transition: color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
               background 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Цветная точка направления — читается даже боковым зрением */
-.mode-opt::before {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.45;
-  transition: opacity 0.18s ease, background 0.18s ease;
-}
-
 .mode-opt:hover { color: var(--fg); }
-.mode-opt:hover::before { opacity: 0.8; }
 
 .mode-opt.active {
   background: var(--light-card);
   color: var(--light-card-text);
 }
 
-/* Системы — кобальт, контент — янтарь: точка активного сегмента цветная */
-.mode-opt.active[data-mode='systems']::before {
-  background: #3d6ef7;
-  opacity: 1;
-}
-.mode-opt.active[data-mode='content']::before {
-  background: #f0a500;
-  opacity: 1;
-}
-
 @media (max-width: 1100px) {
-  .mode-opt { padding: 8px 14px; font-size: 11px; }
+  .mode-opt { padding: 8px 14px; font-size: 12px; }
 }
 
 @media (max-width: 560px) {
   .mode-toggle { padding: 3px; gap: 2px; }
-  .mode-opt { padding: 7px 11px; font-size: 10px; letter-spacing: 0.04em; gap: 6px; }
-  .mode-opt::before { width: 6px; height: 6px; }
+  .mode-opt { padding: 7px 11px; font-size: 12px; gap: 6px; }
 }

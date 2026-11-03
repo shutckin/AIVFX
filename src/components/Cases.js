@@ -107,14 +107,14 @@ const Cases = () => {
 
                 <div className="cs2-block">
                   <span className="cs2-block-label mono">
-                    {L === 'en' ? 'PROBLEM' : 'ПРОБЛЕМА'}
+                    {L === 'en' ? 'Problem' : 'Проблема'}
                   </span>
                   <p className="cs2-block-text">{pick(L, flagship.problem)}</p>
                 </div>
 
                 <div className="cs2-block">
                   <span className="cs2-block-label mono">
-                    {L === 'en' ? 'SOLUTION' : 'РЕШЕНИЕ'}
+                    {L === 'en' ? 'Solution' : 'Решение'}
                   </span>
                   <p className="cs2-block-text">{pick(L, flagship.solution)}</p>
                 </div>
@@ -172,14 +172,14 @@ const Cases = () => {
 
                 <div className="cs2-block">
                   <span className="cs2-block-label mono">
-                    {L === 'en' ? 'PROBLEM' : 'ПРОБЛЕМА'}
+                    {L === 'en' ? 'Problem' : 'Проблема'}
                   </span>
                   <p className="cs2-block-text">{pick(L, item.problem)}</p>
                 </div>
 
                 <div className="cs2-block">
                   <span className="cs2-block-label mono">
-                    {L === 'en' ? 'SOLUTION' : 'РЕШЕНИЕ'}
+                    {L === 'en' ? 'Solution' : 'Решение'}
                   </span>
                   <p className="cs2-block-text">{pick(L, item.solution)}</p>
                 </div>

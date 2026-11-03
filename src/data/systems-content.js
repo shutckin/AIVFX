@@ -20,7 +20,7 @@ export const NAV_SYS = [
 
 // ── Hero ───────────────────────────────────────────────────────────────
 export const HERO_SYS = {
-  kicker: { ru: 'AI-СИСТЕМЫ ДЛЯ БИЗНЕСА', en: 'AI SYSTEMS FOR BUSINESS' },
+  kicker: { ru: 'AI-системы для бизнеса', en: 'AI systems for business' },
   // Заголовок построчно: [строка1, строка2-акцент, строка3]
   titleLines: {
     ru: ['AI-системы, которые', 'возвращают клиентов', 'и экономят часы работы'],
@@ -75,14 +75,14 @@ export const STATS_SYS = [
 // ── Блок проблем ───────────────────────────────────────────────────────
 export const PROBLEMS_SYS = {
   head: {
-    num: { ru: 'ПРОБЛЕМА', en: 'PROBLEM' },
+    num: { ru: 'Проблема', en: 'Problem' },
     title: { ru: 'Ваш бизнес уже получает заявки.', en: 'Your business already gets inquiries.' },
     titleIt: { ru: 'Вопрос - сколько из них теряется', en: 'The question is how many get lost' },
     side: {
       ru: 'Чаще всего дело не в маркетинге, а в том, что происходит с обращением после того, как клиент написал.',
       en: 'Most of the time the issue is not marketing - it is what happens to an inquiry after the customer reaches out.',
     },
-    sideTitle: 'REALITY CHECK',
+    sideTitle: 'Reality check',
   },
   // ui - тип мини-интерфейса в bento-плитке: chat | task | pipe | copy | churn
   items: [
@@ -93,7 +93,7 @@ export const PROBLEMS_SYS = {
       tag: { ru: 'упущенное время', en: 'lost time' },
     },
     {
-      time: 'DAY 3',
+      time: 'Day 3',
       ui: 'task',
       text: { ru: 'Follow-up забыт', en: 'Follow-up forgotten' },
       tag: { ru: 'человеческий фактор', en: 'human factor' },
@@ -127,14 +127,14 @@ export const PROBLEMS_SYS = {
 // ── Схема системы (центральный визуал) ─────────────────────────────────
 export const FLOW_SYS = {
   head: {
-    num: { ru: 'СИСТЕМА', en: 'SYSTEM' },
+    num: { ru: 'Система', en: 'System' },
     title: { ru: 'Одна система', en: 'One system' },
     titleIt: { ru: 'вместо хаоса каналов', en: 'instead of channel chaos' },
     side: {
       ru: 'Каждое обращение проходит один и тот же управляемый путь - независимо от того, откуда оно пришло.',
       en: 'Every inquiry travels the same managed path - no matter which channel it came from.',
     },
-    sideTitle: 'ARCHITECTURE',
+    sideTitle: 'Architecture',
   },
   sources: ['Website', 'WhatsApp', 'Instagram', 'Telegram', { ru: 'Звонки', en: 'Calls' }, 'Email'],
   stages: [
@@ -174,14 +174,14 @@ export const FLOW_SYS = {
 // ── Услуги (3 направления) ─────────────────────────────────────────────
 export const SERVICES_SYS = {
   head: {
-    num: { ru: 'УСЛУГИ', en: 'SERVICES' },
+    num: { ru: 'Услуги', en: 'Services' },
     title: { ru: 'Три системы', en: 'Three systems' },
     titleIt: { ru: 'под задачи бизнеса', en: 'built for business tasks' },
     side: {
       ru: 'Не каталог из десятков услуг - три направления, которые закрывают путь клиента от заявки до повторной продажи.',
       en: 'Not a catalog of dozens of services - three directions that cover the customer journey from inquiry to repeat sale.',
     },
-    sideTitle: 'WHAT WE BUILD',
+    sideTitle: 'What we build',
   },
   items: [
     {
@@ -242,7 +242,7 @@ export const SERVICE_PAGES = {
     },
     alsoSee: ['obuchenie-ii-dlya-biznesa', 'ai-assistants'],
     readMore: ['kling-gayd', 'runway-gayd', 'veo-gayd', 'kak-sozdat-ai-avatar-heygen', 'seedance-gayd', 'agregatory-ai-servisov'],
-    kicker: { ru: 'ОБУЧЕНИЕ / AI-ВИДЕО', en: 'TRAINING / AI VIDEO' },
+    kicker: { ru: 'Обучение / AI-видео', en: 'Training / AI video' },
     title: { ru: 'Обучение AI-видео: как делать ролики, которые не стыдно показать клиенту', en: 'AI video training' },
     sub: {
       ru: 'Разбираем весь путь на ваших задачах: от постановки кадра и опорных изображений до сборки и правок.',
@@ -285,7 +285,7 @@ export const SERVICE_PAGES = {
     },
     alsoSee: ['obuchenie-ai-video', 'ai-assistants'],
     readMore: ['chat-bot-ili-ai-assistent', 'skolko-stoit-ai-assistent', 'agregatory-ai-servisov'],
-    kicker: { ru: 'ОБУЧЕНИЕ / ИИ В РАБОТЕ', en: 'TRAINING / AI AT WORK' },
+    kicker: { ru: 'Обучение / ИИ в работе', en: 'Training / AI at work' },
     title: { ru: 'ИИ в работе компании: что можно получить без внедрения систем', en: 'AI at work without a full deployment' },
     sub: {
       ru: 'Практический разбор для команды: какие задачи закрываются готовыми инструментами уже завтра, без интеграций, разработки и бюджета в сотни тысяч.',
@@ -333,7 +333,7 @@ export const SERVICE_PAGES = {
     },
     alsoSee: ['obuchenie-ai-video', 'obuchenie-ii-dlya-biznesa'],
     readMore: ['neyroset-dlya-sozdaniya-video-novichku', 'promty-dlya-neyrosetey', 'neyroset-dlya-foto-besplatno', 'neyroseti-na-russkom', 'kak-oplatit-neyroset-iz-rossii', 'kak-sdelat-ai-video'],
-    kicker: { ru: 'ОБУЧЕНИЕ / НЕЙРОСЕТИ', en: 'TRAINING / AI TOOLS' },
+    kicker: { ru: 'Обучение / нейросети', en: 'Training / AI tools' },
     title: { ru: 'Обучение нейросетям с нуля: с чего начать и где самому уже не разобраться', en: 'Learning AI tools from scratch' },
     sub: {
       ru: 'Три дорожки: картинки и видео, тексты и документы, ИИ в своей компании. Для каждой есть бесплатный путь по нашим статьям и честный ответ, где самообучение кончается.',
@@ -384,7 +384,7 @@ export const SERVICE_PAGES = {
   'ai-dlya-klinik': {
     alsoSee: ['ai-sales-automation', 'ai-assistants'],
     readMore: ['pochemu-teryayutsya-zayavki', 'skolko-stoit-ai-assistent', 'chat-bot-ili-ai-assistent'],
-    kicker: { ru: 'РЕШЕНИЕ / ДЛЯ КЛИНИК И МЕДЦЕНТРОВ', en: 'SOLUTION / FOR CLINICS' },
+    kicker: { ru: 'Решение / для клиник и медцентров', en: 'Solution / for clinics' },
     title: { ru: 'AI-ассистент для клиники: запись и вопросы пациентов без потерь', en: 'AI assistant for clinics: bookings and patient questions without losses' },
     sub: {
       ru: 'AI-ассистент для клиники: отвечает пациентам круглосуточно, записывает на приём, объясняет подготовку и цены, а всё медицинское передаёт человеку.',
@@ -422,7 +422,7 @@ export const SERVICE_PAGES = {
   'ai-dlya-avtoservisa': {
     alsoSee: ['ai-sales-automation', 'business-process-automation'],
     readMore: ['pochemu-teryayutsya-zayavki', 'ai-kvalifikaciya-lidov', 'ai-assistent-i-crm'],
-    kicker: { ru: 'РЕШЕНИЕ / ДЛЯ АВТОСЕРВИСОВ', en: 'SOLUTION / FOR AUTO SERVICE' },
+    kicker: { ru: 'Решение / для автосервисов', en: 'Solution / for auto service' },
     title: { ru: 'AI-ассистент для автосервиса: запись, расчёт и загрузка постов', en: 'AI assistant for auto service: bookings, estimates and bay load' },
     sub: {
       ru: 'AI-ассистент для автосервиса: принимает обращения из мессенджеров и с сайта, выясняет марку, пробег и симптом, называет вилку цены и записывает.',
@@ -460,7 +460,7 @@ export const SERVICE_PAGES = {
   'ai-dlya-nedvizhimosti': {
     alsoSee: ['ai-sales-automation', 'ai-assistants'],
     readMore: ['ai-kvalifikaciya-lidov', 'pochemu-teryayutsya-zayavki', 'skolko-stoit-ai-assistent'],
-    kicker: { ru: 'РЕШЕНИЕ / ДЛЯ АГЕНТСТВ НЕДВИЖИМОСТИ', en: 'SOLUTION / FOR REAL ESTATE' },
+    kicker: { ru: 'Решение / для агентств недвижимости', en: 'Solution / for real estate' },
     title: { ru: 'AI-ассистент для агентства недвижимости: разбор заявок и запись на показ', en: 'AI assistant for real estate: lead triage and viewing bookings' },
     sub: {
       ru: 'AI-ассистент для недвижимости: отвечает на обращения с площадок за секунды, выясняет бюджет, район и сроки и передаёт риелтору только целевых.',
@@ -504,7 +504,7 @@ export const SERVICE_PAGES = {
     // Статьи блога по теме услуги. Список ручной: подбор по совпадению
     // слов дал бы соседство, а не пользу читателю.
     readMore: ['pochemu-teryayutsya-zayavki', 'ai-kvalifikaciya-lidov', 'skolko-stoit-ai-assistent'],
-    kicker: { ru: 'УСЛУГА / AI ДЛЯ ЗАЯВОК И ПРОДАЖ', en: 'SERVICE / AI FOR LEADS & SALES' },
+    kicker: { ru: 'Услуга / AI для заявок и продаж', en: 'Service / AI for leads & sales' },
     title: { ru: 'Ни одна заявка больше не теряется', en: 'No lead ever gets lost again' },
     seoTitle: { ru: 'AI для заявок и продаж: приём, квалификация, CRM, follow-up', en: 'AI for Leads & Sales: Intake, Qualification, CRM, Follow-up' },
     sub: {
@@ -546,7 +546,7 @@ export const SERVICE_PAGES = {
     // Статьи блога по теме услуги. Список ручной: подбор по совпадению
     // слов дал бы соседство, а не пользу читателю.
     readMore: ['chat-bot-ili-ai-assistent', 'skolko-stoit-ai-assistent', 'ai-assistent-i-crm'],
-    kicker: { ru: 'УСЛУГА / AI-АССИСТЕНТЫ', en: 'SERVICE / AI ASSISTANTS' },
+    kicker: { ru: 'Услуга / AI-ассистенты', en: 'Service / AI assistants' },
     title: { ru: 'Ассистент, который знает ваш бизнес', en: 'An assistant that knows your business' },
     sub: {
       ru: 'AI-ассистенты для клиентов и сотрудников: консультант на сайте, ассистент в WhatsApp и Telegram, внутренний помощник с доступом к базе знаний компании.',
@@ -585,7 +585,7 @@ export const SERVICE_PAGES = {
     // Статьи блога по теме услуги. Список ручной: подбор по совпадению
     // слов дал бы соседство, а не пользу читателю.
     readMore: ['ai-assistent-i-crm', 'ai-kvalifikaciya-lidov', 'pochemu-teryayutsya-zayavki'],
-    kicker: { ru: 'УСЛУГА / АВТОМАТИЗАЦИЯ ПРОЦЕССОВ', en: 'SERVICE / PROCESS AUTOMATION' },
+    kicker: { ru: 'Услуга / автоматизация процессов', en: 'Service / process automation' },
     title: { ru: 'Рутина исчезает из расписания команды', en: 'Routine work disappears from your team’s day' },
     sub: {
       ru: 'Автоматизируем рутинные операции: CRM, документы, отчёты, распределение заявок, напоминания, согласования, уведомления и синхронизацию данных между сервисами.',
@@ -643,7 +643,7 @@ export const SERVICE_CTA = {
 // избыточно.
 export const TRAINING_SYS = {
   head: {
-    num: { ru: 'ОБУЧЕНИЕ' },
+    num: { ru: 'Обучение' },
     title: { ru: 'Не всем нужна' },
     titleIt: { ru: 'готовая система' },
   },
@@ -682,14 +682,14 @@ export const TRAINING_SYS = {
 // ── Кейсы (демо-сценарии - честно помечены) ────────────────────────────
 export const CASES_SYS = {
   head: {
-    num: { ru: 'КЕЙСЫ', en: 'CASES' },
+    num: { ru: 'Кейсы', en: 'Cases' },
     title: { ru: 'Проблема → система', en: 'Problem → system' },
     titleIt: { ru: '→ результат', en: '→ result' },
     side: {
       ru: 'Каждый проект строится вокруг измеримого результата, а не вокруг технологии ради технологии.',
       en: 'Every project is built around a measurable result - not around technology for its own sake.',
     },
-    sideTitle: 'OUTCOMES',
+    sideTitle: 'Outcomes',
   },
   demoBadge: { ru: 'Демо-сценарий', en: 'Demo scenario' },
   demoNote: {
@@ -802,14 +802,14 @@ export const CASES_SYS = {
 // ── Подход (5 шагов) ───────────────────────────────────────────────────
 export const APPROACH_SYS = {
   head: {
-    num: { ru: 'ПОДХОД', en: 'APPROACH' },
+    num: { ru: 'Подход', en: 'Approach' },
     title: { ru: 'Сначала процесс,', en: 'Process first,' },
     titleIt: { ru: 'потом технологии', en: 'technology second' },
     side: {
       ru: 'Мы не продаём готовую коробку. Мы разбираем, как работает ваш бизнес, и собираем систему под него.',
       en: 'We do not sell a pre-built box. We study how your business works and assemble a system around it.',
     },
-    sideTitle: 'HOW WE WORK',
+    sideTitle: 'How we work',
   },
   steps: [
     {
@@ -843,14 +843,14 @@ export const APPROACH_SYS = {
 // ── Интеграции ─────────────────────────────────────────────────────────
 export const INTEGRATIONS_SYS = {
   head: {
-    num: { ru: 'СОВМЕСТИМОСТЬ', en: 'COMPATIBILITY' },
+    num: { ru: 'Совместимость', en: 'Compatibility' },
     title: { ru: 'Ничего менять', en: 'Nothing to replace' },
     titleIt: { ru: 'не придётся', en: 'on your side' },
     side: {
       ru: 'Система подключается к тому, чем вы уже пользуетесь. Переезжать, переучивать команду и покупать новые сервисы не нужно.',
       en: 'The system plugs into what you already use. No migrations, no retraining, no new subscriptions.',
     },
-    sideTitle: 'INTEGRATIONS',
+    sideTitle: 'Integrations',
   },
   // Группы на языке пользы: сначала что это даёт, потом чем именно делаем
   groups: [
@@ -903,14 +903,14 @@ export const TICKER_SYS = ['n8n', 'Make', 'OpenAI', 'Claude', 'Bitrix24', 'amoCR
 // ── О нас ──────────────────────────────────────────────────────────────
 export const ABOUT_SYS = {
   head: {
-    num: { ru: 'О НАС', en: 'ABOUT' },
+    num: { ru: 'О нас', en: 'About' },
     title: { ru: 'Инженерная студия,', en: 'An engineering studio' },
     titleIt: { ru: 'а не агентство чат-ботов', en: 'not a chatbot agency' },
     side: {
       ru: 'AIVFX проектирует системы под процесс конкретной компании - от архитектуры до внедрения и поддержки.',
       en: 'AIVFX designs systems around a specific company’s process - from architecture to deployment and support.',
     },
-    sideTitle: 'AIVFX AI SYSTEMS',
+    sideTitle: 'AIVFX AI systems',
   },
   paragraphs: [
     {
@@ -1011,16 +1011,16 @@ export const FAQ_SYS = [
 // ── Контакты ───────────────────────────────────────────────────────────
 export const CONTACT_SYS = {
   head: {
-    num: { ru: 'КОНТАКТ', en: 'CONTACT' },
+    num: { ru: 'Контакт', en: 'Contact' },
     title: { ru: 'Обсудим', en: 'Let’s discuss' },
     titleIt: { ru: 'вашу задачу', en: 'your case' },
     side: {
       ru: 'Опишите процесс или проблему - вернёмся с вопросами и предложением архитектуры в течение 24 часов.',
       en: 'Describe your process or problem - we will come back with questions and a proposed architecture within 24 hours.',
     },
-    sideTitle: 'START',
+    sideTitle: 'Start',
   },
-  briefLabel: { ru: 'ЗАДАЧА', en: 'YOUR CASE' },
+  briefLabel: { ru: 'Задача', en: 'Your case' },
   briefPlaceholder: {
     ru: 'Опишите процесс, который хотите автоматизировать: откуда приходят заявки, какая CRM, что сейчас болит...',
     en: 'Describe the process you want to automate: where inquiries come from, which CRM you use, what hurts today...',
@@ -1033,7 +1033,7 @@ export const FOOTER_SYS = {
     ru: 'Студия AI-систем и автоматизаций для бизнеса. Делаем ассистентов, приём заявок и связку с CRM: от первой заявки до повторных продаж.',
     en: 'A studio for business AI systems and automation. We build assistants, lead intake and CRM integrations: from the first inquiry to repeat sales.',
   },
-  servicesTitle: { ru: 'УСЛУГИ', en: 'SERVICES' },
+  servicesTitle: { ru: 'Услуги', en: 'Services' },
   services: [
     { slug: 'ai-sales-automation', label: { ru: 'AI для заявок и продаж', en: 'AI for leads & sales' } },
     { slug: 'ai-assistants', label: { ru: 'AI-ассистенты', en: 'AI assistants' } },
@@ -1051,7 +1051,7 @@ export const FOOTER_SYS = {
 
 // ── Страница /video-production (второе направление) ────────────────────
 export const VIDEO_PAGE = {
-  kicker: { ru: 'НАПРАВЛЕНИЕ / AI-ВИДЕОПРОДАКШН', en: 'DIRECTION / AI VIDEO PRODUCTION' },
+  kicker: { ru: 'Направление / AI-видеопродакшн', en: 'Direction / AI video production' },
   title: { ru: 'AI-видео и VFX', en: 'AI video & VFX' },
   titleIt: { ru: 'для брендов', en: 'for brands' },
   sub: {
@@ -1078,14 +1078,14 @@ export const CTA_BREAK = {
 // ── Видео-направление: форматы работы БЕЗ цен (смета под задачу) ───────
 export const VIDEO_FORMATS = {
   head: {
-    num: { ru: 'ФОРМАТЫ', en: 'FORMATS' },
+    num: { ru: 'Форматы', en: 'Formats' },
     title: { ru: 'Три формата', en: 'Three formats' },
     titleIt: { ru: 'работы', en: 'of engagement' },
     side: {
       ru: 'Стоимость считаем сметой под задачу. Бриф бесплатный, оценка - в течение 24 часов.',
       en: 'Pricing is a per-project estimate. The brief is free; you get the quote within 24 hours.',
     },
-    sideTitle: 'HOW WE WORK',
+    sideTitle: 'How we work',
   },
   items: [
     {
@@ -1153,16 +1153,16 @@ export const VIDEO_FAQ = [
 // ── Видео-направление: свой контакт-контекст ───────────────────────────
 export const VIDEO_CONTACT = {
   head: {
-    num: { ru: 'КОНТАКТ', en: 'CONTACT' },
+    num: { ru: 'Контакт', en: 'Contact' },
     title: { ru: 'Обсудим', en: 'Let’s discuss' },
     titleIt: { ru: 'ваш ролик', en: 'your video' },
     side: {
       ru: 'Опишите задачу и референсы - вернёмся со сметой и сроками в течение 24 часов.',
       en: 'Describe the task and references - we will come back with an estimate and timeline within 24 hours.',
     },
-    sideTitle: 'START',
+    sideTitle: 'Start',
   },
-  briefLabel: { ru: 'ЗАДАЧА', en: 'YOUR BRIEF' },
+  briefLabel: { ru: 'Задача', en: 'Your brief' },
   briefPlaceholder: {
     ru: 'Опишите ролик: продукт, длительность, референсы, дедлайн...',
     en: 'Describe the video: product, duration, references, deadline...',
@@ -1308,14 +1308,14 @@ export const CHAT_DEMO = {
 // каждый иллюстрирует конкретную услугу - вместо абстрактных иконок.
 export const VIDEO_SHOWCASE = {
   head: {
-    num: { ru: 'ЧТО ДЕЛАЕМ', en: 'WHAT WE DO' },
+    num: { ru: 'Что делаем', en: 'What we do' },
     title: { ru: 'Шесть форматов', en: 'Six kinds of work' },
     titleIt: { ru: 'работы с кадром', en: 'with the frame' },
     side: {
       ru: 'Каждый кадр ниже сделан нашим пайплайном - это не стоковые картинки, а примеры того, что получает клиент.',
       en: 'Every frame below came out of our pipeline - these are not stock images but examples of what a client gets.',
     },
-    sideTitle: 'CAPABILITIES',
+    sideTitle: 'Capabilities',
   },
   items: [
     {
@@ -1396,14 +1396,14 @@ export const VIDEO_SHOWCASE = {
 // ── Видео-направление: как проходит работа ────────────────────────────
 export const VIDEO_PROCESS = {
   head: {
-    num: { ru: 'ПРОЦЕСС', en: 'PROCESS' },
+    num: { ru: 'Процесс', en: 'Process' },
     title: { ru: 'Как рождается', en: 'How a video' },
     titleIt: { ru: 'ролик', en: 'comes to life' },
     side: {
       ru: 'Прозрачный путь от брифа до финального файла: вы видите результат на каждом этапе и правите до того, как он станет дорогим.',
       en: 'A transparent path from brief to final file: you see the result at every stage and adjust before changes get expensive.',
     },
-    sideTitle: 'WORKFLOW',
+    sideTitle: 'Workflow',
   },
   lead: {
     ru: 'Пять этапов, на каждом из которых вы получаете готовый материал, а не обещание. Чем раньше правка, тем дешевле она стоит: поменять кадр на раскадровке это минуты, поменять его же в готовом ролике это пересборка сцены.',
@@ -1491,14 +1491,14 @@ export const VIDEO_PROCESS = {
 // ── Видео-направление: что получает клиент ────────────────────────────
 export const VIDEO_DELIVERABLES = {
   head: {
-    num: { ru: 'НА ВЫХОДЕ', en: 'DELIVERABLES' },
+    num: { ru: 'На выходе', en: 'Deliverables' },
     title: { ru: 'Что вы получаете', en: 'What you get' },
     titleIt: { ru: 'в конце', en: 'at the end' },
     side: {
       ru: 'Не только готовый ролик, но и всё, что нужно, чтобы запустить его в любой канал.',
       en: 'Not just a finished video, but everything you need to launch it in any channel.',
     },
-    sideTitle: 'OUTPUT',
+    sideTitle: 'Output',
   },
   items: [
     { t: { ru: 'Мастер до 4K', en: 'Master up to 4K' }, d: { ru: 'Финальный файл в максимальном качестве, готовый к эфиру и сайту.', en: 'The final file at maximum quality, ready for broadcast and web.' } },

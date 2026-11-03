@@ -127,7 +127,7 @@
   overflow: hidden;
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.02em;
 }
 
 .chat-head-text {
@@ -319,7 +319,6 @@
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
   cursor: pointer;
   transition: background 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -331,7 +330,6 @@
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
   color: var(--accent-2);
   border-bottom: 1px solid transparent;
   transition: border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);

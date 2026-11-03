@@ -39,7 +39,7 @@
 .pb-time {
   font-family: var(--font-mono);
   font-size: 12px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.02em;
   color: rgba(255, 107, 107, 0.75);
 }
 
@@ -62,9 +62,8 @@
   align-self: flex-start;
   padding: 6px 12px;
   font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.02em;
   color: var(--muted);
   border: 1px solid var(--line);
   border-radius: 100px;
@@ -113,9 +112,8 @@
   display: block;
   margin-bottom: 18px;
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.02em;
   color: var(--muted);
 }
 
@@ -129,7 +127,7 @@
   padding: 10px 14px;
   font-family: var(--font-mono);
   font-size: 12px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   color: var(--fg-2);
   background: var(--bg);
   border: 1px solid var(--line);
@@ -156,7 +154,7 @@
 .sf-connector-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, var(--line-2), var(--accent-glow));
+  background: var(--line-2);
 }
 
 .sf-connector-arrow {
@@ -192,9 +190,7 @@
   width: 3px;
   height: 130px;
   border-radius: 2px;
-  background: linear-gradient(180deg, transparent, var(--accent) 50%, transparent);
-  filter: drop-shadow(0 0 6px var(--accent-glow));
-  animation: sfPulseRun 6s linear infinite;
+  display: none;
 }
 
 @keyframes sfPulseRun {
@@ -224,28 +220,8 @@
   border-radius: 50%;
   background: var(--bg);
   border: 1px solid var(--accent);
-  box-shadow: 0 0 0 0 var(--accent-glow);
-  animation: sfNodeGlow 6s ease-in-out infinite;
 }
 
-/* Подсветка узлов волной — синхронно с импульсом на рельсе */
-.sf-stage:nth-child(1) .sf-node { animation-delay: 0s; }
-.sf-stage:nth-child(2) .sf-node { animation-delay: 1s; }
-.sf-stage:nth-child(3) .sf-node { animation-delay: 2s; }
-.sf-stage:nth-child(4) .sf-node { animation-delay: 3s; }
-.sf-stage:nth-child(5) .sf-node { animation-delay: 4s; }
-.sf-stage:nth-child(6) .sf-node { animation-delay: 5s; }
-
-@keyframes sfNodeGlow {
-  0%, 14%, 100% {
-    background: var(--bg);
-    box-shadow: 0 0 0 0 rgba(61, 110, 247, 0);
-  }
-  7% {
-    background: var(--accent);
-    box-shadow: 0 0 14px 3px var(--accent-glow);
-  }
-}
 
 .sf-stage-card {
   padding: clamp(20px, 2.2vw, 30px) clamp(22px, 2.6vw, 36px);
@@ -270,8 +246,8 @@
 
 .sf-stage-num {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
+  font-size: 12px;
+  letter-spacing: 0.02em;
   color: var(--muted);
 }
 
@@ -280,8 +256,7 @@
   font-family: var(--font-mono);
   font-size: clamp(14px, 1.2vw, 16px);
   font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--accent);
 }
 
@@ -299,8 +274,7 @@
   padding-left: 2px;
   font-family: var(--font-mono);
   font-size: 12.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--accent);
 }
 

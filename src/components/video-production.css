@@ -85,7 +85,7 @@
   .vp-header { gap: 10px; }
   .vp-header .mode-opt {
     padding: 6px 9px;
-    font-size: 9.5px;
+    font-size: 12px;
     gap: 5px;
     letter-spacing: 0.02em;
   }
@@ -138,115 +138,6 @@
   gap: 14px;
 }
 
-/* ── Робот ──
-   Тот самый ролик из старого hero: /fixed/aivid.mp4, 3D-голова красного
-   робота на чёрном. Здесь это не фон, а художественный объект: круглая маска
-   с растворяющимся краем (никакой видимой рамки-«окна»), под ним тёплое
-   янтарное свечение, поверх — тонкое кольцо. Красный робот и янтарь страницы
-   лежат в одном тёплом диапазоне, поэтому объект не спорит с палитрой.
-   Наклон задаётся переменными --rx / --ry, их лерпит JS. */
-.vp-hero-visual {
-  position: relative;
-  min-width: 0;
-}
-
-.vp-robot {
-  --rx: 0deg;
-  --ry: 0deg;
-  position: relative;
-  width: 100%;
-  max-width: 520px;
-  margin: 0 auto;
-  aspect-ratio: 1 / 1;
-  pointer-events: none;
-  perspective: 1100px;
-  isolation: isolate;
-}
-
-/* Свечение под видео — вынесено за круг, поэтому объект «сидит» в странице,
-   а не наклеен на неё. Единственная тень на всей странице. */
-.vp-robot-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 118%;
-  height: 118%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 62%);
-  opacity: 0.7;
-  animation: vpGlowPulse 6s ease-in-out infinite;
-}
-
-@keyframes vpGlowPulse {
-  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.06); }
-}
-
-.vp-robot-tilt {
-  position: absolute;
-  inset: 0;
-  transform: rotateX(var(--rx)) rotateY(var(--ry));
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-/* Маска: сплошная в центре, к краю плавно уходит в ноль — край видео
-   растворяется в фоне вместо того, чтобы обрубаться окружностью. */
-.vp-robot-media {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  mask-image: radial-gradient(
-    circle at 50% 48%,
-    #000 0%,
-    #000 54%,
-    rgba(0, 0, 0, 0.72) 72%,
-    transparent 88%
-  );
-  -webkit-mask-image: radial-gradient(
-    circle at 50% 48%,
-    #000 0%,
-    #000 54%,
-    rgba(0, 0, 0, 0.72) 72%,
-    transparent 88%
-  );
-}
-
-.vp-robot-media video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(1.06) contrast(1.04);
-}
-
-/* Тонкое кольцо чуть шире видео — держит форму, когда край растворился */
-.vp-robot-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 92%;
-  height: 92%;
-  transform: translate(-50%, -50%);
-  border: 1px solid var(--line-2);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.vp-robot-ring::after {
-  content: "";
-  position: absolute;
-  inset: -7%;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .vp-robot-glow {
-    animation: none;
-  }
-}
-
 /* ── Секции-полосы: чередование фона, чтобы страница не сливалась ── */
 .vp-page .vp-band {
   background: var(--bg-2);
@@ -271,8 +162,7 @@
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--accent);
   text-decoration: none;
   padding-bottom: 3px;
@@ -382,10 +272,9 @@
 
 .vp3-stat-label {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--muted);
   line-height: 1.4;
   max-width: 26ch;
@@ -460,9 +349,8 @@
 
 /* Единственное место на странице, где допустима анимация масштаба:
    кадр слегка наезжает, рамка при этом стоит на месте. */
-.vp-show-card:hover .vp-show-media img,
-.vp-show-card:hover .vp-show-media video {
-  transform: scale(1.04);
+.vp-show-card:hover .vp-show-media {
+  border-color: var(--line-2);
 }
 
 .vp-show-card:hover .vp-show-media {
@@ -476,10 +364,9 @@
   bottom: 12px;
   padding: 5px 10px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--fg-2);
   background: rgba(11, 11, 13, 0.72);
   -webkit-backdrop-filter: blur(8px);
@@ -617,10 +504,9 @@
   margin-top: auto;
   padding: 5px 10px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--accent);
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
@@ -701,10 +587,9 @@
 
 .vp3-compare-head {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--muted);
   margin: 0 0 clamp(20px, 2.5vw, 30px);
 }
@@ -740,10 +625,9 @@
 .vp3-anchor .l {
   display: block;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--muted);
   margin-top: 10px;
   line-height: 1.4;
@@ -829,10 +713,9 @@
   top: -10px;
   right: 20px;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--accent);
   border: 1px solid var(--accent);
   border-radius: 6px;
@@ -846,8 +729,7 @@
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--accent);
   padding-bottom: 16px;
   margin-bottom: 20px;
@@ -895,7 +777,7 @@
 .vp3-tick {
   flex-shrink: 0;
   width: 14px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.75;
   color: var(--accent);
   text-align: center;
@@ -952,10 +834,9 @@
 
 .vp3-testi-tag {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--muted);
 }
 
@@ -988,7 +869,7 @@
 
 .vp3-testi-author .role {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   letter-spacing: 0.06em;
 }
@@ -1004,10 +885,9 @@
 .vp3-trustbar-label {
   display: block;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--muted);
   margin-bottom: clamp(18px, 2.4vw, 26px);
 }
@@ -1059,7 +939,7 @@
 
 .vp-blog-link {
   font-size: 13px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   color: var(--accent);
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -1080,11 +960,6 @@
     padding: 36px 0 18px;
   }
 
-  /* Робот уходит под текст и не перетягивает первый экран.
-     Параллакс тут уже не вешается — курсора нет. */
-  .vp-robot {
-    max-width: 380px;
-  }
 
   .vp3-formats {
     grid-template-columns: 1fr;
@@ -1127,9 +1002,6 @@
     font-size: 16px;
   }
 
-  .vp-robot {
-    max-width: 280px;
-  }
 
   /* Карточки marquee меньше: 240×180 (аспект 4/3 из index.css) */
   .vp2-marquee {
@@ -1193,9 +1065,6 @@
     justify-content: center;
   }
 
-  .vp-robot {
-    max-width: 240px;
-  }
 
   .vp3-compare-anchors {
     grid-template-columns: 1fr 1fr;
@@ -1275,8 +1144,8 @@
   }
 }
 
-/* ── Первый экран восстановлен по оригиналу: видео-робот во всю секцию ──
-   .hero/.hero-video/.robot-* живут в index.css — здесь только посадка
+/* ── Первый экран: отрывок из ролика Porsche 911 во всю секцию ──
+   .hero/.hero-video живут в index.css - здесь только посадка
    секции на страницу, у которой уже есть верхний паддинг под топбар. */
 /* Первый экран занимает всё окно и уходит под фиксированную шапку —
    ровно как hero на главной. Отступ сверху даёт .hero (padding-top: 120px). */
